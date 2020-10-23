@@ -1,0 +1,108 @@
+
+<section class="section center ">
+  <div class="section__content first-slide ">
+      <div class="section__wrap wrap-md-pd">
+             <div class="section__items wrap-md section__items-2">
+                  <div class="section__item">
+                      <p class="text-orange">Большой выбор</p>
+                      <p class="headline-md">Товаров</p>
+                      <p class="headline-sm">Всё в одном месте.</p>
+                      <div class='mt-1-rem border-radius-15'>
+                        <a color="warn" mat-raised-button routerLink="/products">Смотреть</a>
+                      </div>
+                  </div>
+                  <div class="section__item">
+                     <div class="img-container"><img src="/assets/hero_large.jpg" alt="" srcset=""></div>
+                  </div>
+             </div>
+      </div>
+  </div>
+</section>
+
+<section>
+  <div class="section__content">
+    <div class="section__wrap wrap-md-pd">
+          <div class="section__items wrap-md section__items-2 justify-content-end bg-left " style="background-image: url('/assets/macbook.jpg');">
+             <div class="section__item center flex-column align-items-end mx-400">
+                <p class="headline-md text-right">Только современные технологии</p>
+                <p class="headline-sm text-right">Супер скорость, супер лёгкость</p>
+                <div class='mt-1-rem border-radius-15'>
+                  <button color="warn" mat-raised-button>Смотреть</button>
+                </div>
+             </div>
+          </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section__content  ">
+    <div class="section__wrap wrap-md-pd ">
+          <div class="section__items flex-column  bg-lgray" >
+             <div class="section__item center flex-column mx-400 text-center wrap-md-pd" >
+                <p class="headline-md ">Выберите свой ноутбук.</p>
+                <div class='mt-1-rem border-radius-15'>
+                  <button color="warn" mat-stroked-button class="btn-border">Подробнее</button>
+                </div>
+             </div>
+             <div class="section__item wrap-md-pd pt-4" >
+                  <div class="center flex-wrap" *ngIf="ads.length">
+                    <ng-template ngFor let-card [ngForOf]="ads" >
+                      <div class="card-sm flex-33">
+                         <div class="cards-sm__body">
+                              <div class="img-container">
+                                  <img src="{{card.img}}" alt="...">
+                              </div>
+                              <div class="card-sm__content text-center">
+                                 <div class="card-sm__title">{{card.title}}</div>
+                                 <div class="card-sm__subtitle">{{card.description}}</div>
+                                 <div class='mt-1-rem border-radius-15'>
+                                 <button color="warn" mat-raised-button >Смотреть</button>
+                               </div>
+                              </div>
+                         </div>
+                      </div>
+                    </ng-template>  
+                  </div>       
+                  <div class="center " *ngIf="!ads.length" style="min-height:40vh;">
+                    <div class="spinner-border text-light" role="status" style="width: 5rem; height: 5rem;">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+             </div>
+          </div>
+    </div>
+  </div>
+</section>
+
+<section class="section center " style="min-height:60vh;">
+  <div class="section__content ">
+      <div class="section__wrap wrap-md-pd ">
+             <div class="section__items section__items-2">
+                  <div class="section__item">
+                      <p class="text-orange">Огромная скорость</p>
+                      <p class="headline-md">Доставки</p>
+                      <p class="headline-sm">В среднем 1-2 дня</p>
+                      <div class='mt-1-rem border-radius-15'><button color="warn" mat-raised-button>Смотреть</button></div>
+                  </div>
+                  <div class="section__item">
+                     <div class="img-container"><img src="/assets/macbook6.jpg" alt="" srcset=""></div>
+                  </div>
+             </div>
+      </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section__content text-white ">
+    <div class="section__wrap wrap-md-pd ">
+          <div class="section__items flex-column bg-promo" >
+                <p class="headline-md ">Супер гарантии, акции</p>
+                <p class="headline-sm ">На смартфоны, ТВ и электронику</p>
+                <div class='mt-1-rem border-radius-15'>
+                  <button color="warn" mat-raised-button>Подробнее</button>
+                </div>
+           </div>
+    </div>
+  </div>
+</section>        
