@@ -4,7 +4,7 @@
 * `angular` - an angular app
 ## How to run 
 * `cd django`
-* `python manage.py runserver`
+* `python manage.py runserver`__
 In the separate terminal 
 * `cd shop` 
 * `npm run start` 
