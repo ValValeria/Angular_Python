@@ -48,14 +48,14 @@
              <div class="section__item wrap-md-pd pt-4" >
                   <div class="center flex-wrap" *ngIf="ads.length">
                     <ng-template ngFor let-card [ngForOf]="ads" >
-                      <div class="card-sm flex-33">
-                         <div class="cards-sm__body">
+                      <div class="card-sm flex-33 shadow center" >
+                         <div class="cards-sm__body center flex-column">
                               <div class="img-container">
                                   <img src="{{card.img}}" alt="...">
                               </div>
                               <div class="card-sm__content text-center">
                                  <div class="card-sm__title">{{card.title}}</div>
-                                 <div class="card-sm__subtitle">{{card.description}}</div>
+                                 <div class="card-sm__subtitle">{{card.description | slice:0:40}}</div>
                                  <div class='mt-1-rem border-radius-15'>
                                  <button color="warn" mat-raised-button >Смотреть</button>
                                </div>

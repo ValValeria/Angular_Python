@@ -6,7 +6,7 @@ dist
 /out-tsc
 # Only exists if Bazel was run
 /bazel-out
-
+.txt
 # dependencies
 node_modules
 

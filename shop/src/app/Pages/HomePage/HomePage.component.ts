@@ -13,7 +13,7 @@ export class HomePage{
 
     ngOnInit():void{
         this.http.get<IAd[]>("http://127.0.0.1:8000/api/products").subscribe(v=>{
-            if(v.length){
+            if((v||[]).length){
                 this.ads=v;
             }
         });

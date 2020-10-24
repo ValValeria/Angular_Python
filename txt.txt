@@ -1,0 +1,4 @@
+What to read
+* https://docs.python.org/3/library/asyncio-task.html
+* https://docs.aiohttp.org/en/stable/client_quickstart.html
+* file:///C:/Users/User/Downloads/Introducing%20Python.%20B.%20Lubanovic.pdf page 239

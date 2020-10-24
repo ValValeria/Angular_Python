@@ -1,11 +1,9 @@
 from django.views.generic import ListView,DetailView,View;
 from app.models import Product;
 from django.http import JsonResponse;
-from json import dumps;
-from django.views.generic.edit import FormView;
 from django.contrib.auth import authenticate,login
 from app.forms import AuthenticateForm
-
+from .view_pack.search_view import Search;
 
 class ProductsView(ListView):
       def get(self, *args, **kwargs):
