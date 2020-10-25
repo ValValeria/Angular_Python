@@ -5,6 +5,7 @@ import { HomePage } from './Pages/HomePage/HomePage.component';
 import { CommonModule } from '@angular/common';
 import { Products } from './Pages/Products/Products.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { ErrorImageLoading } from './Components/ErrorImageLoading/ErrorImageLoading.component';
 
 
 const routes: Routes = [
@@ -16,7 +17,7 @@ const modules = [MatButtonModule,CommonModule,MatProgressSpinnerModule];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes),...modules],
-  declarations:[HomePage,Products],
+  declarations:[HomePage,Products,ErrorImageLoading],
   exports: [RouterModule,...modules]
 })
 export class AppRoutingModule { }

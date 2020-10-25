@@ -5,7 +5,7 @@
              <div class="section__items wrap-md section__items-2">
                   <div class="section__item">
                       <p class="text-orange">Большой выбор</p>
-                      <p class="headline-md">Товаров</p>
+                      <p class="headline-gr">Товаров</p>
                       <p class="headline-sm">Всё в одном месте.</p>
                       <div class='mt-1-rem border-radius-15'>
                         <a color="warn" mat-raised-button routerLink="/products">Смотреть</a>
@@ -19,16 +19,33 @@
   </div>
 </section>
 
+<section class="section">
+  <div class="section__content text-white ">
+    <div class="section__wrap wrap-md-pd ">
+          <div class="section__items flex-column bg-promo" >
+                <p class="headline-md ">Супер гарантии, акции</p>
+                <p class="headline-sm ">На смартфоны, ТВ и электронику</p>
+                <div class='mt-1-rem border-radius-15'>
+                  <button color="warn" mat-raised-button>Подробнее</button>
+                </div>
+           </div>
+    </div>
+  </div>
+</section>  
+
 <section>
   <div class="section__content">
     <div class="section__wrap wrap-md-pd">
-          <div class="section__items wrap-md section__items-2 justify-content-end bg-left " style="background-image: url('/assets/macbook.jpg');">
-             <div class="section__item center flex-column align-items-end mx-400">
-                <p class="headline-md text-right">Только современные технологии</p>
-                <p class="headline-sm text-right">Супер скорость, супер лёгкость</p>
+          <div class="section__items wrap-md section__items-2 justify-content-end bg-left" > 
+            <div class="section__item center flex-column mx-400 text-left">
+                <p class="headline-md ">Только современные технологии</p>
+                <p class="headline-sm ">Супер скорость, супер лёгкость</p>
                 <div class='mt-1-rem border-radius-15'>
                   <button color="warn" mat-raised-button>Смотреть</button>
                 </div>
+             </div>
+             <div class="section__item">
+                <div class="img-container"><img src="/assets/btn.png" alt=""></div>
              </div>
           </div>
     </div>
@@ -38,7 +55,7 @@
 <section class="section">
   <div class="section__content  ">
     <div class="section__wrap wrap-md-pd ">
-          <div class="section__items flex-column  bg-lgray" >
+          <div class="section__items flex-column  bg-vlight" >
              <div class="section__item center flex-column mx-400 text-center wrap-md-pd" >
                 <p class="headline-md ">Выберите свой ноутбук.</p>
                 <div class='mt-1-rem border-radius-15'>
@@ -51,7 +68,8 @@
                       <div class="card-sm flex-33 shadow center" >
                          <div class="cards-sm__body center flex-column">
                               <div class="img-container">
-                                  <img src="{{card.img}}" alt="...">
+                                  <error-loading hidden></error-loading>
+                                  <img src="{{card.img}}" alt="..." on-error="errorImage($event)" #img/>
                               </div>
                               <div class="card-sm__content text-center">
                                  <div class="card-sm__title">{{card.title}}</div>
@@ -93,16 +111,4 @@
   </div>
 </section>
 
-<section class="section">
-  <div class="section__content text-white ">
-    <div class="section__wrap wrap-md-pd ">
-          <div class="section__items flex-column bg-promo" >
-                <p class="headline-md ">Супер гарантии, акции</p>
-                <p class="headline-sm ">На смартфоны, ТВ и электронику</p>
-                <div class='mt-1-rem border-radius-15'>
-                  <button color="warn" mat-raised-button>Подробнее</button>
-                </div>
-           </div>
-    </div>
-  </div>
-</section>        
+      

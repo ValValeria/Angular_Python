@@ -1,6 +1,7 @@
-import {Component} from '@angular/core';
+import {Component, ElementRef, QueryList, ViewChildren} from '@angular/core';
 import { IAd } from 'src/app/Interfaces/Interfaces';
 import { Http } from 'src/app/Services/Http.service';
+import {isEqual} from 'lodash'
 
 @Component({
     selector:"home",
@@ -8,6 +9,7 @@ import { Http } from 'src/app/Services/Http.service';
 })
 export class HomePage{
     ads:IAd[]=[];
+    @ViewChildren("img",{read:ElementRef}) images:QueryList<ElementRef>
 
     constructor(private http:Http){}
 
@@ -17,5 +19,18 @@ export class HomePage{
                 this.ads=v;
             }
         });
+    }
+
+    errorImage($event:Event):void{
+        const img:HTMLImageElement = $event.target as any;
+
+        this.images.forEach(v=>{
+              const mainElem = v.nativeElement;
+              if(isEqual(mainElem,img)){
+                   let prevSibling:HTMLElement = mainElem.previousElementSibling;
+                   prevSibling.hidden = false;
+                   mainElem.hidden = true;
+              }
+        })
     }
 }

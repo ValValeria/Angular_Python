@@ -30,6 +30,13 @@ width:100vw;overflow-x: hidden!important; }
     letter-spacing: .007em;
 }
 
+.headline-gr{
+    font-size:65px;
+    line-height: 1.07143;
+    font-weight: 600;
+    letter-spacing: -.005em;
+}
+
 .text-orange{
     background: transparent;
     border-color: #bf4800;
@@ -93,6 +100,10 @@ width:100vw;overflow-x: hidden!important; }
     padding:3.5rem 0;
 }
 
+.bg-vlight{
+    background-color:rgb(251, 251, 253)
+}
+
 .card-sm{
     min-height:300px;
 }
@@ -100,6 +111,7 @@ width:100vw;overflow-x: hidden!important; }
 .cards-sm__body{
     width:90%;
     margin:0 auto;
+    padding:0.75rem 0;
 }
 
 .card-sm__subtitle{
@@ -249,3 +261,4 @@ a:hover{
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
+@import 'media.scss'

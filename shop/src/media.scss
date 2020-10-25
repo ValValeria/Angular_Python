@@ -1,0 +1,33 @@
+@media (max-width:870px){
+    .headline-md{
+        font-size:45px;
+    }
+
+    .headline-sm {
+        font-size: 20px;
+    }
+}
+
+@media (max-width:770px){
+    .section__items{
+        flex-direction: column !important;
+    }
+
+    .img-container{
+        margin:0 auto;
+        margin-top:2rem;
+        max-width:80%;
+    }
+
+    .section__item .headline-sm,.section__item .headline-md,.section__item{
+        text-align: center !important;
+    }
+    
+     .wrap-md-pd,.wrap-md{
+         width:85%;
+     }
+
+    .border-radius-15{
+       margin:10px auto;
+    }
+}
