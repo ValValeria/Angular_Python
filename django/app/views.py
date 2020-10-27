@@ -1,9 +1,13 @@
+from typing import Any
+from django.http.request import HttpRequest
+from django.http.response import HttpResponse, HttpResponseForbidden
 from django.views.generic import ListView,DetailView,View;
 from app.models import Product;
 from django.http import JsonResponse;
 from django.contrib.auth import authenticate,login
 from app.forms import AuthenticateForm
 from .view_pack.search_view import Search;
+from .functions import parse_page
 
 class ProductsView(ListView):
       def get(self, *args, **kwargs):
@@ -12,8 +16,19 @@ class ProductsView(ListView):
           return response
 
 
-class ProductView(DetailView):
-      model = Product
+class ProductView(ListView):
+
+      def get(self, request, *args, **kwargs):
+          product = Product.objects.filter(id__contains=kwargs["pk"]);
+          url = "http://rozetka.com.ua/"+"/".join(request.GET.getlist("tag"))
+ 
+          if product.exists():
+              return JsonResponse(product.values()[0])
+          elif len(url)>10:
+              return JsonResponse(parse_page(url),safe=False, json_dumps_params={'ensure_ascii': False})
+          else :
+              return HttpResponseForbidden()
+
 
 
 class LoginView(View):
@@ -21,14 +36,14 @@ class LoginView(View):
       form = AuthenticateForm;
 
       def post(self, *args, **kwargs):
-          result = self.form(self.request.GET,True)    
+          form = self.form(self.request.GET,True)    
           if self.form.is_valid() and not self.request.user.is_authenticated: 
               user = authenticate(form.cleaned_data['username'],form.cleaned_data['password'])
               if user is not None:
                   login(self.request,user)
-                  response["status"]="user"
+                  self.response["status"]="user"
           else:
-              response['errors']=["Invalid data"]
+              self.response['errors']=["Invalid data"]
 
           return JsonResponse(self.response)
 

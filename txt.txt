@@ -2,3 +2,11 @@ What to read
 * https://docs.python.org/3/library/asyncio-task.html
 * https://docs.aiohttp.org/en/stable/client_quickstart.html
 * file:///C:/Users/User/Downloads/Introducing%20Python.%20B.%20Lubanovic.pdf page 239
+
+Todo list: 
+# Django
+  - create appropriate model !Done
+  - finish search
+  - create the user admin area
+   
+  Links: https://webdevblog.ru/obzor-async-io-v-python-3-7/ 
