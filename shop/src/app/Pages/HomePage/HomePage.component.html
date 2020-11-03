@@ -11,8 +11,8 @@
                         <a color="warn" mat-raised-button routerLink="/products">Смотреть</a>
                       </div>
                   </div>
-                  <div class="section__item">
-                     <div class="img-container"><img src="/assets/hero_large.jpg" alt="" srcset=""></div>
+                  <div class="section__item center">
+                     <div class="img-container center"><img src="/assets/hero_large.jpg" alt="" srcset=""></div>
                   </div>
              </div>
       </div>
@@ -22,7 +22,7 @@
 <section class="section">
   <div class="section__content text-white ">
     <div class="section__wrap wrap-md-pd ">
-          <div class="section__items flex-column bg-promo" >
+          <div class="section__items flex-column bg-promo " >
                 <p class="headline-md ">Супер гарантии, акции</p>
                 <p class="headline-sm ">На смартфоны, ТВ и электронику</p>
                 <div class='mt-1-rem border-radius-15'>
@@ -37,20 +37,39 @@
   <div class="section__content">
     <div class="section__wrap wrap-md-pd">
           <div class="section__items wrap-md section__items-2 justify-content-end bg-left align-items-start" > 
-            <div class="section__item center flex-column mx-400 text-left">
+            <div class="section__item center flex-column mx-400 text-left align-items-start">
                 <p class="headline-md ">Только современные технологии</p>
                 <p class="headline-sm ">Супер скорость, супер лёгкость</p>
                 <div class='mt-1-rem border-radius-15'>
                   <button color="warn" mat-raised-button>Смотреть</button>
                 </div>
              </div>
-             <div class="section__item">
-                <div class="img-container"><img src="/assets/btn.png" alt=""></div>
+             <div class="section__item center">
+                <div class="img-container center"><img src="/assets/btn.png" alt=""></div>
              </div>
           </div>
     </div>
   </div>
 </section>
+
+<section class="section center " style="min-height:60vh;">
+  <div class="section__content ">
+      <div class="section__wrap wrap-md-pd ">
+             <div class="section__items section__items-2 wrap-md">
+                  <div class="section__item center">
+                     <div class="img-container center"><img src="/assets/macbook6.jpg" alt="" srcset=""></div>
+                  </div>
+                  <div class="section__item center flex-column align-items-end">
+                      <p class="text-orange">Огромная скорость</p>
+                      <p class="headline-md">Доставки</p>
+                      <p class="headline-sm">В среднем 1-2 дня</p>
+                      <div class='mt-1-rem border-radius-15'><button color="warn" mat-raised-button>Смотреть</button></div>
+                  </div>
+             </div>
+      </div>
+  </div>
+</section>
+
 
 <section class="section">
   <div class="section__content  ">
@@ -67,7 +86,7 @@
                     <ng-template ngFor let-card [ngForOf]="ads" >
                       <div class="card-sm flex-33 shadow center" >
                          <div class="cards-sm__body center flex-column">
-                              <div class="img-container">
+                              <div class="img-container center">
                                   <error-loading hidden></error-loading>
                                   <img src="{{card.img}}" alt="..." on-error="errorImage($event)" #img/>
                               </div>
@@ -93,22 +112,5 @@
   </div>
 </section>
 
-<section class="section center " style="min-height:60vh;">
-  <div class="section__content ">
-      <div class="section__wrap wrap-md-pd ">
-             <div class="section__items section__items-2 wrap-md">
-                  <div class="section__item">
-                      <p class="text-orange">Огромная скорость</p>
-                      <p class="headline-md">Доставки</p>
-                      <p class="headline-sm">В среднем 1-2 дня</p>
-                      <div class='mt-1-rem border-radius-15'><button color="warn" mat-raised-button>Смотреть</button></div>
-                  </div>
-                  <div class="section__item">
-                     <div class="img-container"><img src="/assets/macbook6.jpg" alt="" srcset=""></div>
-                  </div>
-             </div>
-      </div>
-  </div>
-</section>
 
       

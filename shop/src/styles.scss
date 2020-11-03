@@ -58,16 +58,24 @@ width:100vw;overflow-x: hidden!important; }
     display:none;
 }
 
+.img-container{
+    max-width:400px;
+}
+
 .none{
     display:none !important;
 }
 
-.img-container{
-    max-width:100%;
+.section__content{
     width:100%;
+}
+
+.img-container{
+    width:100%;
+    min-width:50%;
 
     img{
-        width:100%;
+        max-width:100%;
         object-fit: contain;
     }
 }

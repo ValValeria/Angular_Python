@@ -28,7 +28,7 @@ class ProductView(ListView):
               return JsonResponse(parse_page(url),safe=False, json_dumps_params={'ensure_ascii': False})
           else :
               return HttpResponseForbidden()
-
+            
 
 
 class LoginView(View):

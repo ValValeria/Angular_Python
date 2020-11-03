@@ -1,18 +1,23 @@
+import { AfterViewInit } from '@angular/core';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
     selector:"header-main",
     templateUrl:"./Header.component.html",
 })
-export class Header{
-    @ViewChild('header__links',{read:ElementRef}) links:ElementRef;
+export class Header implements AfterViewInit{
+    @ViewChild('headerlinks',{read:ElementRef}) links:ElementRef;
+
+    ngAfterViewInit(): void {
+        this.toggleHeader();
+    }
 
     toggleHeader():void{
         const elem:HTMLUListElement = this.links.nativeElement;
         
         this.headerClass(elem)
 
-        window.onresize = ()=>{
+        window.onresize  = ()=>{
              if(window.innerWidth>770){
                  elem.classList.remove('none')
              } else{

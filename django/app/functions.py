@@ -53,6 +53,5 @@ def parse_page(url):
           short_description = soup.select_one('.product-about__brief')
           long_description = soup.select_one('.product-about__description-content p')
           result.update({"title":title.text,"price":price.text,"short_description":short_description.text,"long_description":long_description.text})
-          print(result)
     return result
           
