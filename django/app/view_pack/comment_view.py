@@ -47,7 +47,7 @@ class CommentList_View(View):
 
        def get(self,request,*args,**kw):
            obj = get_object_or_404(Product,pk=kw.get('post_id'));
-           obj = list(obj.comment_set.all().select_related().values())
+           obj = list(obj.comment_set.all().select_related().order_by("id").values())
            self.response["data"].extend(obj);
            return JsonResponse(self.response,json_dumps_params={'ensure_ascii': False})
 

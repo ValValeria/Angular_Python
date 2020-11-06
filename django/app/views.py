@@ -1,4 +1,4 @@
-from django.http.response import  HttpResponseForbidden
+from django.http.response import  Http404, HttpResponseForbidden
 from django.views.generic import ListView,View;
 from app.models import Product;
 from django.http import JsonResponse;
@@ -15,9 +15,6 @@ class ProductsView(ListView):
           return response
 
 
-
-
-
 class ProductView(ListView):
 
       def get(self, request, *args, **kwargs):
@@ -28,6 +25,40 @@ class ProductView(ListView):
           else :
               return HttpResponseForbidden()
             
+
+class ProductSort(ListView):
+      params = None;
+      
+      def __init__(self,*args):
+          super().__init__(*args)
+          self.sort_by = {"price":self.sort_by_price,"brand":self.sort_by_brand,"category":self.sort_by_category}
+
+      def get(self,request,*args,**kwargs):
+          self.params = self.request.GET
+          criteria = self.params.get("sortBy")
+
+          if criteria in self.sort_by.keys():
+              func = self.sort_by.get(criteria)().values();
+              return JsonResponse({"data":list(func)}, json_dumps_params={'ensure_ascii': False})
+          else:
+              return Http404();  
+      
+      def sort_by_price(self):
+          prices = [self.params.get("min"),self.params.get("max")]
+
+          if prices[0].isdigit() and prices[1].isdigit():
+             products_obj = Product.objects.filter(price__lt=prices[1]).filter(price__gt=prices[0])  
+             return products_obj
+          else:
+             return Product.objects.all()[:5]
+
+      def sort_by_category(self):
+          category = self.params.get("category")                    
+          return Product.objects.filter(category__iexact=category)
+
+      def sort_by_brand(self):
+          brand = self.params.get("brand")                    
+          return Product.objects.filter(brand__iexact=brand)
 
 
 class LoginView(View):
