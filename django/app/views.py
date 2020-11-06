@@ -1,13 +1,12 @@
-from typing import Any
-from django.http.request import HttpRequest
-from django.http.response import HttpResponse, HttpResponseForbidden
-from django.views.generic import ListView,DetailView,View;
+from django.http.response import  HttpResponseForbidden
+from django.views.generic import ListView,View;
 from app.models import Product;
 from django.http import JsonResponse;
 from django.contrib.auth import authenticate,login
 from app.forms import AuthenticateForm
-from .view_pack.search_view import Search;
-from .functions import parse_page
+from django.contrib.auth.models import Permission, User
+from django.contrib.contenttypes.models import ContentType
+
 
 class ProductsView(ListView):
       def get(self, *args, **kwargs):
@@ -16,16 +15,16 @@ class ProductsView(ListView):
           return response
 
 
+
+
+
 class ProductView(ListView):
 
       def get(self, request, *args, **kwargs):
           product = Product.objects.filter(id__contains=kwargs["pk"]);
-          url = "http://rozetka.com.ua/"+"/".join(request.GET.getlist("tag"))
  
           if product.exists():
               return JsonResponse(product.values()[0])
-          elif len(url)>10:
-              return JsonResponse(parse_page(url),safe=False, json_dumps_params={'ensure_ascii': False})
           else :
               return HttpResponseForbidden()
             
@@ -55,8 +54,14 @@ class SignUpView(View):
       def post(self,request, *args, **kwargs):
           form = self.form(self.request.GET)    
           if form.is_valid() and not request.user.is_authenticated: 
-              user = User.create_user(result.cleaned_data['username'],result.cleaned_data['email'],result.cleaned_data['password'])
-              self.response['status']="user"
+              user = User.create_user(form.cleaned_data['username'],form.cleaned_data['email'],form.cleaned_data['password'])
+              content_type = ContentType.objects.get_for_model(Product)
+              permission = Permission.objects.get(
+                  codename='add_comments',
+                  content_type=content_type)
+              user.user_permissions.add(permission)
+              self.response['status']="user";
+              self.response["message"]={"id":user.id}
           else:
               self.response['errors']=form.errors
           return JsonResponse(self.response)

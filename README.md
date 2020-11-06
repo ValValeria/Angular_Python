@@ -4,6 +4,8 @@
 * `angular` - an angular app
 ## How to run 
 * `cd django`
+* `python manage.py makemigrations`
+* `python manage.py migrate`
 * `python manage.py runserver`<br/>
 In the separate terminal 
 * `cd shop` 

@@ -18,3 +18,7 @@ class AuthenticateForm(forms.Form):
             raise ValidationError("Invalid email")
 
         return email
+
+class CommentForm(forms.Form):
+	  message = forms.CharField(max_length=300)
+	  post_id=forms.IntegerField()
