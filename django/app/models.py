@@ -12,6 +12,7 @@ class Product(models.Model):
 	  brand = models.CharField(max_length=20,blank=True)
 	  category = models.CharField(choices=[("notebooks","notebooks"),("tv","tv")],default="unlimited",max_length=30)
 	  status = models.CharField(choices=[("limited","limited"),("unlimited","unlimited")],default="unlimited",max_length=9)
+	  rating = models.IntegerField(default=5,choices=[(1,1),(2,2),(3,3),(4,4),(5,5)])
 
 
 class Comment(models.Model):
