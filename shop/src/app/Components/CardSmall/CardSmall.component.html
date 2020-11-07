@@ -1,0 +1,25 @@
+                     <a class="card-sm flex-33 shadow center" >
+                         <div class="cards-sm__body center flex-column">
+                              <div class="card-sm__headline center justify-content-between wrap-md">
+                                <div class="card-sm__stars stars center">
+                                    <div class="stars__container" *ngFor="let star of [1,2,3,4,5]">
+                                         <img src="{{star<=card.rating ? '/assets/star.svg':'/assets/star_blank.svg'}}" alt="..." class="stars__img" style="height:15px;">
+                                    </div>
+                                </div>
+                                <div class="card-sm__price text-lorange">
+                                    <button mat-button><span class="text-lorange">{{card.price | currency}}</span></button>
+                                 </div>
+                              </div>
+                              <div class="img-container center">
+                                  <error-loading hidden></error-loading>
+                                  <img src="{{url+'/'+card.image}}" alt="..." on-error="errorImage($event)" #img/>
+                              </div>
+                              <div class="card-sm__content text-center">
+                                 <div class="card-sm__title">{{card.title}}</div>
+                                 <div class="card-sm__subtitle">{{card.short_description | slice:0:50}}</div>
+                                 <div class='mt-1-rem '>
+                                     <button color="warn" mat-raised-button >Смотреть</button>
+                                  </div>
+                              </div>
+                         </div>
+                        </a>

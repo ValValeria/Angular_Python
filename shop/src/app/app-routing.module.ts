@@ -7,6 +7,7 @@ import { Products } from './Pages/Products/Products.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ErrorImageLoading } from './Components/ErrorImageLoading/ErrorImageLoading.component';
 import {MatCardModule} from '@angular/material/card';
+import { CardSmall } from './Components/CardSmall/CardSmall.component';
 
 
 const routes: Routes = [
@@ -18,7 +19,7 @@ const modules = [MatButtonModule,CommonModule,MatProgressSpinnerModule,MatCardMo
 
 @NgModule({
   imports: [RouterModule.forRoot(routes),...modules],
-  declarations:[HomePage,Products,ErrorImageLoading],
+  declarations:[HomePage,Products,ErrorImageLoading,CardSmall],
   exports: [RouterModule,...modules]
 })
 export class AppRoutingModule { }

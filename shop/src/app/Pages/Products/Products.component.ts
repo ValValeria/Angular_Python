@@ -7,12 +7,10 @@ import { Http } from 'src/app/Services/Http.service';
     selector:"products",
     templateUrl:"./Products.component.html"
 })
-export class Products extends ImageLoading{
+export class Products {
      products: IAd[];
-     @ViewChildren("img",{read:ElementRef}) protected images:QueryList<ElementRef>;
 
      constructor(private http:Http){
-         super();
      }
 
      ngOnInit():void{

@@ -74,4 +74,12 @@
         right:2.5rem;
         cursor: pointer;
     }
+
+    .section__item{
+        align-items: center !important;
+    }
+
+    .flex-rv-media{
+        flex-direction: column-reverse !important;
+    }
 }

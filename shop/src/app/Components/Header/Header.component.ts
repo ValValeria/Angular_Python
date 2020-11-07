@@ -7,23 +7,22 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 })
 export class Header implements AfterViewInit{
     @ViewChild('headerlinks',{read:ElementRef}) links:ElementRef;
-
+    
     ngAfterViewInit(): void {
-        this.toggleHeader();
-    }
-
-    toggleHeader():void{
         const elem:HTMLUListElement = this.links.nativeElement;
-        
-        this.headerClass(elem)
 
-        window.onresize  = ()=>{
+        window.onresize = window.onload = ()=>{
              if(window.innerWidth>770){
                  elem.classList.remove('none')
              } else{
                  elem.classList.add('none')   
              }
         }
+    }
+
+    toggleHeader():void{
+        const elem:HTMLUListElement = this.links.nativeElement;
+        setTimeout(()=>this.headerClass(elem),0);
     }
 
     headerClass(elem:HTMLUListElement):void{  

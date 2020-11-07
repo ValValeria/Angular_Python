@@ -55,7 +55,7 @@
 <section class="section center " style="min-height:60vh;">
   <div class="section__content ">
       <div class="section__wrap wrap-md-pd ">
-             <div class="section__items section__items-2 wrap-md">
+             <div class="section__items section__items-2 wrap-md flex-rv-media">
                   <div class="section__item center">
                      <div class="img-container center"><img src="/assets/macbook6.jpg" alt="" srcset=""></div>
                   </div>
@@ -84,21 +84,7 @@
              <div class="section__item wrap-md-pd pt-4" >
                   <div class="center flex-wrap" *ngIf="ads.length">
                     <ng-template ngFor let-card [ngForOf]="ads" >
-                      <div class="card-sm flex-33 shadow center" >
-                         <div class="cards-sm__body center flex-column">
-                              <div class="img-container center">
-                                  <error-loading hidden></error-loading>
-                                  <img src="{{card.img}}" alt="..." on-error="errorImage($event)" #img/>
-                              </div>
-                              <div class="card-sm__content text-center">
-                                 <div class="card-sm__title">{{card.title}}</div>
-                                 <div class="card-sm__subtitle">{{card.description | slice:0:40}}</div>
-                                 <div class='mt-1-rem border-radius-15'>
-                                 <button color="warn" mat-raised-button >Смотреть</button>
-                               </div>
-                              </div>
-                         </div>
-                      </div>
+                         <card [card]="card"></card>
                     </ng-template>  
                   </div>       
                   <div class="center " *ngIf="!ads.length" style="min-height:40vh;">
