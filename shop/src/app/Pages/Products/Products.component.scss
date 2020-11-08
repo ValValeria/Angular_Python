@@ -1,0 +1,35 @@
+.product__content .img-container img {
+  height: 205px !important;
+}
+
+.product__content{
+    flex: 1 1 33%;
+    flex-wrap:wrap;
+    width:100%;
+}
+
+.product .card-sm__content{
+    height: 250px;
+}
+
+.product__area{
+    padding-top:2rem;
+}
+
+
+.product__search-area{
+    display:grid;
+    grid-template-columns: repeat(12,1fr);
+    grid-template-rows:repeat(4,25%);
+    min-height:200px;
+    align-items: center;
+    justify-items: center;
+    width:100%;
+    column-gap: 10px;
+    row-gap:10px;
+}
+
+.bg-white{
+    background-color:white;
+    color: #212529;
+}

@@ -4,7 +4,8 @@ import { ImageLoading } from '../../Classes/ImageLoading';
 
 @Component({
     selector:"card",
-    templateUrl:"./CardSmall.component.html"
+    templateUrl:"./CardSmall.component.html",
+    styleUrls:["./CardSmall.component.scss"]
 })
 export class CardSmall extends ImageLoading{
     @Input("card") card:IAd;

@@ -4,7 +4,7 @@
                <div class="section__items wrap-md flex-column justify-content-between">
                     <div class="section__item pr-1 text-center">
                         <div>
-                          <p class="brand-name">IPhone Pro</p>
+                          <p class="brand-name">Новенькие IPhones</p>
                           <p class="headline-md">Blast past fast</p>
                         </div>
                         <div class='mt-1-rem border-radius-15'>
@@ -20,16 +20,53 @@
   </section>
   
 
-  <section class="section center first-slide bg-light" >
+  <section class="section  product center first-slide bg-light" >
     <div class="section__content center first-slide">
         <div class="section__wrap wrap-md-pd text-center" >
-             <h3>{{"Our products" | uppercase}}</h3>
-              <div class="section__items">
-                <div class="section__item" *ngFor="let card of products">
+          <h3 class="section__headline">{{"Наши товары" | uppercase}}</h3>
+          <div class="product__search text-center">
+                  <mat-card class="shadow bg-white">
+                        <div class="wrap-md center flex-column">
+                           <mat-card-content>
+                               <mat-card-title>Поиск</mat-card-title>
+                           </mat-card-content>
+                           <mat-card-content class="w-100">
+                               <div class="product__search-area">
+                                    <div class="product__search-card">
+                                          <h6>Категория</h6>
+                                          <mat-form-field appearance="fill">
+                                                <mat-label>Выбрать</mat-label>
+                                                <mat-select color="warn">
+                                                   <mat-option value="notebooks">Notebooks</mat-option>
+                                                   <mat-option value="tv">Tv</mat-option>
+                                               </mat-select>
+                                          </mat-form-field>
+                                    </div>
+                                   
+                                    <div class="product__search-card">
+                                          <h6>Цена</h6>
+                                          <mat-slider
+                                               min="1" 
+                                               thumbLabel
+                                               tickInterval="1000"
+                                               max="4000"
+                                               step="50" 
+                                               value="4000">
+                                          </mat-slider>
+                                   </div>
+                               </div>
+                           </mat-card-content>
+                           <mat-card-content>
+                              <button mat-raised-button color="warn">Найти</button>
+                           </mat-card-content>
+                        </div>
+                  </mat-card>
+          </div>
+           <div class="section__items product__area flex-wrap">
+                <div class="section__item product__content center" *ngFor="let card of products">
                     <card [card]="card"></card>
                 </div>
-                <div class="section__item"></div>
-              </div>
+            </div>
         </div>
     </div>
   </section>       

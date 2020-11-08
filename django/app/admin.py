@@ -57,8 +57,13 @@ admin.site.unregister(User)
 class UserAdmin(admin.ModelAdmin):
      list_display=("email","username","last_name","first_name","the_amount_of_orders");
      inlines=[OrderInstanceInline]
+     empty_value_display="unknown"
 
      def the_amount_of_orders(self,obj):
           return obj.order_set.all().count()
 
-         
+
+# Site title         
+admin.site.site_header = "InDigital Admin"
+admin.site.site_title = "InDigital"
+admin.site.index_title = "Welcome to InDigital"

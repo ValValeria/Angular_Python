@@ -1,5 +1,5 @@
-Todo list: 
-# Django
-   - Доделать search. 
-   
-  Links: https://webdevblog.ru/obzor-async-io-v-python-3-7/ 
+# Fixes:
+  * когда удаляю ползователя, его корзина тоже удаляется и количество товаров остаётся таким же 
+  * pagination (products)
+  * the list of categories
+  * max and min price

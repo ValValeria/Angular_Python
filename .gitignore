@@ -1,11 +1,11 @@
-# compiled output
+
 dist
 /tmp
 /out-tsc
-# Only exists if Bazel was run
+
 /bazel-out
 .txt
-# dependencies
+
 node_modules
 
 migrations
@@ -13,8 +13,6 @@ migrations
 __pycache__
 
 db.sqlite3
-
-
 
 # profiling files
 chrome-profiler-events*.json

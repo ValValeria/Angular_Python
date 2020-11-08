@@ -1,11 +1,11 @@
-import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
-import { ImageLoading } from 'src/app/Classes/ImageLoading';
+import { Component} from '@angular/core';
 import { IAd } from 'src/app/Interfaces/Interfaces';
 import { Http } from 'src/app/Services/Http.service';
 
 @Component({
     selector:"products",
-    templateUrl:"./Products.component.html"
+    templateUrl:"./Products.component.html",
+    styleUrls:['./Products.component.scss']
 })
 export class Products {
      products: IAd[];

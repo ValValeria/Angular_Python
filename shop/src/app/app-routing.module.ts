@@ -8,6 +8,11 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ErrorImageLoading } from './Components/ErrorImageLoading/ErrorImageLoading.component';
 import {MatCardModule} from '@angular/material/card';
 import { CardSmall } from './Components/CardSmall/CardSmall.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSliderModule} from '@angular/material/slider';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
 
 
 const routes: Routes = [
@@ -15,7 +20,17 @@ const routes: Routes = [
   {path:"products",component:Products}
 ];
 
-const modules = [MatButtonModule,CommonModule,MatProgressSpinnerModule,MatCardModule];
+const modules = [MatButtonModule,
+                 CommonModule,
+                 MatProgressSpinnerModule,
+                 MatCardModule,
+                 ReactiveFormsModule,
+                 MatFormFieldModule,
+                 FormsModule,
+                 MatSliderModule,
+                 MatInputModule,
+                 MatSelectModule
+                ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes),...modules],

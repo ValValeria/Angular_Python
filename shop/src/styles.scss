@@ -74,6 +74,15 @@ width:100vw;overflow-x: hidden!important; }
     display:none !important;
 }
 
+.products{
+    padding-top:3rem;
+}
+
+.section__headline{
+    font-size: 45px;
+    padding-bottom: 2rem;
+}
+
 .section__content{
     width:100%;
 }
@@ -144,8 +153,10 @@ width:100vw;overflow-x: hidden!important; }
 
 .card-sm{
     color:initial !important;
-    transition:1s transform;
+    transition:0.5s transform;
+    min-height:530px;
 }
+
 
 .card-sm:hover{
     transform: scale(1.07);
