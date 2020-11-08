@@ -40,31 +40,39 @@ class Order_View(LoginRequiredMixin,ListView):
           user = request.user;
           product_id = request.GET.get("product_id","");
           count = request.GET.get("count","")
-
+         
           if product_id.isdigit() and count.isdigit():
-              product = Product.objects.filter(id=product_id).first()
-              product_count = product.count;
-              count = int(count)  
+              product = Product.objects.filter(id=product_id);
+              count = int(count); 
 
-              if product:  
+              if product.exists():  
+                 product = product.first();
+                 product_count = product.count;
                  order = user.order_set.filter(product__id=product.id).first();
-                 ostatok = product_count-order.count+count;
+                 ostatok = product_count-count;
 
-                 if order  or product_count-count>=0:
-                    if order:    
-                          if ostatok<=product_count:    
+                 if order  or ostatok>=0:
+                    if order: #want to change the order   
+                          ostatok_without = product_count+order.count-count; #количество товаров без данного заказа
+
+                          if ostatok_without<=product_count and ostatok_without and product_count>=count:   
                              order.count = count;
                           else:
-                            self.response["messages"].append("The product has run out. You can buy not more than {}".format(product_count));   
+                             self.response["messages"].append("The product has run out. You can't buy more than {}".format(product_count));   
+                             self.response["data"].append({"available":product_count})   
+                             return JsonResponse(self.response);
                     else:
-                          order = Order(user=user,count=count,product=product)
-                    product.count -=count;
+                           order = Order(user=user,count=count,product=product)
+                    product.count=ostatok;
                     product.save();
                     order.save();
+                    self.response["status"]="ok";
                  else:
-                    self.response["messages"].append("The product has run out.");      
-               
-                 self.response["status"]="ok";
+                    self.response["messages"].append("The product is out of stock.");
+
+                    if product_count>0:
+                       self.response["data"].append({"available":product_count})   
+                       self.response["status"]="ok";
               else:
                  self.response["messages"].append("The product doesn't exist");
 

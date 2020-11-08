@@ -14,6 +14,7 @@ import sys;
 class Comment_View(UserPassesTestMixin,ListView,PermissionRequiredMixin):
       form = CommentForm
       response={"status":"","messages":[],"id":0}
+      raise_exception = False
 
       def test_func(self):
           self.user = self.request.user;

@@ -9,18 +9,22 @@ from django.db.models import Count,Sum
 class OrderInstanceInline(admin.TabularInline):
     model = Order
 
+
 class CommentInstanceInline(admin.TabularInline):
     model = Comment
 
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-     list_display=("id","title","price","count","category","comments","ordered","people_who_bought_it")
+     list_display=("id","title_of_product","price","count","category","comments","ordered","people_who_bought_it")
      list_filter=("price","count",)
      inlines=[CommentInstanceInline]
 
      def comments(self,obj):
          return obj.comment_set.all().count()
+     
+     def title_of_product(self,obj):
+         return format_html('<a href={}>{}</a>',"/admin/app/product/{}/change/".format(obj.id),obj.title);
 
      def ordered(self,obj):
          count = Order.objects.filter(product__id=obj.id).aggregate(sum=Sum("count"))
