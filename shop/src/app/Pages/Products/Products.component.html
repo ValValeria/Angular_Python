@@ -26,21 +26,7 @@
              <h3>{{"Our products" | uppercase}}</h3>
               <div class="section__items">
                 <div class="section__item" *ngFor="let card of products">
-                      <div class="card-sm flex-33 shadow center" >
-                         <div class="cards-sm__body center flex-column">
-                              <div class="img-container">
-                                  <error-loading hidden></error-loading>
-                                  <img src="{{card.img}}" alt="..." on-error="errorImage($event)" #img/>
-                              </div>
-                              <div class="card-sm__content text-center">
-                                 <div class="card-sm__title">{{card.title}}</div>
-                                 <div class="card-sm__subtitle">{{card.description | slice:0:40}}</div>
-                                 <div class='mt-1-rem border-radius-15'>
-                                 <button color="warn" mat-raised-button >Смотреть</button>
-                               </div>
-                          </div>
-                         </div>
-                      </div>
+                    <card [card]="card"></card>
                 </div>
                 <div class="section__item"></div>
               </div>

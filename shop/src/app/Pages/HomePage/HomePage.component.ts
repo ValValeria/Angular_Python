@@ -1,8 +1,6 @@
 import {Component} from '@angular/core';
-import { ImageLoading } from 'src/app/Classes/ImageLoading';
 import { IAd } from 'src/app/Interfaces/Interfaces';
 import { Http } from 'src/app/Services/Http.service';
-import { ViewChildren, ElementRef, QueryList } from "@angular/core";
 
 
 @Component({
