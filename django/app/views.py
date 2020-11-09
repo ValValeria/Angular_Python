@@ -6,6 +6,8 @@ from django.contrib.auth import authenticate,login
 from app.forms import AuthenticateForm
 from django.contrib.auth.models import Permission, User
 from django.contrib.contenttypes.models import ContentType
+from django.db.models import Max,Min
+from django.core.paginator import Paginator
 
 
 class ProductsView(ListView):
@@ -13,6 +15,21 @@ class ProductsView(ListView):
           products = list(Product.objects.all().values())
           response =  JsonResponse(products, safe=False, json_dumps_params={'ensure_ascii': False})
           return response
+
+
+
+class ProductInfo(ListView):
+      response = {"data":[]}
+
+      def get(self,request,*args,**kw):
+          categories = Product.objects.distinct().all().values("category")
+          brand = Product.objects.distinct().all().values("brand")
+          max_price = Product.objects.aggregate(max_price=Max("price"))  
+          min_price = Product.objects.aggregate(min_price=Min("price"))
+          brands = map(lambda x:x.get("brand"),brand)
+          self.response["data"]={"categories":list(categories),"price":[min_price,max_price],"brands":list(brands)}
+          return JsonResponse(self.response,json_dumps_params={'ensure_ascii': False})
+
 
 
 class ProductView(ListView):
@@ -24,7 +41,8 @@ class ProductView(ListView):
               return JsonResponse(product.values()[0])
           else :
               return HttpResponseForbidden()
-            
+
+
 
 class ProductSort(ListView):
       params = None;

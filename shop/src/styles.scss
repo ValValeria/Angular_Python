@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
 
 html, body { height: 100%; }
 
@@ -16,10 +18,13 @@ width:100vw;overflow-x: hidden!important; }
     min-height:100vh;
 }
 
+a{
+   color: inherit;
+}
+
 .headline-md{
     font-size: 56px;
     line-height: 1.07143;
-    font-weight: 600;
     letter-spacing: -.005em;
 }
 
@@ -79,7 +84,7 @@ width:100vw;overflow-x: hidden!important; }
 }
 
 .section__headline{
-    font-size: 45px;
+    font-size: 45px !important;
     padding-bottom: 2rem;
 }
 
@@ -154,7 +159,7 @@ width:100vw;overflow-x: hidden!important; }
 .card-sm{
     color:initial !important;
     transition:0.5s transform;
-    min-height:530px;
+    height:530px;
 }
 
 
@@ -268,6 +273,15 @@ width:100vw;overflow-x: hidden!important; }
     z-index:9999999;
 }
 
+.header__brand-name h1{
+    margin-bottom: 0;
+    font-size: 30px;
+}
+
+.header__content{
+    padding:20px;
+}
+
 .header__links{
     @extend %center;
     justify-content: flex-end;
@@ -309,6 +323,6 @@ a:hover{
 }
 
 
-/* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';
+
 @import 'media.scss'
+

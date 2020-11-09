@@ -20,15 +20,16 @@
   </section>
   
 
-  <section class="section  product center first-slide bg-light" >
+  <section class="section  product center first-slide bg-light"  #productsElem>
     <div class="section__content center first-slide">
         <div class="section__wrap wrap-md-pd text-center" >
           <h3 class="section__headline">{{"Наши товары" | uppercase}}</h3>
-          <div class="product__search text-center">
-                  <mat-card class="shadow bg-white">
+          <div class="product__wrap center align-items-start">
+               <div class="product__search text-center">
+                  <mat-card class="shadow bg-white product__search-wrap">
                         <div class="wrap-md center flex-column">
                            <mat-card-content>
-                               <mat-card-title>Поиск</mat-card-title>
+                               <mat-card-title class="product__search-title">Поиск</mat-card-title>
                            </mat-card-content>
                            <mat-card-content class="w-100">
                                <div class="product__search-area">
@@ -47,8 +48,6 @@
                                           <h6>Цена</h6>
                                           <mat-slider
                                                min="1" 
-                                               thumbLabel
-                                               tickInterval="1000"
                                                max="4000"
                                                step="50" 
                                                value="4000">
@@ -57,16 +56,20 @@
                                </div>
                            </mat-card-content>
                            <mat-card-content>
-                              <button mat-raised-button color="warn">Найти</button>
+                              <button mat-raised-button color="warn" class="bg-warn">Найти</button>
                            </mat-card-content>
                         </div>
                   </mat-card>
-          </div>
-           <div class="section__items product__area flex-wrap">
-                <div class="section__item product__content center" *ngFor="let card of products">
-                    <card [card]="card"></card>
+          
+          
                 </div>
-            </div>
+
+               <div class="product__area center">
+                  <div class="product__content"  @fadeInOut *ngIf="!disabled" >
+                       <card [card]="card" *ngFor="let card of products" ></card>
+                  </div>
+              </div>
+          </div>
         </div>
     </div>
   </section>       
