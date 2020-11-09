@@ -27,6 +27,7 @@ import { Http } from 'src/app/Services/Http.service';
 export class Products {
      products: IAd[];
      disabled:boolean = true;
+     panelOpenState:boolean = false;
      @ViewChild("productsElem",{read:ElementRef})productsElem:ElementRef;
 
      constructor(private http:Http){

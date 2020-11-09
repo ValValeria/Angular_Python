@@ -13,6 +13,7 @@ import {MatSliderModule} from '@angular/material/slider';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 
 const routes: Routes = [
@@ -29,7 +30,8 @@ const modules = [MatButtonModule,
                  FormsModule,
                  MatSliderModule,
                  MatInputModule,
-                 MatSelectModule
+                 MatSelectModule,
+                 MatExpansionModule
                 ];
 
 @NgModule({

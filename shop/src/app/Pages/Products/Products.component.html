@@ -25,17 +25,28 @@
         <div class="section__wrap wrap-md-pd text-center" >
           <h3 class="section__headline">{{"Наши товары" | uppercase}}</h3>
           <div class="product__wrap center align-items-start">
-               <div class="product__search text-center">
+               <div class="product__search text-center center">
                   <mat-card class="shadow bg-white product__search-wrap">
                         <div class="wrap-md center flex-column">
                            <mat-card-content>
-                               <mat-card-title class="product__search-title">Поиск</mat-card-title>
+                               <mat-card-title class="product__search-title text-center">{{"Поиск"|uppercase}}</mat-card-title>
                            </mat-card-content>
                            <mat-card-content class="w-100">
                                <div class="product__search-area">
                                     <div class="product__search-card">
                                           <h6>Категория</h6>
-                                          <mat-form-field appearance="fill">
+                                          <mat-form-field appearance="fill" class="w-100">
+                                                <mat-label>Выбрать</mat-label>
+                                                <mat-select color="warn">
+                                                   <mat-option value="notebooks">Notebooks</mat-option>
+                                                   <mat-option value="tv">Tv</mat-option>
+                                               </mat-select>
+                                          </mat-form-field>
+                                    </div>
+
+                                    <div class="product__search-card">
+                                          <h6>Бренд</h6>
+                                          <mat-form-field appearance="fill" class="w-100">
                                                 <mat-label>Выбрать</mat-label>
                                                 <mat-select color="warn">
                                                    <mat-option value="notebooks">Notebooks</mat-option>
@@ -44,13 +55,16 @@
                                           </mat-form-field>
                                     </div>
                                    
-                                    <div class="product__search-card">
+                                    <div class="product__search-card w-100">
                                           <h6>Цена</h6>
                                           <mat-slider
                                                min="1" 
                                                max="4000"
                                                step="50" 
-                                               value="4000">
+                                               value="4000"
+                                               class="w-100"
+                                               thumbLabel
+                                               >
                                           </mat-slider>
                                    </div>
                                </div>
@@ -66,7 +80,7 @@
 
                <div class="product__area center">
                   <div class="product__content"  @fadeInOut *ngIf="!disabled" >
-                       <card [card]="card" *ngFor="let card of products" ></card>
+                       <card [card]="card" *ngFor="let card of products"class="center"></card>
                   </div>
               </div>
           </div>

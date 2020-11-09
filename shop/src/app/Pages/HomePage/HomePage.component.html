@@ -78,13 +78,13 @@
              <div class="section__item center flex-column mx-400 text-center wrap-md-pd" >
                 <p class="headline-md ">Выберите свой ноутбук.</p>
                 <div class='mt-1-rem border-radius-15'>
-                  <button color="warn" mat-stroked-button class="bg-warn btn-border">Подробнее</button>
+                  <button color="warn" mat-stroked-button class="bg-warn">Подробнее</button>
                 </div>
              </div>
-             <div class="section__item wrap-md-pd pt-4" >
-                  <div class="center flex-wrap" *ngIf="ads.length">
+             <div class="section__item wrap-md-pd pt-4 " >
+                  <div class="center flex-wrap grid_media" *ngIf="ads.length">
                     <ng-template ngFor let-card [ngForOf]="ads" >
-                         <card [card]="card"></card>
+                         <card [card]="card" class="center"></card>
                     </ng-template>  
                   </div>       
                   <div class="center " *ngIf="!ads.length" style="min-height:40vh;">
