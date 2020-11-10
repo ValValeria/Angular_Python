@@ -11,3 +11,17 @@ export interface IAd{
     brand:string,
     status:"limited"|"unlimited"
 }
+
+export interface ProductsInfo{
+    data:{
+        categories:string[],
+        price:[{min_price:number},{max_price:number}]
+    }
+}
+
+
+export interface ProductsBrand{
+    data:{
+        brands:string[]
+    }
+}

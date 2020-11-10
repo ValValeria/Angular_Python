@@ -14,11 +14,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { Product } from './Pages/Product/Product.component';
 
 
 const routes: Routes = [
   {path:"",component:HomePage},
-  {path:"products",component:Products}
+  {path:"products",component:Products},
+  {path:"product/:id",component:Product}
 ];
 
 const modules = [MatButtonModule,
@@ -36,7 +38,7 @@ const modules = [MatButtonModule,
 
 @NgModule({
   imports: [RouterModule.forRoot(routes),...modules],
-  declarations:[HomePage,Products,ErrorImageLoading,CardSmall],
+  declarations:[HomePage,Products,ErrorImageLoading,CardSmall,Product],
   exports: [RouterModule,...modules]
 })
 export class AppRoutingModule { }

@@ -1,4 +1,5 @@
-from django.http.response import  Http404, HttpResponseForbidden
+from app.serializers.post_serializer import PostSerializer
+from django.http.response import  Http404, HttpResponseBadRequest, HttpResponseForbidden
 from django.views.generic import ListView,View;
 from app.models import Product;
 from django.http import JsonResponse;
@@ -22,13 +23,27 @@ class ProductInfo(ListView):
       response = {"data":[]}
 
       def get(self,request,*args,**kw):
-          categories = Product.objects.distinct().all().values("category")
-          brand = Product.objects.distinct().all().values("brand")
+          categories = map(lambda obj:obj.get("category"),Product.objects.distinct().all().values("category"))
           max_price = Product.objects.aggregate(max_price=Max("price"))  
           min_price = Product.objects.aggregate(min_price=Min("price"))
-          brands = map(lambda x:x.get("brand"),brand)
-          self.response["data"]={"categories":list(categories),"price":[min_price,max_price],"brands":list(brands)}
+          self.response["data"]={"categories":list(categories),"price":[min_price,max_price]}
           return JsonResponse(self.response,json_dumps_params={'ensure_ascii': False})
+
+
+
+class ProductInfoBrands(ListView):
+      response = {"data":{}}
+
+      def get(self,request,*args,**kw):
+          category = request.GET.get("category");
+          
+          if category.isalpha() and len(category):
+              brand = list(Product.objects.filter(category=category).distinct().all().values("brand"))
+              brand = map(lambda v:v.get("brand"),brand)
+              self.response["data"]["brands"]=list(brand);
+              return JsonResponse(self.response,json_dumps_params={'ensure_ascii': False})
+          else: 
+              return HttpResponseBadRequest()
 
 
 
@@ -38,7 +53,7 @@ class ProductView(ListView):
           product = Product.objects.filter(id__contains=kwargs["pk"]);
  
           if product.exists():
-              return JsonResponse(product.values()[0])
+              return JsonResponse(product.values()[0], json_dumps_params={'ensure_ascii': False})
           else :
               return HttpResponseForbidden()
 
@@ -53,30 +68,39 @@ class ProductSort(ListView):
 
       def get(self,request,*args,**kwargs):
           self.params = self.request.GET
-          criteria = self.params.get("sortBy")
+          criterias = self.params.getlist("sortBy");
+          products = None;
 
-          if criteria in self.sort_by.keys():
-              func = self.sort_by.get(criteria)().values();
-              return JsonResponse({"data":list(func)}, json_dumps_params={'ensure_ascii': False})
-          else:
-              return Http404();  
+          for criteria in criterias:      
+              if criteria in self.sort_by.keys():
+                   if not products:
+                      products = self.sort_by.get(criteria)();
+                   else:
+                      products = self.sort_by.get(criteria)(products)
+
+          data = PostSerializer(products,many=True);
+
+          return JsonResponse({"data":data.data}, json_dumps_params={'ensure_ascii': False}) 
+
       
-      def sort_by_price(self):
+      def sort_by_price(self,obj=Product.objects):
           prices = [self.params.get("min"),self.params.get("max")]
 
           if prices[0].isdigit() and prices[1].isdigit():
-             products_obj = Product.objects.filter(price__lt=prices[1]).filter(price__gt=prices[0])  
+             products_obj = obj.filter(price__lte=prices[1]).filter(price__gte=prices[0])  
              return products_obj
           else:
-             return Product.objects.all()[:5]
+             return obj.all()[:5]
 
-      def sort_by_category(self):
+
+      def sort_by_category(self,obj=Product.objects):
           category = self.params.get("category")                    
-          return Product.objects.filter(category__iexact=category)
+          return obj.filter(category__iexact=category)
 
-      def sort_by_brand(self):
+
+      def sort_by_brand(self,obj=Product.objects):
           brand = self.params.get("brand")                    
-          return Product.objects.filter(brand__iexact=brand)
+          return obj.filter(brand__iexact=brand)
 
 
 class LoginView(View):

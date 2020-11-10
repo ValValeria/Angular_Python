@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import {Injectable} from "@angular/core";
 import { Observable ,of} from 'rxjs';
 import {retry,catchError} from 'rxjs/operators'
@@ -8,10 +8,12 @@ export class Http{
 
     constructor(private http:HttpClient){}
 
-    public get<T>(url:string):Observable<T|null>{
+    public get<T>(url:string,config?:{params:HttpParams}):Observable<T|null>{
         const obj = {
             headers: new HttpHeaders().set('Auth',localStorage.getItem('auth')||''),
         };  
+
+        Object.assign(obj,config)
 
         return this.http.get<T>(url,obj).pipe(
                retry(3),

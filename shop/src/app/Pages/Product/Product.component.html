@@ -1,0 +1,17 @@
+<section class="product section first-slide">
+  <div class="product__area">
+    <div class="product__wrap wrap-md-pd " *ngIf="post">
+        <div class="product__container">
+             <h5 class="product__title">{{post.title}}</h5>
+             <div class="product__images">
+                 <div class="img-container"><img src="{{post.image.startsWith('/')?(url+post.image) : (url+'/'+post.image)}}"  alt=""></div>
+             </div>
+             <div class="product__short-descr">
+                 <p>
+                 {{post.short_description}}
+                 </p>
+             </div>
+        </div>
+    </div>
+  </div>
+</section>

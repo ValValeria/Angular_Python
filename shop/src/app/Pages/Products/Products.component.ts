@@ -1,7 +1,8 @@
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
 import { Component, ElementRef, ViewChild} from '@angular/core';
-import { IAd } from 'src/app/Interfaces/Interfaces';
+import { IAd, ProductsBrand, ProductsInfo } from 'src/app/Interfaces/Interfaces';
 import { Http } from 'src/app/Services/Http.service';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
     selector:"products",
@@ -25,13 +26,19 @@ import { Http } from 'src/app/Services/Http.service';
     ]
 })
 export class Products {
-     products: IAd[];
-     disabled:boolean = true;
-     panelOpenState:boolean = false;
-     @ViewChild("productsElem",{read:ElementRef})productsElem:ElementRef;
+    products: IAd[];
+    disabled:boolean = true;
+    panelOpenState:boolean = false;
+    categories: string [];
+    @ViewChild("productsElem",{read:ElementRef})productsElem:ElementRef;
+    max_price: number;
+    brands: string[];
+    activeCategory:string;
+    activeBrand:string;
 
      constructor(private http:Http){
-         this.products=[]
+         this.products = [];
+         this.categories = [];
      }
 
      ngOnInit():void{
@@ -51,4 +58,39 @@ export class Products {
          });
      }
 
+     ngAfterViewInit():void{
+          this.http.get<ProductsInfo>("http://127.0.0.1:8000/api/products-info/").subscribe(v=>{
+              this.categories = v.data.categories;
+              this.max_price = v.data.price[1].max_price;
+         })
+     }
+
+     getBrands($event:{value:string}):void{
+         this.activeCategory = $event.value;
+         this.http.get<ProductsBrand>("http://127.0.0.1:8000/api/getbrands/?category="+encodeURIComponent(this.activeCategory)).subscribe((v)=>{
+             this.brands = v.data.brands;
+         })
+     }
+
+
+     sort():void{
+         const config={
+             params: new HttpParams().set("sortBy","price")
+                                     .set("sortBy","category")
+                                     .set("sortBy","brand")
+                                     .set('min',"0")
+                                     .set("max",this.max_price.toString())
+                                     .set("category",this.activeCategory)
+                                     .set("brand",this.activeBrand)
+         }
+         this.http.get<{data:IAd[]}>("http://127.0.0.1:8000/api/sort/",config).subscribe(v=>{
+             this.products = v.data;
+         })
+     }
+
+     changeBrand($event):void{
+        this.activeBrand = $event.value;
+        console.log(this.activeBrand)
+     }
+     
 }

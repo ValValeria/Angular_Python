@@ -1,0 +1,35 @@
+.product__title{
+    font-weight: 300;
+    font-size: 35px;
+    grid-column: 1/-1;
+    text-align:left;
+    justify-self: start;
+}
+
+.product__area{
+    padding-top:2.7rem;
+}
+
+.product__container{
+    display: grid;
+    grid-template-rows: 60px;
+    grid-auto-rows: 300px;
+    grid-template-columns: repeat(12,1fr);
+    align-items: center;
+    justify-items: center;
+}
+
+.product__images{
+   grid-row:2/3; 
+   grid-column:span 6;
+}
+
+.product__short-descr{
+    grid-column-end: -1;
+    grid-column-start: span 6;
+    text-align: center;
+}
+
+.product__short-descr{
+    max-width:400px;
+}

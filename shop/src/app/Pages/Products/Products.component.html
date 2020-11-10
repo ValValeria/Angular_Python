@@ -35,12 +35,11 @@
                                <div class="product__search-area">
                                     <div class="product__search-card">
                                           <h6>Категория</h6>
-                                          <mat-form-field appearance="fill" class="w-100">
+                                          <mat-form-field appearance="fill" class="w-100" >
                                                 <mat-label>Выбрать</mat-label>
-                                                <mat-select color="warn">
-                                                   <mat-option value="notebooks">Notebooks</mat-option>
-                                                   <mat-option value="tv">Tv</mat-option>
-                                               </mat-select>
+                                                <mat-select color="warn" on-selectionChange="getBrands($event)">
+                                                    <mat-option *ngFor="let category of categories" value="{{category}}">{{category}}</mat-option>
+                                                </mat-select>
                                           </mat-form-field>
                                     </div>
 
@@ -48,9 +47,8 @@
                                           <h6>Бренд</h6>
                                           <mat-form-field appearance="fill" class="w-100">
                                                 <mat-label>Выбрать</mat-label>
-                                                <mat-select color="warn">
-                                                   <mat-option value="notebooks">Notebooks</mat-option>
-                                                   <mat-option value="tv">Tv</mat-option>
+                                                <mat-select color="warn" (selectionChange)="changeBrand($event)" >
+                                                    <mat-option *ngFor="let brand of brands" value="{{brand}}">{{brand}}</mat-option>
                                                </mat-select>
                                           </mat-form-field>
                                     </div>
@@ -59,18 +57,19 @@
                                           <h6>Цена</h6>
                                           <mat-slider
                                                min="1" 
-                                               max="4000"
+                                               max="{{max_price}}"
                                                step="50" 
-                                               value="4000"
+                                               value="{{max_price}}"
                                                class="w-100"
                                                thumbLabel
+                                               (input)="max_price=$event.value"
                                                >
                                           </mat-slider>
                                    </div>
                                </div>
                            </mat-card-content>
                            <mat-card-content>
-                              <button mat-raised-button color="warn" class="bg-warn">Найти</button>
+                              <button mat-raised-button color="warn" class="bg-warn" on-click="sort()">Найти</button>
                            </mat-card-content>
                         </div>
                   </mat-card>
