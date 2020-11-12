@@ -1,0 +1,38 @@
+ul li {
+    list-style: none;
+    font-size: 16px !important;
+    max-width: 100%;
+    padding-right: 10px;
+    padding-left: 20px;
+    margin-bottom: 8px;
+    position: relative;
+
+    span{
+        display: inline-block;
+        margin-right: 20px;
+        word-break: break-all;
+    }
+    
+    span:nth-child(1) {
+      font-weight: 500;
+      width: 30%;
+      margin-bottom:8px;
+    }
+
+    span:nth-child(2){
+      width:70%;  
+    }
+}
+
+
+ul li::before{
+    border: 1px solid red;
+    border-radius: 50%;
+    content: '';
+    display: block;
+    height: 7px;
+    left: 0;
+    position: absolute;
+    top: 7px;
+    width: 7px;
+}

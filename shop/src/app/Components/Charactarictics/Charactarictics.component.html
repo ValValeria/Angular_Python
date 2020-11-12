@@ -1,0 +1,8 @@
+<ul>
+      <ng-container *ngFor="let obj of data">
+        <li *ngIf="obj[0].trim().length>0">
+           <span>{{obj[0]}}</span>
+           <span>{{obj[1]}}</span>
+        </li>
+      </ng-container>
+</ul>

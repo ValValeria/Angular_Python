@@ -15,6 +15,8 @@ import { MatInputModule } from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { Product } from './Pages/Product/Product.component';
+import { Charactarictics } from './Components/Charactarictics/Charactarictics.component';
+import { Comments } from './Components/Comments/Comments.component';
 
 
 const routes: Routes = [
@@ -38,7 +40,14 @@ const modules = [MatButtonModule,
 
 @NgModule({
   imports: [RouterModule.forRoot(routes),...modules],
-  declarations:[HomePage,Products,ErrorImageLoading,CardSmall,Product],
+  declarations:[HomePage,
+                Products,
+                ErrorImageLoading,
+                CardSmall,
+                Product,
+                Charactarictics,
+                Comments
+                ],
   exports: [RouterModule,...modules]
 })
 export class AppRoutingModule { }

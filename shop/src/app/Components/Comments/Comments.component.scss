@@ -1,0 +1,28 @@
+.comments__headline{
+    font-size: 20px;
+    padding-top: 1rem;
+    padding-bottom: 0.8rem;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
+.comments__items{
+    padding-top: 2rem;
+    width: 100%;
+}
+
+.comments__item{
+    margin:20px 0;
+    position: relative;
+    width:100%;
+}
+
+.card-author{
+    font-weight:500;
+}
+
+.rating{
+    position: absolute;
+    right:20px;
+    top:15px;
+}

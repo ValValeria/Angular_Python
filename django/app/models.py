@@ -13,6 +13,7 @@ class Product(models.Model):
 	category = models.CharField(choices=[("notebooks","notebooks"),("tv","tv")],default="unlimited",max_length=30)
 	status = models.CharField(choices=[("limited","limited"),("unlimited","unlimited")],default="unlimited",max_length=9)
 	rating = models.IntegerField(default=5,choices=[(1,1),(2,2),(3,3),(4,4),(5,5)]);  
+	characterictics = models.TextField("Characteristics",max_length=300,blank=True,help_text="Используйте форму записи name:value;")
     
 	def __str__(self):
           	return self.title;

@@ -9,7 +9,8 @@ export interface IAd{
     long_description:string,
     category:string,
     brand:string,
-    status:"limited"|"unlimited"
+    status:"limited"|"unlimited",
+    characterictics:string
 }
 
 export interface ProductsInfo{
@@ -19,6 +20,12 @@ export interface ProductsInfo{
     }
 }
 
+export interface IComment{
+   id:number,
+   message:string,
+   rating:number,
+   sender:{username:string}
+}
 
 export interface ProductsBrand{
     data:{
