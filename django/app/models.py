@@ -23,6 +23,7 @@ class Order(models.Model):
 	  user = models.ForeignKey(User,on_delete=models.CASCADE)
 	  product = models.ForeignKey(Product,on_delete=models.CASCADE)
 	  count = models.IntegerField(default=1)
+	  status = models.CharField(choices=[(1,"Куплено"),(0,"Не куплено")],default="Не куплено",max_length=20)
 
 	  def __str__(self):
     	    return self.product.title
@@ -34,6 +35,10 @@ class Comment(models.Model):
 	  message = models.CharField(max_length=300)
 	  post=models.ForeignKey(Product,on_delete=models.CASCADE) 
 	  rating = models.IntegerField(default=5,choices=[(1,1),(2,2),(3,3),(4,4),(5,5)])
+
+class Favorite(models.Model):
+    product = models.ForeignKey(Product,on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
 
 #python manage.py makemigrations
 #python manage.py migrate

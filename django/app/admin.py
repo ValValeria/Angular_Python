@@ -1,8 +1,10 @@
-from .models import Product,Comment,Order
+from .models import Favorite, Product,Comment,Order
 from django.contrib import admin
 from django.utils.html import format_html
 from django.contrib.auth.models import User
 from django.db.models import Count,Sum
+from django.db.models.signals import pre_delete;
+from django.dispatch import receiver
 
 
 
@@ -13,6 +15,16 @@ class OrderInstanceInline(admin.TabularInline):
 class CommentInstanceInline(admin.TabularInline):
     model = Comment
 
+
+@admin.register(Favorite)
+class Favorites(admin.ModelAdmin):
+    list_display = ("product","user")
+
+    def product(self,obj):
+        return obj.product.title;
+
+    def user(self,obj):
+        return obj.user.username
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
@@ -62,6 +74,21 @@ class UserAdmin(admin.ModelAdmin):
      def the_amount_of_orders(self,obj):
           return obj.order_set.all().count()
 
+
+
+
+# Signal occurs when the admin deletes the user
+@receiver(pre_delete,sender=User)
+def delete_user(obj,**kw):
+    orders =  obj.order_set.all();
+
+    for item in orders.iterator():
+         if item.status == 0: # ne kupleno
+             product = Product.objects.filter(id=item.product.id).first();
+             if product:
+                 product.count +=item.count
+                 product.save()
+             
 
 # Site title         
 admin.site.site_header = "InDigital Admin"
