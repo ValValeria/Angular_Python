@@ -12,7 +12,9 @@ export class Comments{
     @Input("postId") productId:number;
     isSentRequest: boolean;
 
-    constructor(private http:Http){}
+    constructor(private http:Http){
+        this.comments=[]
+    }
 
     ngOnInit(): void {
         this.http.get<{data:IComment[]}>("http://127.0.0.1:8000/api/comments/"+this.productId)

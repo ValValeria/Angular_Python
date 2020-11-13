@@ -4,6 +4,13 @@ import { IAd, ProductsBrand, ProductsInfo } from 'src/app/Interfaces/Interfaces'
 import { Http } from 'src/app/Services/Http.service';
 import { HttpParams } from '@angular/common/http';
 
+
+interface IResponse{
+    data:IAd[],
+    has_next:boolean
+}
+
+
 @Component({
     selector:"products",
     templateUrl:"./Products.component.html",
@@ -35,6 +42,8 @@ export class Products {
     brands: string[];
     activeCategory:string;
     activeBrand:string;
+    page:number = 1;
+    hasNext:boolean=false;
 
      constructor(private http:Http){
          this.products = [];
@@ -42,9 +51,10 @@ export class Products {
      }
 
      ngOnInit():void{
-         this.http.get<IAd[]>("http://127.0.0.1:8000/api/products").subscribe(v=>{
-            if((v||[]).length){
-                this.products=v;
+         this.http.get<IResponse>("http://127.0.0.1:8000/api/products?page="+this.page).subscribe(v=>{
+            if(v.data.length){
+                this.products=v.data;
+                this.hasNext = v.has_next;
                 const decideScroll = ()=>{
                     const offset = this.productsElem.nativeElement.offsetTop;
                     const height = this.productsElem.nativeElement.clientHeight;
@@ -63,34 +73,42 @@ export class Products {
               this.categories = v.data.categories;
               this.max_price = v.data.price[1].max_price;
          })
+         this.getBrands({value:""});
      }
 
      getBrands($event:{value:string}):void{
-         this.activeCategory = $event.value;
-         this.http.get<ProductsBrand>("http://127.0.0.1:8000/api/getbrands/?category="+encodeURIComponent(this.activeCategory)).subscribe((v)=>{
-             this.brands = v.data.brands;
-         })
+        this.activeCategory = $event.value||"";
+        this.http.get<ProductsBrand>("http://127.0.0.1:8000/api/getbrands/?category="+encodeURIComponent(this.activeCategory)).subscribe((v)=>{
+                 this.brands = v.data.brands;
+        })
      }
 
 
-     sort():void{
-         const config={
-             params: new HttpParams().set("sortBy","price")
-                                     .set("sortBy","category")
-                                     .set("sortBy","brand")
-                                     .set('min',"0")
-                                     .set("max",this.max_price.toString())
-                                     .set("category",this.activeCategory)
-                                     .set("brand",this.activeBrand)
+     sort(next:boolean=false):void{
+         if(!next){///means the user wants to sort the goods by some criteria
+            this.page = 1;
+            this.products = [];
          }
-         this.http.get<{data:IAd[]}>("http://127.0.0.1:8000/api/sort/",config).subscribe(v=>{
-             this.products = v.data;
+         const config={
+             params: new HttpParams().set('min',"0")
+                                     .set("max",this.max_price.toString())
+                                     .set("category",this.activeCategory||"")
+                                     .set("brand",this.activeBrand||"")
+                                     .set("page",String(this.page))
+         }
+         this.http.get<IResponse>("http://127.0.0.1:8000/api/sort/",config).subscribe(v=>{
+             this.products.push(...v.data);
+             this.hasNext = v.has_next;
+             console.log(v.data)
          })
      }
 
      changeBrand($event):void{
         this.activeBrand = $event.value;
-        console.log(this.activeBrand)
      }
-     
+
+     showNext():void{
+        this.page=this.page+1;
+        this.sort(true);
+     }     
 }

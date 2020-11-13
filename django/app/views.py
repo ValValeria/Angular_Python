@@ -1,21 +1,35 @@
-from app.serializers.post_serializer import PostSerializer
+from .serializers.post_serializer import PostSerializer
 from django.http.response import  Http404, HttpResponseBadRequest, HttpResponseForbidden
 from django.views.generic import ListView,View;
-from app.models import Product;
+from .models import Product;
 from django.http import JsonResponse;
 from django.contrib.auth import authenticate,login
-from app.forms import AuthenticateForm
+from .forms import AuthenticateForm
 from django.contrib.auth.models import Permission, User
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Max,Min
 from django.core.paginator import Paginator
+from .view_pack.likes_view import ProductLikesShow,ProductLikes;
 
 
 class ProductsView(ListView):
+      response = {"data":[],"has_next":False}
+      
       def get(self, *args, **kwargs):
-          products = list(Product.objects.all().values())
-          response =  JsonResponse(products, safe=False, json_dumps_params={'ensure_ascii': False})
-          return response
+          products = list(Product.objects.all())
+          count = self.request.GET.get("page","");
+          if count.isdigit() and len(count)>0:
+               paginator = Paginator(products,4)
+               count = int(count)
+
+               if count<=paginator.num_pages:
+                  page = paginator.page(count)
+                  self.response["data"]=PostSerializer(page,many = True).data
+                  self.response["has_next"]=page.has_next();
+
+               return JsonResponse(self.response, json_dumps_params={'ensure_ascii': False})
+
+          return HttpResponseBadRequest()
 
 
 
@@ -39,12 +53,12 @@ class ProductInfoBrands(ListView):
           
           if category.isalpha() and len(category):
               brand = list(Product.objects.filter(category=category).distinct().all().values("brand"))
-              brand = map(lambda v:v.get("brand"),brand)
-              self.response["data"]["brands"]=list(brand);
-              return JsonResponse(self.response,json_dumps_params={'ensure_ascii': False})
-          else: 
-              return HttpResponseBadRequest()
+          else:
+              brand = list(Product.objects.distinct().all().values("brand"))
 
+          brand = map(lambda v:v.get("brand"),brand)
+          self.response["data"]["brands"]=list(brand);
+          return JsonResponse(self.response,json_dumps_params={'ensure_ascii': False})
 
 
 class ProductView(ListView):
@@ -61,6 +75,8 @@ class ProductView(ListView):
 
 class ProductSort(ListView):
       params = None;
+      per_page = 4
+      response = {"data":[]}
       
       def __init__(self,*args):
           super().__init__(*args)
@@ -68,19 +84,27 @@ class ProductSort(ListView):
 
       def get(self,request,*args,**kwargs):
           self.params = self.request.GET
-          criterias = self.params.getlist("sortBy");
+          page = request.GET.get("page","")
           products = None;
 
-          for criteria in criterias:      
-              if criteria in self.sort_by.keys():
-                   if not products:
-                      products = self.sort_by.get(criteria)();
-                   else:
-                      products = self.sort_by.get(criteria)(products)
+          if page.isdigit():
+              page = int(page)
+          else:
+              page = 1
 
-          data = PostSerializer(products,many=True);
+          for criteria in self.sort_by.keys():      
+                if not products:
+                   products = self.sort_by.get(criteria)();
+                else:
+                   products = self.sort_by.get(criteria)(products)
 
-          return JsonResponse({"data":data.data}, json_dumps_params={'ensure_ascii': False}) 
+          paginator = Paginator(products.order_by("id"),self.per_page);
+
+          if page <=paginator.num_pages:
+                data = PostSerializer(paginator.page(page).object_list,many=True);
+                self.response["data"]=data.data
+
+          return JsonResponse(self.response, json_dumps_params={'ensure_ascii': False}) 
 
       
       def sort_by_price(self,obj=Product.objects):
@@ -90,17 +114,23 @@ class ProductSort(ListView):
              products_obj = obj.filter(price__lte=prices[1]).filter(price__gte=prices[0])  
              return products_obj
           else:
-             return obj.all()[:5]
+             return obj.all()
 
 
       def sort_by_category(self,obj=Product.objects):
-          category = self.params.get("category")                    
-          return obj.filter(category__iexact=category)
+          category = self.params.get("category")   
+          if category:                 
+              return obj.filter(category__iexact=category)
+          else:
+              return obj.all()
 
 
       def sort_by_brand(self,obj=Product.objects):
-          brand = self.params.get("brand")                    
-          return obj.filter(brand__iexact=brand)
+          brand = self.params.get("brand")          
+          if brand:          
+             return obj.filter(brand__iexact=brand)
+          else:
+             return obj.all()
 
 
 class LoginView(View):
@@ -138,3 +168,5 @@ class SignUpView(View):
           else:
               self.response['errors']=form.errors
           return JsonResponse(self.response)
+
+

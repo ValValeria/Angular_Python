@@ -41,6 +41,26 @@
    width:100%;
 }
 
+.product__next-btn button{
+    margin-top: 1.7rem;
+    border: 1px solid #fe8200;
+    padding: 10px 25px;
+    width: 60%;
+    color: white;
+    font-weight: 500;
+    text-transform: uppercase;
+    background-color: #fe8200;
+    cursor: pointer;
+    max-width:200px;
+    max-width: 150px !important;
+    transition: 1s background ease-in-out;
+}
+
+.product__next-btn button:hover{
+    background-color:transparent;
+    color:black;
+}
+
 .product__search-area{
         display: grid;
         grid-template-columns: 1fr;

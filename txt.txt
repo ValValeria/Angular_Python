@@ -1,4 +1,4 @@
 # Fixes:
-  * когда удаляю пользователя, его корзина тоже удаляется и количество товаров остаётся таким же 
-  * pagination (products)
-  * the list of categories +-
+  * the ability to add many images for product
+  * avatar 
+

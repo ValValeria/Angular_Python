@@ -1,7 +1,8 @@
-from app.serializers.comment_serializer import CommentSerializer
+from django.core.paginator import Paginator
+from ..serializers.comment_serializer import CommentSerializer
 from django.contrib.auth.models import User
-from app.models import Comment, Product
-from app.forms import CommentForm
+from ..models import Comment, Product
+from ..forms import CommentForm
 from django.contrib.auth.mixins import UserPassesTestMixin,PermissionRequiredMixin
 from django.http.response import  JsonResponse;
 from django.views.generic import ListView;
@@ -15,6 +16,7 @@ class Comment_View(UserPassesTestMixin,ListView,PermissionRequiredMixin):
       form = CommentForm
       response={"status":"","messages":[],"id":0}
       raise_exception = False
+      redirect_authenticated_user=True
 
       def test_func(self):
           self.user = self.request.user;
@@ -48,11 +50,20 @@ class Comment_View(UserPassesTestMixin,ListView,PermissionRequiredMixin):
 
 class CommentList_View(ListView):
        response={"data":[]}
+       per_page = 4
 
        def get(self,request,*args,**kw):
            obj = get_object_or_404(Product,pk=kw.get('post_id'));
-           obj = CommentSerializer(obj.comment_set.select_related().order_by("id").all(),many=True)
-           self.response["data"]=obj.data;
+           comments = obj.comment_set.select_related().order_by("id").all()
+           page_count = request.GET.get("page","")
+
+           if comments.exists() and page_count.isdigit():
+               page_count = int(page_count)
+               paginator = Paginator(comments,self.per_page)
+               page = paginator.page(page_count)
+               obj = CommentSerializer(page,many=True)
+               self.response["data"]=obj.data;
+
            return JsonResponse(self.response,json_dumps_params={'ensure_ascii': False})
 
 
