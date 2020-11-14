@@ -139,16 +139,18 @@ class LoginView(View):
       form = AuthenticateForm;
 
       def post(self, *args, **kwargs):
-          form = self.form(self.request.GET,True)    
-          if self.form.is_valid() and not self.request.user.is_authenticated: 
-              user = authenticate(form.cleaned_data['username'],form.cleaned_data['password'])
+          form = self.form(self.request.POST,True)    
+          if form.is_valid() and not self.request.user.is_authenticated: 
+              user = authenticate(username=form.cleaned_data['username'],password=form.cleaned_data['password'])
               if user is not None:
                   login(self.request,user)
                   self.response["status"]="user"
+                  self.response["id"]=user.id
           else:
               self.response['errors']=["Invalid data"]
 
           return JsonResponse(self.response)
+
 
 
 class SignUpView(View):
@@ -156,16 +158,13 @@ class SignUpView(View):
       response = {}
 
       def post(self,request, *args, **kwargs):
-          form = self.form(self.request.GET)    
+          form = self.form(self.request.POST,True)    
           if form.is_valid() and not request.user.is_authenticated: 
-              user = User.create_user(form.cleaned_data['username'],form.cleaned_data['email'],form.cleaned_data['password'])
-              content_type = ContentType.objects.get_for_model(Product)
-              permission = Permission.objects.get(
-                  codename='add_comments',
-                  content_type=content_type)
-              user.user_permissions.add(permission)
+              user = User.objects.filter(username=form.cleaned_data['username']).first()
+              if not user:
+                     user = User.objects.create_user(username=form.cleaned_data['username'],email=form.cleaned_data['email'],password=form.cleaned_data['password'])
               self.response['status']="user";
-              self.response["message"]={"id":user.id}
+              self.response["id"]=user.id
           else:
               self.response['errors']=form.errors
           return JsonResponse(self.response)

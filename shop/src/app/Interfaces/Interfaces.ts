@@ -20,6 +20,12 @@ export interface ProductsInfo{
     }
 }
 
+export interface IUser{
+    username:string
+    email:string
+    password:string
+}
+
 export interface IComment{
    id:number,
    message:string,

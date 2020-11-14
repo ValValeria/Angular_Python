@@ -18,6 +18,7 @@ import { Product } from './Pages/Product/Product.component';
 import { Charactarictics } from './Components/Charactarictics/Charactarictics.component';
 import { Comments } from './Components/Comments/Comments.component';
 import { AuthPage } from './Pages/AuthPage/AuthPage.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 const routes: Routes = [
@@ -38,7 +39,8 @@ const modules = [MatButtonModule,
                  MatSliderModule,
                  MatInputModule,
                  MatSelectModule,
-                 MatExpansionModule
+                 MatExpansionModule,
+                 MatSnackBarModule
                 ];
 
 @NgModule({

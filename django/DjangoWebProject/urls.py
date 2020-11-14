@@ -4,7 +4,7 @@ Definition of urls for DjangoWebProject.
 
 from django.urls import path,re_path
 from django.contrib import admin
-from app.views import ProductsView,SignUpView,ProductView,ProductLikesShow,ProductSort,ProductInfo,ProductInfoBrands,ProductLikes
+from app.views import LoginView,ProductsView,SignUpView,ProductView,ProductLikesShow,ProductSort,ProductInfo,ProductInfoBrands,ProductLikes
 from app.view_pack.search_view import Search
 from app.view_pack.comment_view import Comment_View,CommentList_View
 from app.view_pack.order_view import Order_View,Delete_Order,Get_Order,Order_Buy
@@ -13,6 +13,7 @@ from app.view_pack.order_view import Order_View,Delete_Order,Get_Order,Order_Buy
 urlpatterns = [
     re_path(r"^api/products$",ProductsView.as_view()),
     re_path(r"^api/signup",SignUpView.as_view()),
+    re_path(r"^api/login",LoginView.as_view()),
     re_path(r"^api/product/(?P<pk>\d+)",ProductView.as_view()),
     re_path(r"^api/addcomment/",Comment_View.as_view()),
     re_path(r"^api/sort/",ProductSort.as_view()),

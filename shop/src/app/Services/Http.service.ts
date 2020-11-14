@@ -3,6 +3,8 @@ import {Injectable} from "@angular/core";
 import { Observable ,of} from 'rxjs';
 import {retry,catchError} from 'rxjs/operators'
 
+type POST_DATA=FormData|{email:string,password:string}|string;
+
 @Injectable()
 export class Http{
 
@@ -20,11 +22,18 @@ export class Http{
                catchError((e:any)=>of(null)));
     }
 
-    
-    public post<T>(url:string,formdata:FormData|{email:string,password:string}):Observable<T|{status:string}>{
+    /**
+     * Returns the observable,which can send a post request
+     * @param url 
+     * @param formdata 
+     * @param config
+     * @returns observable<T|{status:string}>
+     */
+    public post<T>(url:string,formdata:POST_DATA,config?:object):Observable<T|{status:string}>{
      
         const obj = {
             headers: new HttpHeaders().set('Auth',localStorage.getItem('auth')||''),
+            ...config
         };
       
         return this.http.post<T>(url,formdata,obj);

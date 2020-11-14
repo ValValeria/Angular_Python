@@ -1,5 +1,6 @@
 import { AfterViewInit } from '@angular/core';
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { User } from 'src/app/Services/User.service';
 
 @Component({
     selector:"header-main",
@@ -8,6 +9,8 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 export class Header implements AfterViewInit{
     @ViewChild('headerlinks',{read:ElementRef}) links:ElementRef;
     
+    constructor(public user:User){}
+
     ngAfterViewInit(): void {
         const elem:HTMLUListElement = this.links.nativeElement;
 

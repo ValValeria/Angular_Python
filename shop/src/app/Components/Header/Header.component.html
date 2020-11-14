@@ -7,7 +7,8 @@
           <ul class="header__links none" #headerlinks>
              <li class="header__link center"><a mat-stroked-button color="basic"  routerLink="/">Главная</a></li>
              <li class="header__link center"><a mat-button routerLink="/products">Товары</a></li>
-             <li class="header__link center"><a mat-button routerLink="/authenticate">Войти </a></li>
+             <li class="header__link center" *ngIf="!user.is_auth"><a mat-button routerLink="/authenticate" >Войти </a></li>
+             <li class="header__link center"  *ngIf="user.is_auth"><a mat-button routerLink="/profile">Админ панель</a></li>
              <li class="header__link center"><a mat-button routerLink="">Обратная связь</a></li>
           </ul>
       </div>
