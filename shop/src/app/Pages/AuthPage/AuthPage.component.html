@@ -1,0 +1,45 @@
+<section class="auth section first-slide center">
+    <div class="auth__wrap wrap-md center">
+        <div class="auth__form">
+           <form [formGroup]="form" (ngSubmit)="submit($event)">
+               <mat-card class="d-flex center flex-column">
+                  <mat-card-title class="auth__titles center d-flex">
+                       <button mat-flat-button (click)="click(true)" class="{{isLogin?'border-red':'unactive'}}">Вход</button>
+                       <button mat-flat-button (click)="click(false)"  class="{{!isLogin?'border-red':'unactive'}}">Регестрация</button>
+                  </mat-card-title>
+                  <mat-card-content class="w-100">
+                   <div class="auth__items wrap-md center flex-column">
+                     <div class="auth__email" *ngIf="!isLogin">
+                          <mat-form-field  appearance="standard" class="w-100" color="accent">
+                              <mat-label>Почта</mat-label>
+                              <input type="email" matInput formControlName="email">
+                              <mat-hint>Максимум - 30 букв, минимум 10</mat-hint>
+                          </mat-form-field>
+                      </div>
+                      <div class="auth__username">
+                          <mat-form-field  appearance="standard" class="w-100" color="accent">
+                              <mat-label>Имя  пользователя</mat-label>
+                              <input type="text" matInput formControlName="username">
+                              <mat-hint>Максимум - 30 букв, минимум 10</mat-hint>
+                          </mat-form-field>
+                      </div>
+                      <div class="auth__password">
+                          <mat-form-field  appearance="standard" class="w-100" color="accent">
+                              <mat-label>Пароль</mat-label>
+                              <input type="password" matInput formControlName="password">
+                              <mat-hint>Максимум - 30 букв, минимум 10</mat-hint>
+                          </mat-form-field>
+                      </div>
+                      <div class="auth__error" *ngIf="!isValid && form.touched">
+                           <button mat-flat-button >Проверьте правильность введенных данных</button>
+                      </div>
+                    </div>
+                  </mat-card-content>
+                  <mat-card-content class="w-100 center d-flex">
+                       <button class="btn-red">{{isLogin?"Войти":"Зарегестрироваться"}}</button>
+                  </mat-card-content>
+               </mat-card>
+            </form>          
+        </div>
+    </div>
+</section>

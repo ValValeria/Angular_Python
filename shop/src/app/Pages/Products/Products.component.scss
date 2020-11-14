@@ -53,12 +53,28 @@
     cursor: pointer;
     max-width:200px;
     max-width: 150px !important;
-    transition: 1s background ease-in-out;
+    transition: 1s backgrounds ease-in-out;
 }
 
 .product__next-btn button:hover{
     background-color:transparent;
-    color:black;
+    color:#fe8200;
+}
+
+.product__loading{
+    min-height:60vh;
+    width:100%;
+}
+
+.product__empty{
+    min-height: 60vh;
+    width: 100%;
+
+    h5{
+        text-transform: uppercase;
+        font-weight: 300;
+        font-size: 2rem;
+    }
 }
 
 .product__search-area{

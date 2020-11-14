@@ -10,6 +10,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db.models import Max,Min
 from django.core.paginator import Paginator
 from .view_pack.likes_view import ProductLikesShow,ProductLikes;
+from django.db.models import Q
 
 
 class ProductsView(ListView):
@@ -93,7 +94,7 @@ class ProductSort(ListView):
               page = 1
 
           for criteria in self.sort_by.keys():      
-                if not products:
+                if products is None:
                    products = self.sort_by.get(criteria)();
                 else:
                    products = self.sort_by.get(criteria)(products)
@@ -109,9 +110,9 @@ class ProductSort(ListView):
       
       def sort_by_price(self,obj=Product.objects):
           prices = [self.params.get("min"),self.params.get("max")]
-
+          
           if prices[0].isdigit() and prices[1].isdigit():
-             products_obj = obj.filter(price__lte=prices[1]).filter(price__gte=prices[0])  
+             products_obj = obj.filter(Q(price__lte=prices[1])& Q(price__gte=prices[0])).order_by("price")
              return products_obj
           else:
              return obj.all()

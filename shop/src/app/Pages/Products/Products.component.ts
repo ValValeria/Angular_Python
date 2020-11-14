@@ -44,13 +44,17 @@ export class Products {
     activeBrand:string;
     page:number = 1;
     hasNext:boolean=false;
+    isEmpty: boolean;
+    sentHttp:boolean;
+    max_price_value: number=4000;
 
-     constructor(private http:Http){
+    constructor(private http:Http){
          this.products = [];
          this.categories = [];
      }
 
      ngOnInit():void{
+         this.sentHttp = true;
          this.http.get<IResponse>("http://127.0.0.1:8000/api/products?page="+this.page).subscribe(v=>{
             if(v.data.length){
                 this.products=v.data;
@@ -65,13 +69,24 @@ export class Products {
                 decideScroll();
                 window.onscroll = decideScroll.bind(this)
             }
+            this.checkData();
          });
+     }
+
+     checkData():void{
+        if(!this.products.length){
+            this.isEmpty = true;
+        } else{
+            this.isEmpty = false;
+        }
+        this.sentHttp = false;
      }
 
      ngAfterViewInit():void{
           this.http.get<ProductsInfo>("http://127.0.0.1:8000/api/products-info/").subscribe(v=>{
               this.categories = v.data.categories;
               this.max_price = v.data.price[1].max_price;
+              this.max_price_value = v.data.price[1].max_price;
          })
          this.getBrands({value:""});
      }
@@ -85,6 +100,7 @@ export class Products {
 
 
      sort(next:boolean=false):void{
+         this.sentHttp = true;
          if(!next){///means the user wants to sort the goods by some criteria
             this.page = 1;
             this.products = [];
@@ -100,6 +116,7 @@ export class Products {
              this.products.push(...v.data);
              this.hasNext = v.has_next;
              console.log(v.data)
+             this.checkData()
          })
      }
 

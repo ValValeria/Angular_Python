@@ -17,12 +17,15 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { Product } from './Pages/Product/Product.component';
 import { Charactarictics } from './Components/Charactarictics/Charactarictics.component';
 import { Comments } from './Components/Comments/Comments.component';
+import { AuthPage } from './Pages/AuthPage/AuthPage.component';
 
 
 const routes: Routes = [
   {path:"",component:HomePage},
   {path:"products",component:Products},
-  {path:"product/:id",component:Product}
+  {path:"product/:id",component:Product},
+  {path:"authenticate",component:AuthPage},
+  {path:"**",redirectTo:"/",pathMatch:"full"}
 ];
 
 const modules = [MatButtonModule,
@@ -46,7 +49,8 @@ const modules = [MatButtonModule,
                 CardSmall,
                 Product,
                 Charactarictics,
-                Comments
+                Comments,
+                AuthPage
                 ],
   exports: [RouterModule,...modules]
 })

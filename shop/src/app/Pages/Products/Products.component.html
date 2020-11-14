@@ -35,7 +35,7 @@
                                <div class="product__search-area">
                                     <div class="product__search-card">
                                           <h6>Категория</h6>
-                                          <mat-form-field appearance="fill" class="w-100" >
+                                          <mat-form-field  appearance="standard" class="w-100" >
                                                 <mat-label>Выбрать</mat-label>
                                                 <mat-select color="warn" on-selectionChange="getBrands($event)">
                                                      <mat-option value="" selected>Всё</mat-option>
@@ -46,7 +46,7 @@
 
                                     <div class="product__search-card">
                                           <h6>Бренд</h6>
-                                          <mat-form-field appearance="fill" class="w-100">
+                                          <mat-form-field  appearance="standard" class="w-100">
                                                 <mat-label>Выбрать</mat-label>
                                                 <mat-select color="warn" (selectionChange)="changeBrand($event)" >
                                                       <mat-option value="" selected>Всё</mat-option>
@@ -56,17 +56,16 @@
                                     </div>
                                    
                                     <div class="product__search-card w-100">
-                                          <h6>Цена</h6>
+                                          <h6>Максимальная цена</h6>
                                           <mat-slider
                                                min="1" 
-                                               max="{{max_price}}"
-                                               step="50" 
-                                               value="{{max_price}}"
+                                               max="{{max_price_value}}"
                                                class="w-100"
-                                               thumbLabel
+                                               value="{{max_price_value}}"
                                                (input)="max_price=$event.value"
+                                               thumbLabel
                                                >
-                                          </mat-slider>
+                                           </mat-slider>
                                    </div>
                                </div>
                            </mat-card-content>
@@ -80,10 +79,22 @@
                 </div>
 
                <div class="product__area center flex-column">
-                  <div class="product__content"  @fadeInOut *ngIf="!disabled" >
+                  <div class="product__content"  @fadeInOut *ngIf="!disabled && products.length" >
                        <card [card]="card" *ngFor="let card of products"class="center"></card>
                   </div>
-                  <div class="product__next center w-100 " *ngIf="hasNext">
+                  <div class="product__loading center" *ngIf="!isEmpty && sentHttp">
+                    <div class="center wrap-md">
+                      <div class="spinner-border text-danger" role="status">
+                            <span class="sr-only">Loading...</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="product__empty center" *ngIf="isEmpty && !sentHttp">
+                      <div class="center wrap-md text-center">
+                            <div class="h5">No results</div>
+                      </div>
+                  </div>
+                  <div class="product__next center w-100 " *ngIf="hasNext && products.length">
                     <div class="product__next-btn w-100">
                        <button on-click="showNext()">Больше</button>
                     </div>
