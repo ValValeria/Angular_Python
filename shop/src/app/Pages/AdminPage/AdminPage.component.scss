@@ -1,6 +1,9 @@
 .admin__dashboard > h5{
-    font-size: 28px;
-    font-weight: 300;
+        font-size: 40px;
+        font-weight: 300;
+        text-transform: uppercase;
+        margin-bottom: 3rem;
+        text-align: center !important;
 }
 
 .admin__profile-img{
@@ -22,11 +25,16 @@
         justify-items: center;
 }
 
+.admin__options{
+    margin-top:2rem;
+}
+
 .admin__profile-text{
     grid-column: span 6;
     font-size: 20px;
     font-weight: 400;
     margin-bottom: 0;
+    justify-self: start;
 }
 
 .admin__profile-text span:nth-child(2){
@@ -50,3 +58,4 @@
     width: 100%;
     height: auto;
 }
+

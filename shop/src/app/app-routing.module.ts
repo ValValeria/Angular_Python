@@ -21,6 +21,9 @@ import { Comments } from './Components/Comments/Comments.component';
 import { AuthPage } from './Pages/AuthPage/AuthPage.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { AdminPage } from './Pages/AdminPage/AdminPage.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatSortModule} from '@angular/material/sort';
+import {MatTableModule} from '@angular/material/table';
 
 
 const routes: Routes = [
@@ -44,7 +47,10 @@ const modules = [MatButtonModule,
                  MatSelectModule,
                  MatExpansionModule,
                  MatSnackBarModule,
-                 MatDividerModule
+                 MatDividerModule,
+                 MatTabsModule,
+                 MatSortModule,
+                 MatTableModule
                 ];
 
 @NgModule({

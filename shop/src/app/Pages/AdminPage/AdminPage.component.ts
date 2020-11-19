@@ -12,8 +12,8 @@ export class AdminPage{
     constructor(private http:Http,public user:User,public router:Router){}
 
     ngOnInit():void{
-         if(!this.user.is_auth){
+         /*if(!this.user.is_auth){
              this.router.navigateByUrl("/")
-         }
+         }*/
     }
 }

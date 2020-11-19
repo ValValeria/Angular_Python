@@ -1,12 +1,12 @@
-<section class="admin section center"*ngIf="user.is_auth">
-    <div class="admin__wrap wrap-md-pd first-slide" >
+<section class="admin section center first-slide"*ngIf="user.is_auth">
+    <div class="admin__wrap wrap-md-pd " >
           <div class="admin__dashboard">
               <h5 class="text-left">Ваш профиль</h5>
               <div class="admin__profile-info">
                   <mat-card>
                       <mat-card-content class="admin__profile-text">
                           <span>Имя пользователя:</span>
-                          <span>{{user.username}}</span>
+                          <span >{{user.username}}</span>
                       </mat-card-content>
                       <mat-card-content class="admin__profile-text">
                           <span>Пароль:</span>
@@ -22,6 +22,23 @@
                           </a>
                       </mat-card-content>
                   </mat-card>
+              </div>
+              <div class="admin__options">
+                 <mat-card>
+                     <mat-card-content>
+                          <mat-tab-group color="accent" mat-align-tabs="center">
+                             <mat-tab label="Корзина">
+
+                            </mat-tab>
+                            <mat-tab label="Понравившиеся товары">
+
+                            </mat-tab>
+                            <mat-tab label="Купленные товары">
+
+                            </mat-tab>
+                         </mat-tab-group>
+                     </mat-card-content>
+                 </mat-card>
               </div>
           </div>
     </div>
