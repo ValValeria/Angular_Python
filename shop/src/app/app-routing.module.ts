@@ -24,6 +24,7 @@ import { AdminPage } from './Pages/AdminPage/AdminPage.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
+import { OrderList } from './Components/OrderList/OrderList.component';
 
 
 const routes: Routes = [
@@ -63,7 +64,8 @@ const modules = [MatButtonModule,
                 Charactarictics,
                 Comments,
                 AuthPage,
-                AdminPage
+                AdminPage,
+                OrderList
                 ],
   exports: [RouterModule,...modules]
 })

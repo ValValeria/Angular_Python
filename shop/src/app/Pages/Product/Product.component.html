@@ -1,5 +1,8 @@
 <section class="product section first-slide">
-  <div class="product__area">
+  <div class="product__area center flex-column">
+    <div *ngIf="!post" class="center pt-4">
+       <mat-spinner color="accent"></mat-spinner>
+    </div>
     <div class="product__wrap wrap-md-pd " *ngIf="post">
         <div class="product__container">
              <h5 class="product__title">{{post.title}}</h5>
