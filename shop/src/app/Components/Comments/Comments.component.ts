@@ -1,6 +1,7 @@
 import { Component, Input } from "@angular/core";
 import { IComment } from "src/app/Interfaces/Interfaces";
 import { Http } from "src/app/Services/Http.service";
+import { User } from "src/app/Services/User.service";
 
 @Component({
     selector:"comments",
@@ -11,16 +12,44 @@ export class Comments{
     comments:IComment[];
     @Input("postId") productId:number;
     isSentRequest: boolean;
+    rating:number;
+    message:string;
+    hasNext:boolean;
+    num_pages:number;
+    activePage:number = 1;
 
-    constructor(private http:Http){
+    constructor(private http:Http,public user:User){
         this.comments=[]
     }
 
     ngOnInit(): void {
-        this.http.get<{data:IComment[]}>("http://127.0.0.1:8000/api/comments/"+this.productId)
+        this.sendRequest()
+    }
+
+    showMore():void{
+       this.activePage+=1;
+       this.sendRequest();
+    }
+
+    click():void{
+        if(this.user.is_auth){
+            this.http.post<{id:number,status:"ok"}>("http://127.0.0.1:8000/api/addcomment",{"message":this.message,"rating":this.rating,post_id:this.productId})
+            .subscribe(v=>{
+                if(v.status=="ok"){
+                    this.comments.unshift({id:(v as any).id,message:this.message,rating:this.rating,sender:{username:this.user.username}})
+                }
+            })
+        }
+    }
+
+
+    sendRequest():void{
+        this.http.get<{data:IComment[],has_next:boolean,pages:number}>("http://127.0.0.1:8000/api/comments/"+this.productId+`?page=${this.activePage}`)
         .subscribe(v=>{
-            this.comments = v.data;
+            this.comments.push(...v.data);
             this.isSentRequest = true;
-        })
+            this.hasNext=v.has_next;
+            this.num_pages = v.pages;
+        }) 
     }
 }

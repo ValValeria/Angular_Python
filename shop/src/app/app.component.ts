@@ -1,6 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { Http } from './Services/Http.service';
+import { IAuthResponse } from './Interfaces/Interfaces';
 import { User } from './Services/User.service';
 
 @Component({
@@ -11,34 +11,41 @@ import { User } from './Services/User.service';
 export class AppComponent {
   title = 'shop';
   
-  constructor(private http:Http,private user:User){}
+  constructor(private user:User){}
 
   ngOnInit():void{
-        let auth = localStorage.getItem('auth');
+        try{
+          let data = JSON.parse(localStorage.getItem('auth'));
+          let result:string = '';
 
-        if(!auth.length) return ;
+          for (const [key,value] of Object.entries(data)) {
+              result+=`${key}=${value}&`
+          }
 
-        let data = JSON.parse(auth)    
+          let http = new XMLHttpRequest();
 
-        let result:string = '';
+          http.responseType="json"
 
-        for (const [key,value] of Object.entries(data)) {
-            result+=`${key}=${value}&`
-        }
+          http.open("POST","http://127.0.0.1:8000/api/login")
+          
+          http.setRequestHeader('Content-Type', "application/x-www-form-urlencoded");
 
-        result = result.slice(0,-1);
+          http.send(result.slice(0,-1))
 
-        this.http.post<{status:string,id:number}>("http://127.0.0.1:8000/api/login",result,{
-            headers: new HttpHeaders({
-                "Content-Type":"application/x-www-form-urlencoded"
-            })
-        }).
-        subscribe(v=>{
-            if (v.status=="user"){
-                const data = JSON.parse(localStorage.getItem('auth'))
-                this.user.login(data)
-            }
-            console.log(v)
-          })
+          http.onload = ()=>{
+             if(http.status==200){
+                const response:IAuthResponse = http.response;
+                
+                if(response.status=="user"){
+                   this.user.login(data);
+                } else{
+                   throw new Error();
+                }            
+             }
+          }
+
+        } catch (e){
+          localStorage.removeItem("auth")
+        }   
   }
 }

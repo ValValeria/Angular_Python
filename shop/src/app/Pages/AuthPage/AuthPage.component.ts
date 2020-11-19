@@ -8,6 +8,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { User } from "src/app/Services/User.service";
 import { merge } from "rxjs";
+import { IAuthResponse } from "src/app/Interfaces/Interfaces";
 
 @Component({
     selector:"auth-page",
@@ -47,7 +48,6 @@ export class AuthPage{
             this.isValid = this.form.valid;
             if(this.form.valid && !this.isLogin){//signup page
                 this.isValid = this.email.valid;
-                console.log(this.isValid)
             } 
         })
     }
@@ -77,14 +77,14 @@ export class AuthPage{
 
         result = result.slice(0,-1);
  
-        this.http.post<{status:string,id:number}>("http://127.0.0.1:8000/api/"+url,result,{
+        this.http.post<IAuthResponse>("http://127.0.0.1:8000/api/"+url,result,{
             headers: new HttpHeaders({
                 "Content-Type":"application/x-www-form-urlencoded"
             })
         }).
         subscribe(v=>{
             if (v.status=="user"){
-                localStorage.setItem("auth",JSON.stringify(data))
+                localStorage.setItem("auth",JSON.stringify({...data}))
                 this.router.navigateByUrl("/profile")
                 this.user.login(data)
             } else{

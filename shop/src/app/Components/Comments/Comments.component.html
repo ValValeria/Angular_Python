@@ -3,6 +3,29 @@
         <div class="comments__headline text-center pt-4">
             Последние отзывы
         </div>
+        <div class="comments__form" *ngIf="user?.is_auth">
+            <mat-card class="w-100">
+                <mat-card-content>
+                   <mat-form-field appearance="outline" color="accent" class="w-100">
+                      <mat-label>Ваш комментарий</mat-label>
+                      <textarea matInput [(ngModel)]="message"></textarea>
+                    </mat-form-field>
+                </mat-card-content>
+                <mat-card-content>
+                    <mat-form-field appearance="outline" color="accent">
+                      <mat-label>Ваша оценка</mat-label>
+                      <mat-select on-selectionChange="rating=$event.value">
+                        <mat-option *ngFor="let star of [1,2,3,4,5]" [value]="star">
+                           {{star}}
+                       </mat-option>
+                      </mat-select>
+                    </mat-form-field>  
+                </mat-card-content>
+                <mat-card-content>
+                    <button mat-flat-button color="accent" on-click='click()'>Отправить</button>
+                </mat-card-content>
+            </mat-card>
+        </div>
         <div class="comments__items center flex-column">
             <div class="comments__item" *ngFor="let comment of comments">
                   <div class="card">
@@ -24,13 +47,17 @@
                   </div>
             </div>
             <div class="center w-100" *ngIf="!comments.length && !isSentRequest">
-                <mat-spinner class="bg-warn"></mat-spinner>
+                <mat-spinner class="bg-warn" style="background-color:white;"></mat-spinner>
             </div>
             <div class="card center w-100" *ngIf="!comments.length && isSentRequest">
                  <div class="card-body  wrap-md">
                      <p class="mb-0">Комментариев нет</p>
                  </div>
             </div>
+        </div>
+
+        <div class="comment__next-btn w-100 center" *ngIf="num_pages>1 && activePage<num_pages">
+           <button on-click="showMore()">Больше</button>
         </div>
     </div>
 </div>

@@ -1,7 +1,7 @@
 .comments__headline{
-    font-size: 20px;
-    padding-top: 1rem;
-    padding-bottom: 0.8rem;
+    font-size: 27px;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
     font-weight: 300;
     text-transform: uppercase;
 }
@@ -15,6 +15,36 @@
     margin:20px 0;
     position: relative;
     width:100%;
+}
+
+
+.comment__next-btn button {
+  margin-top: 1.7rem;
+  border: 1px solid #fe8200;
+  padding: 10px 25px;
+  width: 60%;
+  color: white;
+  font-weight: 500;
+  text-transform: uppercase;
+  background-color: #fe8200;
+  cursor: pointer;
+  max-width: 200px;
+  max-width: 150px !important;
+  transition: 1s backgrounds ease-in-out;
+}
+
+.comment__next-btn button:hover {
+  background-color: transparent;
+  color: #fe8200;
+}
+
+
+.comments__form mat-card-content{
+    margin:0;
+}
+
+.comments__form{
+    margin-top: 1.5rem;
 }
 
 .card-author{

@@ -20,6 +20,13 @@ export interface ProductsInfo{
     }
 }
 
+
+export interface IAuthResponse{
+    id:number;
+    errors:string[];
+    status:"user"
+}
+
 export interface IUser{
     username:string
     email:string

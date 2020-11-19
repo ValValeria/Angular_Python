@@ -20,5 +20,6 @@ class AuthenticateForm(forms.Form):
         return email
 
 class CommentForm(forms.Form):
-	  message = forms.CharField(max_length=300)
-	  post_id=forms.IntegerField()
+    rating = forms.IntegerField()
+    message = forms.CharField(max_length=300)
+    post_id=forms.IntegerField()

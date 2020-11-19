@@ -140,7 +140,7 @@ class LoginView(View):
 
       def post(self, *args, **kwargs):
           form = self.form(self.request.POST,True)    
-          if form.is_valid() and not self.request.user.is_authenticated: 
+          if form.is_valid(): 
               user = authenticate(username=form.cleaned_data['username'],password=form.cleaned_data['password'])
               if user is not None:
                   login(self.request,user)

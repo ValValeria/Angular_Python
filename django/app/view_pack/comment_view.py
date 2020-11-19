@@ -9,15 +9,13 @@ from django.views.generic import ListView;
 from json import loads;
 import datetime
 from django.shortcuts import get_object_or_404
-import sys;
 
 
 class Comment_View(UserPassesTestMixin,ListView,PermissionRequiredMixin):
       form = CommentForm
       response={"status":"","messages":[],"id":0}
       raise_exception = False
-      redirect_authenticated_user=True
-
+    
       def test_func(self):
           self.user = self.request.user;
           return self.user.is_authenticated;
@@ -35,7 +33,8 @@ class Comment_View(UserPassesTestMixin,ListView,PermissionRequiredMixin):
                       raise SyntaxError();
                   
                   post = post.first()
-                  comment = Comment.objects.create(sender=self.user,message=form.cleaned_data["message"],post=post,date=str(datetime.date.today()))         
+                  comment = Comment(sender=self.user,message=form.cleaned_data["message"],post=post,date=str(datetime.date.today()),rating=form.cleaned_data["rating"])         
+                  comment.save()
                   self.response["status"]="ok";
                   self.response["id"]=comment.id
               else:
@@ -49,7 +48,7 @@ class Comment_View(UserPassesTestMixin,ListView,PermissionRequiredMixin):
 
 
 class CommentList_View(ListView):
-       response={"data":[]}
+       response={"data":[],"has_next":False,"pages":0}
        per_page = 4
 
        def get(self,request,*args,**kw):
@@ -60,9 +59,13 @@ class CommentList_View(ListView):
            if comments.exists() and page_count.isdigit():
                page_count = int(page_count)
                paginator = Paginator(comments,self.per_page)
-               page = paginator.page(page_count)
-               obj = CommentSerializer(page,many=True)
-               self.response["data"]=obj.data;
+               
+               if page_count<= paginator.num_pages:
+                    page = paginator.page(page_count)
+                    obj = CommentSerializer(page,many=True)
+                    self.response["data"]=obj.data;
+                    self.response["pages"]=paginator.num_pages
+                    self.response["has_next"]=page.has_next()
 
            return JsonResponse(self.response,json_dumps_params={'ensure_ascii': False})
 

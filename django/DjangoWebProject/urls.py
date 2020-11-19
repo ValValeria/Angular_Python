@@ -15,7 +15,7 @@ urlpatterns = [
     re_path(r"^api/signup",SignUpView.as_view()),
     re_path(r"^api/login",LoginView.as_view()),
     re_path(r"^api/product/(?P<pk>\d+)",ProductView.as_view()),
-    re_path(r"^api/addcomment/",Comment_View.as_view()),
+    re_path(r"^api/addcomment$",Comment_View.as_view()),
     re_path(r"^api/sort/",ProductSort.as_view()),
     re_path(r"^api/addorder/",Order_View.as_view()),
     re_path(r"^api/deleteorder/",Delete_Order.as_view()),

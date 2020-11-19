@@ -12,7 +12,7 @@ export class Authenticate implements HttpInterceptor{
     Observable<HttpEvent<any>> {
        const req_auth = req.clone({
            headers:new HttpHeaders({
-               "auth":localStorage.getItem("auth")
+               "Auth":localStorage.getItem("auth")
            })
        })
        return next.handle(req_auth)

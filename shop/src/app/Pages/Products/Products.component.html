@@ -35,7 +35,7 @@
                                <div class="product__search-area">
                                     <div class="product__search-card">
                                           <h6>Категория</h6>
-                                          <mat-form-field  appearance="standard" class="w-100" >
+                                          <mat-form-field  appearance="outline" class="w-100"color="accent" >
                                                 <mat-label>Выбрать</mat-label>
                                                 <mat-select color="warn" on-selectionChange="getBrands($event)">
                                                      <mat-option value="" selected>Всё</mat-option>
@@ -46,7 +46,7 @@
 
                                     <div class="product__search-card">
                                           <h6>Бренд</h6>
-                                          <mat-form-field  appearance="standard" class="w-100">
+                                          <mat-form-field  appearance="outline" class="w-100" color="accent">
                                                 <mat-label>Выбрать</mat-label>
                                                 <mat-select color="warn" (selectionChange)="changeBrand($event)" >
                                                       <mat-option value="" selected>Всё</mat-option>
