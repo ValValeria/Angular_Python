@@ -16,7 +16,7 @@ class CorsMiddleware():
     
 
     def process_view(self,request, view_func, *view_args, **view_kwargs):
-        auth_str = request.headers.get("Auth");
+        auth_str = request.headers.get("Auth","{}");
 
         try:
            auth = loads(auth_str)

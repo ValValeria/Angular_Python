@@ -1,0 +1,32 @@
+<section class="admin section center"*ngIf="user.is_auth">
+    <div class="admin__wrap wrap-md-pd first-slide" >
+          <div class="admin__dashboard">
+              <h5 class="text-left">Ваш профиль</h5>
+              <div class="admin__profile-info">
+                  <mat-card>
+                      <mat-card-content class="admin__profile-text">
+                          <span>Имя пользователя:</span>
+                          <span>{{user.username}}</span>
+                      </mat-card-content>
+                      <mat-card-content class="admin__profile-text">
+                          <span>Пароль:</span>
+                          <span>{{user.password}}</span>
+                      </mat-card-content>
+                      <mat-card-content class="admin__profile-text">
+                          <span>В вашей корзине:</span>
+                          <span>0 товаров</span>
+                      </mat-card-content>
+                      <mat-card-content class="admin__profile-avatar">
+                          <a href="#" mat-raised-button class="admin__profile-img">
+                              <div class="image-container"><img src="/assets/profile.webp" alt="Profile image"></div>
+                          </a>
+                      </mat-card-content>
+                  </mat-card>
+              </div>
+          </div>
+    </div>
+</section>
+
+<section class="section center" *ngIf="!user.is_auth">
+    <mat-spinner color="accent"></mat-spinner>
+</section>

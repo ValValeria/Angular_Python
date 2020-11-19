@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomePage } from './Pages/HomePage/HomePage.component';
 import { CommonModule } from '@angular/common';
 import { Products } from './Pages/Products/Products.component';
+import {MatDividerModule} from '@angular/material/divider';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ErrorImageLoading } from './Components/ErrorImageLoading/ErrorImageLoading.component';
 import {MatCardModule} from '@angular/material/card';
@@ -19,6 +20,7 @@ import { Charactarictics } from './Components/Charactarictics/Charactarictics.co
 import { Comments } from './Components/Comments/Comments.component';
 import { AuthPage } from './Pages/AuthPage/AuthPage.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { AdminPage } from './Pages/AdminPage/AdminPage.component';
 
 
 const routes: Routes = [
@@ -26,6 +28,7 @@ const routes: Routes = [
   {path:"products",component:Products},
   {path:"product/:id",component:Product},
   {path:"authenticate",component:AuthPage},
+  {path:"profile",component:AdminPage},
   {path:"**",redirectTo:"/",pathMatch:"full"}
 ];
 
@@ -40,7 +43,8 @@ const modules = [MatButtonModule,
                  MatInputModule,
                  MatSelectModule,
                  MatExpansionModule,
-                 MatSnackBarModule
+                 MatSnackBarModule,
+                 MatDividerModule
                 ];
 
 @NgModule({
@@ -52,7 +56,8 @@ const modules = [MatButtonModule,
                 Product,
                 Charactarictics,
                 Comments,
-                AuthPage
+                AuthPage,
+                AdminPage
                 ],
   exports: [RouterModule,...modules]
 })
