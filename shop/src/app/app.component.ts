@@ -43,7 +43,6 @@ export class AppComponent {
                 }            
              }
           }
-
         } catch (e){
           localStorage.removeItem("auth")
         }   

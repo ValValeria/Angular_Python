@@ -1,19 +1,23 @@
-import { Component } from "@angular/core";
-import { Http } from "src/app/Services/Http.service";
-import { User } from "src/app/Services/User.service";
+import { Component, OnInit } from '@angular/core';
+import { Http } from 'src/app/Services/Http.service';
+import { User } from 'src/app/Services/User.service';
 import { Router } from '@angular/router';
+import { $ORDER_COUNT } from 'src/app/Components/OrderList/OrderList.component';
+
 
 @Component({
-    selector:"admin",
-    templateUrl:"./AdminPage.component.html",
-    styleUrls:['./AdminPage.component.scss']
+    selector: 'app-admin',
+    templateUrl: './AdminPage.component.html',
+    styleUrls: ['./AdminPage.component.scss']
 })
-export class AdminPage{
-    constructor(private http:Http,public user:User,public router:Router){}
+export class AdminPage implements OnInit{
+    orderCount = 0;
 
-    ngOnInit():void{
-         /*if(!this.user.is_auth){
-             this.router.navigateByUrl("/")
-         }*/
+    constructor(private http: Http, public user: User, public router: Router){}
+
+    ngOnInit(): void{
+         $ORDER_COUNT.subscribe(v => {
+             this.orderCount = v || 0;
+         });
     }
 }

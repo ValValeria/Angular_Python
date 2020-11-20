@@ -13,7 +13,8 @@ class Get_Order(LoginRequiredMixin,ListView):
       def get(self, request, *args, **kwargs):
           user=request.user;
           orders=user.order_set.annotate(amount_of_orders=Sum("product")).all();
-          return JsonResponse(list(orders.values()), safe=False, json_dumps_params={'ensure_ascii': False})
+          self.response["data"].extend(list(orders.values()))
+          return JsonResponse(self.response,json_dumps_params={'ensure_ascii': False})
 
 
 

@@ -68,11 +68,14 @@ admin.site.unregister(User)
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-     list_display=("email","username","the_amount_of_orders","likes","role","last_join");
+     list_display=("email","nickname","the_amount_of_orders","likes","role","last_join","id");
      inlines=[OrderInstanceInline]
      empty_value_display="unknown"
      search_fields=("username","email")
      list_per_page=10
+
+     def nickname(self,obj):
+         return format_html('<a href={}>{}</a>',"/admin/auth/user/{}/change/".format(obj.id),obj.username);
 
      def the_amount_of_orders(self,obj):
           return obj.order_set.all().count()

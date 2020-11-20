@@ -14,7 +14,7 @@
                       </mat-card-content>
                       <mat-card-content class="admin__profile-text">
                           <span>В вашей корзине:</span>
-                          <span>0 товаров</span>
+                          <span> {{orderCount}}</span>
                       </mat-card-content>
                       <mat-card-content class="admin__profile-avatar">
                           <a href="#" mat-raised-button class="admin__profile-img">
@@ -28,7 +28,7 @@
                      <mat-card-content>
                          <mat-tab-group color="accent" mat-align-tabs="center">
                              <mat-tab label="Корзина">
-                                <order-list></order-list>
+                                <app-list></app-list>
                             </mat-tab>
                             <mat-tab label="Понравившиеся товары">
 
