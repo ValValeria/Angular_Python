@@ -15,7 +15,6 @@ class OrderInstanceInline(admin.StackedInline):
     max_num = 1
 
 
-
 class AvatarInstanceInline(admin.TabularInline):
     model = Avatar
 
@@ -28,11 +27,14 @@ class ProductImagesInstanceInline(admin.TabularInline):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-     list_display=("id","title_of_product","price","count","category","comments","ordered","likes","link")
+     list_display=("ID","title_of_product","price","count","category","comments","ordered","likes","link")
      inlines=[ProductImagesInstanceInline,CommentInstanceInline]
      empty_value_display="-"
      search_fields=("title","category","brand")
      list_per_page = 10
+
+     def ID(self,obj):
+         return format_html('<a href={} class="btn-link">{}</a>',"/admin/app/product/{}/change/".format(obj.id),obj.id);   
 
      def likes(self,obj):
          return obj.favorite_set.all().count()
@@ -60,12 +62,12 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-     list_display=("id","sender","message","product_title","product_image");
+     list_display=("ID","sender","message","product_title","product_image",);
      list_filter=("date",)
      empty_value_display="-"
      list_per_page = 10
      raw_id_fields=("post",)
-     list_display_links=("message","id")
+     list_display_links=("message",)
 
      def product_title(self,obj):
          return format_html('<a href={}>{}</a>',"/admin/app/product/{}/change/".format(obj.post.id),obj.post.title);
@@ -76,6 +78,9 @@ class CommentAdmin(admin.ModelAdmin):
      def product_image(self,obj):
          url = obj.post.image.url;
          return format_html('<div class="user-avatar product-avatar"><img src="{}" alt="..."/></div>',url)
+     
+     def ID(self,obj):
+         return format_html('<a href={} class="btn-link">{}</a>',"/admin/app/comment/{}/change/".format(obj.id),obj.id);   
 
 
 
@@ -84,12 +89,14 @@ admin.site.unregister(User)
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-     list_display=("id","photo","nickname","the_amount_of_orders","likes","role","last_join");
+     list_display=("ID","photo","nickname","the_amount_of_orders","likes","role","last_join");
      empty_value_display="-"
      search_fields=("username","email")
      list_per_page=10
      inlines = [AvatarInstanceInline,OrderInstanceInline]
 
+     def ID(self,obj):
+         return format_html('<a href={} class="btn-link">{}</a>',"/admin/app/user/{}/change/".format(obj.id),obj.id);   
 
      def nickname(self,obj):
          return format_html('<a href={}>{}</a>',"/admin/auth/user/{}/change/".format(obj.id),obj.username);

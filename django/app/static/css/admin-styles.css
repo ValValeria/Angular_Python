@@ -76,13 +76,13 @@ a:link, a:visited {
     color: white;
     text-transform: uppercase;
     padding: 10px 0;
+    text-decoration: none;
 }
 
 .toggle-nav-sidebar {
     background: #D5D5D5;
     border: none;
 }
-
 
 .module caption a, .inline-group h2 a{
     color: #2F3538 !important;
