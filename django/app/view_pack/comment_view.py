@@ -31,7 +31,13 @@ class Comment_View(UserPassesTestMixin,ListView,PermissionRequiredMixin):
                   if not post.exists():
                       self.response["messages"].append("Invalid post_id")
                       raise SyntaxError();
-                  
+
+                  comment_exists = Comment.objects.filter(sender__username=request.user.username).exists()
+
+                  if comment_exists:
+                      self.response["messages"].append("You have already written the comment on this product")
+                      raise Exception();
+
                   post = post.first()
                   comment = Comment(sender=self.user,message=form.cleaned_data["message"],post=post,date=str(datetime.date.today()),rating=form.cleaned_data["rating"])         
                   comment.save()
@@ -42,8 +48,7 @@ class Comment_View(UserPassesTestMixin,ListView,PermissionRequiredMixin):
 
           except Exception as ex: 
               print(ex.__class__);
-              print(ex)
-
+              
           return JsonResponse(self.response);
 
 

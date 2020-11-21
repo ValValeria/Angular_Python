@@ -10,8 +10,11 @@ from django.dispatch import receiver
 URL = "http://localhost:4200/"
 
 
-class OrderInstanceInline(admin.TabularInline):
+class OrderInstanceInline(admin.StackedInline):
     model = Order
+    max_num = 1
+
+
 
 class AvatarInstanceInline(admin.TabularInline):
     model = Avatar
@@ -23,7 +26,6 @@ class ProductImagesInstanceInline(admin.TabularInline):
     model = ProductImages
 
 
-
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
      list_display=("id","title_of_product","price","count","category","comments","ordered","likes","link")
@@ -31,7 +33,6 @@ class ProductAdmin(admin.ModelAdmin):
      empty_value_display="-"
      search_fields=("title","category","brand")
      list_per_page = 10
-     
 
      def likes(self,obj):
          return obj.favorite_set.all().count()
@@ -59,16 +60,22 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-     list_display=("sender","message","product",);
+     list_display=("id","sender","message","product_title","product_image");
      list_filter=("date",)
      empty_value_display="-"
      list_per_page = 10
+     raw_id_fields=("post",)
+     list_display_links=("message","id")
 
-     def product(self,obj):
+     def product_title(self,obj):
          return format_html('<a href={}>{}</a>',"/admin/app/product/{}/change/".format(obj.post.id),obj.post.title);
 
      def message(self,obj):
          return obj.message[:30]
+    
+     def product_image(self,obj):
+         url = obj.post.image.url;
+         return format_html('<div class="user-avatar product-avatar"><img src="{}" alt="..."/></div>',url)
 
 
 
@@ -82,6 +89,7 @@ class UserAdmin(admin.ModelAdmin):
      search_fields=("username","email")
      list_per_page=10
      inlines = [AvatarInstanceInline,OrderInstanceInline]
+
 
      def nickname(self,obj):
          return format_html('<a href={}>{}</a>',"/admin/auth/user/{}/change/".format(obj.id),obj.username);
