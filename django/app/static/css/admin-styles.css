@@ -1,0 +1,76 @@
+.btn-link{
+    background: #F6522E;
+    padding: 5px 10px;
+    text-align: center;
+    color: white !important;
+    border-radius: 15px;
+    margin: 5px !important;
+}
+
+table thead th .text span {
+    text-align: center;
+}
+
+#header {
+    background-color: #F6522E !important;
+}
+
+div.breadcrumbs {
+    background: #414042
+}
+
+#nav-sidebar{
+    margin-top:1rem;
+}
+
+#toolbar form input[type="submit"]{
+    color: white;
+    background-color: #F6522E;
+    border: none;
+    padding: 8px 15px;
+    text-transform: lowercase;
+}
+
+.object-tools a.addlink{
+    background-color: #D7E1E9;
+    color: #231F20;
+}
+
+.user-avatar{
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.user-avatar img{
+    object-fit: contain;
+    object-fit: cover;
+    width: 100%;
+}
+
+.module caption, .inline-group h2 {
+    background-color:#DAE4E5;
+    text-align: center;
+    color: #2F3538;
+}
+
+#branding h1, #branding h1 a:link, #branding h1 a:visited {
+    color: white;
+    text-transform: uppercase;
+    padding: 10px 0;
+}
+
+.toggle-nav-sidebar {
+    background: #D5D5D5;
+    border: none;
+}
+
+.module {
+    margin-left: 10px;
+}
+
+.module caption a, .inline-group h2 a{
+    color: #2F3538 !important;
+    font-weight: 500 !important;
+}

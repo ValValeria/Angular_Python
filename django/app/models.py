@@ -19,11 +19,16 @@ class Product(models.Model):
           	return self.title;
     
 
+class ProductImages(models.Model):
+    ex_photo = models.FileField(help_text="Additional image",upload_to="app/static/images")
+    product = models.ForeignKey(Product,on_delete=models.CASCADE)
+
+
 class Order(models.Model):
 	  user = models.ForeignKey(User,on_delete=models.CASCADE)
 	  product = models.ForeignKey(Product,on_delete=models.CASCADE)
 	  count = models.IntegerField(default=1)
-	  status = models.CharField(choices=[(1,"Куплено"),(0,"Не куплено")],default="Не куплено",max_length=20)
+	  status = models.IntegerField(choices=[(1,"Куплено"),(0,"Не куплено")],default=0)
 
 	  def __str__(self):
     	    return self.product.title
@@ -36,9 +41,18 @@ class Comment(models.Model):
 	  post=models.ForeignKey(Product,on_delete=models.CASCADE) 
 	  rating = models.IntegerField(default=5,choices=[(1,1),(2,2),(3,3),(4,4),(5,5)])
 
+
 class Favorite(models.Model):
     product = models.ForeignKey(Product,on_delete=models.CASCADE)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
 
+
+class Avatar(models.Model):
+   photo = models.FileField(upload_to="app/static/avatars")
+   user = models.OneToOneField(User,on_delete=models.CASCADE)
+
+
 #python manage.py makemigrations
 #python manage.py migrate
+
+## user - https://docs.djangoproject.com/en/3.1/topics/auth/customizing/

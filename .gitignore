@@ -6,6 +6,9 @@ dist
 /bazel-out
 .txt
 
+static/avatars
+static/images
+
 node_modules
 
 migrations

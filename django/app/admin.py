@@ -1,4 +1,4 @@
-from .models import Favorite, Product,Comment,Order
+from .models import  Avatar, Product,Comment,Order, ProductImages
 from django.contrib import admin
 from django.utils.html import format_html
 from django.contrib.auth.models import User
@@ -7,23 +7,31 @@ from django.db.models.signals import pre_delete;
 from django.dispatch import receiver
 
 
+URL = "http://localhost:4200/"
+
 
 class OrderInstanceInline(admin.TabularInline):
     model = Order
 
+class AvatarInstanceInline(admin.TabularInline):
+    model = Avatar
 
 class CommentInstanceInline(admin.TabularInline):
     model = Comment
 
+class ProductImagesInstanceInline(admin.TabularInline):
+    model = ProductImages
+
+
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-     list_display=("id","title_of_product","price","count","category","comments","ordered","people_who_bought_it","likes")
-     list_filter=("price","count")
-     inlines=[CommentInstanceInline]
+     list_display=("id","title_of_product","price","count","category","comments","ordered","likes","link")
+     inlines=[ProductImagesInstanceInline,CommentInstanceInline]
      empty_value_display="-"
      search_fields=("title","category","brand")
      list_per_page = 10
+     
 
      def likes(self,obj):
          return obj.favorite_set.all().count()
@@ -35,16 +43,17 @@ class ProductAdmin(admin.ModelAdmin):
          return format_html('<a href={}>{}</a>',"/admin/app/product/{}/change/".format(obj.id),obj.title);
 
      def ordered(self,obj):
-         count = Order.objects.filter(product__id=obj.id).aggregate(sum=Sum("count"))
+         count = Order.objects.filter(product__id=obj.id).filter(product__status=0).aggregate(sum=Sum("count"))
          return count.get("sum");
-
-     def people_who_bought_it(self,obj):
-         users = obj.order_set.filter().aggregate(count=Count("user"))
-         return users.get("count",0)
 
      def get_queryset(self, request):
          return super().get_queryset(request).order_by("id")
-
+     
+     def view_on_site(self,obj):
+         return URL+"product/{}".format(obj.id)
+     
+     def link(self,obj):
+         return format_html('<a href={} class="btn-link">Read</a>',self.view_on_site(obj));
 
 
 
@@ -68,23 +77,34 @@ admin.site.unregister(User)
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-     list_display=("email","nickname","the_amount_of_orders","likes","role","last_join","id");
-     inlines=[OrderInstanceInline]
-     empty_value_display="unknown"
+     list_display=("id","photo","nickname","the_amount_of_orders","likes","role","last_join");
+     empty_value_display="-"
      search_fields=("username","email")
      list_per_page=10
+     inlines = [AvatarInstanceInline,OrderInstanceInline]
 
      def nickname(self,obj):
          return format_html('<a href={}>{}</a>',"/admin/auth/user/{}/change/".format(obj.id),obj.username);
 
+     def photo(self,obj):
+         url = obj.avatar.photo.url
+
+         if not url:
+             url = "http://127.0.0.1:8000/app/static/avatars/blank.jpg"
+
+         return format_html('<div class="user-avatar"><img src="{}" alt="..."/></div>',url)
+
      def the_amount_of_orders(self,obj):
-          return obj.order_set.all().count()
+          return obj.order_set.all().aggregate(sum=Sum("count")).get("sum",0)
      
      def likes(self,obj):
          return obj.favorite_set.all().count();
      
      def role(self,obj):
          return "admin" if obj.is_staff else "user";    
+    
+     def get_queryset(self, request):
+         return super().get_queryset(request).order_by("id")
      
      def last_join(self,obj):
          return  obj.last_login

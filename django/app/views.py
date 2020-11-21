@@ -1,3 +1,6 @@
+import os
+
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .serializers.post_serializer import PostSerializer
 from django.http.response import  Http404, HttpResponseBadRequest, HttpResponseForbidden
 from django.views.generic import ListView,View;
@@ -11,6 +14,7 @@ from django.db.models import Max,Min
 from django.core.paginator import Paginator
 from .view_pack.likes_view import ProductLikesShow,ProductLikes;
 from django.db.models import Q
+from django.core.files import File
 
 
 class ProductsView(ListView):
@@ -24,8 +28,8 @@ class ProductsView(ListView):
                count = int(count)
 
                if count<=paginator.num_pages:
-                  page = paginator.page(count)
-                  self.response["data"]=PostSerializer(page,many = True).data
+                  page = paginator.page(count);
+                  self.response["data"]=PostSerializer(page.object_list,many = True).data
                   self.response["has_next"]=page.has_next();
 
                return JsonResponse(self.response, json_dumps_params={'ensure_ascii': False})
@@ -65,10 +69,18 @@ class ProductInfoBrands(ListView):
 class ProductView(ListView):
 
       def get(self, request, *args, **kwargs):
-          product = Product.objects.filter(id__contains=kwargs["pk"]);
+          product = Product.objects.filter(id__contains=kwargs["pk"]).first();
  
-          if product.exists():
-              return JsonResponse(product.values()[0], json_dumps_params={'ensure_ascii': False})
+          if product:
+              images = []
+              product_serialized = PostSerializer(product).data 
+
+              for obj in product.productimages_set.all():
+                   images.append(obj.ex_photo.url);
+
+              product_serialized.update({"ex_photoes":images})
+
+              return JsonResponse({"data":product_serialized}, json_dumps_params={'ensure_ascii': False})
           else :
               return HttpResponseForbidden()
 
@@ -153,9 +165,36 @@ class LoginView(View):
 
 
 
+class ChangeAvatar(LoginRequiredMixin,View):
+      redirect_authenticated_user=True
+      response={"errors":[],"data":{},"status":""}
+      
+      def post(self,request,*args,**kw):
+          user = request.user;
+          file = request.FILES.get('avatar')
+          
+          if file:
+              if "image/" in file.content_type:
+                  user.avatar.photo = file;
+                  user.save();
+                  self.response["status"]=200
+              else:
+                  self.response["errors"]
+
+              return JsonResponse(self.response)
+          else:
+              return Http404();
+
+
 class SignUpView(View):
       form = AuthenticateForm;
       response = {}
+
+      def setAvatar(self,user):
+          with open(os.path.abspath("./static/avatars/blank.jpg"),"r") as f:
+              file = File(f);
+              user.photo = file;
+              user.save()
 
       def post(self,request, *args, **kwargs):
           form = self.form(self.request.POST,True)    
@@ -163,6 +202,7 @@ class SignUpView(View):
               user = User.objects.filter(username=form.cleaned_data['username']).first()
               if not user:
                      user = User.objects.create_user(username=form.cleaned_data['username'],email=form.cleaned_data['email'],password=form.cleaned_data['password'])
+                     self.setAvatar(user);
               self.response['status']="user";
               self.response["id"]=user.id
           else:

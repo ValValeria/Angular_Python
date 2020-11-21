@@ -2,5 +2,4 @@
   * the ability to add many images for product
   * avatar 
 
-# Angular
-  * bugs with login, after reloading the page
+

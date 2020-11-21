@@ -1,3 +1,4 @@
+from ..serializers.user_serializer import UserSerializer
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.aggregates import Sum
 from django.http.response import Http404, JsonResponse
@@ -12,8 +13,28 @@ class Get_Order(LoginRequiredMixin,ListView):
 
       def get(self, request, *args, **kwargs):
           user=request.user;
-          orders=user.order_set.annotate(amount_of_orders=Sum("product")).all();
-          self.response["data"].extend(list(orders.values()))
+          orders=user.order_set.all();
+          orders_sum = user.order_set.aggregate(amount_of_orders=Sum("count"));
+          sum_products = user.order_set.aggregate(amount_of_orders=Sum("product"));
+          data = {"active":[],"unactive":[]}
+       
+          for order in orders:
+
+              obj = {"title":order.product.title,
+                    "price":order.product.price,
+                    "id":order.product.id,
+                    "count":order.count,
+                    "status":order.status,
+                    }
+              
+              if  not order.status:
+                  data["active"].append(obj)
+              else:
+                  data["unactive"].append(obj)
+
+          self.response["data"]=data;
+          self.response["amount_of_orders"] = orders_sum.get("amount_of_orders")
+          self.response["amount_of_products"] = sum_products.get("amount_of_orders")
           return JsonResponse(self.response,json_dumps_params={'ensure_ascii': False})
 
 

@@ -30,14 +30,14 @@ ALLOWED_HOSTS = []
 # Application references
 # https://docs.djangoproject.com/en/2.1/ref/settings/#std:setting-INSTALLED_APPS
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+     'app',
+    'django.contrib.admin',
     'corsheaders',
     'django.contrib.staticfiles',
-    'app',
     'rest_framework',
 ]
 
@@ -63,7 +63,6 @@ ROOT_URLCONF = 'DjangoWebProject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -73,6 +72,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
         },
+       'DIRS': [os.path.join(BASE_DIR, 'templates')]
     },
 ]
 

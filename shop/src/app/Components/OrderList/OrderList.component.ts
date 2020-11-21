@@ -18,10 +18,10 @@ export class OrderList implements OnInit{
     constructor(private http: Http, private user: User){}
 
     ngOnInit(): void{
-        this.http.get<{data: IAd[]}>('http://127.0.0.1:8000/api/get-orders/')
+        this.http.get<{ data: {active: IAd[], unactive: IAd[]}, amount_of_orders: number, amount_of_products: number}>('http://127.0.0.1:8000/api/get-orders/')
         .subscribe(v => {
-            console.log(v);
-            $ORDER_COUNT.next(v.data.length)
+            this.activeOrders = v.data.active;
+            $ORDER_COUNT.next(v.amount_of_orders);
         });
     }
 }
