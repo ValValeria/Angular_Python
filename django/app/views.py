@@ -158,6 +158,8 @@ class LoginView(View):
                   login(self.request,user)
                   self.response["status"]="user"
                   self.response["id"]=user.id
+              else:
+                  self.response["status"]="guest"
           else:
               self.response['errors']=["Invalid data"]
 
@@ -191,7 +193,7 @@ class SignUpView(View):
       response = {}
 
       def setAvatar(self,user):
-          with open(os.path.abspath("./static/avatars/blank.jpg"),"r") as f:
+          with open(os.path.abspath("./app/static/avatars/blank.jpg"),"r") as f:
               file = File(f);
               user.photo = file;
               user.save()

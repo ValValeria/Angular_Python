@@ -3,12 +3,13 @@ import { FormControl, ValidatorFn, Validators } from "@angular/forms";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { auditTime } from "rxjs/operators";
 import { Http } from '../../Services/Http.service';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { User } from "src/app/Services/User.service";
 import { merge } from "rxjs";
 import { IAuthResponse } from "src/app/Interfaces/Interfaces";
+import { AuthenticateClass } from 'src/app/Classes/Authenticate';
 
 @Component({
     selector:"auth-page",
@@ -52,55 +53,39 @@ export class AuthPage{
         })
     }
 
-    click(bool:boolean):void{
+    click(bool: boolean): void{
         this.isLogin = bool;
         this.showStatus = false;
     }
 
-    submit($event):void{
-      $event.preventDefault();  
+    submit($event): void{
+      $event.preventDefault();
 
-      if(this.isValid){
-        const url = this.isLogin ? "login":"signup";
+      if (this.isValid){
 
-        const data = {...this.form.value}
+        const data: {[prop: string]: string} = {...this.form.value};
 
-        if(this.isLogin){
-            Object.assign(data,{email:this.email.value})
+        if (this.isLogin){
+            Object.assign(data, {email: this.email.value});
         }
 
-        let result:string = '';
+        localStorage.setItem("auth", JSON.stringify(data));
 
-        for (const [key,value] of Object.entries(data)) {
-            result+=`${key}=${value}&`
-        }
-
-        result = result.slice(0,-1);
- 
-        this.http.post<IAuthResponse>("http://127.0.0.1:8000/api/"+url,result,{
-            headers: new HttpHeaders({
-                "Content-Type":"application/x-www-form-urlencoded"
-            })
-        }).
-        subscribe(v=>{
-            if (v.status=="user"){
-                localStorage.setItem("auth",JSON.stringify({...data}))
-                this.router.navigateByUrl("/profile")
-                this.user.login(data)
-            } else{
-                if(this.isLogin){
-                   this.showStatus = true;
-                } else{
-                    this._snackBar.open(this.message, "Close", {
-                        duration: 10000,
-                    });
+        (new AuthenticateClass()).authenticate(this.user, this.isLogin)
+        .then(isSuccess => {
+            if (isSuccess) {
+                localStorage.setItem("auth", JSON.stringify({ ...data }));
+                this.router.navigateByUrl("/profile");
+                this.user.login(data);
+            } else {
+                if (this.isLogin) {
+                    this.showStatus = true;
                 }
+                localStorage.removeItem('auth');
             }
-            console.log(v)
-        },(error)=>{
-            this._snackBar.open(this.message, "Close", {
-                        duration: 10000,
-            });
+        })
+        .catch(v => {
+            localStorage.removeItem("auth");
         })
       }
     }

@@ -1,5 +1,7 @@
-import { AfterViewInit } from '@angular/core';
+import { AfterViewInit, ViewContainerRef } from '@angular/core';
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Router, RouterEvent, RoutesRecognized } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { User } from 'src/app/Services/User.service';
 
 @Component({
@@ -9,18 +11,32 @@ import { User } from 'src/app/Services/User.service';
 export class Header implements AfterViewInit{
     @ViewChild('headerlinks',{read:ElementRef}) links:ElementRef;
     
-    constructor(public user:User){}
+    constructor(public user:User, private router: Router, private header:ViewContainerRef){}
 
     ngAfterViewInit(): void {
-        const elem:HTMLUListElement = this.links.nativeElement;
+        const elem: HTMLUListElement = this.links.nativeElement;
 
-        window.onresize = window.onload = ()=>{
-             if(window.innerWidth>770){
-                 elem.classList.remove('none')
+        const toggleClass = () => {
+                if (window.innerWidth > 770) {
+                    elem.classList.remove('none');
+                } else {
+                    elem.classList.add('none');
+                }
+        };
+
+        window.onresize = toggleClass;
+
+        this.router.events.pipe(filter(v => v instanceof RoutesRecognized)).subscribe((v:RouterEvent) => {
+             const url = v.url;
+             const header: HTMLElement = this.header.element.nativeElement.querySelector("header");
+             toggleClass();
+
+             if (url.includes("/profile")){
+                 header.classList.add("bg-dark")
              } else{
-                 elem.classList.add('none')   
+                 header.classList.remove("bg-dark");
              }
-        }
+        });
     }
 
     toggleHeader():void{

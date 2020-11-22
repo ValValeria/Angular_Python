@@ -1,46 +1,61 @@
-<section class="admin section center first-slide"*ngIf="user.is_auth">
-    <div class="admin__wrap wrap-md-pd " >
-          <div class="admin__dashboard">
-              <h5 class="text-left">Ваш профиль</h5>
-              <div class="admin__profile-info">
-                  <mat-card>
-                      <mat-card-content class="admin__profile-text">
-                          <span>Имя пользователя:</span>
-                          <span >{{user.username}}</span>
-                      </mat-card-content>
-                      <mat-card-content class="admin__profile-text">
-                          <span>Пароль:</span>
-                          <span>{{user.password}}</span>
-                      </mat-card-content>
-                      <mat-card-content class="admin__profile-text">
-                          <span>В вашей корзине:</span>
-                          <span> {{orderCount}}</span>
-                      </mat-card-content>
-                      <mat-card-content class="admin__profile-avatar">
-                          <a href="#" mat-raised-button class="admin__profile-img">
-                              <div class="image-container"><img src="/assets/profile.webp" alt="Profile image"></div>
-                          </a>
-                      </mat-card-content>
-                  </mat-card>
-              </div>
-              <div class="admin__options">
-                 <mat-card>
-                     <mat-card-content>
-                         <mat-tab-group color="accent" mat-align-tabs="center">
-                             <mat-tab label="Корзина">
-                                <app-list></app-list>
-                            </mat-tab>
-                            <mat-tab label="Понравившиеся товары">
-
-                            </mat-tab>
-                            <mat-tab label="Купленные товары">
-
-                            </mat-tab>
-                         </mat-tab-group>
-                     </mat-card-content>
-                 </mat-card>
-              </div>
-          </div>
+<section class="admin section first-slide "*ngIf="user.is_auth">
+    <div class="admin__wrap" >
+         <div class="admin__content  center align-items-start">
+            <div class="admin__dashboard">
+                <div class="wrap-md">
+                        <h5 class="admin__headline text-left">Ваш профиль</h5>
+                        <div class="admin__profile-info">
+                            <mat-card>
+                                <mat-card-content>
+                                    <mat-card-content class="admin__profile-text">
+                                        <span>Имя пользователя:</span>
+                                        <span>{{user.username}}</span>
+                                    </mat-card-content>
+                                    <mat-card-content class="admin__profile-text">
+                                        <span>Пароль:</span>
+                                        <span>{{user.password}}</span>
+                                    </mat-card-content>
+                                </mat-card-content>
+                                <mat-card-content class="admin__profile-avatar">
+                                    <a href="#" mat-raised-button class="admin__profile-img">
+                                        <div class="image-container"><img src="/assets/profile.webp" alt="Profile image"></div>
+                                    </a>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                        <div class="admin__profile-charts">
+                        
+                        </div>
+                </div>
+            </div>
+            <div class="admin__items">
+                 <div class="wrap-md">
+                    <div class="admin__order-list">
+                        <mat-card>
+                            <mat-card-content>
+                                <mat-tab-group color="accent" mat-align-tabs="center">
+                                    <mat-tab label="Корзина">
+                                        <app-list></app-list>
+                                    </mat-tab>
+                                    <mat-tab label="Купленные товары">
+                    
+                                    </mat-tab>
+                                </mat-tab-group>
+                            </mat-card-content>
+                        </mat-card>
+                        <mat-card>
+                            <mat-card-content>
+                                <mat-tab-group color="accent" mat-align-tabs="center">
+                                    <mat-tab label="Понравившиеся">
+                    
+                                    </mat-tab>
+                                </mat-tab-group>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                 </div>
+            </div>
+         </div>
     </div>
 </section>
 

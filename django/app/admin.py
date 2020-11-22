@@ -96,7 +96,7 @@ class UserAdmin(admin.ModelAdmin):
      inlines = [AvatarInstanceInline,OrderInstanceInline]
 
      def ID(self,obj):
-         return format_html('<a href={} class="btn-link">{}</a>',"/admin/app/user/{}/change/".format(obj.id),obj.id);   
+         return format_html('<a href={} class="btn-link">{}</a>',"/admin/auth/user/{}/change/".format(obj.id),obj.id);   
 
      def nickname(self,obj):
          return format_html('<a href={}>{}</a>',"/admin/auth/user/{}/change/".format(obj.id),obj.username);
