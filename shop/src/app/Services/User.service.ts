@@ -10,13 +10,17 @@ export class User implements IUser{
     password: string;
     is_auth: boolean;
     activeOrders: IAd[] = [];
+    avatar:string;
     unactiveOrders: IAd[] = [];
+    id:number;
 
     login(data: Partial<IUser>): void{
         this.username = data.username ;
         this.email = data.email;
         this.password = data.password;
         this.is_auth = true;
+        this.avatar = data.avatar;
+        this.id = data.id;
     }
 
     addActiveProducts(product: IAd[]): void{

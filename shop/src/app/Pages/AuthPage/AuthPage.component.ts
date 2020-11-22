@@ -73,10 +73,8 @@ export class AuthPage{
 
         (new AuthenticateClass()).authenticate(this.user, this.isLogin)
         .then(isSuccess => {
-            if (isSuccess) {
-                localStorage.setItem("auth", JSON.stringify({ ...data }));
+            if (this.user.is_auth) {
                 this.router.navigateByUrl("/profile");
-                this.user.login(data);
             } else {
                 if (this.isLogin) {
                     this.showStatus = true;
@@ -86,6 +84,7 @@ export class AuthPage{
         })
         .catch(v => {
             localStorage.removeItem("auth");
+            this.showStatus = true;
         })
       }
     }

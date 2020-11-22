@@ -9,7 +9,6 @@ from django.contrib.auth.models import User
 
 class Get_Order(LoginRequiredMixin,ListView):
       response = {"data":[]}
-      redirect_authenticated_user=True
 
       def get(self, request, *args, **kwargs):
           user=request.user;

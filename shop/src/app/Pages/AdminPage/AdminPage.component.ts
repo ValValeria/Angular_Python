@@ -7,6 +7,8 @@ import { MultiDataSet } from 'ng2-charts';
 import { $ORDER_COUNT } from 'src/app/Components/OrderList/OrderList.component';
 import {uniq} from 'lodash'
 import { IAd } from 'src/app/Interfaces/Interfaces';
+import { interval } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 
 @Component({
@@ -26,6 +28,15 @@ export class AdminPage implements  AfterViewInit{
         window.onload = () => {
            document.querySelector("header").classList.add("bg-dark");
         };
+
+        interval(1000)
+        .pipe(
+            take(3)
+        ).subscribe((_v)=>{
+            if(!this.user.is_auth){
+                this.router.navigateByUrl("/")
+            }
+        })
 
         $ORDER_COUNT.subscribe(elem => {
             this.orderCount = elem; 

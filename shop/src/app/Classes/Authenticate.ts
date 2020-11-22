@@ -33,20 +33,20 @@ export class AuthenticateClass{
 
                 http.onload = () => {
                     if (http.status === 200) {
-                        const response: IAuthResponse = http.response;
+                        const response: IAuthResponse&{avatar:string} = http.response;
 
                         if (response.status === 'user') {
-                            user.login(data);
+                            user.login({...data,id:response.id});
+                            user.avatar = response.avatar;
                             resolve();
                         } else {
-                            throw new Error();
-                            reject();
+                            reject("Guest");
                         }
                     }
                 };
 
                 http.onerror = () => {
-                   reject();
+                   reject("Error");
                 }
             } catch (e) {
                 localStorage.removeItem("auth");

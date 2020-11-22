@@ -6,10 +6,8 @@ from django.http import JsonResponse;
 
 
 
-class ProductLikesShow(LoginRequiredMixin,PermissionRequiredMixin,ListView):
+class ProductLikesShow(ListView):
     response = {"data":[],"errors":[],"status":""}
-    raise_exception = False
-    redirect_authenticated_user=True
 
 
     def has_permission(self):
@@ -22,8 +20,11 @@ class ProductLikesShow(LoginRequiredMixin,PermissionRequiredMixin,ListView):
             return False;
 
     def get(self,request,*args,**kw):
-        favorites = Favorite.objects.filter(user=self.user).values()
-        self.response["data"] = list(favorites);
+        if self.has_permission():
+           favorites = Favorite.objects.filter(user=self.user).values()
+           self.response["data"] = list(favorites);
+        else:
+           self.response["errors"].append("Invalid request")
         return JsonResponse(self.response,json_dumps_params={'ensure_ascii': False})
 
 

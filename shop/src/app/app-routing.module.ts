@@ -26,6 +26,8 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
 import { OrderList } from './Components/OrderList/OrderList.component';
 import { ChartsModule } from 'ng2-charts';
+import { SafePipe } from './Pipes/Safe.pipe';
+import { OrdersLikes } from './Components/OrdersLikes/OrdersLikes.component';
 
 
 const routes: Routes = [
@@ -62,6 +64,8 @@ const modules = [MatButtonModule,
                 Products,
                 ErrorImageLoading,
                 CardSmall,
+                SafePipe,
+                OrdersLikes,
                 Product,
                 Charactarictics,
                 Comments,

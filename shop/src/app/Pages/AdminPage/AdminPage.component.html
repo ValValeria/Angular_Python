@@ -2,25 +2,29 @@
     <div class="admin__wrap" >
          <div class="admin__content  center align-items-start">
             <div class="admin__dashboard">
-                <div class="wrap-md">
+                <div class="wrap-md center flex-column">
                         <h5 class="admin__headline text-left">Ваш профиль</h5>
                         <div class="admin__profile-info">
-                            <mat-card>
-                                <mat-card-content>
-                                    <mat-card-content class="admin__profile-text">
-                                        <span>Имя пользователя:</span>
-                                        <span>{{user.username}}</span>
+                            <mat-card class="center">
+                                <div class="wrap-md">
+                                    <mat-card-content>
+                                        <mat-card-content class="admin__profile-text">
+                                            <span>Имя пользователя:</span>
+                                            <span>{{user.username}}</span>
+                                        </mat-card-content>
+                                        <mat-card-content class="admin__profile-text">
+                                            <span>Пароль:</span>
+                                            <span>{{user.password}}</span>
+                                        </mat-card-content>
                                     </mat-card-content>
-                                    <mat-card-content class="admin__profile-text">
-                                        <span>Пароль:</span>
-                                        <span>{{user.password}}</span>
+                                    <mat-card-content class="admin__profile-avatar">
+                                        <a href="#" mat-raised-button class="admin__profile-img">
+                                            <div class="image-container">
+                                                <img [src]="'http://127.0.0.1:8000' + user.avatar | safe" alt="Profile image">
+                                            </div>
+                                        </a>
                                     </mat-card-content>
-                                </mat-card-content>
-                                <mat-card-content class="admin__profile-avatar">
-                                    <a href="#" mat-raised-button class="admin__profile-img">
-                                        <div class="image-container"><img src="/assets/profile.webp" alt="Profile image"></div>
-                                    </a>
-                                </mat-card-content>
+                                </div>
                             </mat-card>
                         </div>
                         <div class="admin__profile-charts ">
@@ -30,7 +34,7 @@
                                         Ваши заказы
                                       </mat-card-title>
                                       <mat-card-content>
-                                        <div class="admin__chart-count">
+                                        <div class="admin__chart-count text-center">
                                             Количество товаров в вашей корзине:{{orderCount}}
                                         </div>
                                         <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType">
@@ -51,7 +55,7 @@
                                         <app-list class="w-100"></app-list>
                                     </mat-tab>
                                     <mat-tab label="Купленные товары">
-                    
+                                        <app-list class="w-100" [data]="this.user.unactiveOrders"></app-list>
                                     </mat-tab>
                                 </mat-tab-group>
                             </mat-card-content>
@@ -60,7 +64,7 @@
                             <mat-card-content>
                                 <mat-tab-group color="accent" mat-align-tabs="center">
                                     <mat-tab label="Понравившиеся">
-                    
+                                        <app-likes></app-likes>
                                     </mat-tab>
                                 </mat-tab-group>
                             </mat-card-content>

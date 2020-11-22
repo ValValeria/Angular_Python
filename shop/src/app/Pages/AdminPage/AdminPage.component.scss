@@ -35,6 +35,10 @@
    margin-top: 25px;
 }
 
+.admin__chart-count{
+    padding:10px 0;
+}
+
 .admin__profile-img{
         border-radius:50%;
         overflow:hidden;
@@ -43,22 +47,29 @@
         border-radius: 50% 0;
 }
 
-.admin__profile-info mat-card{
+.admin__profile-info mat-card > div{
         display: grid;
-        grid-template-columns: repeat(12, 1fr);
+        grid-template-columns: repeat(14, 1fr);
         align-items: center;
         justify-items: center;
 
-        >mat-card-content:nth-child(1){
+        >div>mat-card-content:nth-child(1){
           grid-column: span 6;
           margin-bottom:0;
         }
-        >mat-card-content:nth-child(2){
+        >div>mat-card-content:nth-child(2){
           grid-column: span 5/-1;
         }
 }
 
+.admin__profile-info .wrap-md >mat-card-content:nth-child(2){
+     grid-column: span 6;
+}
 
+.admin__profile-info .wrap-md >mat-card-content:nth-child(1){
+     grid-column: span 8;
+     margin-left:10px;
+}
 
 .admin__options{
     margin-top:2rem;

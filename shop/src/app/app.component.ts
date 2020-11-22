@@ -13,6 +13,6 @@ export class AppComponent  implements OnInit{
   constructor(private user: User){}
 
   ngOnInit(): void{
-    (new AuthenticateClass()).authenticate(this.user);
+    (new AuthenticateClass()).authenticate(this.user,true).catch(e=>console.log('Status:guest'));
   }
 }

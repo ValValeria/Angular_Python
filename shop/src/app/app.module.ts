@@ -9,12 +9,13 @@ import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { Http } from './Services/Http.service';
 import { User } from './Services/User.service';
 import { Authenticate } from './Services/Authenticate.service';
+import { SafePipe } from './Pipes/Safe.pipe';
 
 
 
 @NgModule({
   declarations: [
-    AppComponent,Header
+    AppComponent, Header
   ],
   imports: [
     BrowserModule,

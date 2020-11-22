@@ -153,11 +153,13 @@ class LoginView(View):
       def post(self, *args, **kwargs):
           form = self.form(self.request.POST,True)    
           if form.is_valid(): 
-              user = authenticate(username=form.cleaned_data['username'],password=form.cleaned_data['password'])
-              if user is not None:
+              user = User.objects.filter(username=form.cleaned_data['username']).filter(password=form.cleaned_data['password']).first()
+
+              if user:
                   login(self.request,user)
                   self.response["status"]="user"
                   self.response["id"]=user.id
+                  self.response["avatar"]=user.avatar.photo.url
               else:
                   self.response["status"]="guest"
           else:
