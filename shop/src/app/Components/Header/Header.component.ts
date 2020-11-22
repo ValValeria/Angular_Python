@@ -26,7 +26,7 @@ export class Header implements AfterViewInit{
 
         window.onresize = toggleClass;
 
-        this.router.events.pipe(filter(v => v instanceof RoutesRecognized)).subscribe((v:RouterEvent) => {
+        this.router.events.pipe(filter(v => v instanceof RoutesRecognized)).subscribe((v: RouterEvent) => {
              const url = v.url;
              const header: HTMLElement = this.header.element.nativeElement.querySelector("header");
              toggleClass();

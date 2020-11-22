@@ -25,6 +25,7 @@ class Get_Order(LoginRequiredMixin,ListView):
                     "id":order.product.id,
                     "count":order.count,
                     "status":order.status,
+                    "category":order.product.category
                     }
               
               if  not order.status:

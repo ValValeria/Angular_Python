@@ -15,12 +15,16 @@ export const $ORDER_COUNT = new Subject<number>();
 })
 export class OrderList implements OnInit{
     activeOrders: IAd[];
+    displayedColumns: string[];
     constructor(private http: Http, private user: User){}
 
     ngOnInit(): void{
         this.http.get<{ data: {active: IAd[], unactive: IAd[]}, amount_of_orders: number, amount_of_products: number}>('http://127.0.0.1:8000/api/get-orders/')
         .subscribe(v => {
             this.activeOrders = v.data.active;
+            this.displayedColumns = ["position", "title","price","count"];
+            this.user.addActiveProducts(this.activeOrders);
+            this.user.addUnactiveProducts(v.data.unactive);
             $ORDER_COUNT.next(v.amount_of_orders);
         });
     }

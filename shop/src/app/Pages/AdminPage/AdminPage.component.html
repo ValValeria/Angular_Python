@@ -23,8 +23,21 @@
                                 </mat-card-content>
                             </mat-card>
                         </div>
-                        <div class="admin__profile-charts">
-                        
+                        <div class="admin__profile-charts ">
+                             <div class="admin__chart" *ngIf="orderCount">
+                                 <mat-card>
+                                      <mat-card-title class="text-center">
+                                        Ваши заказы
+                                      </mat-card-title>
+                                      <mat-card-content>
+                                        <div class="admin__chart-count">
+                                            Количество товаров в вашей корзине:{{orderCount}}
+                                        </div>
+                                        <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType">
+                                        </canvas>
+                                      </mat-card-content>
+                                 </mat-card>
+                             </div>
                         </div>
                 </div>
             </div>
@@ -35,7 +48,7 @@
                             <mat-card-content>
                                 <mat-tab-group color="accent" mat-align-tabs="center">
                                     <mat-tab label="Корзина">
-                                        <app-list></app-list>
+                                        <app-list class="w-100"></app-list>
                                     </mat-tab>
                                     <mat-tab label="Купленные товары">
                     

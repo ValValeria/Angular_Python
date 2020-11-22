@@ -25,6 +25,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
 import { OrderList } from './Components/OrderList/OrderList.component';
+import { ChartsModule } from 'ng2-charts';
 
 
 const routes: Routes = [
@@ -51,11 +52,12 @@ const modules = [MatButtonModule,
                  MatDividerModule,
                  MatTabsModule,
                  MatSortModule,
-                 MatTableModule
+                 MatTableModule,
+                 ChartsModule
                 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes),...modules],
+  imports: [RouterModule.forRoot(routes), ...modules],
   declarations:[HomePage,
                 Products,
                 ErrorImageLoading,
