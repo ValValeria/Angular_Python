@@ -21,10 +21,11 @@ class ProductLikesShow(ListView):
 
     def get(self,request,*args,**kw):
         if self.has_permission():
+           print(1) 
            favorites = Favorite.objects.filter(user=self.user).values()
            self.response["data"] = list(favorites);
         else:
-           self.response["errors"].append("Invalid request")
+           self.response["errors"].insert(0,"Invalid request")
         return JsonResponse(self.response,json_dumps_params={'ensure_ascii': False})
 
 

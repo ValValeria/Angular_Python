@@ -1,10 +1,13 @@
 from json import  loads
-from django.contrib.auth import  authenticate, login
+from django.contrib.auth import   login
 import sys
+from django.http import JsonResponse
+from django.contrib.auth.models import User
+from django.http.response import JsonResponse;
 
-from django.contrib.auth.models import User;
 
 class CorsMiddleware():
+
     def __init__(self, get_response):
         self.get_response = get_response
 
@@ -16,22 +19,24 @@ class CorsMiddleware():
         response["Access-Control-Allow-Headers"]="*"
         return response
     
+    def process_exception(self,request,error):
+        response = {"error":error,"status":500}
+        return JsonResponse(response)
 
     def process_view(self,request, view_func, *view_args, **view_kwargs):
         auth_str = request.headers.get("Auth","{}");
-
+        print(1)
         try:
            auth = loads(auth_str)
             
            if "username" in auth and "password" in auth:
               user = User.objects.filter(username=auth["username"]).filter(password=auth["password"]).first();
+             
               if user :
                  login(request,user)
-                 print(user)
-
+              print(user)
         except Exception:
             print("Error has occured :"+ str(sys.exc_info()[0]))
 
         return None
         
-#{"username":"sveta","password":"sveta10"}

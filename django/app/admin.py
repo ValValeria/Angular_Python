@@ -1,7 +1,7 @@
 from .models import  Avatar, Product,Comment,Order, ProductImages
 from django.contrib import admin
 from django.utils.html import format_html
-from django.contrib.auth.models import User
+from django.contrib.auth.models import Group, User
 from django.db.models import Count,Sum
 from django.db.models.signals import pre_delete;
 from django.dispatch import receiver
@@ -85,6 +85,27 @@ class CommentAdmin(admin.ModelAdmin):
 
 
 admin.site.unregister(User)
+admin.site.unregister(Group)
+
+
+
+from django.utils.translation import gettext_lazy as _
+
+class SortUsersByStatus(admin.SimpleListFilter):
+    title=_("status")
+    parameter_name="status"
+
+    def lookups(self, request, model_admin):
+        return (
+            ('admin', _('admin')),
+            ('user', _('user')),
+        )
+
+    def queryset(self, request, queryset):
+        if self.value() == 'user':
+            return queryset
+        if self.value() == 'admin':
+            return queryset
 
 
 @admin.register(User)
@@ -94,6 +115,7 @@ class UserAdmin(admin.ModelAdmin):
      search_fields=("username","email")
      list_per_page=10
      inlines = [AvatarInstanceInline,OrderInstanceInline]
+     list_filter=[SortUsersByStatus]
 
      def ID(self,obj):
          return format_html('<a href={} class="btn-link">{}</a>',"/admin/auth/user/{}/change/".format(obj.id),obj.id);   

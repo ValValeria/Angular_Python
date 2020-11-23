@@ -1,5 +1,5 @@
+from django.contrib.auth import get_user_model
 from django.db import models;
-from django.contrib.auth.models import User
 
 
 class Product(models.Model):
@@ -25,7 +25,7 @@ class ProductImages(models.Model):
 
 
 class Order(models.Model):
-	  user = models.ForeignKey(User,on_delete=models.CASCADE)
+	  user = models.ForeignKey(get_user_model(),on_delete=models.CASCADE)
 	  product = models.ForeignKey(Product,on_delete=models.CASCADE)
 	  count = models.IntegerField(default=1)
 	  status = models.IntegerField(choices=[(1,"Куплено"),(0,"Не куплено")],default=0)
@@ -35,7 +35,7 @@ class Order(models.Model):
 
 
 class Comment(models.Model):
-	  sender = models.ForeignKey(User,on_delete=models.CASCADE)
+	  sender = models.ForeignKey(get_user_model(),on_delete=models.CASCADE)
 	  date = models.DateField()
 	  message = models.CharField(max_length=300)
 	  post=models.ForeignKey(Product,on_delete=models.CASCADE) 
@@ -44,15 +44,18 @@ class Comment(models.Model):
 
 class Favorite(models.Model):
     product = models.ForeignKey(Product,on_delete=models.CASCADE)
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    user = models.ForeignKey(get_user_model(),on_delete=models.CASCADE)
 
 
 class Avatar(models.Model):
    photo = models.FileField(upload_to="app/static/avatars")
-   user = models.OneToOneField(User,on_delete=models.CASCADE)
+   user = models.OneToOneField(get_user_model(),on_delete=models.CASCADE)
 
+
+class UserData(models.Model):
+	status = models.CharField(choices=[("admin","Admin"),("user","User")],default="user",max_length=40)
+	user = models.ForeignKey(get_user_model(),on_delete=models.CASCADE)
 
 #python manage.py makemigrations
 #python manage.py migrate
 
-## user - https://docs.djangoproject.com/en/3.1/topics/auth/customizing/
