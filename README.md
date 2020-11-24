@@ -6,8 +6,8 @@
   * buy products
   * view products
   * sort products
-  * add comments
- Also there is an admin panel, which is available only for super admin. To get full access to it, you should type in terminal command `python manage.py createsuperuser`. After filling in all  neccessary fields, you are going to be granted access. Then open the browser on `http://127.0.0.1:8000/admin/app`
+  * add comments<br/>
+ Also there is the admin panel, which is available only for the super admin. To get full access to it, you should type in terminal command `python manage.py createsuperuser`. After filling in all  neccessary fields, you are going to be granted access. Then open the browser on `http://127.0.0.1:8000/admin/app`
 
 > ![Screenshot](screen.png)
 
