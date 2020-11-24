@@ -1,7 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Router } from "@angular/router";
 import { IAd } from "src/app/Interfaces/Interfaces";
 import { Http } from "src/app/Services/Http.service";
+import { User, USER_AUTH } from 'src/app/Services/User.service';
 
 @Component({
     selector:'app-product',
@@ -14,9 +16,16 @@ export class Product implements OnInit{
     pageIndex = 1;
     readonly url = 'http://127.0.0.1:8000';
     charactarictics: [string, string][];
+    count = 1;
+    maxCount = 0;
 
-    constructor(private http: Http, private router: ActivatedRoute){
-        this.router.paramMap.subscribe(v => {
+    constructor(private http: Http,
+                private route: ActivatedRoute,
+                private router: Router,
+                public user: User,
+                private _snackBar: MatSnackBar){
+
+        this.route.paramMap.subscribe(v => {
             this.postId = Number(v.get('id'));
         });
         this.charactarictics = [];
@@ -32,5 +41,36 @@ export class Product implements OnInit{
                 });
             }
         );
+        
+        USER_AUTH.subscribe(v1 => {
+            if (v1){
+                this.http.get<{ data: { count: number } }>('http://127.0.0.1:8000/api/product-count/?product_id=' + this.postId).
+                    subscribe(v => {
+                        this.maxCount = v.data.count;
+                        console.log(this.maxCount)
+                    });
+            }
+        });
+    }
+
+    buyItem(): void{
+      if (!this.user.is_auth) {
+          this.router.navigateByUrl("/authenticate");
+      } else{
+          if(this.count){
+              this.http.get<{ messages: string[], data: string[], status: string }>(`http://127.0.0.1:8000/api/addorder?product_id=${this.postId}&count=${this.count}`)
+                  .subscribe(v => {
+                      if (v.status == "ok") {
+                          this._snackBar.open("Товар добавлен в корзину", "Закрыть", {
+                              duration: 5000
+                          });
+                      }
+                  });
+          }else{
+              this._snackBar.open('Выбирите нужное количество товара', "Закрыть", {
+                  duration: 5000
+              });   
+          }
+      }
     }
 }

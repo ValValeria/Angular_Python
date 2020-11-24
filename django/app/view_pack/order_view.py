@@ -81,14 +81,19 @@ class Order_Buy(LoginRequiredMixin,ListView):
 
 
 
-class Order_View(LoginRequiredMixin,ListView):
+class Order_View(ListView):
       response = {"messages":[],"data":[],"status":""}
       login_url="/"
       redirect_authenticated_user=True
 
 
       def get(self, request, *args, **kwargs):
+
+          if not request.user.is_authenticated:
+              return Http404();
+
           user = request.user;
+          print(user)
           product_id = request.GET.get("product_id","");
           count = request.GET.get("count","")
          

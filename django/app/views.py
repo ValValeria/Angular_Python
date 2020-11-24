@@ -66,6 +66,21 @@ class ProductInfoBrands(ListView):
           return JsonResponse(self.response,json_dumps_params={'ensure_ascii': False})
 
 
+class ProductAvailableCount(ListView):
+     response={"data":{}}
+
+     def get(self,request,*args,**kw):
+         product_id = request.GET.get('product_id',"");
+
+         if product_id.isdigit():
+             product = Product.objects.filter(id=product_id).first()
+             self.response["data"]={"count":product.count}
+             return JsonResponse(self.response,json_dumps_params={'ensure_ascii': False})
+         else:
+             return Http404();
+
+
+
 class ProductView(ListView):
 
       def get(self, request, *args, **kwargs):

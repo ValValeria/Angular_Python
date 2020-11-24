@@ -19,8 +19,23 @@
                        <span>Цена:</span>
                        <span>{{post.price|currency}}</span>
                     </div>
+                    <div class="product__price-label text-left" *ngIf="user.is_auth && maxCount>0">
+                      <span>Количество:</span>
+                      <div>
+                          <mat-slider
+                           color="accent"
+                           min="0"
+                           max="{{maxCount}}"
+                           thumbLabel
+                           (input)="count=$event.value"
+                          ></mat-slider>
+                      </div>
+                      <div>
+                        <h6>Вы хотите купить: {{count}}</h6>
+                      </div>
+                    </div>
                     <div class="product__buy-btn">
-                      <button class="bg-warn price-btn">Купить</button>
+                      <button class="bg-warn price-btn" on-click="buyItem()">Купить</button>
                     </div>
                  </div>
              </div>

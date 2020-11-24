@@ -85,7 +85,7 @@ export class AuthPage{
         .catch(v => {
             localStorage.removeItem("auth");
             this.showStatus = true;
-        })
+        });
       }
     }
 }

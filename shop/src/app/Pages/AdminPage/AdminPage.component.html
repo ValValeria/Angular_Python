@@ -52,7 +52,7 @@
                             <mat-card-content>
                                 <mat-tab-group color="accent" mat-align-tabs="center">
                                     <mat-tab label="Корзина" >
-                                        <app-list class="w-100" *ngIf="this.user.activeOrders.length"></app-list>
+                                        <app-list class="w-100" [data]="this.user.activeOrders" *ngIf="this.user.activeOrders.length"></app-list>
                                         <div class="admin__order-empty" *ngIf="!this.user.activeOrders.length">
                                             <h5>В корзине товаров нет</h5>
                                         </div>

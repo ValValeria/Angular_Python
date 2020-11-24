@@ -55,5 +55,13 @@ export class AdminPage implements  AfterViewInit{
             this.doughnutChartData = [numbers];
         });
     } 
+
+    ngAfterContentInit(): void{
+        this.http.get<{ data: { active: IAd[], unactive: IAd[] }, amount_of_orders: number, amount_of_products: number }>('http://127.0.0.1:8000/api/get-orders/')
+                .subscribe(v => {
+                    this.user.addActiveProducts(v.data.active);
+                    this.user.addUnactiveProducts(v.data.unactive);
+                });
+    }
 }
 
