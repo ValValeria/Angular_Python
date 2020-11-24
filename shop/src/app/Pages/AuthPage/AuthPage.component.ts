@@ -65,7 +65,7 @@ export class AuthPage{
 
         const data: {[prop: string]: string} = {...this.form.value};
 
-        if (this.isLogin){
+        if (!this.isLogin){
             Object.assign(data, {email: this.email.value});
         }
 

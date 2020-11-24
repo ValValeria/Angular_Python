@@ -11,8 +11,10 @@ class Get_Order(ListView):
       response = {"data":[]}
 
       def get(self, request, *args, **kwargs):
+
           if not request.user.is_authenticated:
               return Http404();
+              
           user=request.user;
           orders=user.order_set.all();
           orders_sum = user.order_set.aggregate(amount_of_orders=Sum("count"));

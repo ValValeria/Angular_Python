@@ -17,6 +17,7 @@ export class OrderList implements OnInit{
     activeOrders: IAd[];
     displayedColumns: string[];
     @Input() data: IAd[];
+    @Input() showCount = true;
     constructor(private http: Http, private user: User){}
 
     ngOnInit(): void{
@@ -26,7 +27,7 @@ export class OrderList implements OnInit{
             this.http.get<{ data: { active: IAd[], unactive: IAd[] }, amount_of_orders: number, amount_of_products: number }>('http://127.0.0.1:8000/api/get-orders/')
                 .subscribe(v => {
                     this.activeOrders = v.data.active;
-                    this.displayedColumns = ["position", "title", "price", "count"];
+                    this.displayedColumns = ["id", "title", "price", "count"];
                     this.user.addActiveProducts(this.activeOrders);
                     this.user.addUnactiveProducts(v.data.unactive);
                     $ORDER_COUNT.next(v.amount_of_orders);

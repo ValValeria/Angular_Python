@@ -54,7 +54,7 @@ class Avatar(models.Model):
 
 class UserData(models.Model):
 	status = models.CharField(choices=[("admin","Admin"),("user","User")],default="user",max_length=40)
-	user = models.ForeignKey(get_user_model(),on_delete=models.CASCADE)
+	user = models.OneToOneField(get_user_model(),on_delete=models.CASCADE)
 
 #python manage.py makemigrations
 #python manage.py migrate

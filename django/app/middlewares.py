@@ -18,10 +18,6 @@ class CorsMiddleware():
         response["Access-Control-Allow-Method"]="GET, POST, PUT, DELETE, PATCH, OPTIONS"
         response["Access-Control-Allow-Headers"]="*"
         return response
-    
-    def process_exception(self,request,error):
-        response = {"error":error,"status":500}
-        return JsonResponse(response)
 
     def process_view(self,request, view_func, *view_args, **view_kwargs):
         auth_str = request.headers.get("Auth","{}");

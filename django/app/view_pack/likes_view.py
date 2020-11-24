@@ -9,13 +9,13 @@ from django.http import JsonResponse;
 class ProductLikesShow(ListView):
     response = {"data":[],"errors":[],"status":""}
 
-
     def has_permission(self):
         self.user = self.request.user
+        user_auth_id = self.user.id if self.user.id else 0
         user_id = self.request.GET.get("user_id","")
 
         if user_id.isdigit():
-            return int(self.user.id) == int(user_id);
+            return int(user_auth_id) == int(user_id);
         else:
             return False;
 

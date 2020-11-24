@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .serializers.post_serializer import PostSerializer
 from django.http.response import  Http404, HttpResponseBadRequest, HttpResponseForbidden
 from django.views.generic import ListView,View;
-from .models import Product;
+from .models import Avatar, Product, UserData;
 from django.http import JsonResponse;
 from django.contrib.auth import authenticate,login
 from .forms import AuthenticateForm
@@ -159,7 +159,10 @@ class LoginView(View):
                   login(self.request,user)
                   self.response["status"]="user"
                   self.response["id"]=user.id
-                  self.response["avatar"]=user.avatar.photo.url
+                  if hasattr(user,"avatar"):
+                     self.response["avatar"]=user.avatar.photo.url
+                  else:
+                     self.response["avatar"]="/app/static/avatars/blank.jpg"
               else:
                   self.response["status"]="guest"
           else:
@@ -190,23 +193,28 @@ class ChangeAvatar(LoginRequiredMixin,View):
               return Http404();
 
 
+
 class SignUpView(View):
       form = AuthenticateForm;
-      response = {}
+      response = {"errors":[]}
 
       def setAvatar(self,user):
           with open(os.path.abspath("./app/static/avatars/blank.jpg"),"r") as f:
               file = File(f);
-              user.photo = file;
-              user.save()
+              avatar_user = Avatar.objects.create(user=user)
+              avatar_user.photo = file;
+              avatar_user.save()
 
       def post(self,request, *args, **kwargs):
           form = self.form(self.request.POST,True)    
           if form.is_valid() and not request.user.is_authenticated: 
               user = User.objects.filter(username=form.cleaned_data['username']).first()
               if not user:
-                     user = User.objects.create_user(username=form.cleaned_data['username'],email=form.cleaned_data['email'],password=form.cleaned_data['password'])
+                     user = User.objects.create(username=form.cleaned_data['username'],email=form.cleaned_data['email'],password=form.cleaned_data['password'])
+                     UserData.objects.create(status="user",user=user)
                      self.setAvatar(user);
+              else:
+                  self.response["errors"].append("Пользователь с такой почтой или именем уже есть")
               self.response['status']="user";
               self.response["id"]=user.id
           else:
