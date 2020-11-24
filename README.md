@@ -1,5 +1,16 @@
 # Shop
-The app is under development, so there are a lot of bugs
+ I have decided to develop the app, where one can purchase different good.<br/>
+
+ User has an opportunity to:
+  * authenticate
+  * buy products
+  * view products
+  * sort products
+  * add comments
+ Also there is an admin panel, which is available only for super admin. To get full access to it, you should type in terminal command `python manage.py createsuperuser`. After filling in all  neccessary fields, you are going to be granted access. Then open the browser on `http://127.0.0.1:8000/admin/app`
+
+> ![Screenshot](screen.png)
+
 ## Folders
 * `django`- a django app
 * `angular` - an angular app

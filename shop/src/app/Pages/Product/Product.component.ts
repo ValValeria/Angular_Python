@@ -64,6 +64,10 @@ export class Product implements OnInit{
                           this._snackBar.open("Товар добавлен в корзину", "Закрыть", {
                               duration: 5000
                           });
+                      } else{
+                          this._snackBar.open("Похоже, этот товар закончился", "Закрыть", {
+                              duration: 10000
+                          });
                       }
                   });
           }else{

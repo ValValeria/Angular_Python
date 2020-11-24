@@ -21,7 +21,7 @@ export class OrderList implements OnInit,OnChanges{
     constructor(private http: Http, private user: User){}
 
     ngOnInit(): void{
-        this.displayedColumns = ["id", "title", "price", "count"];
+        this.displayedColumns = ["delete","id", "title", "price", "count"];
     }
 
     ngOnChanges(d: SimpleChanges): void {

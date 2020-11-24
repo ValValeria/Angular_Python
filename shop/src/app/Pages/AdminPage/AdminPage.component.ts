@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, OnInit } from '@angular/core';
 import { Http } from 'src/app/Services/Http.service';
 import { User } from 'src/app/Services/User.service';
 import { Router } from '@angular/router';
@@ -16,7 +16,7 @@ import { take } from 'rxjs/operators';
     templateUrl: './AdminPage.component.html',
     styleUrls: ['./AdminPage.component.scss']
 })
-export class AdminPage implements  AfterViewInit{
+export class AdminPage implements  AfterViewInit, AfterContentInit{
     orderCount = 0;
     doughnutChartType: ChartType = 'doughnut';
     public doughnutChartLabels: string[] = [];
@@ -39,7 +39,9 @@ export class AdminPage implements  AfterViewInit{
         })
 
         $ORDER_COUNT.subscribe(elem => {
-            this.orderCount = elem; 
+            setTimeout(() => {
+                this.orderCount = elem;
+            }, 0);
 
             this.doughnutChartLabels = uniq(this.user.activeOrders.map(v => v.category));
 

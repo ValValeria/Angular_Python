@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { Routes, RouterModule } from '@angular/router';
 import { HomePage } from './Pages/HomePage/HomePage.component';
@@ -55,7 +56,8 @@ const modules = [MatButtonModule,
                  MatTabsModule,
                  MatSortModule,
                  MatTableModule,
-                 ChartsModule
+                 ChartsModule,
+                 MatCheckboxModule
                 ];
 
 @NgModule({

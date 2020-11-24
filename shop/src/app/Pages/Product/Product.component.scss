@@ -59,6 +59,11 @@
     margin-top: 30px;
 }
 
+.product__buy-counter{
+    font-size: 14px;
+    color: #777;
+}
+
 .product__container{
     display: grid;
     grid-template-rows: 60px 50px 300px auto auto;
@@ -112,7 +117,7 @@
 }
 
 .product__info{
-    margin-top: 2rem;
+    margin-top: 5rem;
     grid-row-start: 4;
     grid-column-end: -1;
     grid-column-start: 1;

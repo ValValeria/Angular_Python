@@ -2,7 +2,7 @@ import os
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .serializers.post_serializer import PostSerializer
-from django.http.response import  Http404, HttpResponseBadRequest, HttpResponseForbidden
+from django.http.response import  Http404, HttpResponse, HttpResponseBadRequest, HttpResponseForbidden
 from django.views.generic import ListView,View;
 from .models import Avatar, Product, UserData;
 from django.http import JsonResponse;
@@ -237,3 +237,8 @@ class SignUpView(View):
           return JsonResponse(self.response)
 
 
+
+
+class NotFound(View):
+    def get(self,request,*args,**kw):
+        return HttpResponse("The requested page is not found")
