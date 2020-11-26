@@ -28,12 +28,30 @@
     height:100%;
 }
 
-.admin__profile-charts{
+.admin__profile-cards{
    display:grid;
    grid-template-columns: repeat(auto-fill,minmax(200px,250px));
-   grid-auto-rows: 200px;
+   grid-auto-rows: 220px;
+   grid-gap:10px;
    margin-top: 25px;
+   width:100%;
+   align-items: center;
+   justify-items: center;
+
+   .admin__profile-card mat-card{
+       height:100%;
+   }
+
+   .admin__profile-card{
+       height:100%;
+   }
 }
+
+.btn-count{
+    margin-top: 10px;
+    transform: scale(1.5)
+}
+
 
 .admin__chart-count{
     padding:10px 0;
@@ -129,9 +147,15 @@
     margin-right: 10px;
 }
 
+.admin__order-actions button{
+   margin:0 5px;
+}
+
 .admin__profile-avatar {
     grid-row: 1/-1;
     grid-column: 1/span 6;
+    min-width: 100px;
+    min-height: 100px;
 }
 
 .image-container{
@@ -149,10 +173,11 @@
     width:100%;
 }
 
-.admin__chart > mat-card  mat-card-title{
+.admin__profile-card mat-card-title{
   font-weight:300;
   text-transform: uppercase;
   padding-top:20px;
+  line-height:30px;
 }
 
 .admin__chart > mat-card:nth-child(1){

@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 import * as _ from 'lodash';
 import { Subject } from 'rxjs';
 import { IAd } from 'src/app/Interfaces/Interfaces';
@@ -7,6 +8,8 @@ import { Http } from '../../Services/Http.service';
 
 
 export const $ORDER_COUNT = new Subject<number>();
+
+export const $CHOOSE_ITEM = new Subject<number>();
 
 
 @Component({
@@ -31,4 +34,14 @@ export class OrderList implements OnInit,OnChanges{
             $ORDER_COUNT.next(this.data.length);
         }         
     }
+
+    change(event: MatCheckboxChange): void{
+        const id = Number(event.source.value);
+        $CHOOSE_ITEM.next(id);
+    }
+    
+    undo(event:MatCheckboxChange): void{
+        console.log(event.source.value)
+    }
+
 }

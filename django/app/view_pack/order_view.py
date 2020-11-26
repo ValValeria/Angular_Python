@@ -28,7 +28,8 @@ class Get_Order(ListView):
                     "id":order.product.id,
                     "count":order.count,
                     "status":order.status,
-                    "category":order.product.category
+                    "category":order.product.category,
+                    "brand":order.product.brand                    
                     }
               
               if  not order.status:

@@ -1,6 +1,5 @@
 - https://www.youtube.com/watch?v=vmEHCJofslg&ab_channel=KeithGalli - pandas
 
 # Angular:
- * authentication buggs
  * order list
 
