@@ -1,15 +1,15 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import * as _ from 'lodash';
+import { forEach, remove } from 'lodash';
 import { Subject } from 'rxjs';
 import { IAd } from 'src/app/Interfaces/Interfaces';
 import { User } from 'src/app/Services/User.service';
-import { Http } from '../../Services/Http.service';
 
 
 export const $ORDER_COUNT = new Subject<number>();
-
 export const $CHOOSE_ITEM = new Subject<number>();
+export const $DELETE_ITEMS = new Subject<number[]>();
 
 
 @Component({
@@ -20,11 +20,22 @@ export const $CHOOSE_ITEM = new Subject<number>();
 export class OrderList implements OnInit,OnChanges{
     displayedColumns: string[];
     @Input() data: IAd[];
+    @Input() isOrderList = false;
     @Input() showCount = true;
-    constructor(private http: Http, private user: User){}
+    productsCount: {[prop: string]: number} = {};
+
+    constructor(private detector: ChangeDetectorRef,private user: User){}
 
     ngOnInit(): void{
         this.displayedColumns = ["delete","id", "title", "price", "count"];
+        $DELETE_ITEMS.subscribe(items=>{
+            const func = (v) => {
+                return items.includes(v.id);
+            };
+            remove(this.data, func);
+            remove(this.user.activeOrders, func);
+            this.detector.detectChanges();
+        })
     }
 
     ngOnChanges(d: SimpleChanges): void {
@@ -32,6 +43,14 @@ export class OrderList implements OnInit,OnChanges{
 
         if (data.isFirstChange() || !_.isEqual(data.previousValue, data.currentValue)){
             $ORDER_COUNT.next(this.data.length);
+            if (this.data.length){
+                forEach(this.data, (v) => {
+                    if (v){
+                        this.productsCount[v.id] = v.count;
+                    }
+                });
+            }  
+            console.log(this.productsCount)
         }         
     }
 
@@ -39,9 +58,8 @@ export class OrderList implements OnInit,OnChanges{
         const id = Number(event.source.value);
         $CHOOSE_ITEM.next(id);
     }
-    
-    undo(event:MatCheckboxChange): void{
-        console.log(event.source.value)
-    }
 
+    changeCount(id: number ,num: number): void{
+        this.productsCount[id.toString()] = Number(num);
+    }
 }

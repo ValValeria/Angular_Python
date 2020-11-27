@@ -12,6 +12,8 @@
 
 > ![Screenshot](screen.png)
 
+> ![Screenshot](screen2.PNG)
+
 ## Folders
 * `django`- a django app
 * `angular` - an angular app

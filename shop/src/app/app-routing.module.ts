@@ -32,12 +32,11 @@ import { OrdersLikes } from './Components/OrdersLikes/OrdersLikes.component';
 
 
 const routes: Routes = [
-  {path:"",component:HomePage},
+  {path:"",component:HomePage,pathMatch:"full"},
   {path:"products",component:Products},
   {path:"product/:id",component:Product},
   {path:"authenticate",component:AuthPage},
   {path:"profile",component:AdminPage},
-  {path:"**",redirectTo:"/",pathMatch:"full"}
 ];
 
 const modules = [MatButtonModule,

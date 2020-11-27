@@ -18,7 +18,7 @@
                                         </mat-card-content>
                                     </mat-card-content>
                                     <mat-card-content class="admin__profile-avatar">
-                                        <a href="#" mat-raised-button class="admin__profile-img">
+                                        <a mat-raised-button class="admin__profile-img">
                                             <div class="image-container">
                                                 <error-loading hidden ></error-loading>
                                                 <img [src]="'http://127.0.0.1:8000' + user.avatar | safe" alt="Profile image" on-error="errorImage($event)">
@@ -28,30 +28,28 @@
                                 </div>
                             </mat-card>
                         </div>
-                        <div class="admin__profile-cards ">
-                             <div class="admin__profile-card admin__chart" *ngIf="orderCount">
-                                 <mat-card class="shadow">
-                                      <mat-card-title class="text-center">
-                                        Ваши заказы
-                                      </mat-card-title>
-                                      <mat-card-content>
-                                        <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType">
-                                        </canvas>
-                                      </mat-card-content>
-                                 </mat-card>
-                             </div>
-
-                             <div class="admin__profile-card">
-                                <mat-card class="shadow">
-                                    <mat-card-title class="text-center">Количество товаров</mat-card-title>
-                                    <mat-card-subtitle>
-                                        <div class="admin__chart-count text-center">
-                                            В вашей корзине находиться :
-                                            <button mat-button color="accent" class="btn-count">{{orderCount}} тв.</button>
-                                        </div>
-                                    </mat-card-subtitle>
-                                </mat-card>
-                             </div>
+                        <div class="admin__profile-card" *ngIf="orderCount">
+                            <mat-card class="shadow">
+                                <mat-card-title class="text-center">
+                                    Ваши заказы
+                                </mat-card-title>
+                                <mat-card-content>
+                                    <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType">
+                                    </canvas>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                        
+                        <div class="admin__profile-card">
+                            <mat-card class="shadow">
+                                <mat-card-title class="text-center">Количество товаров</mat-card-title>
+                                <mat-card-subtitle>
+                                    <div class="admin__chart-count text-center">
+                                        В вашей корзине находиться :
+                                        <button mat-button color="accent" class="btn-count">{{orderCount}} тв.</button>
+                                    </div>
+                                </mat-card-subtitle>
+                            </mat-card>
                         </div>
                 </div>
             </div>
@@ -64,7 +62,7 @@
                                     <mat-tab label="Корзина" >
                                         <div class="admin__order-content" style="overflow: hidden;">
                                             <div style="overflow-x:scroll;padding-bottom:0.3rem; ">
-                                                <app-list class="w-100" [data]="this.user.activeOrders" *ngIf="this.user.activeOrders.length"></app-list>
+                                                <app-list #orders_active class="w-100" [data]="this.user.activeOrders" [isOrderList]="true" *ngIf="this.user.activeOrders.length"></app-list>
                                                 <div class="admin__order-empty" *ngIf="!this.user.activeOrders.length">
                                                     <h5>В корзине товаров нет</h5>
                                                 </div>
@@ -72,9 +70,19 @@
                                             <div class="admin__order-selected center"  *ngIf="this.user.activeOrders.length">
                                                 <button  class="text-center " mat-button>У вас выбрано {{selectedCount}} тв.</button>
                                             </div>
-                                            <div class="admin__order-actions center pt-3">
-                                                <button mat-flat-button color="warn" >Убрать из корзины</button>
-                                                <button mat-flat-button color="accent">Изменить количество</button>
+                                            <div class="admin__order-actions  pt-3" *ngIf="selectedCount">
+                                                <div class="admin__order-errors" *ngIf="errors.length">
+                                                    <button mat-button color="warn" *ngFor="let error of errors">
+                                                        {{error}}
+                                                    </button>
+                                                </div>
+                                                <div class="admin__order-message" *ngIf="message">
+                                                    <button mat-button color="accent">{{message}}</button>
+                                                </div>
+                                                <div class="admin__order-btns">
+                                                    <button mat-flat-button color="warn" on-click="delete_orders()">Убрать из корзины</button>
+                                                    <button mat-flat-button color="accent" on-click="change_orders()">Изменить количество</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </mat-tab>

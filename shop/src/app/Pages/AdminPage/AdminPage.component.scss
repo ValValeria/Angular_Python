@@ -5,6 +5,7 @@
         margin-bottom: 2rem;
         text-align: center !important;
         line-height: 60px;
+        grid-column:1/-1;
 }
 
 .admin__items,.admin__dashboard{
@@ -28,23 +29,16 @@
     height:100%;
 }
 
-.admin__profile-cards{
-   display:grid;
-   grid-template-columns: repeat(auto-fill,minmax(200px,250px));
-   grid-auto-rows: 220px;
-   grid-gap:10px;
-   margin-top: 25px;
-   width:100%;
-   align-items: center;
-   justify-items: center;
-
-   .admin__profile-card mat-card{
+.admin__profile-card{
        height:100%;
-   }
+}
 
-   .admin__profile-card{
+.admin__profile-card mat-card{
        height:100%;
-   }
+}
+
+.admin__order-list{
+    padding-left:2rem;
 }
 
 .btn-count{
@@ -113,9 +107,17 @@
     margin-bottom: 0;
     background-image: linear-gradient(90deg, rgba(251,248,245,1) 0%, rgba(238,237,234,1) 43%, rgba(234,230,225,1) 100%);
     padding-bottom: 2rem;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
     
     >div{
         padding-bottom: 3rem;
+        display: grid;
+        grid-template-rows: 70px;
+        grid-auto-rows: auto;
+        grid-template-columns: minmax(250px, max-content) repeat(auto-fill, 250px);
+        grid-gap:10px;
     }
 }
 
@@ -147,8 +149,33 @@
     margin-right: 10px;
 }
 
+.admin__order-selected button{
+    width: 100%;
+    margin-top: 10px;
+    font-weight:300;
+}
+
 .admin__order-actions button{
    margin:0 5px;
+}
+
+.admin__order-btns{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-wrap: wrap;
+  width:100%;
+
+  button{
+      min-width:200px;
+      margin:5px;
+      flex: 1 1 50%;
+  }
+}
+
+th.mat-header-cell {
+    text-align: center;
+    padding: 10px !important;
 }
 
 .admin__profile-avatar {
@@ -171,6 +198,8 @@
 
 .admin__profile-info{
     width:100%;
+    max-width:600px;
+    grid-column: 1/span 2;
 }
 
 .admin__profile-card mat-card-title{

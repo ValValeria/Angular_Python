@@ -1,7 +1,7 @@
 from ..serializers.user_serializer import UserSerializer
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.aggregates import Sum
-from django.http.response import Http404, JsonResponse
+from django.http.response import Http404, HttpResponseForbidden, JsonResponse
 from django.views.generic import ListView,View;
 from ..models import Product,Order;
 from django.contrib.auth.models import User
@@ -44,19 +44,23 @@ class Get_Order(ListView):
 
 
 
-class Delete_Order(LoginRequiredMixin,ListView):
-      redirect_authenticated_user=True
+class Delete_Order(ListView):
 
       def get(self, request, *args, **kwargs):
           user=request.user;
-          order_id = request.GET.get("product_id");
 
-          if order_id.isdigit():
-               order=Order.objects.filter(product__id=order_id).filter(user__id=user.id).first();
+          try:   
+             if not user.is_authenticated:
+                raise AssertionError(); 
+
+             orders_id = [ int(x) for x in request.GET.getlist("product_id")];
+
+             if orders_id:
+               order=Order.objects.filter(product__id__in=orders_id).filter(user__id=user.id);
                order.delete();
-          else:
-               return Http404(); 
-          return JsonResponse({"status":"ok"})
+               return JsonResponse({"status":"ok"})
+          except:pass
+          return HttpResponseForbidden(); 
 
 
 
@@ -94,7 +98,6 @@ class Order_View(ListView):
               return Http404();
 
           user = request.user;
-          print(user)
           product_id = request.GET.get("product_id","");
           count = request.GET.get("count","")
          
@@ -120,10 +123,12 @@ class Order_View(ListView):
 
          if order  or ostatok>=0:
             if order: #want to change the order   
-               ostatok_without = product_count+order.count-count; #количество товаров без данного заказа
+               ostatok_without = product_count-order.count-count; #количество товаров без данного заказа
 
                if ostatok_without<=product_count and ostatok_without and product_count>=count:   
                   order.count = count;
+                  self.response["status"] = "ok";
+                  order.save();
                else:
                   self.response["messages"].append("The product has run out. You can't buy more than {}".format(product_count));   
                   self.response["data"].append({"available":product_count})   

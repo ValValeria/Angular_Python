@@ -1,7 +1,7 @@
 import { AfterViewInit, ViewContainerRef } from '@angular/core';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router, RouterEvent, RoutesRecognized } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { auditTime, filter } from 'rxjs/operators';
 import { User } from 'src/app/Services/User.service';
 
 @Component({
@@ -25,18 +25,6 @@ export class Header implements AfterViewInit{
         };
 
         window.onresize = toggleClass;
-
-        this.router.events.pipe(filter(v => v instanceof RoutesRecognized)).subscribe((v: RouterEvent) => {
-             const url = v.url;
-             const header: HTMLElement = this.header.element.nativeElement.querySelector("header");
-             toggleClass();
-
-             if (url.includes("/profile")){
-                 header.classList.add("bg-dark")
-             } else{
-                 header.classList.remove("bg-dark");
-             }
-        });
     }
 
     toggleHeader():void{
