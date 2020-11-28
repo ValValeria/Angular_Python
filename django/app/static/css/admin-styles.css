@@ -104,3 +104,10 @@ a:link, a:visited {
 #changelist-filter{
     margin-top: 2.7rem !important;
 }
+
+
+.wrap-md-pd{
+    width: 90%;
+    margin: 0 auto;
+    padding: 2rem 0;
+}

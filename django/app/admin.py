@@ -198,5 +198,6 @@ def delete_user(sender, instance, **kwargs):
 # Site title         
 admin.site.site_header = "InDigital Admin"
 admin.site.site_title = "InDigital"
-admin.site.index_title = "Welcome to admin panel"
+admin.site.index_title = None
 admin.site.site_url="http://localhost:4200"
+admin.site.index_template="admin/index.html"

@@ -1,10 +1,9 @@
-import os
-import io;
+from urllib import request
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.files.base import ContentFile
 from django.core.files.storage import FileSystemStorage, Storage, get_storage_class
 from .serializers.post_serializer import PostSerializer
-from django.http.response import  Http404, HttpResponse, HttpResponseBadRequest, HttpResponseForbidden
+from django.http.response import  Http404, HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNotFound
 from django.views.generic import ListView,View;
 from .models import Avatar, Letter, Product, UserData;
 from django.http import JsonResponse;
@@ -174,12 +173,14 @@ class LoginView(View):
 
               if user:
                   login(self.request,user)
-                  self.response["status"]="user"
-                  self.response["id"]=user.id
-                  if hasattr(user,"avatar"):
-                     self.response["avatar"]=user.avatar.photo.url
-                  else:
-                     self.response["avatar"]="/app/static/avatars/blank.jpg"
+                  req = request.Request("/api/user-info", "", form.cleaned_data)
+                  response = HttpResponse();
+                  response['Content-Type']="application/json";
+
+                  with request.urlopen(req) as response:
+                        response.write(response.read())                 
+                  
+                  return response;                  
               else:
                   self.response["status"]="guest"
           else:
@@ -268,6 +269,37 @@ class DeleteUser(View):
         else:
             return HttpResponseForbidden();
 
+
+class UserProfile(View):
+    response={"errors":[],"data":{},"status":""}
+
+    def get(self,request,*args,**kw):
+        user_id = request.GET.get("user_id");
+        user = request.user
+
+        if not user.is_authenticated or not user_id==user.id:
+            return HttpResponseForbidden();
+
+        avatar = None;
+
+        try:
+           avatar = user.avatar.photo.url;
+        except:  
+           avatar ="/app/static/avatars/blank.jpg";
+
+        self.response["data"].update({"user":{
+            "email":user.email,
+            "password":user.password,
+            "avatar": avatar,
+            "role":user.userdata.status,
+            "id":user.id,
+        }})
+
+        self.response["status"]="user"
+
+        return JsonResponse(self.response,json_dumps_params={'ensure_ascii': False});
+
+
 class NotFound(View):
     def get(self,request,*args,**kw):
-        return HttpResponse("The requested page is not found")
+        return HttpResponseNotFound()
