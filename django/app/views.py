@@ -1,13 +1,15 @@
 import os
-
+import io;
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.files.base import ContentFile
+from django.core.files.storage import FileSystemStorage, Storage, get_storage_class
 from .serializers.post_serializer import PostSerializer
 from django.http.response import  Http404, HttpResponse, HttpResponseBadRequest, HttpResponseForbidden
 from django.views.generic import ListView,View;
-from .models import Avatar, Product, UserData;
+from .models import Avatar, Letter, Product, UserData;
 from django.http import JsonResponse;
 from django.contrib.auth import authenticate,login
-from .forms import AuthenticateForm
+from .forms import AuthenticateForm, LetterForm
 from django.contrib.auth.models import Permission, User
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Max,Min
@@ -15,7 +17,7 @@ from django.core.paginator import Paginator
 from .view_pack.likes_view import ProductLikesShow,ProductLikes;
 from django.db.models import Q
 from django.core.files import File
-
+from datetime import datetime
 
 class ProductsView(ListView):
       response = {"data":[],"has_next":False}
@@ -211,33 +213,60 @@ class ChangeAvatar(LoginRequiredMixin,View):
 
 class SignUpView(View):
       form = AuthenticateForm;
-      response = {"errors":[]}
-
-      def setAvatar(self,user):
-          with open(os.path.abspath("./app/static/avatars/blank.jpg"),"r") as f:
-              file = File(f);
-              avatar_user = Avatar.objects.create(user=user)
-              avatar_user.photo = file;
-              avatar_user.save()
+      response = {"errors":[],"messages":[]}
 
       def post(self,request, *args, **kwargs):
-          form = self.form(self.request.POST,True)    
+          form = self.form(self.request.POST,True) 
+
           if form.is_valid() and not request.user.is_authenticated: 
               user = User.objects.filter(username=form.cleaned_data['username']).first()
+            
               if not user:
-                     user = User.objects.create(username=form.cleaned_data['username'],email=form.cleaned_data['email'],password=form.cleaned_data['password'])
-                     UserData.objects.create(status="user",user=user)
-                     self.setAvatar(user);
+                     f = open(r"./app/static/avatars/blank.jpg",'rb')
+                     file = File(f);
+                     user = User.objects.create(username=form.cleaned_data["username"],email=form.cleaned_data["email"],password=form.cleaned_data["password"])
+                     user.avatar = Avatar(user=user);
+                     user.avatar.photo.save("blank.jpg",file,save=False)
+                     user_data=UserData.objects.create(status="user",user=user)
+                     user.userdata=user_data
+                     user.save()
+
+                     self.response["messages"].append(user.avatar.photo.url)
               else:
                   self.response["errors"].append("Пользователь с такой почтой или именем уже есть")
+
               self.response['status']="user";
               self.response["id"]=user.id
           else:
-              self.response['errors']=form.errors
+              self.response['errors']=list(form.errors)
           return JsonResponse(self.response)
 
 
 
+class SendLetter(View):
+    form = LetterForm
+
+    def post(self,request,*args,**kw):
+        form = self.form(request.POST) 
+
+        if form.is_valid():
+            letter = Letter(email=form.cleaned_data["email"],cause=form.cleaned_data["reason"],message=form.cleaned_data["message"])
+            date = datetime.now();
+            letter.date = date.strftime("%Y/%m/%d")
+            letter.ip = request.META["REMOTE_ADDR"]
+            letter.save()
+            return JsonResponse({"status":"ok"});
+        else:
+            return HttpResponseBadRequest();
+
+
+class DeleteUser(View):
+    def get(self,request,*args,**kw):
+        if request.user.is_authenticated:
+            request.user.delete();
+            return HttpResponse()
+        else:
+            return HttpResponseForbidden();
 
 class NotFound(View):
     def get(self,request,*args,**kw):

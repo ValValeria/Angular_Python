@@ -23,3 +23,8 @@ class CommentForm(forms.Form):
     rating = forms.IntegerField()
     message = forms.CharField(max_length=300)
     post_id=forms.IntegerField()
+
+class LetterForm(forms.Form):
+    email = forms.EmailField(max_length=30,min_length=10)
+    message = forms.CharField(max_length=300,min_length=10)
+    reason = forms.CharField(max_length=50)

@@ -19,8 +19,8 @@
     border-radius: 5px;
 }
 
-table thead th .text span {
-    text-align: center;
+tr > th > a{
+    font-weight: 500;
 }
 
 #header {

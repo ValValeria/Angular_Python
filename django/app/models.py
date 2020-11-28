@@ -48,13 +48,29 @@ class Favorite(models.Model):
 
 
 class Avatar(models.Model):
-   photo = models.FileField(upload_to="app/static/avatars")
+   photo = models.FileField(upload_to="app/static/avatars",max_length=50*10)
    user = models.OneToOneField(get_user_model(),on_delete=models.CASCADE)
+
+   def __str__(self):
+	   return "Photo"
 
 
 class UserData(models.Model):
 	status = models.CharField(choices=[("admin","Admin"),("user","User")],default="user",max_length=40)
 	user = models.OneToOneField(get_user_model(),on_delete=models.CASCADE)
+
+	def __str__(self):
+	  return self.status;
+
+class Letter(models.Model):
+	email = models.CharField(max_length=30)
+	message = models.TextField(max_length=300)
+	date = models.DateField()
+	cause = models.CharField(max_length=50,default="Unspecified")
+	ip = models.CharField(max_length=50)
+
+	def __str__(self):
+		return self.email;
 
 #python manage.py makemigrations
 #python manage.py migrate
