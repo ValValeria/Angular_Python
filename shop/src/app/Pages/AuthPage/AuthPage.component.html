@@ -1,5 +1,5 @@
 <section class="auth section first-slide center">
-    <div class="auth__wrap wrap-md center">
+    <div class="auth__wrap wrap-md center" *ngIf="!user.is_auth">
         <div class="auth__form">
            <form [formGroup]="form" (ngSubmit)="submit($event)">
                <mat-card class="d-flex center flex-column">
@@ -48,5 +48,8 @@
                </mat-card>
             </form>          
         </div>
+    </div>
+    <div class="center" *ngIf="user.is_auth">
+        <mat-spinner color="accent"></mat-spinner>
     </div>
 </section>

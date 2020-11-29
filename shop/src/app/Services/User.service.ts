@@ -23,6 +23,7 @@ export class User implements IUser{
         this.password = data.password;
         this.is_auth = true;
         this.avatar = data.avatar;
+        console.log(data)
         this.id = data.id;
         USER_AUTH.next(true);
     }

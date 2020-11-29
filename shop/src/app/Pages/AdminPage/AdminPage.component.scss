@@ -22,6 +22,7 @@
     position: sticky;
     top:4rem;
     width:40%;
+    padding-right:2rem;
 }
 
 .admin__chart{
@@ -118,6 +119,9 @@
         grid-auto-rows: auto;
         grid-template-columns: minmax(250px, max-content) repeat(auto-fill, 250px);
         grid-gap:10px;
+        align-items: center;
+        justify-items: center;
+        padding-top:2rem;
     }
 }
 
@@ -232,5 +236,9 @@ th.mat-header-cell {
     }
     .admin__profile-info{
         width:80%;
+    }
+    .admin__dashboard > div{
+        width:80%;
+        grid-template-columns: minmax(250px, max-content) repeat(auto-fill, 200px);
     }
 }

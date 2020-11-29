@@ -1,3 +1,4 @@
+from .classes.UserParser import UserParser
 from urllib import request
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.files.base import ContentFile
@@ -163,24 +164,22 @@ class ProductSort(ListView):
 
 
 class LoginView(View):
-      response = {}  
+      response = {"data":{},"status":""}  
       form = AuthenticateForm;
 
       def post(self, *args, **kwargs):
           form = self.form(self.request.POST,True)    
           if form.is_valid(): 
-              user = User.objects.filter(username=form.cleaned_data['username']).filter(password=form.cleaned_data['password']).first()
+              user = User.objects.filter(username=form.cleaned_data['username']).filter(password=form.cleaned_data['password'])
 
-              if user:
-                  login(self.request,user)
-                  req = request.Request("/api/user-info", "", form.cleaned_data)
-                  response = HttpResponse();
-                  response['Content-Type']="application/json";
-
-                  with request.urlopen(req) as response:
-                        response.write(response.read())                 
+              if user.exists():
+                  login(self.request,user.first())
+                  self.response["data"].update({
+                      "user": UserParser(user.first()).get_user()
+                  }) 
+                  self.response["status"]="user"       
                   
-                  return response;                  
+                  return JsonResponse(self.response);                  
               else:
                   self.response["status"]="guest"
           else:
@@ -280,20 +279,7 @@ class UserProfile(View):
         if not user.is_authenticated or not user_id==user.id:
             return HttpResponseForbidden();
 
-        avatar = None;
-
-        try:
-           avatar = user.avatar.photo.url;
-        except:  
-           avatar ="/app/static/avatars/blank.jpg";
-
-        self.response["data"].update({"user":{
-            "email":user.email,
-            "password":user.password,
-            "avatar": avatar,
-            "role":user.userdata.status,
-            "id":user.id,
-        }})
+        self.response["data"].update({"user":UserParser(user).get_user()})
 
         self.response["status"]="user"
 

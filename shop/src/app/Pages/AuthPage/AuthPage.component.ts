@@ -20,13 +20,16 @@ export class AuthPage{
     isLogin:boolean = true;
     form:FormGroup;
     isValid = false;
-    email:FormControl;
+    email: FormControl;
     showStatus:boolean = false;
     message:string;
 
-    constructor(builder:FormBuilder,private user:User,private http:Http,private _snackBar: MatSnackBar,private router:Router){
+    constructor(public user: User,
+                private builder: FormBuilder,
+                private _snackBar: MatSnackBar,
+                private router: Router){
 
-        const opt:[string,ValidatorFn[]] = ["",[Validators.minLength(10),Validators.maxLength(30),Validators.required]];
+        const opt:[string, ValidatorFn[]] = ["",[Validators.minLength(10),Validators.maxLength(30),Validators.required]];
        
         this.form = builder.group({
             username:[...opt],
@@ -51,6 +54,22 @@ export class AuthPage{
                 this.isValid = this.email.valid;
             } 
         })
+    }
+
+    ngAfterViewInit(): void{
+        setTimeout(()=>{
+            if(this.user.is_auth){
+                const duration = 2000;
+
+                this._snackBar.open("Вы уже вошли в систему","Close",{
+                    duration
+                });
+
+                setTimeout(() => {
+                   this.router.navigateByUrl("/profile");
+                }, duration);
+            }
+        }, 5000)
     }
 
     click(bool: boolean): void{

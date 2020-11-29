@@ -20,7 +20,7 @@
                                     <mat-card-content class="admin__profile-avatar">
                                         <a mat-raised-button class="admin__profile-img">
                                             <div class="image-container">
-                                                <img [src]="'http://127.0.0.1:8000' + user.avatar | safe" alt="Profile image">
+                                                <img [src]="'http://127.0.0.1:8000' + (user.avatar||'/app/static/avatars/blank.jpg') | safe" alt="Profile image">
                                             </div>
                                         </a>
                                     </mat-card-content>

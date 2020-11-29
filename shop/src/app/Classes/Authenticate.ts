@@ -1,4 +1,4 @@
-import { IAuthResponse } from "../Interfaces/Interfaces";
+import { IAuthResponse, IUser } from "../Interfaces/Interfaces";
 import { User } from '../Services/User.service';
 
 
@@ -33,11 +33,10 @@ export class AuthenticateClass{
 
                 http.onload = () => {
                     if (http.status === 200) {
-                        const response: IAuthResponse&{avatar:string} = http.response;
+                        const response: {data: {user:IUser},status:"user"} = http.response;
 
                         if (response.status === 'user') {
-                            user.login({...data,id:response.id});
-                            user.avatar = response.avatar;
+                            user.login({...response.data.user});
                             resolve();
                         } else {
                             reject("Guest");
