@@ -16,7 +16,7 @@ export class AuthenticateClass{
                 const formdata = new URLSearchParams();
 
                 for (const [key, value] of Object.entries(data)) {
-                    if (value) {
+                    if (value && key) {
                         formdata.append(key, value);
                     }
                 }

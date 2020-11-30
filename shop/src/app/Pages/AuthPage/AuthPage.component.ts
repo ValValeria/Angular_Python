@@ -2,13 +2,10 @@ import { Component } from "@angular/core";
 import { FormControl, ValidatorFn, Validators } from "@angular/forms";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { auditTime } from "rxjs/operators";
-import { Http } from '../../Services/Http.service';
-import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { User } from "src/app/Services/User.service";
 import { merge } from "rxjs";
-import { IAuthResponse } from "src/app/Interfaces/Interfaces";
 import { AuthenticateClass } from 'src/app/Classes/Authenticate';
 
 @Component({
@@ -21,7 +18,7 @@ export class AuthPage{
     form:FormGroup;
     isValid = false;
     email: FormControl;
-    showStatus:boolean = false;
+    showStatus: string = '';
     message:string;
 
     constructor(public user: User,
@@ -74,7 +71,7 @@ export class AuthPage{
 
     click(bool: boolean): void{
         this.isLogin = bool;
-        this.showStatus = false;
+        this.showStatus = "";
     }
 
     submit($event): void{
@@ -91,19 +88,21 @@ export class AuthPage{
         localStorage.setItem("auth", JSON.stringify(data));
 
         (new AuthenticateClass()).authenticate(this.user, this.isLogin)
-        .then(isSuccess => {
+        .then(_isSuccess => {
             if (this.user.is_auth) {
                 this.router.navigateByUrl("/profile");
             } else {
-                if (this.isLogin) {
-                    this.showStatus = true;
-                }
                 localStorage.removeItem('auth');
+                console.log("error")
             }
         })
         .catch(v => {
+            if (this.isLogin) {
+                this.showStatus = "Извините, но вас нет в нашей системе"
+            } else {
+                this.showStatus = "Извините, но пользователь с такими данными уже есть в нашей базе"
+            }
             localStorage.removeItem("auth");
-            this.showStatus = true;
         });
       }
     }

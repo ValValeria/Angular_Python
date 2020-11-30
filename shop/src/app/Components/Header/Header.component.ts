@@ -1,15 +1,17 @@
 import { AfterViewInit, ViewContainerRef } from '@angular/core';
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { Router, RouterEvent, RoutesRecognized } from '@angular/router';
-import { auditTime, filter } from 'rxjs/operators';
+import { Router} from '@angular/router';
 import { User } from 'src/app/Services/User.service';
+import { $ORDER_COUNT } from '../OrderList/OrderList.component';
 
 @Component({
     selector:"header-main",
     templateUrl:"./Header.component.html",
+    styleUrls:["./Header.component.scss"]
 })
 export class Header implements AfterViewInit{
     @ViewChild('headerlinks',{read:ElementRef}) links:ElementRef;
+    counter: number = 0;
     
     constructor(public user:User, private router: Router, private header:ViewContainerRef){}
 
@@ -25,6 +27,10 @@ export class Header implements AfterViewInit{
         };
 
         window.onresize = toggleClass;
+
+        $ORDER_COUNT.subscribe(v=>{
+            this.counter = v;
+        })
     }
 
     toggleHeader():void{
@@ -42,4 +48,10 @@ export class Header implements AfterViewInit{
 
         elem.classList.toggle("none");
     }
+
+    logout(): void{
+        localStorage.removeItem("auth");
+        this.user.logout();
+        this.router.navigateByUrl("/");
+    } 
 }

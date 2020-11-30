@@ -16,6 +16,7 @@ class UserParser:
             "avatar": avatar,
             "role":self.__user.userdata.status,
             "id":self.__user.id,
+            "username":self.__user.username
         }
 
         return data

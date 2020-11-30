@@ -11,7 +11,7 @@ class Get_Order(ListView):
       response = {"data":[]}
 
       def get(self, request, *args, **kwargs):
-
+          print(request.user)
           if not request.user.is_authenticated:
               return HttpResponseForbidden();
               

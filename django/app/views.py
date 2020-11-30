@@ -164,7 +164,7 @@ class ProductSort(ListView):
 
 
 class LoginView(View):
-      response = {"data":{},"status":""}  
+      response = {"data":{"user":{}},"status":""}  
       form = AuthenticateForm;
 
       def post(self, *args, **kwargs):
@@ -174,9 +174,7 @@ class LoginView(View):
 
               if user.exists():
                   login(self.request,user.first())
-                  self.response["data"].update({
-                      "user": UserParser(user.first()).get_user()
-                  }) 
+                  self.response["data"]["user"].update(UserParser(user.first()).get_user()) 
                   self.response["status"]="user"       
                   
                   return JsonResponse(self.response);                  
@@ -213,13 +211,13 @@ class ChangeAvatar(LoginRequiredMixin,View):
 
 class SignUpView(View):
       form = AuthenticateForm;
-      response = {"errors":[],"messages":[]}
+      response = {"errors":[],"messages":[],"data":{}}
 
       def post(self,request, *args, **kwargs):
           form = self.form(self.request.POST,True) 
 
           if form.is_valid() and not request.user.is_authenticated: 
-              user = User.objects.filter(username=form.cleaned_data['username']).first()
+              user = User.objects.filter(Q(username=form.cleaned_data['username'])|Q(email=form.cleaned_data["email"])).first()
             
               if not user:
                      f = open(r"./app/static/avatars/blank.jpg",'rb')
@@ -231,12 +229,10 @@ class SignUpView(View):
                      user.userdata=user_data
                      user.save()
 
-                     self.response["messages"].append(user.avatar.photo.url)
+                     self.response["data"].update({"user":UserParser(user).get_user()})
+                     self.response['status']="user";
               else:
                   self.response["errors"].append("Пользователь с такой почтой или именем уже есть")
-
-              self.response['status']="user";
-              self.response["id"]=user.id
           else:
               self.response['errors']=list(form.errors)
           return JsonResponse(self.response)

@@ -10,6 +10,18 @@
              <li class="header__link center" *ngIf="!user.is_auth"><a mat-button routerLink="/authenticate" routerLinkActive="active-btn">Войти </a></li>
              <li class="header__link center"  *ngIf="user.is_auth"><a mat-button routerLink="/profile" routerLinkActive="active-btn">Админ панель</a></li>
              <li class="header__link center"><a mat-button routerLink="">Обратная связь</a></li>
+             <li class="header__link center"  *ngIf="user.is_auth" on-click='logout()'>
+                 <button mat-flat-button color="warn">
+                  Выйти
+                 </button> 
+             </li>
+            <li class="header__link center avatar" *ngIf="user.is_auth" >
+              <button mat-raised-button color="primary" matBadge="{{counter}}" matBadgePosition="before" matBadgeColor="accent">
+                <button  routerLink="/profile" class="avatar-btn">
+                  <img src="http://127.0.0.1:8000{{user.avatar}}" alt="" srcset="" style="width:30px;height:30px">
+                </button>
+              </button>
+            </li>
           </ul>
       </div>
     </div> 

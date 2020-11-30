@@ -23,7 +23,6 @@ export class User implements IUser{
         this.password = data.password;
         this.is_auth = true;
         this.avatar = data.avatar;
-        console.log(data)
         this.id = data.id;
         USER_AUTH.next(true);
     }
@@ -36,6 +35,34 @@ export class User implements IUser{
     addUnactiveProducts(product: IAd[]): void{
         this.unactiveOrders.push(...compact(product));
         this.activeOrders = uniqWith(this.activeOrders, isEqual);
+    }
+
+    logout(): void{
+       const props: string[] = Object.getOwnPropertyNames(this);
+
+       props.forEach(v => {
+           const type = typeof this[v];
+           switch (type) {
+               case "object":
+                   if(Array.isArray(this[v])){
+                       this[v] = [];
+                   }else{
+                       this[v] = {};
+                   }
+                   break;
+                case "number":
+                    this[v]=0
+                    break;
+                case "string":
+                    this[v]="";
+                    break;
+                case "boolean":
+                    this[v]=false;
+                    break;
+                default:
+                    break;
+           }
+       })
     }
 }
 

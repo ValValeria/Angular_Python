@@ -8,21 +8,14 @@ type POST_DATA = FormData|{email: string, password: string}|string|{message: str
 @Injectable()
 export class Http{
 
-    constructor(private http:HttpClient){}
+    constructor(private http: HttpClient){}
 
-    public get<T>(url:string,config?:{params:HttpParams}):Observable<T|null>{
+    public get<T>(url: string, config:any={}): Observable<T>{
         return this.http.get<T>(url,config).pipe(
                retry(3),
-               catchError((e:any)=>of(null)));
+               catchError((e:any)=>of(e)));
     }
 
-    /**
-     * Returns the observable,which can send a post request
-     * @param url 
-     * @param formdata 
-     * @param config
-     * @returns Observable<T|{status:string}>
-     */
     public post<T>(url: string, data: POST_DATA, config: {headers?: HttpHeaders} = {}): Observable<T|{status:string}>{      
         return this.http.post<T>(url, data, config);
     }

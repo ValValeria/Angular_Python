@@ -49,6 +49,7 @@ export class AdminPage extends ImageLoading implements AfterViewInit, AfterConte
             if (!this.user.is_auth){
                 this.router.navigateByUrl("/authenticate");
             }
+            console.log(this.user)
         })
 
         $ORDER_COUNT.subscribe(elem => {

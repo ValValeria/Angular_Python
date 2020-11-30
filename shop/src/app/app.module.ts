@@ -10,6 +10,7 @@ import { Http } from './Services/Http.service';
 import { User } from './Services/User.service';
 import { Authenticate } from './Services/Authenticate.service';
 import { SafePipe } from './Pipes/Safe.pipe';
+import { MatBadgeModule } from '@angular/material/badge';
 
 
 
@@ -22,7 +23,8 @@ import { SafePipe } from './Pipes/Safe.pipe';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatCardModule,
-    HttpClientModule
+    HttpClientModule,
+    MatBadgeModule
   ],
   providers: [Http,
               User,

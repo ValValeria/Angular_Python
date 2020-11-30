@@ -11,7 +11,7 @@ from app.view_pack.order_view import Order_View,Delete_Order,Get_Order,Order_Buy
 
 
 urlpatterns = [
-    re_path(r"^api/products$",ProductsView.as_view()),
+    re_path(r"^api/products",ProductsView.as_view()),
     re_path(r"^api/signup",SignUpView.as_view()),
     re_path(r"^api/login",LoginView.as_view()),
     re_path(r"^api/product/(?P<pk>\d+)",ProductView.as_view()),

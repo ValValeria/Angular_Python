@@ -39,7 +39,9 @@
                   </mat-card-content>
                   <mat-card-content *ngIf="showStatus">
                       <div class="auth__error center" >
-                           <button mat-button color="warn" >Вас нет в нашей базе данных</button>
+                           <button mat-button color="warn" >
+                              {{showStatus}}
+                           </button>
                       </div>
                   </mat-card-content>
                   <mat-card-content class="w-100 center d-flex">
