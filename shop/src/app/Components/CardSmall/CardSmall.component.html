@@ -13,9 +13,10 @@
                                      <span class="text-lorange">{{card.price | currency}}</span>
                                   </div>
                               </div>
-                              <div class="img-container center">
+                              <div class="card-sm__image img-container center">
                                   <error-loading hidden></error-loading>
                                   <img src="{{card.image.startsWith('/')?(url+card.image) : (url+'/'+card.image)}}" alt="..." on-error="errorImage($event)" #img/>
+                                  <app-like [id]="card.id"></app-like>
                               </div>
                               <div class="card-sm__content text-center">
                                  <div class="card-sm__title">{{card.title}}</div>

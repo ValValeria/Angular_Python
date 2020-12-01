@@ -83,7 +83,7 @@ export class Products {
      }
 
      ngAfterViewInit():void{
-          this.http.get<ProductsInfo>("http://127.0.0.1:8000/api/products-info/").subscribe(v=>{
+         this.http.get<ProductsInfo>("http://127.0.0.1:8000/api/info-products/").subscribe(v=>{
               this.categories = v.data.categories;
               this.max_price = v.data.price[1].max_price;
               this.max_price_value = v.data.price[1].max_price;

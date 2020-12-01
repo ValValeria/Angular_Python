@@ -6,8 +6,11 @@
     <div class="product__wrap wrap-md-pd " *ngIf="post">
         <div class="product__container">
              <h5 class="product__title">{{post.title}}</h5>
-             <div class="product__images">
-                 <div class="img-container"><img src="{{post.image.startsWith('/')?(url+post.image) : (url+'/'+post.image)}}"  alt=""></div>
+             <div class="product__images position-relative">
+                 <div class="img-container">
+                   <img src="{{post.image.startsWith('/')?(url+post.image) : (url+'/'+post.image)}}"  alt="">
+                 </div>
+                 <app-like [id]="post.id"></app-like>
              </div>
              <div class="product__short-descr text-left">
                  <h5 >Кратко о товаре</h5>

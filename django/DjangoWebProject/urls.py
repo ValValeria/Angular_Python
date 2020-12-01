@@ -11,6 +11,7 @@ from app.view_pack.order_view import Order_View,Delete_Order,Get_Order,Order_Buy
 
 
 urlpatterns = [
+    re_path(r"^api/info-products/",ProductInfo.as_view()),
     re_path(r"^api/products",ProductsView.as_view()),
     re_path(r"^api/signup",SignUpView.as_view()),
     re_path(r"^api/login",LoginView.as_view()),
@@ -23,7 +24,6 @@ urlpatterns = [
     re_path(r"^api/get-orders",Get_Order.as_view()),
     re_path(r"^api/comments/(?P<post_id>\d+)",CommentList_View.as_view()),
     re_path(r"^api/search",Search.as_view()),
-    re_path(r"^api/products-info/",ProductInfo.as_view()),
     re_path(r"^api/getbrands/",ProductInfoBrands.as_view()),
     re_path(r"^api/addlike",ProductLikes.as_view()),
     re_path(r"^api/buy-products",Order_Buy.as_view()),

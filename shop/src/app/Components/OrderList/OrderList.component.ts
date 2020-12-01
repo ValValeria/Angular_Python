@@ -28,6 +28,11 @@ export class OrderList implements OnInit,OnChanges{
 
     ngOnInit(): void{
         this.displayedColumns = ["delete","id", "title", "price", "count"];
+
+        if (!this.showCount){
+            this.displayedColumns = ["id", "title", "price"]
+        } 
+
         $DELETE_ITEMS.subscribe(items=>{
             const func = (v) => {
                 return items.includes(v.id);
@@ -42,7 +47,9 @@ export class OrderList implements OnInit,OnChanges{
         const data = d.data;
 
         if (data.isFirstChange() || !_.isEqual(data.previousValue, data.currentValue)){
-            $ORDER_COUNT.next(this.data.length);
+            if(this.showCount){
+                $ORDER_COUNT.next(this.data.length);
+            }
             if (this.data.length){
                 forEach(this.data, (v) => {
                     if (v){
@@ -50,7 +57,6 @@ export class OrderList implements OnInit,OnChanges{
                     }
                 });
             }  
-            console.log(this.productsCount)
         }         
     }
 

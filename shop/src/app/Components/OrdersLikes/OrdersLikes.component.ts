@@ -15,9 +15,9 @@ export class OrdersLikes implements OnInit{
     }
 
     ngOnInit(): void{
-        this.http.get<{data: IAd[]}>("http://127.0.0.1:8000/api/getlikes?user_id="+this.user.id)
+        this.http.get<{ data: { likes: IAd[]}}>("http://127.0.0.1:8000/api/getlikes?user_id="+this.user.id)
                   .subscribe(v => {
-                      this.likes = v.data;
+                      this.likes = v.data.likes;
                   });
     }
 }

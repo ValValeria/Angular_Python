@@ -29,6 +29,10 @@ import { OrderList } from './Components/OrderList/OrderList.component';
 import { ChartsModule } from 'ng2-charts';
 import { SafePipe } from './Pipes/Safe.pipe';
 import { OrdersLikes } from './Components/OrdersLikes/OrdersLikes.component';
+import { Like } from './Components/Like/Like.component';
+import { MatIconModule } from '@angular/material/icon';
+import { ContactPage } from './Pages/ContactPage/ContactPage.component';
+
 
 
 const routes: Routes = [
@@ -37,6 +41,7 @@ const routes: Routes = [
   {path:"product/:id",component:Product},
   {path:"authenticate",component:AuthPage},
   {path:"profile",component:AdminPage},
+  { path: "contacts", component: ContactPage}
 ];
 
 const modules = [MatButtonModule,
@@ -45,6 +50,7 @@ const modules = [MatButtonModule,
                  MatCardModule,
                  ReactiveFormsModule,
                  MatFormFieldModule,
+                 MatIconModule,
                  FormsModule,
                  MatSliderModule,
                  MatInputModule,
@@ -56,7 +62,7 @@ const modules = [MatButtonModule,
                  MatSortModule,
                  MatTableModule,
                  ChartsModule,
-                 MatCheckboxModule
+                 MatCheckboxModule,
                 ];
 
 @NgModule({
@@ -72,7 +78,9 @@ const modules = [MatButtonModule,
                 Comments,
                 AuthPage,
                 AdminPage,
-                OrderList
+                OrderList,
+                Like,
+                ContactPage
                 ],
   exports: [RouterModule,...modules]
 })

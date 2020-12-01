@@ -1,3 +1,4 @@
+from ..serializers.favorite_serializer import FavoriteSerializer
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.db.models import Q
 from django.views.generic import ListView,View;
@@ -7,7 +8,7 @@ from django.http import JsonResponse;
 
 
 class ProductLikesShow(ListView):
-    response = {"data":[],"errors":[],"status":""}
+    response = {"data":{"likes":[]},"errors":[],"status":""}
 
     def has_permission(self):
         self.user = self.request.user
@@ -21,31 +22,32 @@ class ProductLikesShow(ListView):
 
     def get(self,request,*args,**kw):
         if self.has_permission():
-           print(1) 
-           favorites = Favorite.objects.filter(user=self.user).values()
-           self.response["data"] = list(favorites);
+           favorites = Favorite.objects.filter(user=self.user)
+           likes = []
+
+           for favorite in favorites:
+               data = FavoriteSerializer(favorite).data.get("product")
+               likes.append(data)
+
+           self.response["data"]["likes"] = likes
         else:
            self.response["errors"].insert(0,"Invalid request")
         return JsonResponse(self.response,json_dumps_params={'ensure_ascii': False})
 
 
 
-class ProductLikes(LoginRequiredMixin,UserPassesTestMixin,ListView):
-     raise_exception = False
+class ProductLikes(ListView):
      response = {"data":[],"errors":[],"status":""}
-     redirect_authenticated_user=True
-
      
      def test_func(self):
          self.user = self.request.user;
          self.productId = self.request.GET.get("productId","")
          user_like = Favorite.objects.filter(Q(product__id=self.productId) & Q(user__id=self.user.id)).count();
-         return user_like==0;
-
+         return user_like==0  and self.request.user.is_authenticated and self.productId.isdigit();
 
      def get(self,request,*args,**kw):
 
-         if self.productId.isdigit():
+         if self.test_func():
              product = Product.objects.filter(id=self.productId).first()
 
              if product:
@@ -55,5 +57,5 @@ class ProductLikes(LoginRequiredMixin,UserPassesTestMixin,ListView):
              else:
                 self.response["errors"].append("The product doesn't exist")
          else:
-             self.response["errors"].append("Invalid productId")
+             self.response["errors"].append("Invalid request")
          return JsonResponse(self.response)

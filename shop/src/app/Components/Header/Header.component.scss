@@ -1,9 +1,10 @@
-.avatar .avatar-btn{
+.avatar .avatar__btn{
     width: 40px;
     height: 40px;
     border: none;
     border-radius: 50%;
     overflow:hidden;
+    outline: none;
 
     img{
     width: 100%;
@@ -12,3 +13,82 @@
     }
 }
 
+
+.avatar{
+    position: relative;
+    min-width:180px;
+
+    .avatar__orders{
+        position: absolute;
+        transform: scale(0.7);
+        bottom: -14px;
+        right: -17px;
+        font-size: 20px;
+        outline: none;
+    }
+}
+
+.avatar__icon{
+    position: relative;
+    z-index:7;
+}
+
+.avatar__popup{
+    position: absolute;
+    top: 35px;
+}
+
+.avatar__popup mat-list-item{
+    margin:5px 0;
+}
+
+
+@media(min-width:900px){
+    .header__links{
+        margin-left:4rem;
+    }
+}
+
+@media(max-width:900px){
+
+    .header__content,.header__links{
+        flex-direction: column;
+    }
+
+    .header__links{
+        margin-left: 0;
+        width: 100%;
+        padding-left: 0;
+        padding-top: 2.5rem;
+    }
+
+    .header__links li{
+        padding:1.7rem;
+        width:90%;
+
+        a{
+            transform: scale(1.5) !important;
+            width:70%;
+        }
+    }
+
+    .avatar-media{
+        position: absolute;
+        top: 15px;
+        left: 0px;
+    }
+    
+    .header__links{
+        min-height: 90vh;
+        justify-content: flex-start;
+        padding-top: 4rem;
+    }
+
+    #menu_icon{
+        position: absolute;
+        display:block;
+        top:1rem;
+        right:2.5rem;
+        cursor: pointer;
+    }
+}
