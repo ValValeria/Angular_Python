@@ -82,7 +82,7 @@
                                                 <div class="admin__order-message" *ngIf="message">
                                                     <button mat-button color="accent">{{message}}</button>
                                                 </div>
-                                                <div class="admin__order-btns">
+                                                <div class="admin__order-btns" *ngIf="user.activeOrders.length">
                                                     <button mat-flat-button color="warn" on-click="delete_orders()">Убрать из корзины</button>
                                                     <button mat-flat-button color="accent" on-click="change_orders()">Изменить количество</button>
                                                 </div>
@@ -101,8 +101,15 @@
                         <mat-card>
                             <mat-card-content>
                                 <mat-tab-group color="accent" mat-align-tabs="center">
-                                    <mat-tab label="Понравившиеся">
-                                        <app-likes *ngIf="user.is_auth"></app-likes>
+                                    <mat-tab label="Понравившиеся" class="likes">
+                                        <app-likes  (selectItems)="selectedLikes.push($event)"></app-likes>
+                                        <div class="likes__selected center text-center pt-3" *ngIf="selectedLikes.length">
+                                            Вы выбрали &nbsp;
+                                            <span>{{selectedLikes.length}} тв.</span>
+                                        </div>
+                                        <div class="likes__btn w-100 center pt-3" *ngIf="user.likes.length">
+                                            <button mat-flat-button color="warn" on-click="deleteLike()" >Убрать</button>
+                                        </div>
                                     </mat-tab>
                                 </mat-tab-group>
                             </mat-card-content>

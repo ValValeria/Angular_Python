@@ -15,6 +15,7 @@ export class User implements IUser{
     activeOrders: IAd[] = [];
     avatar:string;
     unactiveOrders: IAd[] = [];
+    likes:IAd[]=[];
     id:number;
 
     login(data: Partial<IUser>): void{

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import * as _ from 'lodash';
 import { forEach, remove } from 'lodash';
@@ -22,6 +22,9 @@ export class OrderList implements OnInit,OnChanges{
     @Input() data: IAd[];
     @Input() isOrderList = false;
     @Input() showCount = true;
+    @Input() role: string;
+    @Output() selectItems = new EventEmitter<number>();
+    showSelect = false;
     productsCount: {[prop: string]: number} = {};
 
     constructor(private detector: ChangeDetectorRef,private user: User){}
@@ -32,6 +35,11 @@ export class OrderList implements OnInit,OnChanges{
         if (!this.showCount){
             this.displayedColumns = ["id", "title", "price"]
         } 
+
+        if (this.role === "likes") {
+            this.showSelect = true;
+            this.displayedColumns.unshift("delete");
+        }
 
         $DELETE_ITEMS.subscribe(items=>{
             const func = (v) => {
@@ -50,6 +58,7 @@ export class OrderList implements OnInit,OnChanges{
             if(this.showCount){
                 $ORDER_COUNT.next(this.data.length);
             }
+
             if (this.data.length){
                 forEach(this.data, (v) => {
                     if (v){
@@ -63,6 +72,7 @@ export class OrderList implements OnInit,OnChanges{
     change(event: MatCheckboxChange): void{
         const id = Number(event.source.value);
         $CHOOSE_ITEM.next(id);
+        this.selectItems.emit(id);
     }
 
     changeCount(id: number ,num: number): void{

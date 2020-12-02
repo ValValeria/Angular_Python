@@ -1,3 +1,4 @@
+from django.http.response import HttpResponseForbidden
 from ..serializers.favorite_serializer import FavoriteSerializer
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.db.models import Q
@@ -35,6 +36,21 @@ class ProductLikesShow(ListView):
         return JsonResponse(self.response,json_dumps_params={'ensure_ascii': False})
 
 
+class ProductLikesDelete(View):
+    def get(self,request,*args,**kw):
+        user = request.user;
+
+        if not user.is_authenticated:
+            return HttpResponseForbidden()
+
+        product_ids = request.GET.getlist("product_id")
+
+        for product_id in product_ids:
+            like = user.favorite_set.filter(product__id=product_id)
+            like.delete()
+
+        return JsonResponse({"status":"ok"})
+
 
 class ProductLikes(ListView):
      response = {"data":[],"errors":[],"status":""}
@@ -57,5 +73,5 @@ class ProductLikes(ListView):
              else:
                 self.response["errors"].append("The product doesn't exist")
          else:
-             self.response["errors"].append("Invalid request")
+             self.response["errors"].append("Вы уже лайкнули этот товар")
          return JsonResponse(self.response)

@@ -252,3 +252,18 @@ th.mat-header-cell {
         grid-template-columns: minmax(250px, max-content) repeat(auto-fill, 200px);
     }
 }
+
+
+@media(max-width:800px){
+    .admin__content{
+        flex-direction: column;
+    }
+
+    .admin__dashboard{
+        width:100%;
+    }
+
+    .admin__items{
+        width:100%;
+    }
+}

@@ -13,6 +13,7 @@ import { ImageLoading } from 'src/app/Classes/ImageLoading';
 import {pull} from 'lodash';
 import { ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LIKES$ } from 'src/app/Components/OrdersLikes/OrdersLikes.component';
 
 @Component({
     selector: 'app-admin',
@@ -26,6 +27,7 @@ export class AdminPage extends ImageLoading implements AfterViewInit, AfterConte
     public doughnutChartData: MultiDataSet;
     public selectedCount = 0;
     public selectedItems: number[] = [];
+    public selectedLikes: number[] = [];
     @ViewChild('orders_active',{read:OrderList}) ordersArea: OrderList;
     message = "";
     errors: string[] = [];
@@ -49,7 +51,14 @@ export class AdminPage extends ImageLoading implements AfterViewInit, AfterConte
             if (!this.user.is_auth){
                 this.router.navigateByUrl("/authenticate");
             }
-            console.log(this.user)
+        })
+
+        LIKES$.subscribe(v => {
+            if (!this.selectedLikes.includes(v)) {
+                this.selectedLikes.push(v);
+            } else {
+                this.selectedLikes.splice(this.selectedLikes.indexOf(v),1);
+            }
         })
 
         $ORDER_COUNT.subscribe(elem => {
@@ -69,7 +78,6 @@ export class AdminPage extends ImageLoading implements AfterViewInit, AfterConte
                 });
 
                 this.doughnutChartData = [numbers];
-                console.log(this.doughnutChartData[0]);
             }, 0);
         });
     } 
@@ -147,7 +155,6 @@ export class AdminPage extends ImageLoading implements AfterViewInit, AfterConte
                duration: 2000
            });
            this.message = ""
-           console.log(e)
         },
         () => {
            if (status){
@@ -157,6 +164,24 @@ export class AdminPage extends ImageLoading implements AfterViewInit, AfterConte
            }
            this.message = ""
         });
+    }
+
+    deleteLike(): void{
+        let result = '';
+        
+        for (const iterator of this.selectedLikes) {
+            result += `product_id=${iterator}&`;
+        }
+        
+        result = result.slice(0,-1);
+
+        this.http.get<{"status":"ok"}>(`http://127.0.0.1:8000/api/delete-likes/?${result}`).
+        subscribe(v=>{
+            if(v.status=="ok"){
+                this._snackBar.open("Удалено")
+            }
+            $DELETE_ITEMS.next(this.selectedLikes);
+        })
     }
 }
 

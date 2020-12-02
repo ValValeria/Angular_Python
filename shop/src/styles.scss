@@ -72,7 +72,7 @@ a{
   display: grid !important;
   grid-template-rows: 550px;
   grid-auto-rows: 550px;
-  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(290px, 350px));
   grid-gap: 5px;
   align-items: center;
   justify-items: center;
@@ -199,7 +199,6 @@ a{
     transition:0.5s transform;
     height:530px;
 }
-
 
 .card-sm:hover{
     transform: scale(1.07);

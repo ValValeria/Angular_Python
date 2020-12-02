@@ -200,4 +200,3 @@ admin.site.site_header = "InDigital Admin"
 admin.site.site_title = "InDigital"
 admin.site.index_title = None
 admin.site.site_url="http://localhost:4200"
-admin.site.index_template="admin/index.html"

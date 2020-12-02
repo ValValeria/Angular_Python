@@ -14,7 +14,7 @@ from django.contrib.auth.models import Permission, User
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Max,Min
 from django.core.paginator import Paginator
-from .view_pack.likes_view import ProductLikesShow,ProductLikes;
+from .view_pack.likes_view import ProductLikesShow,ProductLikes,ProductLikesDelete;
 from django.db.models import Q
 from django.core.files import File
 from datetime import datetime

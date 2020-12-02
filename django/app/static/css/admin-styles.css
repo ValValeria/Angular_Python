@@ -44,7 +44,8 @@ tr > th > a{
 }
 
 #header {
-    background-image: linear-gradient(190deg, #3F4C6B,#09203F,#09203F,#141E30)
+   /* background-image: linear-gradient(190deg, #3F4C6B,#09203F,#09203F,#141E30)*/
+   background-color:#2F3538;
 }
 
 div.breadcrumbs {
