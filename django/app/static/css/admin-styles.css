@@ -2,6 +2,14 @@
     --color:#2c3e50;
 }
 
+body{
+    overflow-x:hidden;
+}
+
+.section-pd{
+    padding: 3rem 0;
+}
+
 .btn-link,#changelist .actions .button{
     background: var(--color);
     padding: 5px 10px;
@@ -23,12 +31,32 @@ tr > th > a{
     font-weight: 500;
 }
 
+.center{
+    display:flex;
+    align-items:center;
+    justify-content: center;
+}
+
+.btn-linear{
+    background-image: linear-gradient(45deg, #606C88, #3F4C6B) ;
+    font-weight: 300 !important;
+    border-radius: 15px !important;
+}
+
 #header {
-    background-color: var(--color) !important;
+    background-image: linear-gradient(190deg, #3F4C6B,#09203F,#09203F,#141E30)
 }
 
 div.breadcrumbs {
-    background: #414042
+    background: white;
+    box-shadow:0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+    color: #141E30;
+    font-weight: 500;
+}
+
+div.breadcrumbs a{
+    color: #141E30;
+    font-weight: 500;
 }
 
 #nav-sidebar{

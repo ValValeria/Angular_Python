@@ -2,6 +2,7 @@
 Definition of urls for DjangoWebProject.
 """
 
+from app.view_pack.admin_view import AdminView
 from django.urls import path,re_path
 from django.contrib import admin
 from app.views import UserProfile,DeleteUser,NotFound,SendLetter,ProductAvailableCount,LoginView,ProductsView,SignUpView,ProductView,ProductLikesShow,ProductSort,ProductInfo,ProductInfoBrands,ProductLikes
@@ -31,6 +32,7 @@ urlpatterns = [
     re_path(r"^api/send-letter",SendLetter.as_view()),
     re_path(r"^api/delete-user",DeleteUser.as_view()),
     re_path(r"^api/user-info",UserProfile.as_view()),
+    path('admin/', AdminView.as_view()),
     path('admin/', admin.site.urls),
     re_path(r"^",NotFound.as_view()),
 ]
