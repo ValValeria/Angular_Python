@@ -1,4 +1,6 @@
-$media : 10;
+.bg-linear{
+    background-image: linear-gradient(45deg, #231F20,#2F3538,#414042, #2F3640,#3F4C6B,#606C88);
+}
 
 .admin__headline{
         font-size: 40px;
@@ -8,10 +10,34 @@ $media : 10;
         text-align: center !important;
         line-height: 60px;
         grid-column:1/-1;
+        color:white;
 }
 
-.admin__items,.admin__dashboard{
+.admin__avatar{
+    max-width: 200px;
+    max-height: 400px;
+}
+
+.admin__actions{
+    width:100%;
+    padding:2rem 0;
+}
+
+.admin__items{
     padding-top:3rem;
+    position: relative;
+    z-index:2;
+
+    ::after{
+        content:"";
+        display:block;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        position: absolute;
+        filter:blur(5px);
+    }
 }
 
 .admin__wrap{
@@ -62,20 +88,14 @@ $media : 10;
         border-radius: 50% 0;
 }
 
-.admin__profile-info mat-card > div{
-        display: grid;
-        grid-template-columns: repeat(14, 1fr);
-        align-items: center;
-        justify-items: center;
-
-        >div>mat-card-content:nth-child(1){
-          grid-column: span 6;
-          margin-bottom:0;
-        }
-        >div>mat-card-content:nth-child(2){
-          grid-column: span 5/-1;
-        }
+.admin__profile-info:nth-child(1){
+        grid-column: 2/span 5;
 }
+
+.admin__profile-card{
+        grid-column-start: span 5;
+}
+
 
 .admin__profile-info .wrap-md >mat-card-content:nth-child(2){
      grid-column: span 6;
@@ -97,11 +117,32 @@ $media : 10;
 
 .admin{
     padding-top:3rem;
+}
 
+.admin__username{
+    padding-top: 1.5rem;
+    color: white;
+    font-weight: 300;
+    text-shadow: 5px 5px 10px black;
+    font-size: 25px;
 }
 
 .admin__order-list>mat-card{
    margin-bottom: 1.6rem;
+   background-color:transparent;
+   position: relative;
+   z-index:2;
+}
+
+.admin__order-list > mat-card ::after{
+       content:"";
+       display:block;
+       position: absolute;
+       width:100%;
+       height:100%;
+       filter:blur(10px);
+       top:0;
+       left:0;
 }
 
 .admin__dashboard{
@@ -113,17 +154,25 @@ $media : 10;
     align-items: center;
     justify-content: center;
     justify-items: center;
+    box-shadow: 5px 10px 20px rgba(0,0,0,0.3), -5px -10px 20px rgba(255,255,255,0.5);
     
     >div{
         padding-bottom: 3rem;
         display: grid;
-        grid-template-rows: 70px;
-        grid-auto-rows: auto;
-        grid-template-columns: minmax(250px, max-content) repeat(auto-fill, 250px);
+        grid-template-columns:repeat(auto-fit, minmax(30px,1fr));
+        grid-auto-rows: minmax(170px,auto);
+        padding-top: 0;
         grid-gap:20px;
         align-items: center;
         justify-items: center;
-        padding-top:2rem;
+        width:100% !important;
+    }
+
+    .admin__banner{
+        grid-column: 1/-1;
+        width: 100%;
+        grid-row: 1/span 2;
+        height:100%;
     }
 }
 
@@ -207,7 +256,7 @@ th.mat-header-cell {
 .admin__profile-info{
     width:100%;
     max-width:600px;
-    grid-column: 1/span 2;
+    grid-column: 2/span 6;
 }
 
 .admin__profile-card mat-card-title{
@@ -221,6 +270,23 @@ th.mat-header-cell {
   background-color: #231F20;
   color:white;
 }
+
+
+.admin__dashboard, .admin__items{
+  padding-bottom:3rem;
+}
+
+
+@media(max-width:1070px){
+    .admin__profile-img{
+        margin-right:3rem;
+    }
+
+    .admin__profile-card{
+       grid-column: 2/span 5;
+    }
+}
+
 
 
 @media(min-width:1000px){
@@ -247,23 +313,30 @@ th.mat-header-cell {
     .admin__profile-info{
         width:100%;
     }
-    .admin__dashboard > div{
-        width:80%;
-        grid-template-columns: minmax(250px, max-content) repeat(auto-fill, 200px);
+
+    .admin__profile-card{
+      grid-column: 2/span 5;
     }
+
+    .admin__profile-info{
+      width: 100%;
+      max-width: 600px;
+      grid-column: 2/-2;
+   }
 }
 
-
-@media(max-width:800px){
+@media(max-width:900px){
     .admin__content{
         flex-direction: column;
     }
 
     .admin__dashboard{
-        width:100%;
+        width: 100%;
+        box-shadow: none;
     }
 
     .admin__items{
-        width:100%;
+        width: 100%;
+        padding: 3rem 0;
     }
 }

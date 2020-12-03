@@ -43,7 +43,7 @@ export class OrderList implements OnInit,OnChanges{
 
         $DELETE_ITEMS.subscribe(items=>{
             const func = (v) => {
-                return items.includes(v.id);
+                return items.includes(v.id);//?
             };
             remove(this.data, func);
             remove(this.user.activeOrders, func);

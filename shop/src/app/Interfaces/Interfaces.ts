@@ -33,6 +33,7 @@ export interface IUser{
     password:string
     id?:number
     avatar?: string
+    role?:string
 }
 
 export interface IComment{

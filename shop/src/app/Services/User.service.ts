@@ -17,6 +17,7 @@ export class User implements IUser{
     unactiveOrders: IAd[] = [];
     likes:IAd[]=[];
     id:number;
+    role:string;
 
     login(data: Partial<IUser>): void{
         this.username = data.username ;
@@ -25,6 +26,7 @@ export class User implements IUser{
         this.is_auth = true;
         this.avatar = data.avatar;
         this.id = data.id;
+        this.role = data.role
         USER_AUTH.next(true);
     }
 

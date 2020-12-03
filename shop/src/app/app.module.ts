@@ -9,14 +9,15 @@ import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { Http } from './Services/Http.service';
 import { User } from './Services/User.service';
 import { Authenticate } from './Services/Authenticate.service';
-import { SafePipe } from './Pipes/Safe.pipe';
 import { MatBadgeModule } from '@angular/material/badge';
+import { SearchForm } from './Components/SearchForm/SearchForm.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
 @NgModule({
   declarations: [
-    AppComponent, Header
+    AppComponent, Header, SearchForm
   ],
   imports: [
     BrowserModule,
@@ -24,7 +25,8 @@ import { MatBadgeModule } from '@angular/material/badge';
     BrowserAnimationsModule,
     MatCardModule,
     HttpClientModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatDialogModule
   ],
   providers: [Http,
               User,

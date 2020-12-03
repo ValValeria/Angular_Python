@@ -1,10 +1,12 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { AfterViewInit, ViewContainerRef } from '@angular/core';
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router} from '@angular/router';
 import { Http } from 'src/app/Services/Http.service';
 import { User } from 'src/app/Services/User.service';
 import { $ORDER_COUNT } from '../OrderList/OrderList.component';
+import { SearchForm } from '../SearchForm/SearchForm.component';
 
 @Component({
     selector:"header-main",
@@ -28,13 +30,16 @@ export class Header implements AfterViewInit{
     showPopup = false;
     mediaAvatar = false;
     
-    constructor(public user:User, private router: Router, private http: Http){}
+    constructor(public user:User,
+                private router: Router,
+                private http: Http,
+                private dialog: MatDialog){}
 
     ngAfterViewInit(): void {
         const elem: HTMLUListElement = this.links.nativeElement;
 
         const toggleClass = () => {
-                if (document.documentElement.clientWidth > 900) {
+                if (document.documentElement.clientWidth > 1000) {
                     elem.classList.remove('none');
                     setTimeout(()=>{
                         this.mediaAvatar = false;
@@ -74,6 +79,13 @@ export class Header implements AfterViewInit{
     deleteProfile(): void{
         this.http.get("http://127.0.0.1:8000/api/delete-user").subscribe(()=>{
             this.logout();
+        });
+    }
+
+    showSearch(): void{
+        this.dialog.open(SearchForm,{
+            width:"50%",
+            height:"50%"
         });
     }
 }

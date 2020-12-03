@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
 import { Http } from 'src/app/Services/Http.service';
 import { User } from 'src/app/Services/User.service';
 import { Router } from '@angular/router';
@@ -29,6 +29,7 @@ export class AdminPage extends ImageLoading implements AfterViewInit, AfterConte
     public selectedItems: number[] = [];
     public selectedLikes: number[] = [];
     @ViewChild('orders_active',{read:OrderList}) ordersArea: OrderList;
+    @ViewChild("file",{read:ElementRef}) file: ElementRef;
     message = "";
     errors: string[] = [];
 
@@ -182,6 +183,30 @@ export class AdminPage extends ImageLoading implements AfterViewInit, AfterConte
             }
             $DELETE_ITEMS.next(this.selectedLikes);
         })
+    }
+
+    changeAvatar(): void{
+        const fileElem: HTMLInputElement = this.file.nativeElement;
+        fileElem.click();
+        
+        fileElem.onchange = () => {
+            const file: File = fileElem.files[0];
+
+            if (file.type.includes("image/")) {
+                const formdata = new FormData();
+                formdata.append("avatar", file, file.name);
+
+                this.http.post<{ status: "ok", data: { url: string } }>("http://127.0.0.1:8000/api/change-avatar", formdata)
+                    .subscribe(v => {
+                        if (v.status === "ok") {
+                            this.user.avatar = (v as any).data.url;
+                            console.log(this.user.avatar);
+                        }
+                    });
+            } else {
+                this._snackBar.open('Загружайте только изображения');
+            }
+        };
     }
 }
 

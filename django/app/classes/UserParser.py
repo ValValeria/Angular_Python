@@ -6,7 +6,7 @@ class UserParser:
         avatar = None;
 
         try:
-           avatar = self.user.avatar.photo.url;
+           avatar = self.__user.avatar.photo.url;
         except:  
            avatar ="/app/static/avatars/blank.jpg";
 

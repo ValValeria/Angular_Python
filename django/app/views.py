@@ -187,19 +187,26 @@ class LoginView(View):
 
 
 
-class ChangeAvatar(LoginRequiredMixin,View):
+class ChangeAvatar(View):
       redirect_authenticated_user=True
-      response={"errors":[],"data":{},"status":""}
+      response={"errors":[],"data":{"url":""},"status":""}
       
       def post(self,request,*args,**kw):
           user = request.user;
           file = request.FILES.get('avatar')
           
+          if not file or not user.is_authenticated:
+              return HttpResponseForbidden()
+
           if file:
               if "image/" in file.content_type:
-                  user.avatar.photo = file;
+                  if not user.avatar:
+                     user.avatar = Avatar.objects.create(user = user);
+                  user.avatar.photo.save(file.name,file,save=False)
+                  user.avatar.save()
                   user.save();
-                  self.response["status"]=200
+                  self.response["status"]="ok"
+                  self.response["data"]["url"] = user.avatar.photo.url;
               else:
                   self.response["errors"]
 
