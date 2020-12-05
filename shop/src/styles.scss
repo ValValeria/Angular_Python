@@ -167,6 +167,10 @@ a{
     background: linear-gradient(to right, #161616, #040c21);
 }
 
+.mat-dialog-container{
+    background: radial-gradient(farthest-side ellipse at top left, white, #aaaaaa);
+}
+
 .wrap-md-pd{
     @extend %wrap;
     max-width:1000px;

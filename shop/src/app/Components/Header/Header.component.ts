@@ -6,7 +6,7 @@ import { Router} from '@angular/router';
 import { Http } from 'src/app/Services/Http.service';
 import { User } from 'src/app/Services/User.service';
 import { $ORDER_COUNT } from '../OrderList/OrderList.component';
-import { SearchForm } from '../SearchForm/SearchForm.component';
+import { $CLOSE_SEARCH, SearchForm } from '../SearchForm/SearchForm.component';
 
 @Component({
     selector:"header-main",
@@ -58,6 +58,10 @@ export class Header implements AfterViewInit{
 
         $ORDER_COUNT.subscribe(v=>{
             this.counter = v;
+        })
+
+        $CLOSE_SEARCH.subscribe(v => {
+            this.dialog.closeAll();
         })
     }
 

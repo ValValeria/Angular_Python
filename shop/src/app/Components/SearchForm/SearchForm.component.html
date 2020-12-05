@@ -2,13 +2,26 @@
     <div class="search__wrap wrap-md-pd">
          <h6 class="search__title text-center">Поиск</h6>
          <div class="search__form center">
-            <mat-form-field appearance="outline" color="accent">
-                <mat-label>Type here</mat-label>
-                <input matInput>
-            </mat-form-field>
-            <button mat-raised-button color="accent" class="search__icon">
+            <div class="search__field">
+                <div class="search__input-container">
+                    <input type="text" #search/>
+                </div>
+            </div>
+            <button mat-flat-button class="search__icon" color="accent">
                  Поиск
             </button>
+         </div>
+         <div class="search__results">
+             <ul class="search__items">
+                 <li *ngFor="let item of results" on-click="close()">
+                     <a routerLink="/product/{{item.id}}">
+                         {{item.title}}
+                    </a>
+                 </li>
+                <li *ngIf="!results.length && message">
+                     {{message}}
+                </li>
+             </ul>
          </div>
     </div>
 </div>
