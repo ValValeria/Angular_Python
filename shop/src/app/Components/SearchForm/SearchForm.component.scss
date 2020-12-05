@@ -3,13 +3,14 @@
     line-height: 1.07143;
     letter-spacing: -0.005em;
     text-transform: uppercase;
+    color:white
 }
 
 .search__form{
     margin-top:30px;
     background-color: rgba(255, 255, 255, 0.3);
     padding: 10px;
-    box-shadow: 5px 10px 20px rgba(0,0,0,0.3), -5px -10px 20px rgba(255,255,255,0.5);
+    box-shadow:5px 10px 20px rgba(0, 0, 0, 0.3), -5px -10px 20px rgba(0, 0, 0, 0.3);
     padding: 20px;
     border-radius: 5px;
     border: 1px solid #C1BBB7;
@@ -24,11 +25,10 @@
     background-color: rgba(255, 255, 255, 0.3);
     margin: 10px 0;
     list-style: none;
-    backdrop-filter: blur(15px);
     padding-left: 0;
     padding:20px;
     border-radius:5px;
-    box-shadow: 5px 10px 20px rgba(0,0,0,0.3), -5px -10px 20px rgba(255,255,255,0.5);
+    box-shadow:5px 10px 20px rgba(0, 0, 0, 0.3), -5px -10px 20px rgba(0, 0, 0, 0.3);
     padding: 20px;
     border-radius: 5px;
     border: 1px solid #C1BBB7;
@@ -63,8 +63,9 @@
         }
 
         input{
-             margin-right: 0;
+             margin-right: 0 !important;
              margin-bottom:10px;
+             width:100% !important;
         }
 
         .search__field{
