@@ -25,58 +25,9 @@
         <div class="section__wrap wrap-md-pd text-center" >
           <h3 class="section__headline">{{"Наши товары" | uppercase}}</h3>
           <div class="product__wrap center align-items-start">
-               <div class="product__search text-center center">
-                  <mat-card class="shadow bg-white product__search-wrap">
-                        <div class="wrap-md center flex-column">
-                           <mat-card-content>
-                               <mat-card-title class="product__search-title text-center">{{"Поиск"|uppercase}}</mat-card-title>
-                           </mat-card-content>
-                           <mat-card-content class="w-100">
-                               <div class="product__search-area">
-                                    <div class="product__search-card">
-                                          <h6>Категория</h6>
-                                          <mat-form-field  appearance="outline" class="w-100"color="accent" >
-                                                <mat-label>Выбрать</mat-label>
-                                                <mat-select color="warn" on-selectionChange="getBrands($event)">
-                                                     <mat-option value="" selected>Всё</mat-option>
-                                                     <mat-option *ngFor="let category of categories" value="{{category}}">{{category}}</mat-option>
-                                                </mat-select>
-                                          </mat-form-field>
-                                    </div>
-
-                                    <div class="product__search-card">
-                                          <h6>Бренд</h6>
-                                          <mat-form-field  appearance="outline" class="w-100" color="accent">
-                                                <mat-label>Выбрать</mat-label>
-                                                <mat-select color="warn" (selectionChange)="changeBrand($event)" >
-                                                      <mat-option value="" selected>Всё</mat-option>
-                                                      <mat-option *ngFor="let brand of brands" value="{{brand}}">{{brand}}</mat-option>
-                                               </mat-select>
-                                          </mat-form-field>
-                                    </div>
-                                   
-                                    <div class="product__search-card w-100">
-                                          <h6>Максимальная цена</h6>
-                                          <mat-slider
-                                               min="1" 
-                                               max="{{max_price_value}}"
-                                               class="w-100"
-                                               value="{{max_price_value}}"
-                                               (input)="max_price=$event.value"
-                                               thumbLabel
-                                               >
-                                           </mat-slider>
-                                   </div>
-                               </div>
-                           </mat-card-content>
-                           <mat-card-content>
-                              <button mat-raised-button color="warn" class="bg-warn" on-click="sort()">Найти</button>
-                           </mat-card-content>
-                        </div>
-                  </mat-card>
-          
-          
-                </div>
+               <ng-container *ngIf="!showModel">
+                   <ng-container *ngTemplateOutlet="search"></ng-container>
+               </ng-container>
 
                <div class="product__area center flex-column">
                   <div class="product__content"  @fadeInOut *ngIf="!disabled && products.length" >
@@ -100,7 +51,63 @@
                     </div>
                   </div>
               </div>
+
+              <div class="product__expand-search center" *ngIf="showModel">
+                    <div class="wrap-md center justify-content-end">
+                        <button mat-mini-fab color="accent" on-click="showMenu()">
+                              <mat-icon>more_vert</mat-icon>
+                        </button>
+                    </div>
+              </div>
           </div>
         </div>
     </div>
   </section>       
+
+
+  <ng-template #search>
+      <div class="product__search text-center center" >
+        <mat-card class="shadow bg-white product__search-wrap">
+          <div class="wrap-md center flex-column">
+            <mat-card-content>
+              <mat-card-title class="product__search-title text-center">{{"Поиск"|uppercase}}</mat-card-title>
+            </mat-card-content>
+            <mat-card-content class="w-100">
+              <div class="product__search-area">
+                <div class="product__search-card">
+                  <h6>Категория</h6>
+                  <mat-form-field appearance="outline" class="w-100" color="accent">
+                    <mat-label>Выбрать</mat-label>
+                    <mat-select color="warn" on-selectionChange="getBrands($event)">
+                      <mat-option value="" selected>Всё</mat-option>
+                      <mat-option *ngFor="let category of categories" value="{{category}}">{{category}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+      
+                <div class="product__search-card">
+                  <h6>Бренд</h6>
+                  <mat-form-field appearance="outline" class="w-100" color="accent">
+                    <mat-label>Выбрать</mat-label>
+                    <mat-select color="warn" (selectionChange)="changeBrand($event)">
+                      <mat-option value="" selected>Всё</mat-option>
+                      <mat-option *ngFor="let brand of brands" value="{{brand}}">{{brand}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+      
+                <div class="product__search-card w-100">
+                  <h6>Максимальная цена</h6>
+                  <mat-slider min="1" max="{{max_price_value}}" class="w-100" value="{{max_price_value}}"
+                    (input)="max_price=$event.value" thumbLabel>
+                  </mat-slider>
+                </div>
+              </div>
+            </mat-card-content>
+            <mat-card-content>
+              <button mat-raised-button color="warn" class="bg-warn" on-click="sort()">Найти</button>
+            </mat-card-content>
+          </div>
+        </mat-card>
+      </div>
+  </ng-template>

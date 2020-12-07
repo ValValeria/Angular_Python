@@ -17,6 +17,13 @@
     min-width:200px;
 }
 
+.product__expand-search{
+    position: sticky;
+    top: 6rem;
+    margin-top: 10px;
+    width:100%;
+}
+
 .product__search-title{
     margin-bottom: 1rem !important;
     font-weight: 300;
@@ -128,4 +135,21 @@
    .product__search-wrap{
        width:100%;
    }
+}
+
+
+@media(max-width:700px){
+    .product__expand-search {
+       position: static;
+       width:50px;
+    }
+
+    .product__search{
+        width: 100%;
+    padding-right: 0;
+    }
+
+    .product__wrap{
+        padding-top:0;
+    }
 }

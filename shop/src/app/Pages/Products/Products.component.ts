@@ -1,8 +1,9 @@
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
-import { Component, ElementRef, ViewChild} from '@angular/core';
+import { Component, ElementRef, TemplateRef, ViewChild} from '@angular/core';
 import { IAd, ProductsBrand, ProductsInfo } from 'src/app/Interfaces/Interfaces';
 import { Http } from 'src/app/Services/Http.service';
 import { HttpParams } from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
 
 
 interface IResponse{
@@ -38,6 +39,7 @@ export class Products {
     panelOpenState:boolean = false;
     categories: string [];
     @ViewChild("productsElem",{read:ElementRef})productsElem:ElementRef;
+    @ViewChild('search',{read: TemplateRef}) search: TemplateRef<any>;
     max_price: number;
     brands: string[];
     activeCategory:string;
@@ -47,8 +49,10 @@ export class Products {
     isEmpty: boolean;
     sentHttp:boolean;
     max_price_value: number=4000;
+    readonly MWIDTH: number = 700;
+    showModel = false;
 
-    constructor(private http:Http){
+    constructor(private http:Http, private dialog: MatDialog){
          this.products = [];
          this.categories = [];
      }
@@ -73,6 +77,13 @@ export class Products {
          });
      }
 
+     showMenu(): void{
+        this.dialog.open(this.search, {
+            width:"90%",
+            height:"400px"
+        });
+     }
+
      checkData():void{
         if(!this.products.length){
             this.isEmpty = true;
@@ -89,6 +100,20 @@ export class Products {
               this.max_price_value = v.data.price[1].max_price;
          })
          this.getBrands({value:""});
+         
+         const onScroll = () => {
+               const width = document.documentElement.clientWidth;
+
+               if (width < this.MWIDTH){
+                   this.showModel = true;
+               } else {
+                   this.showModel = false;
+               }
+         };
+         
+         window.onresize = onScroll.bind(this);
+         
+         onScroll();
      }
 
      getBrands($event:{value:string}):void{
@@ -101,23 +126,28 @@ export class Products {
 
      sort(next:boolean=false):void{
          this.sentHttp = true;
-         if(!next){///means the user wants to sort the goods by some criteria
-            this.page = 1;
-            this.products = [];
-         }
-         const config={
-             params: new HttpParams().set('min',"0")
-                                     .set("max",this.max_price.toString())
-                                     .set("category",this.activeCategory||"")
-                                     .set("brand",this.activeBrand||"")
-                                     .set("page",String(this.page))
-         }
-         this.http.get<IResponse>("http://127.0.0.1:8000/api/sort/",config).subscribe(v=>{
-             this.products.push(...v.data);
-             this.hasNext = v.has_next;
-             console.log(v.data)
-             this.checkData()
-         })
+         
+         this.dialog.closeAll();
+
+         this.dialog.afterAllClosed.subscribe(()=>{
+             if (!next) {
+                 this.page = 1;
+                 this.products = [];
+             }
+             const config = {
+                 params: new HttpParams().set('min', "0")
+                     .set("max", this.max_price.toString())
+                     .set("category", this.activeCategory || "")
+                     .set("brand", this.activeBrand || "")
+                     .set("page", String(this.page))
+             }
+             this.http.get<IResponse>("http://127.0.0.1:8000/api/sort/", config).subscribe(v => {
+                 this.products.push(...v.data);
+                 this.hasNext = v.has_next;
+                 console.log(v.data)
+                 this.checkData()
+             })
+         });
      }
 
      changeBrand($event):void{
