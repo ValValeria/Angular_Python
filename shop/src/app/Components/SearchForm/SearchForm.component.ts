@@ -13,9 +13,10 @@ export const $CLOSE_SEARCH = new Subject<number>();
     styleUrls: ['./SearchForm.component.scss']
 })
 export class SearchForm implements AfterViewInit{
-    @ViewChild("search", {read: ElementRef}) searchElem: ElementRef;
+    @ViewChild('search', {read: ElementRef}) searchElem: ElementRef;
     results: IAd[] = [];
     message = '';
+    hasMore: boolean;
 
     constructor(private http: Http){}
 
@@ -35,7 +36,11 @@ export class SearchForm implements AfterViewInit{
             })
         )
         .subscribe(v => {
-            this.results = v.data.results;
+            this.results = v.data.results.slice(0, 10);
+
+            if(v.data.results.length > 10){
+                this.hasMore = true;
+            }
 
             if (this.results.length === 0){
                this.message = 'Нет результатов';

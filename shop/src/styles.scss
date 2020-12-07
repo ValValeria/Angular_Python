@@ -170,7 +170,19 @@ a{
 .mat-dialog-container{
     background: repeating-linear-gradient(45deg, #1A2026, #2F3538 10px, #414042 10px, #414042 20px);
 }
+.contact-form{
+   .mat-form-field-appearance-outline .mat-form-field-outline{
+    color:#ffd740;
+  }
 
+   .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label{
+    color:white;
+   }
+
+   .mat-form-field-empty.mat-form-field-label, .mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label{
+    color:white;
+   }
+}
 .wrap-md-pd{
     @extend %wrap;
     max-width:1000px;

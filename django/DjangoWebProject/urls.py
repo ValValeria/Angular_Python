@@ -12,6 +12,7 @@ from app.view_pack.order_view import Order_View,Delete_Order,Get_Order,Order_Buy
 
 
 urlpatterns = [
+    re_path(r"^api/send-letter",SendLetter.as_view()),
     re_path(r"^api/delete-likes/",ProductLikesDelete.as_view()),
     re_path(r"^api/info-products/",ProductInfo.as_view()),
     re_path(r"^api/products",ProductsView.as_view()),
@@ -30,7 +31,6 @@ urlpatterns = [
     re_path(r"^api/addlike",ProductLikes.as_view()),
     re_path(r"^api/buy-products",Order_Buy.as_view()),
     re_path(r"^api/product-count",ProductAvailableCount.as_view()),
-    re_path(r"^api/send-letter",SendLetter.as_view()),
     re_path(r"^api/delete-user",DeleteUser.as_view()),
     re_path(r"^api/user-info",UserProfile.as_view()),
     re_path(r"^api/change-avatar",ChangeAvatar.as_view()),

@@ -253,14 +253,13 @@ class SendLetter(View):
         form = self.form(request.POST) 
 
         if form.is_valid():
-            letter = Letter(email=form.cleaned_data["email"],cause=form.cleaned_data["reason"],message=form.cleaned_data["message"])
-            date = datetime.now();
-            letter.date = date.strftime("%Y/%m/%d")
+            letter = Letter(email=form.cleaned_data["email"],cause=form.cleaned_data["cause"],message=form.cleaned_data["message"])
+            letter.date = "2020-11-10"
             letter.ip = request.META["REMOTE_ADDR"]
             letter.save()
             return JsonResponse({"status":"ok"});
         else:
-            return HttpResponseBadRequest();
+            return JsonResponse(form.errors);
 
 
 class DeleteUser(View):

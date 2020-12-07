@@ -1,1 +1,42 @@
-<section class="section"></section>
+<section class="section center first-slide bg-ldark">
+    <div class="section__wrap wrap-md-pd center ">
+        <div class="wrap-md-pd center">
+            <div class="section__form shadow contact-form">
+                <h2 class="section__form-title text-center">
+                    {{"связаться с нами"|uppercase}}
+                </h2>
+                <div class="section__field-sets flex-column center">
+                    <form  class="w-100" [formGroup]="formGroup">
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Email</mat-label>
+                            <input matInput type="email" formControlName="email" required/>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Цель вашего письма</mat-label>
+                            <input type="text" matInput formControlName="cause" required/>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" color="accent">
+                            <mat-label>Ваше письмо</mat-label>
+                            <textarea matInput 
+                                      cols="30"
+                                      rows="10" 
+                                      style="resize: none;"
+                                      formControlName="message"
+                                      required
+                                      >
+                            </textarea>
+                        </mat-form-field>
+                        <div class="section__field-errors" *ngIf="formGroup.invalid && formGroup.touched">
+                            <button mat-flat-button color="warn" *ngIf="formGroup.get('email').invalid && formGroup.get('email').touched">Проверьте правильность вашего имейла. </button>
+                            <button mat-flat-button color="warn" *ngIf="formGroup.get('cause').invalid  && formGroup.get('cause').touched">Цель вашего письма должна быть меньше 50 букв</button>
+                            <button mat-flat-button color="warn" *ngIf="formGroup.get('message').invalid  && formGroup.get('message').touched">Ваше письмо должно быть больше 50 букв и меньше 300 букв</button>
+                        </div>
+                    </form>
+                    <div>
+                        <button mat-flat-button color="accent" on-click="click()">Отправить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

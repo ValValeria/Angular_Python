@@ -27,4 +27,4 @@ class CommentForm(forms.Form):
 class LetterForm(forms.Form):
     email = forms.EmailField(max_length=30,min_length=10)
     message = forms.CharField(max_length=300,min_length=10)
-    reason = forms.CharField(max_length=50)
+    cause = forms.CharField(max_length=50)

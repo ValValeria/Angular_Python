@@ -82,6 +82,6 @@ const modules = [MatButtonModule,
                 Like,
                 ContactPage
                 ],
-  exports: [RouterModule,...modules]
+  exports: [RouterModule, ...modules]
 })
 export class AppRoutingModule { }

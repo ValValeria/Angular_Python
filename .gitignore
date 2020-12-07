@@ -11,6 +11,8 @@ static/images
 
 node_modules
 
+lib
+
 migrations
 
 __pycache__/

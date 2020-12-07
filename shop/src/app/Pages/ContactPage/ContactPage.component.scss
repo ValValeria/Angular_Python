@@ -1,0 +1,41 @@
+.section__form{
+    padding:1rem;
+    width: 90%;
+    max-width: 500px;
+    color: white;
+    backdrop-filter: opacity(0.4);
+    border-radius: 5px;
+    background: rgb(35, 31, 32,0.2);
+    padding: 2rem;
+    
+    input{
+        color:white;
+    }
+    
+    input::placeholder{
+        color:white;
+    }
+}
+
+mat-form-field {
+    color:white !important;
+    border-color: white !important;
+}
+
+mat-form-field{
+    width:100%;
+}
+
+.bg-ldark{
+   background: repeating-linear-gradient(45deg, #1A2026, #2F3538 10px, #414042 10px, #414042 20px);
+}
+
+.section__field-errors{
+    width:100%;
+    margin-bottom: 20px;
+    
+    button{
+        margin:5px 0;
+        width:100%;
+    }
+}
