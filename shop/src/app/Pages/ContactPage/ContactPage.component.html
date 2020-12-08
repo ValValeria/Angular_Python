@@ -26,10 +26,10 @@
                                       >
                             </textarea>
                         </mat-form-field>
-                        <div class="section__field-errors" *ngIf="formGroup.invalid && formGroup.touched">
-                            <button mat-flat-button color="warn" *ngIf="formGroup.get('email').invalid && formGroup.get('email').touched">Проверьте правильность вашего имейла. </button>
-                            <button mat-flat-button color="warn" *ngIf="formGroup.get('cause').invalid  && formGroup.get('cause').touched">Цель вашего письма должна быть меньше 50 букв</button>
-                            <button mat-flat-button color="warn" *ngIf="formGroup.get('message').invalid  && formGroup.get('message').touched">Ваше письмо должно быть больше 50 букв и меньше 300 букв</button>
+                        <div class="section__field-errors"  *ngIf="formGroup.invalid && formGroup.touched">
+                            <button mat-flat-button color="warn" @fade *ngIf="formGroup.get('email').invalid && formGroup.get('email').touched">Проверьте правильность вашего имейла. </button>
+                            <button mat-flat-button color="warn" @fade *ngIf="formGroup.get('cause').invalid  && formGroup.get('cause').touched">Цель вашего письма должна быть меньше 50 букв</button>
+                            <button mat-flat-button color="warn" @fade *ngIf="formGroup.get('message').invalid  && formGroup.get('message').touched">Ваше письмо должно быть больше 50 букв и меньше 300 букв</button>
                         </div>
                     </form>
                     <div>

@@ -1,3 +1,4 @@
+import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -6,7 +7,15 @@ import { Http } from 'src/app/Services/Http.service';
 @Component({
     selector: 'app-contact-page',
     templateUrl: './ContactPage.component.html',
-    styleUrls: ['./ContactPage.component.scss']
+    styleUrls: ['./ContactPage.component.scss'],
+    animations: [
+        trigger('fade', [
+            transition(':enter', query(':self', stagger('100ms', [
+                style({ opacity: 0 }),
+                animate('1s', style({ opacity: 1 }))
+            ])))
+        ])
+    ]
 })
 export class ContactPage implements OnInit{
     formGroup: FormGroup;

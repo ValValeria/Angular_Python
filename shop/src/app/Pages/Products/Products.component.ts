@@ -40,6 +40,7 @@ export class Products {
     categories: string [];
     @ViewChild("productsElem",{read:ElementRef})productsElem:ElementRef;
     @ViewChild('search',{read: TemplateRef}) search: TemplateRef<any>;
+    @ViewChild('product_search', {read: ElementRef}) matSearchContainer: ElementRef;
     max_price: number;
     brands: string[];
     activeCategory:string;
@@ -75,12 +76,13 @@ export class Products {
             }
             this.checkData();
          });
+
      }
 
      showMenu(): void{
         this.dialog.open(this.search, {
             width:"90%",
-            height:"400px"
+            height:"400px",
         });
      }
 
@@ -102,13 +104,29 @@ export class Products {
          this.getBrands({value:""});
          
          const onScroll = () => {
-               const width = document.documentElement.clientWidth;
+             const func = () => {
+                 const width = document.documentElement.clientWidth;
 
-               if (width < this.MWIDTH){
-                   this.showModel = true;
-               } else {
-                   this.showModel = false;
-               }
+                 if (width < this.MWIDTH) {
+                     this.showModel = true;
+                 } else {
+                     this.showModel = false;
+                 }
+
+                 this.dialog.afterOpened.subscribe(v => {
+                     const matSearchContainer = document.querySelector('.product__search-wrap');
+                     matSearchContainer.classList.add('shadow-none');
+
+                     const matDialog = document.querySelector('mat-dialog-container');
+                     matDialog.classList.add('bg-white');
+                 });
+
+                 this.dialog.afterAllClosed.subscribe(v => {
+                     const matSearchContainer = document.querySelector('.product__search-wrap');
+                     matSearchContainer.classList.remove('shadow-none');
+                 });
+             };
+             setTimeout(func.bind(this), 0);
          };
          
          window.onresize = onScroll.bind(this);
@@ -124,9 +142,9 @@ export class Products {
      }
 
 
-     sort(next:boolean=false):void{
+     sort(next = false): void{
          this.sentHttp = true;
-         
+
          this.dialog.closeAll();
 
          this.dialog.afterAllClosed.subscribe(()=>{
