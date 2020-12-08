@@ -115,7 +115,11 @@ class ProductSort(ListView):
       def get(self,request,*args,**kwargs):
           self.params = self.request.GET
           page = request.GET.get("page","")
+          search = request.GET.get("search",'')
           products = None;
+
+          if len(search):
+              products = Product.objects.filter(Q(title__icontains=search) | Q(category__contains=search) | Q(short_description__contains=search)).distinct()
 
           if page.isdigit():
               page = int(page)

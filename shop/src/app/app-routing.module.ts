@@ -32,6 +32,8 @@ import { OrdersLikes } from './Components/OrdersLikes/OrdersLikes.component';
 import { Like } from './Components/Like/Like.component';
 import { MatIconModule } from '@angular/material/icon';
 import { ContactPage } from './Pages/ContactPage/ContactPage.component';
+import { SearchPageResult } from './Pages/SearchPageResult/SearchPageResult.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 
 
@@ -41,6 +43,7 @@ const routes: Routes = [
   {path:"product/:id",component:Product},
   {path:"authenticate",component:AuthPage},
   {path:"profile",component:AdminPage},
+  { path: 'search', component: SearchPageResult },
   { path: "contacts", component: ContactPage}
 ];
 
@@ -55,6 +58,7 @@ const modules = [MatButtonModule,
                  MatSliderModule,
                  MatInputModule,
                  MatSelectModule,
+                 MatSlideToggleModule,
                  MatExpansionModule,
                  MatSnackBarModule,
                  MatDividerModule,
@@ -80,7 +84,8 @@ const modules = [MatButtonModule,
                 AdminPage,
                 OrderList,
                 Like,
-                ContactPage
+                ContactPage,
+                SearchPageResult
                 ],
   exports: [RouterModule, ...modules]
 })

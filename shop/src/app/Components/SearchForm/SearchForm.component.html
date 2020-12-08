@@ -7,7 +7,7 @@
                     <input type="text" #search/>
                 </div>
             </div>
-            <button mat-flat-button class="search__icon" color="accent">
+            <button mat-flat-button class="search__icon" color="accent" on-click="click()">
                  Поиск
             </button>
          </div>
@@ -22,6 +22,9 @@
                      {{message}}
                 </li>
              </ul>
+         </div>
+         <div class="search__page-link center justify-content-end" *ngIf="results.length" on-click="showMore()">
+             <a color="accent" mat-flat-button [routerLink]="['/search']" [queryParams]="{search: searchText}">Больше результатов</a>
          </div>
     </div>
 </div>

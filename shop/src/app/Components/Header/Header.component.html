@@ -11,7 +11,7 @@
              <li class="header__link center"  *ngIf="user.is_auth"><a mat-button routerLink="/profile" routerLinkActive="active-btn">Админ панель</a></li>
              <li class="header__link center"><a mat-button routerLink="/contacts">Обратная связь</a></li>
              <li class="header__link header__search center flex-column position-relative" on-click="showSearch()">
-                 <button  mat-flat-button color="accent" class="search__btn center d-flex" *ngIf="mediaAvatar">
+                 <button  mat-flat-button color="accent" class="search__btn center d-flex" *ngIf="mediaAvatar" on-click="toggleHeader()">
                      <div class="center w-100">
                         <span>Поиск</span>
                      </div>

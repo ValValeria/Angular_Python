@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, Output, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { fromEvent } from 'rxjs';
 import { Subject } from 'rxjs/internal/Subject';
 import { auditTime, filter, mergeMap, tap } from 'rxjs/operators';
@@ -12,29 +13,25 @@ export const $CLOSE_SEARCH = new Subject<number>();
     templateUrl: './SearchForm.component.html',
     styleUrls: ['./SearchForm.component.scss']
 })
-export class SearchForm implements AfterViewInit{
+export class SearchForm{
     @ViewChild('search', {read: ElementRef}) searchElem: ElementRef;
     results: IAd[] = [];
     message = '';
     hasMore: boolean;
+    searchText = '';
 
-    constructor(private http: Http){}
+    constructor(private http: Http,private diaglog: MatDialog){}
 
-    ngAfterViewInit(): void {
+    click(): void {
         const elem: HTMLInputElement = this.searchElem.nativeElement;
-        fromEvent(elem, 'input')
-        .pipe(
-            auditTime(400),
-            tap(v => {
-                this.message = ``;
-            }),
-            filter(v => elem.value.length > 2 && elem.value.length < 10),
-            mergeMap(() => {
-                return this.http.get<{ data: { results: IAd[] } }>
-                                   ('http://127.0.0.1:8000/api/search/?search=' 
-                                    + encodeURIComponent(elem.value));
-            })
-        )
+
+        this.searchText = encodeURIComponent(elem.value);
+
+        this.message = ``;
+        
+        this.http.get<{ data: { results: IAd[] } }>
+            ('http://127.0.0.1:8000/api/search/?search='
+                + encodeURIComponent(elem.value))
         .subscribe(v => {
             this.results = v.data.results.slice(0, 10);
 
@@ -50,5 +47,9 @@ export class SearchForm implements AfterViewInit{
 
     close(): void{
         $CLOSE_SEARCH.next(0);
+    }
+
+    showMore(): void{
+        this.diaglog.closeAll();
     }
 }

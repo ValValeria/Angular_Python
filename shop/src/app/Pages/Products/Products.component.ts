@@ -1,9 +1,10 @@
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
-import { Component, ElementRef, TemplateRef, ViewChild} from '@angular/core';
+import { Component, ElementRef, Input, TemplateRef, ViewChild} from '@angular/core';
 import { IAd, ProductsBrand, ProductsInfo } from 'src/app/Interfaces/Interfaces';
 import { Http } from 'src/app/Services/Http.service';
 import { HttpParams } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 
 interface IResponse{
@@ -41,6 +42,8 @@ export class Products {
     @ViewChild("productsElem",{read:ElementRef})productsElem:ElementRef;
     @ViewChild('search',{read: TemplateRef}) search: TemplateRef<any>;
     @ViewChild('product_search', {read: ElementRef}) matSearchContainer: ElementRef;
+    @Input('isSearch') isSearchPage = false;
+    @Input('searchText') searchText = '';
     max_price: number;
     brands: string[];
     activeCategory:string;
@@ -53,14 +56,22 @@ export class Products {
     readonly MWIDTH: number = 700;
     showModel = false;
 
-    constructor(private http:Http, private dialog: MatDialog){
+    constructor(private http:Http, 
+                private dialog: MatDialog,
+                private router: Router){
          this.products = [];
          this.categories = [];
      }
 
      ngOnInit():void{
          this.sentHttp = true;
-         this.http.get<IResponse>("http://127.0.0.1:8000/api/products?page="+this.page).subscribe(v=>{
+         let url = "http://127.0.0.1:8000/api/products?page=" + this.page;
+         
+         if(this.isSearchPage){
+             url += '&search='+encodeURIComponent(this.searchText);
+         }
+
+         this.http.get<IResponse>(url).subscribe(v=>{
             if(v.data.length){
                 this.products=v.data;
                 this.hasNext = v.has_next;
@@ -96,7 +107,13 @@ export class Products {
      }
 
      ngAfterViewInit():void{
-         this.http.get<ProductsInfo>("http://127.0.0.1:8000/api/info-products/").subscribe(v=>{
+         let url = "http://127.0.0.1:8000/api/info-products/";
+
+         if (this.isSearchPage) {
+             url += '&search=' + encodeURIComponent(this.searchText);
+         }
+
+         this.http.get<ProductsInfo>(url).subscribe(v=>{
               this.categories = v.data.categories;
               this.max_price = v.data.price[1].max_price;
               this.max_price_value = v.data.price[1].max_price;
@@ -136,9 +153,17 @@ export class Products {
 
      getBrands($event:{value:string}):void{
         this.activeCategory = $event.value||"";
-        this.http.get<ProductsBrand>("http://127.0.0.1:8000/api/getbrands/?category="+encodeURIComponent(this.activeCategory)).subscribe((v)=>{
+        
+        let url = "http://127.0.0.1:8000/api/getbrands/?category=" + encodeURIComponent(this.activeCategory);
+
+        if (this.isSearchPage) {
+             url += '&search=' + encodeURIComponent(this.searchText);
+        }
+
+        this.http.get<ProductsBrand>(url)
+        .subscribe((v)=>{
                  this.brands = v.data.brands;
-        })
+        });
      }
 
 
@@ -158,8 +183,15 @@ export class Products {
                      .set("category", this.activeCategory || "")
                      .set("brand", this.activeBrand || "")
                      .set("page", String(this.page))
+             };
+             
+             let url = "http://127.0.0.1:8000/api/sort/";
+
+             if (this.isSearchPage) {
+                 url += '&search=' + encodeURIComponent(this.searchText);
              }
-             this.http.get<IResponse>("http://127.0.0.1:8000/api/sort/", config).subscribe(v => {
+
+             this.http.get<IResponse>(url, config).subscribe(v => {
                  this.products.push(...v.data);
                  this.hasNext = v.has_next;
                  console.log(v.data)
@@ -176,4 +208,8 @@ export class Products {
         this.page=this.page+1;
         this.sort(true);
      }     
+
+     undoSearch(): void{
+         this.router.navigateByUrl("/products");
+     }
 }
