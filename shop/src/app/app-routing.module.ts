@@ -34,6 +34,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ContactPage } from './Pages/ContactPage/ContactPage.component';
 import { SearchPageResult } from './Pages/SearchPageResult/SearchPageResult.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatChipsModule } from '@angular/material/chips';
 
 
 
@@ -67,6 +68,7 @@ const modules = [MatButtonModule,
                  MatTableModule,
                  ChartsModule,
                  MatCheckboxModule,
+                 MatChipsModule
                 ];
 
 @NgModule({

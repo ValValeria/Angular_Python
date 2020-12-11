@@ -1,10 +1,11 @@
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
-import { Component, ElementRef, Input, TemplateRef, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import { IAd, ProductsBrand, ProductsInfo } from 'src/app/Interfaces/Interfaces';
 import { Http } from 'src/app/Services/Http.service';
 import { HttpParams } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 interface IResponse{
@@ -34,10 +35,10 @@ interface IResponse{
         ])
     ]
 })
-export class Products {
+export class Products implements OnInit,AfterViewInit {
     products: IAd[];
-    disabled:boolean = true;
-    panelOpenState:boolean = false;
+    disabled: boolean = true;
+    panelOpenState: boolean = false;
     categories: string [];
     @ViewChild("productsElem",{read:ElementRef})productsElem:ElementRef;
     @ViewChild('search',{read: TemplateRef}) search: TemplateRef<any>;
@@ -46,24 +47,26 @@ export class Products {
     @Input('searchText') searchText = '';
     max_price: number;
     brands: string[];
-    activeCategory:string;
-    activeBrand:string;
-    page:number = 1;
-    hasNext:boolean=false;
+    activeCategory: string;
+    activeBrand: string;
+    page = 1;
+    hasNext = false;
     isEmpty: boolean;
-    sentHttp:boolean;
-    max_price_value: number=4000;
+    sentHttp: boolean;
+    max_price_value = 4000;
     readonly MWIDTH: number = 700;
     showModel = false;
+    min_price = 0;
 
-    constructor(private http:Http, 
+    constructor(private http: Http, 
                 private dialog: MatDialog,
-                private router: Router){
+                private router: Router,
+                private snackBar: MatSnackBar){
          this.products = [];
          this.categories = [];
-     }
+    }
 
-     ngOnInit():void{
+    ngOnInit(): void{
          this.sentHttp = true;
          let url = "http://127.0.0.1:8000/api/products?page=" + this.page;
          
@@ -167,10 +170,20 @@ export class Products {
      }
 
 
-     sort(next = false): void{
+     sort(next = false): void|null{
          this.sentHttp = true;
 
          this.dialog.closeAll();
+         
+         if (this.min_price === this.max_price){
+             this.snackBar.open('Минимальная цена не должна равняться максимальной', 'Close');
+             return;
+         }
+
+         if (this.min_price > this.max_price) {
+             this.snackBar.open('Минимальная цена не должна быть  больше максимальной', 'Close');
+             return;
+         }
 
          this.dialog.afterAllClosed.subscribe(()=>{
              if (!next) {
@@ -178,7 +191,7 @@ export class Products {
                  this.products = [];
              }
              const config = {
-                 params: new HttpParams().set('min', "0")
+                 params: new HttpParams().set('min', this.min_price.toString())
                      .set("max", this.max_price.toString())
                      .set("category", this.activeCategory || "")
                      .set("brand", this.activeBrand || "")

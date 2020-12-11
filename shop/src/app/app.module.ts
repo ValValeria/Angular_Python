@@ -26,7 +26,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatCardModule,
     HttpClientModule,
     MatBadgeModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   providers: [Http,
               User,

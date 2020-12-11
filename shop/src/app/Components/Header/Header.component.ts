@@ -88,8 +88,8 @@ export class Header implements AfterViewInit{
 
     showSearch(): void{
         this.dialog.open(SearchForm,{
-            width:"50%",
-            height:"50%"
+            width:"80vw",
+            height:"70vh"
         });
     }
 }

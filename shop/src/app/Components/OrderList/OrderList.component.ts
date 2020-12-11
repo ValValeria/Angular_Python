@@ -8,8 +8,9 @@ import { User } from 'src/app/Services/User.service';
 
 
 export const $ORDER_COUNT = new Subject<number>();
-export const $CHOOSE_ITEM = new Subject<number>();
+export const $CHOOSE_ITEM = new Subject<[string,number]>();
 export const $DELETE_ITEMS = new Subject<number[]>();
+export const $CHOOSE_LIKES_ITEM = new Subject<number>();
 
 
 @Component({
@@ -71,7 +72,8 @@ export class OrderList implements OnInit,OnChanges{
 
     change(event: MatCheckboxChange): void{
         const id = Number(event.source.value);
-        $CHOOSE_ITEM.next(id);
+        $CHOOSE_ITEM.next([this.role, id]);
+
         this.selectItems.emit(id);
     }
 

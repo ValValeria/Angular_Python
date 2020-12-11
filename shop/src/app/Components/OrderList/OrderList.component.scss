@@ -8,3 +8,8 @@ th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
     padding-right: 10px;
     text-align: center;
 }
+
+table{
+    position: relative;
+    z-index:10;
+}

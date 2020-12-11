@@ -27,17 +27,8 @@
     padding-top:3rem;
     position: relative;
     z-index:2;
-
-    ::after{
-        content:"";
-        display:block;
-        top:0;
-        left:0;
-        width:100%;
-        height:100%;
-        position: absolute;
-        filter:blur(5px);
-    }
+    padding:0;
+    padding-top:2rem;
 }
 
 .admin__wrap{
@@ -48,7 +39,7 @@
 .admin__items{
     position: sticky;
     top:4rem;
-    width:40%;
+    width:50%;
     padding-right:2rem;
 }
 
@@ -59,7 +50,8 @@
 
 .admin__profile-card{
        height:100%;
-       width:100%
+       width:100%;
+       margin: 15px 0;
 }
 
 .admin__profile-card mat-card{
@@ -89,11 +81,8 @@
 }
 
 .admin__profile-info:nth-child(1){
-        grid-column: 2/span 5;
-}
-
-.admin__profile-card{
-        grid-column-start: span 5;
+        grid-column: span 2;
+        margin-bottom:1.5rem;
 }
 
 
@@ -146,17 +135,19 @@
 }
 
 .admin__dashboard{
-    width:60%;
+    width:50%;
     min-height: 100vh;
     margin-bottom: 0;
-    background-image: linear-gradient(90deg, rgba(251,248,245,1) 0%, rgba(238,237,234,1) 43%, rgba(234,230,225,1) 100%);
+  //  background-image: linear-gradient(90deg, rgba(251,248,245,1) 0%, rgba(238,237,234,1) 43%, rgba(234,230,225,1) 100%);
     padding-bottom: 2rem;
     align-items: center;
     justify-content: center;
     justify-items: center;
     box-shadow: 5px 10px 20px rgba(0,0,0,0.3), -5px -10px 20px rgba(255,255,255,0.5);
-    
-    >div{
+    position: sticky;
+    top:3rem;
+
+    .admin__banner{
         padding-bottom: 3rem;
         display: grid;
         grid-template-columns:repeat(auto-fit, minmax(30px,1fr));
@@ -207,6 +198,10 @@
     margin-right: 10px;
 }
 
+.likes-btns{
+    margin-top:1rem;
+}
+
 .admin__order-selected button{
     width: 100%;
     margin-top: 10px;
@@ -215,6 +210,26 @@
 
 .admin__order-actions button{
    margin:0 5px;
+}
+
+.admin__profile-items{
+  display:grid;  
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: 100px;
+  grid-auto-flow: dense;
+}
+
+.admin__profile-info,.admin__profile-card{
+  grid-row: span 2;
+}
+
+.admin__profile-card{
+   grid-row: span 2; 
+}
+
+.admin__profile-card:nth-child(2){
+   grid-row: span 3;
 }
 
 .admin__order-btns{
@@ -283,9 +298,6 @@ th.mat-header-cell {
         margin-right:3rem;
     }
 
-    .admin__profile-card{
-       grid-column: 2/span 5;
-    }
 }
 
 
@@ -313,10 +325,6 @@ th.mat-header-cell {
     }
     .admin__profile-info{
         width:100%;
-    }
-
-    .admin__profile-card{
-      grid-column: 2/span 5;
     }
 
     .admin__profile-info{

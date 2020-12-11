@@ -1,21 +1,31 @@
 <div class="search center">
     <div class="search__wrap wrap-md-pd">
          <h6 class="search__title text-center">Поиск</h6>
-         <div class="search__form center">
+         <div class="search__form center shadow">
             <div class="search__field">
                 <div class="search__input-container">
                     <input type="text" #search/>
                 </div>
             </div>
             <button mat-flat-button class="search__icon" color="accent" on-click="click()">
-                 Поиск
+                 Найти
             </button>
          </div>
          <div class="search__results">
              <ul class="search__items">
-                 <li *ngFor="let item of results" on-click="close()">
+                 <li *ngFor="let item of results" on-click="close()" class="search__item shadow">
                      <a routerLink="/product/{{item.id}}">
-                         {{item.title}}
+                        <p>{{item.title}}</p>
+                        <div class="search__item-chips">
+                            <mat-chip-list>
+                                 <mat-chip color="accent" >
+                                     <span>Марка:</span><span>{{item.brand}}</span>
+                                 </mat-chip>
+                                 <mat-chip color="accent">
+                                     <span>Категория:</span><span>{{item.category}}</span>
+                                 </mat-chip>
+                            </mat-chip-list>
+                        </div>
                     </a>
                  </li>
                 <li *ngIf="!results.length && message">

@@ -91,13 +91,15 @@ export class AdminPage extends ImageLoading implements AfterViewInit, AfterConte
                 });
 
         $CHOOSE_ITEM.subscribe(v => {
-            if (!this.selectedItems.includes(v)){
-                this.selectedCount += 1;
-                this.selectedItems.push(v);
-            } else{
-                pull(this.selectedItems, v);
-                this.selectedCount -= 1;
-            }
+            if (v[0] === 'products_buy'){ 
+                if (!this.selectedItems.includes(v[1])) {
+                    this.selectedCount += 1;
+                    this.selectedItems.push(v[1]);
+                } else {
+                    pull(this.selectedItems, v[1]);
+                    this.selectedCount -= 1;
+                }
+            } 
         });
     }
 
@@ -207,6 +209,11 @@ export class AdminPage extends ImageLoading implements AfterViewInit, AfterConte
                 this._snackBar.open('Загружайте только изображения');
             }
         };
+    }
+
+
+    oplata(): void{
+        this._snackBar.open("The section is under development",'Close');
     }
 }
 
