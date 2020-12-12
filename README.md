@@ -18,9 +18,6 @@ Also there is the admin panel, which is available only for the super admin. To g
 > Page, where an user can view and sort products
 
 > ![Screenshot](screenshots/screen4.PNG)
-> Home page
-
-> ![Screenshot](screenshots/screen3.PNG)
 > Admin panel
 
 ## Folders
