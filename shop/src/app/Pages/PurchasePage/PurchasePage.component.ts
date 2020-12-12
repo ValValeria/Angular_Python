@@ -1,8 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { AfterViewInit, Component, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
-import { interval } from "rxjs";
-import { delayWhen, skipWhile, take, takeUntil, tap } from "rxjs/operators";
+import { from, interval, Observable } from "rxjs";
+import { concatAll, delayWhen, map, mergeAll, reduce, skipWhile, switchMap, take, takeUntil, tap } from "rxjs/operators";
 import { IAd } from "src/app/Interfaces/Interfaces";
 import { Http } from "src/app/Services/Http.service";
 import { User, USER_AUTH } from "src/app/Services/User.service";
@@ -14,37 +14,70 @@ import { User, USER_AUTH } from "src/app/Services/User.service";
 })
 // tslint:disable-next-line: component-class-suffix
 export class PurchasePage implements OnInit{
+    amountToPay$: Observable<number>;
+    isPolicyAccepted = false;
 
     constructor(public user: User,
                 private http: Http,
                 private router: Router,
                 private _snackBar: MatSnackBar){}
 
+
     ngOnInit(): void{
-        
-        USER_AUTH.subscribe(v => {
+        USER_AUTH.subscribe(() => {
             this.http.get<{ data: { active: IAd[], unactive: IAd[] }, amount_of_orders: number, amount_of_products: number }>('http://127.0.0.1:8000/api/get-orders/')
-                .subscribe(v => {
+                .subscribe( v => {
                     this.user.addActiveProducts(v.data.active);
                     this.user.addUnactiveProducts(v.data.unactive);
-                });
+            });
+
+            this.amountToPay$ =  interval(1000)
+                                 .pipe(
+                                     take(6),
+                                     skipWhile(v => !this.user.activeOrders.length),
+                                     switchMap(v => {
+                                        return from(this.user.activeOrders)
+                                             .pipe(
+                                                 reduce((prev, curr) => {
+                                                     const item = curr.count * curr.price;
+                                                     return item + prev;
+                                                 }, 0)
+                                             );
+                                     })
+                                 );
         });
 
+        this.authenticate();
+    }
+
+    purchase(): void{
+        if (!this.isPolicyAccepted){
+            this._snackBar.open("Дайте согласие на обработку персональных данных. Иначе оформить покупку не получится", 'Close', {
+                duration: 10000
+            });
+        } else{
+            this._snackBar.open('Возникли проблемы с сервером', 'Close', {
+                duration: 10000
+            });
+        }
+    }
+
+    authenticate(): void{
         interval(1000)
-        .pipe(
-            takeUntil(USER_AUTH),
-            take(5)
-        ).subscribe(
-        () => {
-            console.log('waiting');
-        },
-        () => {
-            this._snackBar.open('Произошла ошибка, связанная с сервером', 'Close');
-        },
-        () => {
-            if (!this.user.is_auth) {
-                this.router.navigateByUrl('/authenticate');
-            }
-        });
+            .pipe(
+                takeUntil(USER_AUTH),
+                take(5)
+            ).subscribe(
+                () => {
+                    console.log('waiting');
+                },
+                () => {
+                    this._snackBar.open('Произошла ошибка, связанная с сервером', 'Close');
+                },
+                () => {
+                    if (!this.user.is_auth) {
+                        this.router.navigateByUrl('/authenticate');
+                    }
+                });
     }
 }

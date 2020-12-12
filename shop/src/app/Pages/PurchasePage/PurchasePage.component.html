@@ -1,26 +1,48 @@
 <section class="section center first-slide">
     <div class="wrap-md-pd">
-        <div class="center flex-column">
-            <div *ngIf="this.user.is_auth" class="w-100">
+        <div class="center flex-column w-100">
+            <div *ngIf="this.user.is_auth wrap-md" class="w-100">
                 <h4 class="headline-lt">Ваш заказ</h4>
-                <div style="overflow: hidden; ">
-                    <div style="overflow-x:auto;padding-bottom:0.3rem; position: relative;z-index: 10 ">
+                <div style="overflow: hidden;" class="wrap-md">
+                    <div style="overflow-x:auto;padding-bottom:0.3rem; position: relative;z-index: 10 "  *ngIf="this.user.activeOrders.length">
                         <app-list class="w-100" [data]="this.user.activeOrders" [isOrderList]="false"
                             *ngIf="this.user.activeOrders.length" [role]="'purchase'" [showCount]="true">
                         </app-list>
-                        <div *ngIf="!this.user.activeOrders.length">
-                            <h5>В корзине товаров нет</h5>
+
+                        <div class="policy">
+                            <p class="policy__item">
+                                <span>К оплате </span>
+                                <button mat-button color="warn">{{amountToPay$ |async}}грн</button>
+                            </p>
+                            <div class="policy__item">
+                                <mat-checkbox 
+                                color="accent" 
+                                checked="false"
+                                (change)="isPolicyAccepted=$event.checked">
+                                    Я даю согласие на обработку персональных данных
+                                </mat-checkbox>
+                            </div>
                         </div>
                         <div *ngIf="this.user.activeOrders.length" class="center pt-4">
-                            <button mat-flat-button color="accent">Купить</button>
+                            <button mat-flat-button color="accent" on-click="purchase()">Купить</button>
                         </div>
+                    </div>
+
+                    <div  *ngIf="!this.user.activeOrders.length">
+                        <ng-container *ngTemplateOutlet="spinner"></ng-container>
                     </div>
                 </div>
             </div>
-
+            
             <div *ngIf="!this.user.is_auth">
-                <mat-spinner color="accent"></mat-spinner>
+                <ng-container *ngTemplateOutlet="spinner"></ng-container>
             </div>
         </div>
     </div>
 </section>
+
+<ng-template #spinner>
+    <div class='w-100 center'>
+        <mat-spinner color="accent"></mat-spinner>
+    </div>
+</ng-template>

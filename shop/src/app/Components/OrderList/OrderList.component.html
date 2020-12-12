@@ -38,7 +38,7 @@
         </td>
     </ng-container>
     
-    <ng-container *ngIf="(showCount || showSelect) && role=='purchase'">
+    <ng-container *ngIf="showCount || showSelect">
         <ng-container matColumnDef="delete">
             <th mat-header-cell *matHeaderCellDef> Выбрать </th>
             <td mat-cell *matCellDef="let element" class="text-center">

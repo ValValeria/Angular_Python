@@ -13,11 +13,15 @@
 
 Also there is the admin panel, which is available only for the super admin. To get full access to it, you should type in terminal command `python manage.py createsuperuser`. After filling in all  neccessary fields, you are going to be granted access. Then open the browser on `http://127.0.0.1:8000/admin/app`
 
-> ![Screenshot](screen.png)
+> ![Screenshot](screenshots/screen1.png)
+> ![Screenshot](screenshots/screen2.PNG)
+> Page, where an user can view and sort products
 
-> ![Screenshot](screen2.PNG)
+> ![Screenshot](screenshots/screen4.PNG)
+> Home page
 
-> ![Screenshot](screen3.png)
+> ![Screenshot](screenshots/screen3.PNG)
+> Admin panel
 
 ## Folders
 * `django`- a django app

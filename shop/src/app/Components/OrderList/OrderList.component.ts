@@ -37,6 +37,10 @@ export class OrderList implements OnInit,OnChanges{
             this.displayedColumns = ["id", "title", "price"]
         } 
 
+        if (this.role === 'purchase'){
+            this.displayedColumns = ["title", "price",'count'];
+        }
+
         if (this.role === "likes") {
             this.showSelect = true;
             this.displayedColumns.unshift("delete");
@@ -73,7 +77,6 @@ export class OrderList implements OnInit,OnChanges{
     change(event: MatCheckboxChange): void{
         const id = Number(event.source.value);
         $CHOOSE_ITEM.next([this.role, id]);
-
         this.selectItems.emit(id);
     }
 
