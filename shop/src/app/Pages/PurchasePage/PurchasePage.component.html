@@ -1,0 +1,26 @@
+<section class="section center first-slide">
+    <div class="wrap-md-pd">
+        <div class="center flex-column">
+            <div *ngIf="this.user.is_auth" class="w-100">
+                <h4 class="headline-lt">Ваш заказ</h4>
+                <div style="overflow: hidden; ">
+                    <div style="overflow-x:auto;padding-bottom:0.3rem; position: relative;z-index: 10 ">
+                        <app-list class="w-100" [data]="this.user.activeOrders" [isOrderList]="false"
+                            *ngIf="this.user.activeOrders.length" [role]="'purchase'" [showCount]="true">
+                        </app-list>
+                        <div *ngIf="!this.user.activeOrders.length">
+                            <h5>В корзине товаров нет</h5>
+                        </div>
+                        <div *ngIf="this.user.activeOrders.length" class="center pt-4">
+                            <button mat-flat-button color="accent">Купить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="!this.user.is_auth">
+                <mat-spinner color="accent"></mat-spinner>
+            </div>
+        </div>
+    </div>
+</section>

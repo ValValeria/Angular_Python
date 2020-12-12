@@ -56,7 +56,7 @@
             <button routerLink="/profile" class="avatar__btn">
               <img src="http://127.0.0.1:8000{{user.avatar}}" alt="" srcset="" style="width:30px;height:30px">
             </button>
-            <button class="avatar__orders" mat-mini-fab color="accent">{{counter}}</button>
+            <button class="avatar__orders" mat-mini-fab color="accent">{{user.activeOrders.length}}</button>
           </div>
         </div>
         <div class="avatar__popup " @fade *ngIf="showPopup">

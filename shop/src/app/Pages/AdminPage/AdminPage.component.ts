@@ -213,7 +213,7 @@ export class AdminPage extends ImageLoading implements AfterViewInit, AfterConte
 
 
     oplata(): void{
-        this._snackBar.open("The section is under development",'Close');
+        this.router.navigateByUrl('/buy-orders');
     }
 }
 

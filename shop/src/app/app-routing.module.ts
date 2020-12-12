@@ -35,17 +35,19 @@ import { ContactPage } from './Pages/ContactPage/ContactPage.component';
 import { SearchPageResult } from './Pages/SearchPageResult/SearchPageResult.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatChipsModule } from '@angular/material/chips';
+import { PurchasePage } from './Pages/PurchasePage/PurchasePage.component';
 
 
 
 const routes: Routes = [
   {path: "", component: HomePage, pathMatch: "full"},
-  {path:"products",component:Products},
+  {path: 'buy-orders', component: PurchasePage},
+  {path: "products", component: Products },
   {path:"product/:id",component:Product},
   {path:"authenticate",component:AuthPage},
   {path:"profile",component:AdminPage},
-  { path: 'search', component: SearchPageResult },
-  { path: "contacts", component: ContactPage}
+  {path: 'search', component: SearchPageResult },
+  {path: "contacts", component: ContactPage}
 ];
 
 const modules = [MatButtonModule,
@@ -87,7 +89,8 @@ const modules = [MatButtonModule,
                 OrderList,
                 Like,
                 ContactPage,
-                SearchPageResult
+                SearchPageResult,
+                PurchasePage
                 ],
   exports: [RouterModule, ...modules]
 })
