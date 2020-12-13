@@ -4,8 +4,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.files.base import ContentFile
 from django.core.files.storage import FileSystemStorage, Storage, get_storage_class
 from .serializers.post_serializer import PostSerializer
-from django.http.response import  Http404, HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNotFound
+from django.http.response import  FileResponse, Http404, HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNotFound, HttpResponseServerError
 from django.views.generic import ListView,View;
+import os;
 from .models import Avatar, Letter, Product, UserData;
 from django.http import JsonResponse;
 from django.contrib.auth import authenticate,login
@@ -292,6 +293,41 @@ class UserProfile(View):
         return JsonResponse(self.response,json_dumps_params={'ensure_ascii': False});
 
 
-class NotFound(View):
-    def get(self,request,*args,**kw):
-        return HttpResponseNotFound()
+
+class NotFound(ListView):
+
+    def dispatch(self, request, *args, **kwargs):
+        filename,extension = os.path.splitext(request.path);
+        request_path = os.path.abspath("./app/static/dist/shop");
+
+        if extension:
+            request_path = request_path+request.path;
+            response = HttpResponse();
+            type = "";
+
+            if "html" in extension:
+                type="text/html"
+            elif "css" in extension:
+                type="text/css"
+            elif "js" in extension:
+                type="text/javascript"
+            elif "svg" in extension:
+                type="image/svg+xml"
+            
+            if os.access(request_path,os.R_OK):
+                response["Content-Type"]=type;
+
+                with open(request_path,"rb") as file:
+                    for line in file:
+                       response.write(content=line)
+                       
+                return response;
+
+            return HttpResponseBadRequest();
+        else:
+            path = os.path.join(request_path,"index.html");
+            
+            if os.path.exists(path):
+               return FileResponse(open(os.path.join(request_path,"index.html"),'rb'));
+
+            return HttpResponseServerError()
