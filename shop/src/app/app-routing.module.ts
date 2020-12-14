@@ -36,6 +36,7 @@ import { SearchPageResult } from './Pages/SearchPageResult/SearchPageResult.comp
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatChipsModule } from '@angular/material/chips';
 import { PurchasePage } from './Pages/PurchasePage/PurchasePage.component';
+import { CategoryPage } from './Pages/CategoryPage/CategoryPage.component';
 
 
 
@@ -47,7 +48,8 @@ const routes: Routes = [
   {path:"authenticate",component:AuthPage},
   {path:"profile",component:AdminPage},
   {path: 'search', component: SearchPageResult },
-  {path: "contacts", component: ContactPage}
+  {path: "contacts", component: ContactPage},
+  { path: "category/:category", component: CategoryPage}
 ];
 
 const modules = [MatButtonModule,
@@ -70,7 +72,7 @@ const modules = [MatButtonModule,
                  MatTableModule,
                  ChartsModule,
                  MatCheckboxModule,
-                 MatChipsModule
+                 MatChipsModule,
                 ];
 
 @NgModule({
@@ -90,7 +92,8 @@ const modules = [MatButtonModule,
                 Like,
                 ContactPage,
                 SearchPageResult,
-                PurchasePage
+                PurchasePage,
+                CategoryPage
                 ],
   exports: [RouterModule, ...modules]
 })

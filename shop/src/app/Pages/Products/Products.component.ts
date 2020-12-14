@@ -4,8 +4,9 @@ import { IAd, ProductsBrand, ProductsInfo } from 'src/app/Interfaces/Interfaces'
 import { Http } from 'src/app/Services/Http.service';
 import { HttpParams } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { URL_PATH } from 'src/app/app.component';
 
 
 interface IResponse{
@@ -44,6 +45,7 @@ export class Products implements OnInit,AfterViewInit {
     @ViewChild('search',{read: TemplateRef}) search: TemplateRef<any>;
     @ViewChild('product_search', {read: ElementRef}) matSearchContainer: ElementRef;
     @Input('isSearch') isSearchPage = false;
+    @Input() isCategoryPage = false;
     @Input('searchText') searchText = '';
     max_price: number;
     brands: string[];
@@ -61,103 +63,98 @@ export class Products implements OnInit,AfterViewInit {
     constructor(private http: Http, 
                 private dialog: MatDialog,
                 private router: Router,
-                private snackBar: MatSnackBar){
+                private snackBar: MatSnackBar,
+                private route: ActivatedRoute){
          this.products = [];
          this.categories = [];
     }
 
     ngOnInit(): void{
-         this.sentHttp = true;
-         let url = "http://127.0.0.1:8000/api/products?page=" + this.page;
-         
-         if(this.isSearchPage){
-             url += '&search='+encodeURIComponent(this.searchText);
-         }
+        this.sentHttp = true;   
+        
+        let url = `${URL_PATH}api/info-products/`;
 
-         this.http.get<IResponse>(url).subscribe(v=>{
-            if(v.data.length){
-                this.products=v.data;
-                this.hasNext = v.has_next;
-                const decideScroll = ()=>{
-                    const offset = this.productsElem.nativeElement.offsetTop;
-                    const height = this.productsElem.nativeElement.clientHeight;
-                    if(pageYOffset+500>offset && (height+offset)>pageYOffset && this.products.length){
-                         this.disabled = false;
-                    }
-                }
-                decideScroll();
-                window.onscroll = decideScroll.bind(this)
+        if (this.isSearchPage) {
+            url += '&search=' + encodeURIComponent(this.searchText);
+        } else if (this.isCategoryPage){
+            url += '&category=' + encodeURIComponent(this.activeCategory);
+        }
+
+        this.http.get<ProductsInfo>(url).subscribe(v => {
+            this.categories = v.data.categories;
+            this.max_price = v.data.price[1].max_price;
+            this.max_price_value = v.data.price[1].max_price;
+
+            if (this.isCategoryPage) {
+                this.route.paramMap.subscribe(v2 => {
+                    this.activeCategory = v2.get("category");
+                    this.formRequest(false);
+                });
+            } else {
+                this.formRequest(false);
             }
-            this.checkData();
-         });
+        });
+    }
 
-     }
+    undoCategory(): void{
+        this.undoSearch();
+    }
 
-     showMenu(): void{
+    showMenu(): void{
         this.dialog.open(this.search, {
             width:"90%",
             height:"400px",
         });
      }
 
-     checkData():void{
+    checkData():void{
         if(!this.products.length){
             this.isEmpty = true;
         } else{
             this.isEmpty = false;
         }
         this.sentHttp = false;
-     }
+    }
 
-     ngAfterViewInit():void{
-         let url = "http://127.0.0.1:8000/api/info-products/";
+    ngAfterViewInit():void{
 
-         if (this.isSearchPage) {
-             url += '&search=' + encodeURIComponent(this.searchText);
-         }
+        this.getBrands({ value: "" });
 
-         this.http.get<ProductsInfo>(url).subscribe(v=>{
-              this.categories = v.data.categories;
-              this.max_price = v.data.price[1].max_price;
-              this.max_price_value = v.data.price[1].max_price;
-         })
-         this.getBrands({value:""});
-         
-         const onScroll = () => {
-             const func = () => {
-                 const width = document.documentElement.clientWidth;
+        const onScroll = () => {
+            const func = () => {
+                const width = document.documentElement.clientWidth;
 
-                 if (width < this.MWIDTH) {
-                     this.showModel = true;
-                 } else {
-                     this.showModel = false;
-                 }
+                if (width < this.MWIDTH) {
+                    this.showModel = true;
+                } else {
+                    this.showModel = false;
+                }
 
-                 this.dialog.afterOpened.subscribe(v => {
-                     const matSearchContainer = document.querySelector('.product__search-wrap');
-                     matSearchContainer.classList.add('shadow-none');
+                this.dialog.afterOpened.subscribe(v => {
+                    const matSearchContainer = document.querySelector('.product__search-wrap');
+                    matSearchContainer.classList.add('shadow-none');
 
-                     const matDialog = document.querySelector('mat-dialog-container');
-                     matDialog.classList.add('bg-white');
-                 });
+                    const matDialog = document.querySelector('mat-dialog-container');
+                    matDialog.classList.add('bg-white');
+                });
 
-                 this.dialog.afterAllClosed.subscribe(v => {
-                     const matSearchContainer = document.querySelector('.product__search-wrap');
-                     matSearchContainer.classList.remove('shadow-none');
-                 });
-             };
-             setTimeout(func.bind(this), 0);
-         };
-         
-         window.onresize = onScroll.bind(this);
-         
-         onScroll();
+                this.dialog.afterAllClosed.subscribe(v => {
+                    const matSearchContainer = document.querySelector('.product__search-wrap');
+                    matSearchContainer.classList.remove('shadow-none');
+                });
+            };
+            setTimeout(func.bind(this), 0);
+        };
+
+        window.onresize = onScroll.bind(this);
+
+        onScroll();
      }
 
      getBrands($event:{value:string}):void{
         this.activeCategory = $event.value||"";
         
-        let url = "http://127.0.0.1:8000/api/getbrands/?category=" + encodeURIComponent(this.activeCategory);
+        let url = `${URL_PATH}api/getbrands/?category=` + encodeURIComponent(this.activeCategory);
 
         if (this.isSearchPage) {
              url += '&search=' + encodeURIComponent(this.searchText);
@@ -185,7 +182,10 @@ export class Products implements OnInit,AfterViewInit {
              return;
          }
 
-         this.dialog.afterAllClosed.subscribe(()=>{
+         this.dialog.afterAllClosed.subscribe(this.formRequest.bind(this));
+     }
+
+     formRequest(next): void{
              if (!next) {
                  this.page = 1;
                  this.products = [];
@@ -197,23 +197,32 @@ export class Products implements OnInit,AfterViewInit {
                      .set("brand", this.activeBrand || "")
                      .set("page", String(this.page))
              };
-             
-             let url = "http://127.0.0.1:8000/api/sort/";
+
+             let url = `${URL_PATH}api/sort/`;
 
              if (this.isSearchPage) {
-                 url += '&search=' + encodeURIComponent(this.searchText);
+                 config.params.set('search',this.searchText);
              }
 
              this.http.get<IResponse>(url, config).subscribe(v => {
-                 this.products.push(...v.data);
-                 this.hasNext = v.has_next;
-                 console.log(v.data)
-                 this.checkData()
+                 if (v.data.length) {
+                     this.products.push(...v.data);
+                     this.hasNext = v.has_next;
+                     const decideScroll = () => {
+                         const offset = this.productsElem.nativeElement.offsetTop;
+                         const height = this.productsElem.nativeElement.clientHeight;
+                         if (pageYOffset + 500 > offset && (height + offset) > pageYOffset && this.products.length) {
+                             this.disabled = false;
+                         }
+                     }
+                     decideScroll();
+                     window.onscroll = decideScroll.bind(this)
+                 }
+                 this.checkData();
              })
-         });
      }
 
-     changeBrand($event):void{
+     changeBrand($event): void{
         this.activeBrand = $event.value;
      }
 

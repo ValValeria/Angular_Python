@@ -1,4 +1,4 @@
-<section class="section center first-slide " *ngIf="!isSearchPage" >
+<section class="section center first-slide " *ngIf="!isSearchPage &&!isCategoryPage" >
     <div class="section__content center first-slide">
         <div class="section__wrap wrap-md-pd" >
                <div class="section__items wrap-md flex-column justify-content-between">
@@ -24,7 +24,7 @@
     <div class="section__content center first-slide">
         <div class="section__wrap wrap-md-pd text-center" >
           <h3 class="section__headline">{{"Наши товары" | uppercase}}</h3>
-          <ng-container *ngIf="isSearchPage">
+          <ng-container>
              <ng-content></ng-content>
           </ng-container>
           <div class="product__wrap center align-items-start">
@@ -77,7 +77,7 @@
             </mat-card-content>
             <mat-card-content class="w-100">
               <div class="product__search-area">
-                <div class="product__search-card">
+                <div class="product__search-card" *ngIf="!isCategoryPage">
                   <h6>Категория</h6>
                   <mat-form-field appearance="outline" class="w-100" color="accent">
                     <mat-label>Выбрать</mat-label>
@@ -86,6 +86,16 @@
                       <mat-option *ngFor="let category of categories" value="{{category}}">{{category}}</mat-option>
                     </mat-select>
                   </mat-form-field>
+                </div>
+
+                <div class="product__search-card" *ngIf="isCategoryPage">
+                  <h6>Категория</h6>
+                  <mat-slide-toggle color="accent" [checked]="true" (toggleChange)="undoCategory()" class="center" style="height: auto;
+    padding-top: 10px;">
+                      <p class="text-left">В поиск будут включаться только товары,<br/>
+                         которые находяться в категории <span style="color: #ffd740;"> '{{activeCategory}}'</span>
+                      </p>
+                  </mat-slide-toggle>
                 </div>
       
                 <div class="product__search-card">

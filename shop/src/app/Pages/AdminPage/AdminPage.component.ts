@@ -14,6 +14,7 @@ import {pull} from 'lodash';
 import { ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LIKES$ } from 'src/app/Components/OrdersLikes/OrdersLikes.component';
+import { URL_PATH } from 'src/app/app.component';
 
 @Component({
     selector: 'app-admin',
@@ -84,7 +85,7 @@ export class AdminPage extends ImageLoading implements AfterViewInit, AfterConte
     } 
 
     ngAfterContentInit(): void{
-        this.http.get<{ data: { active: IAd[], unactive: IAd[] }, amount_of_orders: number, amount_of_products: number }>('http://127.0.0.1:8000/api/get-orders/')
+        this.http.get<{ data: { active: IAd[], unactive: IAd[] }, amount_of_orders: number, amount_of_products: number }>(`${URL_PATH}api/get-orders/`)
                 .subscribe(v => {
                     this.user.addActiveProducts(v.data.active);
                     this.user.addUnactiveProducts(v.data.unactive);
@@ -115,7 +116,7 @@ export class AdminPage extends ImageLoading implements AfterViewInit, AfterConte
 
         result = result.slice(0, -1);
 
-        this.http.get<{ status: string }>(`http://127.0.0.1:8000/api/deleteorder?${result}`)
+        this.http.get<{ status: string }>(`${URL_PATH}api/deleteorder?${result}`)
         .subscribe(
         v => {
             this._snackBar.open("Товары удалены", "Закрыть", {
@@ -139,7 +140,7 @@ export class AdminPage extends ImageLoading implements AfterViewInit, AfterConte
         from(this.selectedItems)
         .pipe(
            mergeMap(v=>{
-               return this.http.get<{ "messages": string[], "data": string[], "status": string }>(`http://127.0.0.1:8000/api/addorder/?product_id=${v}&count=${this.ordersArea.productsCount[v]}`)
+               return this.http.get<{ "messages": string[], "data": string[], "status": string }>(`${URL_PATH}api/addorder/?product_id=${v}&count=${this.ordersArea.productsCount[v]}`)
            }),
         )
         .subscribe(
@@ -178,7 +179,7 @@ export class AdminPage extends ImageLoading implements AfterViewInit, AfterConte
         
         result = result.slice(0,-1);
 
-        this.http.get<{"status":"ok"}>(`http://127.0.0.1:8000/api/delete-likes/?${result}`).
+        this.http.get<{ "status": "ok" }>(`${URL_PATH}api/delete-likes/?${result}`).
         subscribe(v=>{
             if(v.status=="ok"){
                 this._snackBar.open("Удалено")
@@ -198,7 +199,7 @@ export class AdminPage extends ImageLoading implements AfterViewInit, AfterConte
                 const formdata = new FormData();
                 formdata.append("avatar", file, file.name);
 
-                this.http.post<{ status: "ok", data: { url: string } }>("http://127.0.0.1:8000/api/change-avatar", formdata)
+                this.http.post<{ status: "ok", data: { url: string } }>(`${URL_PATH}api/change-avatar`, formdata)
                     .subscribe(v => {
                         if (v.status === "ok") {
                             this.user.avatar = (v as any).data.url;

@@ -57,12 +57,20 @@
     .header__links{
         margin-left:1rem;
     }
+
+    #menu__icon{
+        display: none;
+    }
 }
 
-@media(max-width:1000px){
+@media(max-width:1108px){
 
     .header__content,.header__links{
         flex-direction: column;
+    }
+
+    .header__links{
+        display:none;
     }
 
     .header__brand-name h1{
@@ -80,7 +88,8 @@
 
     .header__links li{
         padding:1.7rem;
-        width:90%;
+        width:100%;
+        margin:0;
 
         >a,>button:not(.search__icon){
             transform: scale(1.5) !important;
@@ -102,7 +111,7 @@
 
     #menu_icon{
         position: absolute;
-        display:block;
+        display:block !important;
         top:1rem;
         right:2.5rem;
         cursor: pointer;
@@ -112,4 +121,5 @@
         font-size: 17px;
         font-weight: 300;
     }
+
 }

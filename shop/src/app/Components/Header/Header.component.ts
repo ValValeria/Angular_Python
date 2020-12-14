@@ -1,8 +1,9 @@
-import { animate, style, transition, trigger } from '@angular/animations';
+import { animate, style, transition, trigger, AnimationEvent } from '@angular/animations';
 import { AfterViewInit, ViewContainerRef } from '@angular/core';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router} from '@angular/router';
+import { URL_PATH } from 'src/app/app.component';
 import { Http } from 'src/app/Services/Http.service';
 import { User } from 'src/app/Services/User.service';
 import { $ORDER_COUNT } from '../OrderList/OrderList.component';
@@ -14,21 +15,22 @@ import { $CLOSE_SEARCH, SearchForm } from '../SearchForm/SearchForm.component';
     styleUrls:["./Header.component.scss"],
     animations:[
         trigger("fade",[
-            transition(":enter",[
+            transition("enter=>leave",[
                 style({opacity:0}),
                 animate("1s",style({opacity:1}))
             ]),
-            transition(":leave", [
+            transition("leave=>enter", [
                 animate("1s", style({ opacity: 0}))
             ]),
         ])
     ]
 })
 export class Header implements AfterViewInit{
-    @ViewChild('headerlinks',{read:ElementRef}) links:ElementRef;
-    counter: number = 0;
+    @ViewChild('headerlinks', {read:ElementRef}) links:ElementRef;
+    counter = 0;
     showPopup = false;
     mediaAvatar = false;
+    animState: 'enter' | 'leave' = 'enter';
     
     constructor(public user:User,
                 private router: Router,
@@ -36,23 +38,19 @@ export class Header implements AfterViewInit{
                 private dialog: MatDialog){}
 
     ngAfterViewInit(): void {
-        const elem: HTMLUListElement = this.links.nativeElement;
-
-        const toggleClass = () => {
-                if (document.documentElement.clientWidth > 1000) {
-                    elem.classList.remove('none');
-                    setTimeout(()=>{
-                        this.mediaAvatar = false;
-                    },0)
-                } else {
-                    elem.classList.add('none');
-                    setTimeout(() => {
-                        this.mediaAvatar = true;
-                    }, 0)
-                }
+        let toggleClass = () => {
+            if (window.matchMedia('(max-width:1108px)').matches) {
+                this.mediaAvatar = true;
+                this.links.nativeElement.style.display = 'none';
+            } else {
+                this.mediaAvatar = false;
+                this.links.nativeElement.style.display = 'flex';
+            }   
         };
 
-        toggleClass();
+        toggleClass = toggleClass.bind(this);
+
+        setTimeout(toggleClass, 0);
 
         window.onresize = toggleClass;
 
@@ -65,13 +63,25 @@ export class Header implements AfterViewInit{
         })
     }
 
-    toggleHeader():void{
-        const elem:HTMLUListElement = this.links.nativeElement;
-        setTimeout(()=>this.headerClass(elem),0);
+    toggleHeader(): void{
+        const elem: HTMLUListElement = this.links.nativeElement;
+        setTimeout(() => {
+            const display = elem.style.display;
+            const display_css = getComputedStyle(elem).display;
+
+            if (display === 'none' || display_css === 'none'){
+                elem.style.display = 'block';
+                this.animState = 'leave';
+            } else{
+                this.animState = 'enter';
+            }
+        }, 0);
     }
 
-    headerClass(elem:HTMLUListElement):void{  
-        elem.classList.toggle("none");
+    endAnimation($event: AnimationEvent): void{
+        if ($event.fromState === "leave"){
+            this.links.nativeElement.style.display = 'none ';
+        }
     }
 
     logout(): void{
@@ -81,7 +91,7 @@ export class Header implements AfterViewInit{
     } 
 
     deleteProfile(): void{
-        this.http.get("http://127.0.0.1:8000/api/delete-user").subscribe(()=>{
+        this.http.get(`${URL_PATH}api/delete-user`).subscribe(()=>{
             this.logout();
         });
     }

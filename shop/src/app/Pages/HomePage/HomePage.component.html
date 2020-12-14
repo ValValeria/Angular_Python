@@ -75,24 +75,26 @@
   <div class="section__content  ">
     <div class="section__wrap wrap-md-pd ">
           <div class="section__items flex-column  bg-vlight" >
-             <div class="section__item center flex-column mx-400 text-center wrap-md-pd" >
-                <p class="headline-md  ">Выберите свой ноутбук.</p>
-                <div class='mt-1-rem border-radius-15'>
-                  <button color="warn" mat-stroked-button class="bg-warn text-white">Подробнее</button>
+            <div class="wrap-md-pd">
+                <div class="section__item center flex-column mx-400 text-center ">
+                  <p class="headline-md  ">Выберите свой ноутбук.</p>
+                  <div class='mt-1-rem border-radius-15'>
+                    <a color="warn" mat-stroked-button class="bg-warn text-white" routerLink="/products">Подробнее</a>
+                  </div>
                 </div>
-             </div>
-             <div class="section__item wrap-md-pd pt-4 " >
+                <div class="section__item wrap-md-pd pt-4 ">
                   <div class="center flex-wrap grid_media" *ngIf="ads.length">
-                    <ng-template ngFor let-card [ngForOf]="ads" >
-                         <card [card]="card" class="center w-100"></card>
-                    </ng-template>  
-                  </div>       
+                    <ng-template ngFor let-card [ngForOf]="ads">
+                      <card [card]="card" class="center w-100"></card>
+                    </ng-template>
+                  </div>
                   <div class="center " *ngIf="!ads.length" style="min-height:40vh;">
                     <div class="spinner-border text-light" role="status" style="width: 5rem; height: 5rem;">
                       <span class="sr-only">Loading...</span>
                     </div>
                   </div>
-             </div>
+                </div>
+            </div>
           </div>
     </div>
   </div>

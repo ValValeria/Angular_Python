@@ -10,12 +10,13 @@ def set_up():
 
     if os.access(abs_path,os.R_OK):
        command = "cmd /c chdir {} {}".format(path,"& npm run build");
-       #subprocess.call(command);
+       subprocess.call(command);
        build_path = os.path.join(abs_path,"dist");
 
        if os.path.exists(build_path):
            dest_path = os.path.abspath("app\\static")
-           shutil.move(build_path,dest_path)               
+           shutil.move(build_path,dest_path)   
+           print(">> Done!")            
        else:
            print(">> Something bad has happened")
     else:

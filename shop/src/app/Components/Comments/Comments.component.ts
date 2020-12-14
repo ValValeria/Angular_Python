@@ -1,4 +1,5 @@
 import { Component, Input } from "@angular/core";
+import { URL_PATH } from "src/app/app.component";
 import { IComment } from "src/app/Interfaces/Interfaces";
 import { Http } from "src/app/Services/Http.service";
 import { User } from "src/app/Services/User.service";
@@ -33,7 +34,7 @@ export class Comments{
 
     click():void{
         if(this.user.is_auth){
-            this.http.post<{id:number,status:"ok"}>("http://127.0.0.1:8000/api/addcomment",{"message":this.message,"rating":this.rating,post_id:this.productId})
+            this.http.post<{ id: number, status: "ok" }>(`${URL_PATH}api/addcomment`,{"message":this.message,"rating":this.rating,post_id:this.productId})
             .subscribe(v=>{
                 if(v.status=="ok"){
                     this.comments.unshift({id:(v as any).id,message:this.message,rating:this.rating,sender:{username:this.user.username}})
@@ -44,7 +45,7 @@ export class Comments{
 
 
     sendRequest():void{
-        this.http.get<{data:IComment[],has_next:boolean,pages:number}>("http://127.0.0.1:8000/api/comments/"+this.productId+`?page=${this.activePage}`)
+        this.http.get<{ data: IComment[], has_next: boolean, pages: number }>(`${URL_PATH}api/comments/`+this.productId+`?page=${this.activePage}`)
         .subscribe(v=>{
             this.comments.push(...v.data);
             this.isSentRequest = true;

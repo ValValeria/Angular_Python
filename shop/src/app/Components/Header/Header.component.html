@@ -4,7 +4,11 @@
           <div class="header__brand-name">
             <a routerLink="/"><h1>{{"inDigital" | uppercase}}</h1></a>
           </div>
-          <ul class="header__links none" #headerlinks>
+          <ul class="header__links" 
+            #headerlinks
+            [@fade]="animState" 
+            (@fade.done)="endAnimation($event)"
+            >
              <li class="header__link center"><a mat-button routerLink="" routerLinkActive="active-btn" [routerLinkActiveOptions]="{exact:true}">Главная</a></li>
              <li class="header__link center"><a mat-button routerLink="/products" routerLinkActive="active-btn">Товары</a></li>
              <li class="header__link center" *ngIf="!user.is_auth"><a mat-button routerLink="/authenticate" routerLinkActive="active-btn">Войти </a></li>
@@ -26,10 +30,8 @@
                   </svg>
                 </button>
              </li>
-             <li class="header__link center flex-column" *ngIf="user.is_auth"  on-click="showPopup=true" on-mouseleave="showPopup=false">
-                  <ng-container *ngIf="!mediaAvatar">
+             <li class="header__link center flex-column" *ngIf="user.is_auth && !mediaAvatar"  on-click="showPopup=true" on-mouseleave="showPopup=false">
                     <ng-container *ngTemplateOutlet="avatar"></ng-container>
-                  </ng-container>
              </li>
           </ul>
       </div>

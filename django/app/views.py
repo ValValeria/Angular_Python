@@ -45,7 +45,18 @@ class ProductInfo(ListView):
       response = {"data":[]}
 
       def get(self,request,*args,**kw):
-          categories = map(lambda obj:obj.get("category"),Product.objects.distinct().all().values("category"))
+          products = None;
+          cat = request.GET.get("category","");
+          search = request.GET.get("search","");
+
+          if cat:
+              products = Product.objects.filter(category__icontains=cat)
+          elif search:
+              products = Product.objects.filter(Q(title__icontains=search) | Q(category__contains=search) | Q(short_description__contains=search)).distinct()
+          else:
+              products = Product.objects
+
+          categories = map(lambda obj:obj.get("category"),products.distinct().all().values("category"))
           max_price = Product.objects.aggregate(max_price=Max("price"))  
           min_price = Product.objects.aggregate(min_price=Min("price"))
           self.response["data"]={"categories":list(categories),"price":[min_price,max_price]}

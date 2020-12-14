@@ -2,6 +2,7 @@ import { animate, query, stagger, style, transition, trigger } from '@angular/an
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { URL_PATH } from 'src/app/app.component';
 import { Http } from 'src/app/Services/Http.service';
 
 @Component({
@@ -45,7 +46,7 @@ export class ContactPage implements OnInit{
                formdata.append(key, value.toString());
            });
 
-           this.http.post<{ status: 'ok' }>('http://127.0.0.1:8000/api/send-letter', formdata)
+            this.http.post<{ status: 'ok' }>(`${URL_PATH}api/send-letter`, formdata)
            .subscribe(v => {
                if(v.status === 'ok'){
                    this.snackBar.open('Ваше письмо отправлено', 'Close');

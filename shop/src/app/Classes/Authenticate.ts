@@ -1,4 +1,5 @@
-import { IAuthResponse, IUser } from "../Interfaces/Interfaces";
+import { URL_PATH } from "../app.component";
+import { IUser } from "../Interfaces/Interfaces";
 import { User } from '../Services/User.service';
 
 
@@ -7,10 +8,10 @@ export class AuthenticateClass{
         return new Promise((resolve, reject) => {
             try {
                 const data: { [prop in string]: string } = JSON.parse(localStorage.getItem('auth'));
-                let url = "http://127.0.0.1:8000/api/login";
+                let url = `${URL_PATH}api/login`;
 
                 if (!login) {
-                    url = "http://127.0.0.1:8000/api/signup";
+                    url = `${URL_PATH}api/signup`;
                 }
 
                 const formdata = new URLSearchParams();

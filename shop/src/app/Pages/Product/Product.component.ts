@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from "@angular/router";
+import { URL_PATH } from "src/app/app.component";
 import { IAd } from "src/app/Interfaces/Interfaces";
 import { Http } from "src/app/Services/Http.service";
 import { User, USER_AUTH } from 'src/app/Services/User.service';
@@ -14,7 +15,7 @@ export class Product implements OnInit{
     postId: number;
     post: IAd;
     pageIndex = 1;
-    readonly url = 'http://127.0.0.1:8000';
+    readonly url = URL_PATH.slice(0,-1);
     charactarictics: [string, string][];
     count = 1;
     maxCount = 0;
@@ -32,7 +33,7 @@ export class Product implements OnInit{
     }
 
     ngOnInit(): void{
-        this.http.get<{data: IAd}>('http://127.0.0.1:8000/api/product/' + this.postId).subscribe(
+        this.http.get<{data: IAd}>(`${URL_PATH}api/product/` + this.postId).subscribe(
             v => {
                 this.post = v.data;
                 this.charactarictics = this.post.characterictics.split(';').map(str => {
@@ -44,7 +45,7 @@ export class Product implements OnInit{
         
         USER_AUTH.subscribe(v1 => {
             if (v1){
-                this.http.get<{ data: { count: number } }>('http://127.0.0.1:8000/api/product-count/?product_id=' + this.postId).
+                this.http.get<{ data: { count: number } }>(`${URL_PATH}api/product-count/?product_id=` + this.postId).
                     subscribe(v => {
                         this.maxCount = v.data.count;
                         console.log(this.maxCount)
@@ -58,7 +59,7 @@ export class Product implements OnInit{
           this.router.navigateByUrl("/authenticate");
       } else{
           if(this.count){
-              this.http.get<{ messages: string[], data: string[], status: string }>(`http://127.0.0.1:8000/api/addorder?product_id=${this.postId}&count=${this.count}`)
+              this.http.get<{ messages: string[], data: string[], status: string }>(`${URL_PATH}api/addorder?product_id=${this.postId}&count=${this.count}`)
                   .subscribe(v => {
                       if (v.status == "ok") {
                           this._snackBar.open("Товар добавлен в корзину", "Закрыть", {

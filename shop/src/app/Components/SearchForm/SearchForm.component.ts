@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { fromEvent } from 'rxjs';
 import { Subject } from 'rxjs/internal/Subject';
 import { auditTime, filter, mergeMap, tap } from 'rxjs/operators';
+import { URL_PATH } from 'src/app/app.component';
 import { IAd } from 'src/app/Interfaces/Interfaces';
 import { Http } from 'src/app/Services/Http.service';
 
@@ -30,7 +31,7 @@ export class SearchForm{
         this.message = ``;
         
         this.http.get<{ data: { results: IAd[] } }>
-            ('http://127.0.0.1:8000/api/search/?search='
+            (`${URL_PATH}api/search/?search=`
                 + encodeURIComponent(elem.value))
         .subscribe(v => {
             this.results = v.data.results.slice(0, 10);

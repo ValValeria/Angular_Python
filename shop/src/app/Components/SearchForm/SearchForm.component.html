@@ -19,10 +19,16 @@
                         <div class="search__item-chips">
                             <mat-chip-list>
                                  <mat-chip color="accent" >
-                                     <span>Марка:</span><span>{{item.brand}}</span>
+                                     <button mat-button>
+                                        <a routerLink="/category/{{item.category}}" mat-button>
+                                            <span>Марка:</span><span>{{item.brand}}</span>
+                                        </a>
+                                     </button>
                                  </mat-chip>
                                  <mat-chip color="accent">
-                                     <span>Категория:</span><span>{{item.category}}</span>
+                                     <a routerLink="/category/{{item.category}}" mat-button>
+                                        <span>Категория:</span><span>{{item.category}}</span>
+                                    </a>
                                  </mat-chip>
                             </mat-chip-list>
                         </div>

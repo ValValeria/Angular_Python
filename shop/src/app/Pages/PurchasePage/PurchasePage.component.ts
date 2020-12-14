@@ -3,6 +3,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { from, interval, Observable } from "rxjs";
 import { concatAll, delayWhen, map, mergeAll, reduce, skipWhile, switchMap, take, takeUntil, tap } from "rxjs/operators";
+import { URL_PATH } from "src/app/app.component";
 import { IAd } from "src/app/Interfaces/Interfaces";
 import { Http } from "src/app/Services/Http.service";
 import { User, USER_AUTH } from "src/app/Services/User.service";
@@ -25,7 +26,7 @@ export class PurchasePage implements OnInit{
 
     ngOnInit(): void{
         USER_AUTH.subscribe(() => {
-            this.http.get<{ data: { active: IAd[], unactive: IAd[] }, amount_of_orders: number, amount_of_products: number }>('http://127.0.0.1:8000/api/get-orders/')
+            this.http.get<{ data: { active: IAd[], unactive: IAd[] }, amount_of_orders: number, amount_of_products: number }>(`${URL_PATH}api/get-orders/`)
                 .subscribe( v => {
                     this.user.addActiveProducts(v.data.active);
                     this.user.addUnactiveProducts(v.data.unactive);
