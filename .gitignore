@@ -6,12 +6,16 @@ dist
 /bazel-out
 .txt
 
+django/.gitignore
+
 static/avatars
 static/images
 
 node_modules
 
-lib
+lib/
+
+Procfile
 
 migrations
 

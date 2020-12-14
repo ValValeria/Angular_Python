@@ -308,6 +308,7 @@ class UserProfile(View):
 class NotFound(ListView):
 
     def dispatch(self, request, *args, **kwargs):
+        print(1)
         filename,extension = os.path.splitext(request.path);
         request_path = os.path.abspath("./app/static/dist/shop");
 
@@ -324,6 +325,8 @@ class NotFound(ListView):
                 type="text/javascript"
             elif "svg" in extension:
                 type="image/svg+xml"
+            elif "webp" in extension:
+                type="image/webp"
             
             if os.access(request_path,os.R_OK):
                 response["Content-Type"]=type;

@@ -15,6 +15,11 @@ def set_up():
 
        if os.path.exists(build_path):
            dest_path = os.path.abspath("app\\static")
+           tree = os.path.join(dest_path,"dist");
+           
+           if os.path.exists(tree):
+               shutil.rmtree(tree)
+
            shutil.move(build_path,dest_path)   
            print(">> Done!")            
        else:

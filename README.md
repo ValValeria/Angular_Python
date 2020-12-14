@@ -26,6 +26,7 @@ Also there is the admin panel, which is available only for the super admin. To g
 
 ## How to run 
 * `cd django` - on Windows
+* `pip install`
 * `python manage.py makemigrations`
 * `python manage.py migrate`
 * `python manage.py runserver`<br/>
