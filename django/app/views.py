@@ -307,14 +307,16 @@ class UserProfile(View):
 
 
 
-class NotFound(ListView):
+import requests
 
-    def get(self, request, *args, **kwargs):
+class BundleView(ListView):
+    
+    def buildFiles(self,request):
+        url = "/".join(('app','static','dist','shop'))+request.path
+        path = os.path.abspath(r"./{}".format(url))
         extension = os.path.splitext(request.path)[1];
-        request_path = os.path.abspath(os.path.join("app","static","dist","shop"));
 
-        if extension:
-            request_path = request_path+request.path;
+        if os.path.exists(path) and extension:
             response = HttpResponse();
             type = "";
 
@@ -329,10 +331,10 @@ class NotFound(ListView):
             elif "webp" in extension:
                 type="image/webp"
             
-            if os.access(request_path,os.R_OK):
+            if os.access(path,os.R_OK):
                 response["Content-Type"]=type;
 
-                with open(request_path,"rb") as file:
+                with open(path,"rb") as file:
                     for line in file:
                        response.write(content=line)
                        
@@ -340,9 +342,32 @@ class NotFound(ListView):
             
             return HttpResponseBadRequest();
         else:
-            path = os.path.join(request_path,"index.html");
+           return HttpResponseForbidden()
 
-            if os.path.exists(path):
-               return FileResponse(open(os.path.join(request_path,"index.html"),'rb'));
+    def staticFiles(self,request):
+        path = os.path.abspath(r"./{}".format(request.path))
+        extension = os.path.splitext(path)[1];
 
-            return HttpResponseServerError()
+        if os.path.exists(path) and extension:
+            return FileResponse(open(path,'rb'))
+        else:
+            return HttpResponseForbidden();
+
+
+    def get(self,request,*args,**kw):
+        if request.path.startswith("app/static"):
+            return self.staticFiles(request)
+        else:
+            return self.buildFiles(request);
+
+
+class NotFound(ListView):
+
+    def get(self, request, *args, **kwargs):
+        path = os.path.join("app","static","dist","shop");
+        path = os.path.abspath(path)
+
+        if os.path.exists(path):
+            return FileResponse(open(os.path.join(path,"index.html"),'rb'));
+
+        return HttpResponseServerError()

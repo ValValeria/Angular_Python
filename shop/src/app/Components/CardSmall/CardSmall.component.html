@@ -21,6 +21,13 @@
                               <div class="card-sm__content text-center">
                                  <div class="card-sm__title">{{card.title}}</div>
                                  <div class="card-sm__subtitle ">{{card.short_description | slice:0:50}}</div>
+                                 <div class="card-sm__category center">
+                                    <mat-chip-list >
+                                        <mat-chip on-click="goToCat()">
+                                           {{card.category}}
+                                        </mat-chip>
+                                    </mat-chip-list>
+                                 </div>
                                  <div class='mt-1-rem w-100 '>
                                      <a routerLink="/product/{{card.id}}" color="warn" class="w-100" mat-raised-button >Смотреть</a>
                                  </div>

@@ -40,4 +40,8 @@ export class CardSmall extends ImageLoading{
              });
         }
     }
+
+    goToCat(): void{
+        this.router.navigate(['category',this.card.category]);
+    }
 }

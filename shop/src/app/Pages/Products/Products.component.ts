@@ -140,7 +140,9 @@ export class Products implements OnInit,AfterViewInit {
 
                 this.dialog.afterAllClosed.subscribe(v => {
                     const matSearchContainer = document.querySelector('.product__search-wrap');
-                    matSearchContainer.classList.remove('shadow-none');
+                    if (matSearchContainer){
+                        matSearchContainer.classList.remove('shadow-none');
+                    }
                 });
             };
             setTimeout(func.bind(this), 0);

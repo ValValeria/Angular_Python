@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticateClass } from './Classes/Authenticate';
 import { User } from './Services/User.service';
 
-export const URL_PATH = 'http://127.0.0.1:8000/';
+export const URL_PATH = '/';
 
 @Component({
   selector: 'app-root',

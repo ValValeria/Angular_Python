@@ -26,7 +26,6 @@ SECRET_KEY = '6f055943-e7c0-47e7-8349-2e7aac207fda'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 #ALLOWED_HOSTS = ["radiant-earth-56780.herokuapp.com","127.0.0.1:8000"]
 
 # Application references

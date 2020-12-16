@@ -123,6 +123,13 @@
    z-index:2;
 }
 
+.shadow mat-card-title{
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 300;
+    padding: 10px;
+}
+
 .admin__dashboard{
     width:50%;
     min-height: 100vh;
@@ -314,6 +321,10 @@ th.mat-header-cell {
     }
     .admin__profile-info{
         width:100%;
+    }
+    .admin__profile-info:nth-child(1){
+        width:100%;
+        max-width:100%;
     }
 
     .admin__profile-info{

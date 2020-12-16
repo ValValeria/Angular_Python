@@ -146,8 +146,8 @@ a{
 
 .grid_media {
   display: grid !important;
-  grid-template-rows: 550px;
-  grid-auto-rows: 550px;
+  grid-template-rows: 630px;
+  grid-auto-rows: 630px;
   grid-template-columns: repeat(auto-fit, minmax(290px, 350px));
   grid-gap: 5px;
   align-items: center;
@@ -284,7 +284,7 @@ a{
 .card-sm{
     color:initial !important;
     transition:0.5s transform;
-    height:530px;
+    height:580px;
 }
 
 .card-sm:hover{
