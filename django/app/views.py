@@ -147,8 +147,10 @@ class ProductSort(ListView):
           paginator = Paginator(products.order_by("id"),self.per_page);
 
           if page <=paginator.num_pages:
-                data = PostSerializer(paginator.page(page).object_list,many=True);
-                self.response["data"]=data.data
+                data_page = paginator.page(page)
+                data = PostSerializer(data_page.object_list,many=True);
+                self.response["data"].extend(data.data)
+                self.response["has_next"] = data_page.has_next();
 
           return JsonResponse(self.response, json_dumps_params={'ensure_ascii': False}) 
 
@@ -307,10 +309,9 @@ class UserProfile(View):
 
 class NotFound(ListView):
 
-    def dispatch(self, request, *args, **kwargs):
-        print(1)
-        filename,extension = os.path.splitext(request.path);
-        request_path = os.path.abspath("./app/static/dist/shop");
+    def get(self, request, *args, **kwargs):
+        extension = os.path.splitext(request.path)[1];
+        request_path = os.path.abspath(os.path.join("app","static","dist","shop"));
 
         if extension:
             request_path = request_path+request.path;
@@ -336,11 +337,11 @@ class NotFound(ListView):
                        response.write(content=line)
                        
                 return response;
-
+            
             return HttpResponseBadRequest();
         else:
             path = os.path.join(request_path,"index.html");
-            
+
             if os.path.exists(path):
                return FileResponse(open(os.path.join(request_path,"index.html"),'rb'));
 

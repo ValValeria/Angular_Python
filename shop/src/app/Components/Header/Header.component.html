@@ -8,6 +8,7 @@
             #headerlinks
             [@fade]="animState" 
             (@fade.done)="endAnimation($event)"
+            (click)="toggleHeader()"
             >
              <li class="header__link center"><a mat-button routerLink="" routerLinkActive="active-btn" [routerLinkActiveOptions]="{exact:true}">Главная</a></li>
              <li class="header__link center"><a mat-button routerLink="/products" routerLinkActive="active-btn">Товары</a></li>
