@@ -36,6 +36,6 @@ urlpatterns = [
     re_path(r"^api/change-avatar",ChangeAvatar.as_view()),
     path('admin/', AdminView.as_view()),
     path('admin/', admin.site.urls),
-    re_path(r".+(.js|.css|.png|.jpg|.svg|.webp)$",BundleView.as_view()),
+    re_path(r".{3,50}(.js|.css|.png|.jpg|.svg|.webp)$",BundleView.as_view()),
     re_path(r"^",NotFound.as_view()),
 ]

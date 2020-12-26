@@ -210,6 +210,7 @@ export class Products implements OnInit,AfterViewInit {
                  if (v.data.length) {
                      this.products.push(...v.data);
                      this.hasNext = v.has_next;
+
                      const decideScroll = () => {
                          const offset = this.productsElem.nativeElement.offsetTop;
                          const height = this.productsElem.nativeElement.clientHeight;
@@ -217,8 +218,9 @@ export class Products implements OnInit,AfterViewInit {
                              this.disabled = false;
                          }
                      }
+
                      decideScroll();
-                     window.onscroll = decideScroll.bind(this)
+                     window.addEventListener('scroll', decideScroll.bind(this));
                  }
                  this.checkData();
              })

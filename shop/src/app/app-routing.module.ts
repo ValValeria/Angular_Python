@@ -37,6 +37,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatChipsModule } from '@angular/material/chips';
 import { PurchasePage } from './Pages/PurchasePage/PurchasePage.component';
 import { CategoryPage } from './Pages/CategoryPage/CategoryPage.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 
@@ -73,6 +74,7 @@ const modules = [MatButtonModule,
                  ChartsModule,
                  MatCheckboxModule,
                  MatChipsModule,
+                 MatProgressBarModule
                 ];
 
 @NgModule({

@@ -15,7 +15,7 @@ export class Product implements OnInit{
     postId: number;
     post: IAd;
     pageIndex = 1;
-    readonly url = URL_PATH.slice(0,-1);
+    readonly url = 'http://127.0.0.1:8000/'.slice(0,-1);
     charactarictics: [string, string][];
     count = 1;
     maxCount = 0;
