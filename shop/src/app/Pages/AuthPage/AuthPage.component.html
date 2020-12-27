@@ -1,6 +1,6 @@
 <section class="auth section first-slide center">
     <div class="auth__wrap wrap-md center" *ngIf="!user.is_auth">
-        <div class="auth__form">
+        <div class="auth__form center">
            <form [formGroup]="form" (ngSubmit)="submit($event)">
                <mat-card class="d-flex center flex-column">
                   <mat-card-title class="auth__titles center d-flex">

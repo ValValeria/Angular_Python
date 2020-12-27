@@ -1,7 +1,9 @@
 import { Component, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from "@angular/router";
 import { URL_PATH } from "src/app/app.component";
+import { ProductPageImage } from "src/app/Components/ProductPageImage/ProductPageImage.component";
 import { IAd } from "src/app/Interfaces/Interfaces";
 import { Http } from "src/app/Services/Http.service";
 import { User, USER_AUTH } from 'src/app/Services/User.service';
@@ -24,7 +26,8 @@ export class Product implements OnInit{
                 private route: ActivatedRoute,
                 private router: Router,
                 public user: User,
-                private _snackBar: MatSnackBar){
+                private _snackBar: MatSnackBar,
+                private diaglog: MatDialog){
 
         this.route.paramMap.subscribe(v => {
             this.postId = Number(v.get('id'));
@@ -77,5 +80,14 @@ export class Product implements OnInit{
               });   
           }
       }
+    }
+
+    showImages(): void{
+      this.diaglog.open(ProductPageImage,{
+          data: {src: this.post.image},
+          width: "80%",
+          height:"60%",
+          maxWidth:"900px"
+      });
     }
 }

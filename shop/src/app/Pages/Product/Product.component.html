@@ -1,13 +1,13 @@
 <section class="product section first-slide">
   <div class="product__area center flex-column">
-    <div *ngIf="!post" class="center pt-4">
+    <div *ngIf="!post" class="center pt-4" style="height:60vh;">
        <mat-spinner color="accent"></mat-spinner>
     </div>
     <div class="product__wrap wrap-md-pd " *ngIf="post">
         <div class="product__container">
              <h5 class="product__title">{{post.title}}</h5>
-             <div class="product__images position-relative">
-                 <div class="img-container">
+             <div class="product__images position-relative" (click)="showImages()">
+                 <div class="img-container" style="height:100%;width:100%;">
                    <img src="{{post.image.startsWith('/')?(url+post.image) : (url+'/'+post.image)}}"  alt="">
                  </div>
                  <app-like [id]="post.id"></app-like>

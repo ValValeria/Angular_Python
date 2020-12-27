@@ -38,7 +38,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { PurchasePage } from './Pages/PurchasePage/PurchasePage.component';
 import { CategoryPage } from './Pages/CategoryPage/CategoryPage.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-
+import { ProductPageImage } from './Components/ProductPageImage/ProductPageImage.component';
 
 
 const routes: Routes = [
@@ -93,6 +93,7 @@ const modules = [MatButtonModule,
                 OrderList,
                 Like,
                 ContactPage,
+                ProductPageImage,
                 SearchPageResult,
                 PurchasePage,
                 CategoryPage
