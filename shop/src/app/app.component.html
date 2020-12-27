@@ -9,10 +9,7 @@
 </div>
 <div class="slider"  
 (click)="scroll($event,true)"
-(mousedown)="mousedown()" 
 (mousemove)="scroll($event,false)"
-(mouseup)="mouseup($event,true)"
-(mouseout)="mouseup($event,true)"
 *ngIf="isDisplayScroll"
 >
      <div class="slider__content">
@@ -21,6 +18,8 @@
           color="basic"
           mat-flat-button
           [ngStyle]="btnHeight"
+          (mousedown)="mousedown($event)"  
+          (mouseup)="mouseup($event,true)"
           ></button>
        </div>
      </div>
