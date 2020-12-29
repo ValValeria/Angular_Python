@@ -1,5 +1,5 @@
 .auth{
-        background: repeating-linear-gradient(45deg, #1A2026, #2F3538 10px, #414042 10px, #414042 20px);
+    background: repeating-linear-gradient(45deg, #1A2026, #2F3538 10px, #414042 10px, #414042 20px);
 }
 
 .auth__form{
@@ -25,14 +25,6 @@ mat-card{
 }
 
 
-input{
-    color:white !important;
-    background-color: transparent;
-
-    ::placeholder{
-        color:white;
-    }
-}
 
 .border-red{
     border-bottom: 2.5px solid red;

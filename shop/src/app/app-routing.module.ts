@@ -39,6 +39,7 @@ import { PurchasePage } from './Pages/PurchasePage/PurchasePage.component';
 import { CategoryPage } from './Pages/CategoryPage/CategoryPage.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ProductPageImage } from './Components/ProductPageImage/ProductPageImage.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 const routes: Routes = [
@@ -74,7 +75,8 @@ const modules = [MatButtonModule,
                  ChartsModule,
                  MatCheckboxModule,
                  MatChipsModule,
-                 MatProgressBarModule
+                 MatProgressBarModule,
+                 MatDialogModule
                 ];
 
 @NgModule({
