@@ -23,26 +23,29 @@ def set_up():
 
            shutil.move(build_path,dest_path)   
 
-           arg = sys.argv[1]
+           arg = sys.argv[1] if len(sys.argv)>1 else '';
 
            if arg == "all":
                setting_path = os.path.abspath('./DjangoWebProject/other_settings.py')
 
                if os.path.exists(setting_path) and os.path.isfile(setting_path):
-                   lines = ['DEBUG = False','ALLOWED_HOSTS = ["radiant-earth-56780.herokuapp.com","127.0.0.1:8000"]'];
+                   lines = ['DEBUG = False \n','ALLOWED_HOSTS = ["radiant-earth-56780.herokuapp.com","127.0.0.1:8000"]\n'];
+                   other_lines = ['DEBUG = True \n','ALLOWED_HOSTS = []\n'];
 
-                   with open(setting_path,'w') as file:
+                   with open(setting_path,'wt') as file:           
                         file.writelines(lines)
 
                         commands = ['git add .', 'git commit -m "make it better"', 'git push heroku master'];
-                        current_dir = os.path.dirname(os.path.abspath("./")) 
+                      
+                        current_dir = "./"
 
                         for com in commands:
                             obj = subprocess.run("cmd /c chdir {} & {}".format(current_dir,com))
+
                             if obj.returncode == 0:
                                 print(">>> Success")
-
-                        file.truncate();
+                        
+                        file.writelines(other_lines)                        
                         print(">> Done!");
            else:
                print(">> Done!")            

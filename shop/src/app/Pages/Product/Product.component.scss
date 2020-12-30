@@ -3,8 +3,12 @@
     font-size: 35px;
     grid-column: 1/-1;
     text-align:left;
-    justify-self: start;
+    justify-self: center;
     padding-left:2.3em;
+}
+
+.product__container{
+    padding-top:1.7rem;
 }
 
 .product__area{
@@ -84,6 +88,16 @@
    grid-row:2/4; 
    grid-column:span 6;
    cursor:pointer;
+   min-width: 100%;
+   min-height: 100%;
+   background-color: #F2F4F6;
+   border-radius: 5px;
+}
+
+.product__bread-crumps{
+    max-width: 500px;
+    width: min-content;
+    min-width: 300px;
 }
 
 .product__short-descr{

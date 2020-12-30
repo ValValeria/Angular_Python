@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.views.generic import ListView,View;
 from ..models import Product
 from django.contrib.auth.mixins import UserPassesTestMixin
-
+from django.shortcuts import render;
 
 class AdminView(UserPassesTestMixin,ListView):
     template_name = "admin/index.html"
@@ -27,3 +27,9 @@ class AdminView(UserPassesTestMixin,ListView):
             context["models"].extend(available_apps[1].get("models"))
 
         return context;
+
+class AdminProductImages(ListView):
+    template = "admin/products_images.html"
+
+    def get(self,request,*args,**kw):
+        return render(request,self.template)

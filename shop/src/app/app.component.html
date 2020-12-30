@@ -7,10 +7,10 @@
     </div>
   </footer>
 </div>
-<!--<div class="slider"  
+<div class="slider"  
 (click)="scroll($event,true)"
 (mousemove)="scroll($event,false)"
---*ngIf="isDisplayScroll"
+*ngIf="isDisplayScroll"
 >
      <div class="slider__content">
        <div class="slider__btn-container" #button>
@@ -19,8 +19,8 @@
           mat-flat-button
           [ngStyle]="btnHeight"
           (mousedown)="mousedown($event)"  
-          (mouseup)="mouseup($event,true)"
+          (mouseup)="mouseup($event)"
           ></button>
        </div>
      </div>
-</div>-->
+</div>

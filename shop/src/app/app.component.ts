@@ -42,19 +42,17 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
 
       switch ($event.code) {
         case 'ArrowDown':
-          coor = top + this.btn.clientHeight * 0.25;
+          coor = top + this.btn.clientHeight * 0.10 + this.btn.clientHeight / 2;
           break;
         case 'ArrowUp':
-          coor = top - this.btn.clientHeight * 0.25;
+          coor = top - this.btn.clientHeight * 0.10 + this.btn.clientHeight / 2;
           break;
         default:
-          break;
+          console.log($event.code);
+          return null;
       }
 
-      if (coor + this.btn.clientHeight * 0.14 >= 0 && coor + this.btn.clientHeight < document.documentElement.clientHeight) {
-          scrollEvent(coor);
-          this.render.setStyle(this.btn, 'top', coor + 'px');
-      }
+      this.scroll(new MouseEvent('click', {}), true, coor);
     });
   }
 
@@ -98,12 +96,12 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
     });
   }
 
-  scroll($event: MouseEvent, isClick: boolean): void {
+  scroll($event: MouseEvent, isClick: boolean, coor?: number): void {
 
     $event.preventDefault();
 
     if (this.isButtonClicked || isClick) {
-      let numTop = $event.clientY;
+      let numTop = coor || $event.clientY;
       numTop = numTop - this.btn.clientHeight / 2;
       const trufy = numTop + this.btn.clientHeight < document.documentElement.clientHeight;
 
@@ -111,10 +109,10 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
         numTop = document.documentElement.clientHeight - this.btn.clientHeight;
       } else if (numTop < 0) {
         numTop = 0;
-      } 
-
+      }
       this.render.setStyle(this.btn, 'top', numTop + 'px');
       scrollEvent(numTop);
+      console.log(numTop)
     }
   }
 

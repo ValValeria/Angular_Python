@@ -40,6 +40,7 @@ import { CategoryPage } from './Pages/CategoryPage/CategoryPage.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ProductPageImage } from './Components/ProductPageImage/ProductPageImage.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { NotFoundPage } from './Pages/NotFoundPage/NotFoundPage.component';
 
 
 const routes: Routes = [
@@ -51,7 +52,8 @@ const routes: Routes = [
   {path:"profile",component:AdminPage},
   {path: 'search', component: SearchPageResult },
   {path: "contacts", component: ContactPage},
-  { path: "category/:category", component: CategoryPage}
+  {path: "category/:category", component: CategoryPage},
+  {path: '**', component: NotFoundPage}
 ];
 
 const modules = [MatButtonModule,
@@ -94,6 +96,7 @@ const modules = [MatButtonModule,
                 AdminPage,
                 OrderList,
                 Like,
+                NotFoundPage,
                 ContactPage,
                 ProductPageImage,
                 SearchPageResult,

@@ -198,4 +198,3 @@ def delete_user(sender, instance, **kwargs):
 # Site title         
 admin.site.site_header = "InDigital Admin"
 admin.site.site_title = "InDigital"
-admin.site.index_title = None

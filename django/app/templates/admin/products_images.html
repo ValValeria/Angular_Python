@@ -1,0 +1,40 @@
+{% extends "./base_site.html" %}
+
+{% block content %}
+{{ block.super }}
+<div id="app">
+    <v-app>
+        <v-main>
+             <div class="wrap-md">
+                  <v-row>
+                      <v-col>
+                          <v-btn>Добавить зображение</v-btn>
+                      </v-col>
+                      <v-col>
+                          <v-btn>Удалить все изображени</v-btn>
+                      </v-col>
+                      <v-col>
+                          <v-btn>Вернуться обратно</v-btn>
+                      </v-col>
+                  </v-row>
+             </div>
+        </v-main>
+    </v-app>
+</div>
+
+{% endblock%}
+
+{% block extrahead %}
+{{ block.super }}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        new Vue({
+            el: '#app',
+            vuetify: new Vuetify(),
+        })
+
+        document.title = 'Добавьте фотографии  к товару'
+        document.body.style.overflow = 'hidden'
+    })
+</script>
+{% endblock%}

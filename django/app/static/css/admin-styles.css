@@ -37,6 +37,8 @@ tr > th > a{
     justify-content: center;
 }
 
+
+
 .btn-linear{
     background-image: linear-gradient(45deg, #606C88, #3F4C6B) ;
     font-weight: 300 !important;
@@ -139,4 +141,13 @@ a:link, a:visited {
     width: 90%;
     margin: 0 auto;
     padding: 2rem 0;
+}
+
+
+
+@media (max-width: 1024px){
+.dashboard #content {
+    width: 100% !important;
+    padding: 0;
+}
 }

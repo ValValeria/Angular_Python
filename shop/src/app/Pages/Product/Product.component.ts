@@ -83,11 +83,13 @@ export class Product implements OnInit{
     }
 
     showImages(): void{
-      this.diaglog.open(ProductPageImage,{
-          data: {src: this.post.image},
-          width: "80%",
-          height:"60%",
-          maxWidth:"900px"
-      });
+      if (this.post.image.length){
+          this.diaglog.open(ProductPageImage, {
+              data: { src: this.post.image },
+              width: "80%",
+              height: "60%",
+              maxWidth: "900px"
+          });
+      }
     }
 }

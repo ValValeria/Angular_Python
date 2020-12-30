@@ -1,9 +1,29 @@
 <section class="product section first-slide">
   <div class="product__area center flex-column">
+
     <div *ngIf="!post" class="center pt-4" style="height:60vh;">
        <mat-spinner color="accent"></mat-spinner>
     </div>
-    <div class="product__wrap wrap-md-pd " *ngIf="post">
+    <div class="product__wrap wrap-md-pd pt-4" *ngIf="post">
+        <div class="product__bread-crumps">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a routerLink="/">Главная</a>
+              </li>
+              <li class="breadcrumb-item">
+                <a routerLink="/products">
+                  Товары
+                </a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                <a routerLink="/product/{{post.id}}">
+                   {{post.category}}
+                </a>
+              </li>
+            </ol>
+          </nav>
+        </div>
         <div class="product__container">
              <h5 class="product__title">{{post.title}}</h5>
              <div class="product__images position-relative" (click)="showImages()">
