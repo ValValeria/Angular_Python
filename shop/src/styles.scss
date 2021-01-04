@@ -276,23 +276,7 @@ a{
     background: linear-gradient(to right, #161616, #040c21);
 }
 
-.contact-form, .auth__form{
-   .mat-form-field-appearance-outline .mat-form-field-outline{
-    color:#ffd740;
-  }
 
-   .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label{
-    color:white;
-   }
-
-   .mat-form-field-empty.mat-form-field-label, .mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label{
-    color:white;
-   }
-
-   input::placeholder{
-       color:white;
-   }
-}
 .wrap-md-pd{
     @extend %wrap;
     max-width:1000px;
@@ -328,16 +312,7 @@ a{
     transform: scale(1.07);
 }
 
-.auth__form {
-    input{
-    color:white !important;
-    background-color: transparent;
 
-    ::placeholder{
-        color:white;
-    }
-    }
-}
 
 .card-sm__subtitle{
     font-size: 16px;

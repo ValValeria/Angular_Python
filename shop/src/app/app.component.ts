@@ -1,9 +1,11 @@
 import { AfterViewInit, Component, DoCheck, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Router, RoutesRecognized } from '@angular/router';
+import { fromEvent } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { AuthenticateClass } from './Classes/Authenticate';
 import { User } from './Services/User.service';
 
-export const URL_PATH = 'http://127.0.0.1:8000/';
+export const URL_PATH = '/';
 
 const scrollEvent = (top: number) => {
   const scrollElem = document.querySelector('.slider');
@@ -32,28 +34,29 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
   ) { }
 
   ngOnInit(): void {
-    (new AuthenticateClass()).authenticate(this.user,
-      true).catch(e => console.log('Status:guest'));
+    (new AuthenticateClass()).authenticate(this.user, true).catch(e => console.log('Status:guest'));
 
-    document.addEventListener('keydown', ($event) => {
-      $event.preventDefault();
-      const top = parseInt(getComputedStyle(this.btn).getPropertyValue('top'), 10);
-      let coor: number;
+    fromEvent(document, 'keydown')
+      .pipe(
+        filter((v: any) => v.code === 'ArrowDown' || v.code === 'ArrowUp')
+      ).subscribe(($event) => {
+        const top = parseInt(getComputedStyle(this.btn).getPropertyValue('top'), 10);
+        let coor: number;
 
-      switch ($event.code) {
-        case 'ArrowDown':
-          coor = top + this.btn.clientHeight * 0.10 + this.btn.clientHeight / 2;
-          break;
-        case 'ArrowUp':
-          coor = top - this.btn.clientHeight * 0.10 + this.btn.clientHeight / 2;
-          break;
-        default:
-          console.log($event.code);
-          return null;
-      }
+        switch ($event.code) {
+          case 'ArrowDown':
+            coor = top + this.btn.clientHeight * 0.10 + this.btn.clientHeight / 2;
+            break;
+          case 'ArrowUp':
+            coor = top - this.btn.clientHeight * 0.10 + this.btn.clientHeight / 2;
+            break;
+          default:
+            console.log($event.code);
+            return null;
+        }
 
-      this.scroll(new MouseEvent('click', {}), true, coor);
-    });
+        this.scroll(new MouseEvent('click', {}), true, coor);
+      });
   }
 
   ngDoCheck(): void {
@@ -105,7 +108,7 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
       numTop = numTop - this.btn.clientHeight / 2;
       const trufy = numTop + this.btn.clientHeight < document.documentElement.clientHeight;
 
-      if (! trufy) {
+      if (!trufy) {
         numTop = document.documentElement.clientHeight - this.btn.clientHeight;
       } else if (numTop < 0) {
         numTop = 0;

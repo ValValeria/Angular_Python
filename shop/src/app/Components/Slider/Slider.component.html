@@ -1,0 +1,15 @@
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="margin:2rem">
+    <div class="carousel-inner">
+        <ng-container *ngFor="let item of images;let i = first;">
+            <div class="carousel-item {{i?'active':''}}" *ngFor="let item of images;let i = index;">
+                <img [src]="item" class="d-block w-100" alt="...">
+            </div>
+        </ng-container>
+    </div>
+    <a class="carousel-control-prev"  role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    </a>
+</div>

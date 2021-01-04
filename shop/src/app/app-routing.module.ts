@@ -41,6 +41,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ProductPageImage } from './Components/ProductPageImage/ProductPageImage.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NotFoundPage } from './Pages/NotFoundPage/NotFoundPage.component';
+import { Slider } from './Components/Slider/Slider.component';
 
 
 const routes: Routes = [
@@ -94,6 +95,7 @@ const modules = [MatButtonModule,
                 Comments,
                 AuthPage,
                 AdminPage,
+                Slider,
                 OrderList,
                 Like,
                 NotFoundPage,

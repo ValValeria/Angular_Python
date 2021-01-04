@@ -87,8 +87,10 @@ export class Products implements OnInit,AfterViewInit {
 
             if (this.isCategoryPage) {
                 this.route.paramMap.subscribe(v2 => {
-                    this.activeCategory = v2.get("category");
-                    this.formRequest(false);
+                    setTimeout(() => {
+                        this.activeCategory = v2.get("category");
+                        this.formRequest(false);
+                    }, 0);
                 });
             } else {
                 this.formRequest(false);

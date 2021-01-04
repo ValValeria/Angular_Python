@@ -1,30 +1,14 @@
-.auth{
-    background: repeating-linear-gradient(45deg, #1A2026, #2F3538 10px, #414042 10px, #414042 20px);
-}
-
 .auth__form{
-    max-width: 700px;
-    width:80%;
-    padding:4rem 0;
-    background-color: transparent;
-}
-
-form{
+    max-width: 470px;
     width:100%;
-    max-width: 500px;
-    color: white;
-    border-radius: 5px;
-    background: #231F20;
-    padding: 2rem;
+    padding:3rem;
+    background-color: transparent;
 }
 
 mat-card{
     background-color: transparent;
     box-shadow: none !important;
-    color: white;
 }
-
-
 
 .border-red{
     border-bottom: 2.5px solid red;
@@ -43,7 +27,6 @@ mat-card{
     font-weight: 400;
     outline: none;
     padding-bottom:5px;
-    color: white;
     background-color: transparent;
 }
 

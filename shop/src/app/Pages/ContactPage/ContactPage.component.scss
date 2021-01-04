@@ -2,31 +2,33 @@
     padding:1rem;
     width: 90%;
     max-width: 500px;
-    color: white;
-    border-radius: 5px;
-    background: #231F20;
+    border-radius: 15px;
     padding: 2rem;
-    
-    input{
-        color:white;
-    }
-    
-    input::placeholder{
-        color:white;
-    }
-}
-
-mat-form-field {
-    color:white !important;
-    border-color: white !important;
+    background-color:white;
 }
 
 mat-form-field{
     width:100%;
 }
 
-.bg-ldark{
-   background: repeating-linear-gradient(45deg, #1A2026, #2F3538 10px, #414042 10px, #414042 20px);
+section{
+    position: relative;
+}
+
+section::after{
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 3rem;
+    right: 0;
+    z-index: -1;
+    min-height: 50%;
+    width: 50%;
+    background-image: url(/assets/contact.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transform: rotate(65deg)
 }
 
 .section__field-errors{
