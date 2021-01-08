@@ -5,7 +5,7 @@ Definition of urls for DjangoWebProject.
 from app.view_pack.admin_view import AdminView,AdminProductImages
 from django.urls import path,re_path
 from django.contrib import admin
-from app.views import ChangeAvatar,ProductLikesDelete,UserProfile,DeleteUser,BundleView,NotFound,SendLetter,ProductAvailableCount,LoginView,ProductsView,SignUpView,ProductView,ProductLikesShow,ProductSort,ProductInfo,ProductInfoBrands,ProductLikes
+from app.views import ChangeAvatar,NotFound,ProductLikesDelete,UserProfile,DeleteUser,SendLetter,ProductAvailableCount,LoginView,ProductsView,SignUpView,ProductView,ProductLikesShow,ProductSort,ProductInfo,ProductInfoBrands,ProductLikes
 from app.view_pack.search_view import Search
 from app.view_pack.comment_view import Comment_View,CommentList_View
 from app.view_pack.order_view import Order_View,Delete_Order,Get_Order,Order_Buy
@@ -34,9 +34,8 @@ urlpatterns = [
     re_path(r"^api/delete-user",DeleteUser.as_view()),
     re_path(r"^api/user-info",UserProfile.as_view()),
     re_path(r"^api/change-avatar",ChangeAvatar.as_view()),
-    re_path(r".{3,50}(.js|.css|.png|.jpg|.svg|.webp)$",BundleView.as_view()),
     path('admin', AdminView.as_view()),
     path('admin/products/<int:id>/addimages', AdminProductImages.as_view()),
     path('admin/', admin.site.urls),
-    re_path(r"^",NotFound.as_view()),
+    re_path(r"^((?!app/static).)*$",NotFound.as_view())
 ]
