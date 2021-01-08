@@ -57,6 +57,13 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
 
         this.scroll(new MouseEvent('click', {}), true, coor);
       });
+
+    this.router.events.subscribe(v => {
+      if (v instanceof RoutesRecognized) {
+        window.scrollTo(0, 0);
+        this.checkForScrollHeight();
+      }
+    });
   }
 
   ngDoCheck(): void {
@@ -86,17 +93,11 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
       setTimeout(() => {
         const scrollElem = document.querySelector('.slider');
         const pers = windowHeight / scrollHeight;
-        this.btnHeight.height = Math.round(scrollElem.clientHeight * pers * 0.8) + 'px';
+        this.btnHeight.height = Math.round(scrollElem.clientHeight * pers * 3) + 'px';
         window.scrollTo(0, 0);
         this.btn = document.querySelector('.slider__btn-container > button');
       }, 0);
     }
-
-    this.router.events.subscribe(v => {
-      if (v instanceof RoutesRecognized) {
-        window.scrollTo(0, 0);
-      }
-    });
   }
 
   scroll($event: MouseEvent, isClick: boolean, coor?: number): void {
@@ -115,7 +116,6 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
       }
       this.render.setStyle(this.btn, 'top', numTop + 'px');
       scrollEvent(numTop);
-      console.log(numTop)
     }
   }
 

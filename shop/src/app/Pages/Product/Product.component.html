@@ -26,11 +26,13 @@
         </div>
         <div class="product__container">
              <h5 class="product__title">{{post.title}}</h5>
-             <div class="product__images position-relative" (click)="showImages()">
-                 <div class="img-container" style="height:100%;width:100%;">
-                   <img src="{{post.image.startsWith('/')?(url+post.image) : (url+'/'+post.image)}}"  alt="">
+             <div class="product__images" (click)="showImages()">
+                 <div class="position-relative w-100" style="min-height:70%;">
+                    <div class="img-container w-100" style="height:100%;">
+                      <img src="{{post.image.startsWith('/')?(url+post.image) : (url+'/'+post.image)}}" alt="">
+                    </div>
+                    <app-like [id]="post.id"></app-like>
                  </div>
-                 <app-like [id]="post.id"></app-like>
              </div>
              <div class="product__short-descr text-left">
                  <h5 >Кратко о товаре</h5>

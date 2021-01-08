@@ -155,19 +155,21 @@ export class Products implements OnInit,AfterViewInit {
         onScroll();
      }
 
-     getBrands($event:{value:string}):void{
-        this.activeCategory = $event.value||"";
-        
-        let url = `${URL_PATH}api/getbrands/?category=` + encodeURIComponent(this.activeCategory);
+     getBrands($event: {value: string}): void{
+        setTimeout(() => {
+            this.activeCategory = $event.value || "";
 
-        if (this.isSearchPage) {
-             url += '&search=' + encodeURIComponent(this.searchText);
-        }
+            let url = `${URL_PATH}api/getbrands/?category=` + encodeURIComponent(this.activeCategory);
 
-        this.http.get<ProductsBrand>(url)
-        .subscribe((v)=>{
-                 this.brands = v.data.brands;
-        });
+            if (this.isSearchPage) {
+                url += '&search=' + encodeURIComponent(this.searchText);
+            }
+
+            this.http.get<ProductsBrand>(url)
+                .subscribe((v) => {
+                    this.brands = v.data.brands;
+                });     
+        }, 0);
      }
 
 

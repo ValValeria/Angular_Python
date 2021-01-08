@@ -1,8 +1,11 @@
 <section class="auth section first-slide center">
     <div class="auth__wrap wrap-md-pd center w-100" *ngIf="!user.is_auth">
         <div class="center w-100">
-               <div class="d-flex center flex-column w-100">
-                   <div class="auth__form shadow">
+            <div class="d-flex center flex-column w-100">
+                <div class="auth__form shadow">
+                    <div class="auth__title headline-sm text-center">
+                        Вход в систему
+                    </div>
                     <mat-tab-group (selectedTabChange)="click($event)" color="accent" mat-align-tabs="center">
                         <mat-tab label="{{'Вход'.toUpperCase()}}">
                             <ng-template [ngTemplateOutlet]="formTemplate" [ngTemplateOutletContext]="{isLog:true}">
@@ -13,8 +16,8 @@
                             </ng-template>
                         </mat-tab>
                     </mat-tab-group>
-                   </div>
-               </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="center" *ngIf="user.is_auth">
@@ -25,49 +28,51 @@
 
 
 <ng-template #formTemplate let-isLog="isLog">
-  <form [formGroup]="form" (ngSubmit)="submit($event)" >
-      
-    <mat-card class="d-flex center flex-column">
-        <mat-card-content class="w-100">
-            <div class="auth__items wrap-md center flex-column w-100">
-                <div class="auth__email" *ngIf="!isLog">
-                    <mat-form-field appearance="outline" class="w-100" color="accent">
-                        <mat-label>Почта</mat-label>
-                        <input type="email" matInput [formControl]="email" maxlength="30" minlength="10" required>
-                        <mat-hint>Максимум - 30 букв, минимум 10</mat-hint>
-                    </mat-form-field>
+    <form [formGroup]="form" (ngSubmit)="submit($event)">
+
+        <mat-card class="d-flex center flex-column">
+            <mat-card-content class="w-100">
+                <div class="auth__items wrap-md center flex-column w-100">
+                    <div class="auth__email" *ngIf="!isLog">
+                        <mat-form-field appearance="outline" class="w-100" color="accent">
+                            <mat-label>Почта</mat-label>
+                            <input type="email" matInput [formControl]="email" maxlength="30" minlength="10" required>
+                            <mat-hint>Максимум - 30 букв, минимум 10</mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <div class="auth__username">
+                        <mat-form-field appearance="outline" class="w-100" color="accent">
+                            <mat-label>Имя пользователя</mat-label>
+                            <input type="text" matInput formControlName="username" maxlength="30" minlength="10"
+                                required />
+                            <mat-hint>Максимум - 30 букв, минимум 10</mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <div class="auth__password">
+                        <mat-form-field appearance="outline" class="w-100" color="accent">
+                            <mat-label>Пароль</mat-label>
+                            <input type="password" matInput formControlName="password" maxlength="30" minlength="10"
+                                required>
+                            <mat-hint>Максимум - 30 букв, минимум 10</mat-hint>
+                        </mat-form-field>
+                    </div>
                 </div>
-                <div class="auth__username">
-                    <mat-form-field appearance="outline" class="w-100" color="accent">
-                        <mat-label>Имя пользователя</mat-label>
-                        <input type="text" matInput formControlName="username" maxlength="30" minlength="10" required/>
-                        <mat-hint>Максимум - 30 букв, минимум 10</mat-hint>
-                    </mat-form-field>
+            </mat-card-content>
+            <mat-card-content *ngIf="form.touched">
+                <div class="auth__error center" *ngIf="!isValid ">
+                    <button mat-button color="warn">Проверьте правильность введенных данных</button>
                 </div>
-                <div class="auth__password">
-                    <mat-form-field appearance="outline" class="w-100" color="accent">
-                        <mat-label>Пароль</mat-label>
-                        <input type="password" matInput formControlName="password" maxlength="30" minlength="10" required>
-                        <mat-hint>Максимум - 30 букв, минимум 10</mat-hint>
-                    </mat-form-field>
+            </mat-card-content>
+            <mat-card-content *ngIf="showStatus">
+                <div class="auth__error center">
+                    <button mat-button color="warn">
+                        {{showStatus}}
+                    </button>
                 </div>
-            </div>
-        </mat-card-content>
-        <mat-card-content *ngIf="form.touched">
-            <div class="auth__error center" *ngIf="!isValid ">
-                <button mat-button color="warn">Проверьте правильность введенных данных</button>
-            </div>
-        </mat-card-content>
-        <mat-card-content *ngIf="showStatus">
-            <div class="auth__error center">
-                <button mat-button color="warn">
-                    {{showStatus}}
-                </button>
-            </div>
-        </mat-card-content>
-        <mat-card-content class="w-100 center d-flex">
-            <button mat-flat-button color="accent">{{isLog?"Войти":"Зарегестрироваться"}}</button>
-        </mat-card-content>
-    </mat-card>
-  </form>  
+            </mat-card-content>
+            <mat-card-content class="w-100 center d-flex">
+                <button mat-flat-button color="accent">{{isLog?"Войти":"Зарегестрироваться"}}</button>
+            </mat-card-content>
+        </mat-card>
+    </form>
 </ng-template>

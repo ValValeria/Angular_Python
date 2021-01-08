@@ -23,10 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '6f055943-e7c0-47e7-8349-2e7aac207fda'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True 
-#ALLOWED_HOSTS = []
-DEBUG = False 
-ALLOWED_HOSTS = ["radiant-earth-56780.herokuapp.com","127.0.0.1:8000"]
+DEBUG = True 
+ALLOWED_HOSTS = []
+
 
 # Application references
 # https://docs.djangoproject.com/en/2.1/ref/settings/#std:setting-INSTALLED_APPS
@@ -116,5 +115,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 STATIC_URL = '/app/static/'
 STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#DEBUG = False 
+#ALLOWED_HOSTS = ["radiant-earth-56780.herokuapp.com","127.0.0.1:8000"]

@@ -12,6 +12,7 @@ import { Authenticate } from './Services/Authenticate.service';
 import { MatBadgeModule } from '@angular/material/badge';
 import { SearchForm } from './Components/SearchForm/SearchForm.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -27,6 +28,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     HttpClientModule,
     MatBadgeModule,
     MatDialogModule,
+    NgbModule,
   ],
   providers: [Http,
               User,

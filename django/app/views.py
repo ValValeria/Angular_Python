@@ -327,5 +327,4 @@ class NotFound(View):
             else:
                url = "/app/static"+ request.path;
                return redirect(url)
-
         return HttpResponseNotFound()

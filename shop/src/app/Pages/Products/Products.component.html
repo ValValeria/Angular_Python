@@ -92,9 +92,11 @@
                   <h6>Категория</h6>
                   <mat-slide-toggle color="accent" [checked]="true" (toggleChange)="undoCategory()" class="center" style="height: auto;
     padding-top: 10px;">
-                      <p class="text-left">В поиск будут включаться только товары,<br/>
-                         которые находяться в категории <span style="color: #ffd740;"> '{{activeCategory}}'</span>
-                      </p>
+                      <div>
+                        <p class="text-left">В поиск будут включаться только товары,<br />
+                          которые находяться в категории <span style="color: #ffd740;"> '{{activeCategory}}'</span>
+                        </p>
+                      </div>
                   </mat-slide-toggle>
                 </div>
       
