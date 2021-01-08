@@ -5,7 +5,7 @@ import { filter } from 'rxjs/operators';
 import { AuthenticateClass } from './Classes/Authenticate';
 import { User } from './Services/User.service';
 
-export const URL_PATH = 'http://127.0.0.1:8000/';
+export const URL_PATH = '/';
 
 const scrollEvent = (top: number) => {
   const scrollElem = document.querySelector('.slider');
@@ -36,7 +36,7 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
   ngOnInit(): void {
     (new AuthenticateClass()).authenticate(this.user, true).catch(e => console.log('Status:guest'));
 
-    fromEvent(document, 'keydown')
+    /*fromEvent(document, 'keydown')
       .pipe(
         filter((v: any) => v.code === 'ArrowDown' || v.code === 'ArrowUp')
       ).subscribe(($event) => {
@@ -56,7 +56,7 @@ export class AppComponent implements OnInit, AfterViewInit, DoCheck {
         }
 
         this.scroll(new MouseEvent('click', {}), true, coor);
-      });
+      });*/
 
     this.router.events.subscribe(v => {
       if (v instanceof RoutesRecognized) {

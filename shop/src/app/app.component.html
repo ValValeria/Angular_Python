@@ -7,10 +7,12 @@
     </div>
   </footer>
 </div>
+
 <div class="slider"  
 (click)="scroll($event,true)"
 (mousemove)="scroll($event,false)"
 *ngIf="isDisplayScroll"
+hidden
 >
      <div class="slider__content">
        <div class="slider__btn-container" #button>
