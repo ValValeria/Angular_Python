@@ -8,8 +8,9 @@ dist
 
 django/.gitignore
 
-static/avatars
-static/images
+avatars
+
+assets
 
 node_modules
 

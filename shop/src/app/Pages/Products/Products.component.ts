@@ -1,5 +1,5 @@
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
-import { AfterViewInit, Component, ElementRef, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { IAd, ProductsBrand, ProductsInfo } from 'src/app/Interfaces/Interfaces';
 import { Http } from 'src/app/Services/Http.service';
 import { HttpParams } from '@angular/common/http';
@@ -9,41 +9,41 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { URL_PATH } from 'src/app/app.component';
 
 
-interface IResponse{
-    data:IAd[],
-    has_next:boolean
+interface IResponse {
+    data: IAd[],
+    has_next: boolean
 }
 
 
 @Component({
-    selector:"products",
-    templateUrl:"./Products.component.html",
-    styleUrls:['./Products.component.scss'],
-    animations:[
-        trigger("fadeInOut",[
-            transition(":enter",[
-               query(".card-sm",[
-                   style({
-                       opacity:0
-                   }),
-                   stagger("250ms",[ 
-                      animate("1.2s ease-out",style({
-                         opacity:1
-                      }))]
+    selector: "products",
+    templateUrl: "./Products.component.html",
+    styleUrls: ['./Products.component.scss'],
+    animations: [
+        trigger("fadeInOut", [
+            transition(":enter", [
+                query(".card-sm", [
+                    style({
+                        opacity: 0
+                    }),
+                    stagger("250ms", [
+                        animate("1.2s ease-out", style({
+                            opacity: 1
+                        }))]
                     )
-               ])
+                ])
             ]),
         ])
     ]
 })
-export class Products implements OnInit,AfterViewInit {
+export class Products implements OnInit, AfterViewInit {
     products: IAd[];
     disabled: boolean = true;
     panelOpenState: boolean = false;
-    categories: string [];
-    @ViewChild("productsElem",{read:ElementRef})productsElem:ElementRef;
-    @ViewChild('search',{read: TemplateRef}) search: TemplateRef<any>;
-    @ViewChild('product_search', {read: ElementRef}) matSearchContainer: ElementRef;
+    categories: string[];
+    @ViewChild("productsElem", { read: ElementRef }) productsElem: ElementRef;
+    @ViewChild('search', { read: TemplateRef }) search: TemplateRef<any>;
+    @ViewChild('product_search', { read: ElementRef }) matSearchContainer: ElementRef;
     @Input('isSearch') isSearchPage = false;
     @Input() isCategoryPage = false;
     @Input('searchText') searchText = '';
@@ -60,23 +60,23 @@ export class Products implements OnInit,AfterViewInit {
     showModel = false;
     min_price = 0;
 
-    constructor(private http: Http, 
-                private dialog: MatDialog,
-                private router: Router,
-                private snackBar: MatSnackBar,
-                private route: ActivatedRoute){
-         this.products = [];
-         this.categories = [];
+    constructor(private http: Http,
+        private dialog: MatDialog,
+        private router: Router,
+        private snackBar: MatSnackBar,
+        private route: ActivatedRoute) {
+        this.products = [];
+        this.categories = [];
     }
 
-    ngOnInit(): void{
-        this.sentHttp = true;   
-        
+    ngOnInit(): void {
+        this.sentHttp = true;
+
         let url = `${URL_PATH}api/info-products/`;
 
         if (this.isSearchPage) {
             url += '&search=' + encodeURIComponent(this.searchText);
-        } else if (this.isCategoryPage){
+        } else if (this.isCategoryPage) {
             url += '&category=' + encodeURIComponent(this.activeCategory);
         }
 
@@ -98,27 +98,27 @@ export class Products implements OnInit,AfterViewInit {
         });
     }
 
-    undoCategory(): void{
+    undoCategory(): void {
         this.undoSearch();
     }
 
-    showMenu(): void{
+    showMenu(): void {
         this.dialog.open(this.search, {
-            width:"90%",
-            height:"400px",
+            width: "90%",
+            height: "400px",
         });
-     }
+    }
 
-    checkData():void{
-        if(!this.products.length){
+    checkData(): void {
+        if (!this.products.length) {
             this.isEmpty = true;
-        } else{
+        } else {
             this.isEmpty = false;
         }
         this.sentHttp = false;
     }
 
-    ngAfterViewInit():void{
+    ngAfterViewInit(): void {
 
         this.getBrands({ value: "" });
 
@@ -142,7 +142,7 @@ export class Products implements OnInit,AfterViewInit {
 
                 this.dialog.afterAllClosed.subscribe(v => {
                     const matSearchContainer = document.querySelector('.product__search-wrap');
-                    if (matSearchContainer){
+                    if (matSearchContainer) {
                         matSearchContainer.classList.remove('shadow-none');
                     }
                 });
@@ -153,9 +153,9 @@ export class Products implements OnInit,AfterViewInit {
         window.onresize = onScroll.bind(this);
 
         onScroll();
-     }
+    }
 
-     getBrands($event: {value: string}): void{
+    getBrands($event: { value: string }): void {
         setTimeout(() => {
             this.activeCategory = $event.value || "";
 
@@ -168,78 +168,86 @@ export class Products implements OnInit,AfterViewInit {
             this.http.get<ProductsBrand>(url)
                 .subscribe((v) => {
                     this.brands = v.data.brands;
-                });     
+                });
         }, 0);
-     }
+    }
 
 
-     sort(next = false): void|null{
-         this.sentHttp = true;
+    sort(next = false): void | null {
+        this.sentHttp = true;
 
-         this.dialog.closeAll();
-         
-         if (this.min_price === this.max_price){
-             this.snackBar.open('Минимальная цена не должна равняться максимальной', 'Close');
-             return;
-         }
+        this.dialog.closeAll();
 
-         if (this.min_price > this.max_price) {
-             this.snackBar.open('Минимальная цена не должна быть  больше максимальной', 'Close');
-             return;
-         }
+        if (this.min_price === this.max_price) {
+            this.snackBar.open('Минимальная цена не должна равняться максимальной', 'Close');
+            return;
+        }
 
-         this.dialog.afterAllClosed.subscribe(this.formRequest.bind(this));
-     }
+        if (this.min_price > this.max_price) {
+            this.snackBar.open('Минимальная цена не должна быть  больше максимальной', 'Close');
+            return;
+        }
 
-     formRequest(next): void{
-             if (!next) {
-                 this.page = 1;
-                 this.products = [];
-             }
-             const config = {
-                 params: new HttpParams().set('min', this.min_price.toString())
-                     .set("max", this.max_price.toString())
-                     .set("category", this.activeCategory || "")
-                     .set("brand", this.activeBrand || "")
-                     .set("page", String(this.page))
-             };
+        this.dialog.afterAllClosed.subscribe(this.formRequest.bind(this));
+    }
 
-             let url = `${URL_PATH}api/sort/`;
+    formRequest(next): void {
+        if (!next) {
+            this.page = 1;
+            this.products = [];
+        }
+        const config = {
+            params: new HttpParams().set('min', this.min_price.toString())
+                .set("max", this.max_price.toString())
+                .set("category", this.activeCategory || "")
+                .set("brand", this.activeBrand || "")
+                .set("page", String(this.page))
+        };
 
-             if (this.isSearchPage) {
-                 config.params.set('search',this.searchText);
-             }
+        let url = `${URL_PATH}api/sort/`;
 
-             this.http.get<IResponse>(url, config).subscribe(v => {
-                 if (v.data.length) {
-                     this.products.push(...v.data);
-                     this.hasNext = v.has_next;
+        if (this.isSearchPage) {
+            config.params.set('search', this.searchText);
+        }
 
-                     const decideScroll = () => {
-                         const offset = this.productsElem.nativeElement.offsetTop;
-                         const height = this.productsElem.nativeElement.clientHeight;
-                         if (pageYOffset + 500 > offset && (height + offset) > pageYOffset && this.products.length) {
-                             this.disabled = false;
-                         }
-                     }
+        this.http.get<IResponse>(url, config).subscribe(v => {
+            if (v.data.length) {
 
-                     decideScroll();
-                     window.addEventListener('scroll', decideScroll.bind(this));
-                 }
-                 this.checkData();
-             })
-     }
+                v.data.forEach(element => {
+                    const index = this.products.findIndex(v => Number(v.id) === Number(element.id));
 
-     changeBrand($event): void{
+                    if (index === -1) {
+                        this.products.push(element);
+                    }
+                });
+
+                this.hasNext = v.has_next;
+
+                const decideScroll = () => {
+                    const offset = this.productsElem.nativeElement.offsetTop;
+                    const height = this.productsElem.nativeElement.clientHeight;
+                    if (pageYOffset + 500 > offset && (height + offset) > pageYOffset && this.products.length) {
+                        this.disabled = false;
+                    }
+                }
+
+                decideScroll();
+                window.addEventListener('scroll', decideScroll.bind(this));
+            }
+            this.checkData();
+        })
+    }
+
+    changeBrand($event): void {
         this.activeBrand = $event.value;
-     }
+    }
 
-     showNext():void{
-        this.page=this.page+1;
+    showNext(): void {
+        this.page = this.page + 1;
         this.sort(true);
-     }     
+    }
 
-     undoSearch(): void{
-         this.router.navigateByUrl("/products");
-     }
+    undoSearch(): void {
+        this.router.navigateByUrl("/products");
+    }
 }

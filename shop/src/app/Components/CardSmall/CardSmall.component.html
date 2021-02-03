@@ -1,4 +1,4 @@
-                     <a class="card-sm flex-33 shadow center" >
+                     <a class="card-sm flex-33 shadow center" routerLink="/product/{{card.id}}" >
                          <div class="cards-sm__body center flex-column">
                               <div class="card-sm__headline center justify-content-between wrap-md">
                                  <div class="card-sm__stars stars center">
@@ -6,9 +6,7 @@
                                          <img src="{{star<=card.rating ? '/assets/star.svg':'/assets/star_blank.svg'}}" alt="..." class="stars__img" style="height:15px;">
                                     </div>
                                   </div>
-                               <!--<div class="card-sm__brand">
-                                     <span>{{card.brand}}</span>
-                                  </div>-->
+
                                   <div class="card-sm__price text-lorange">
                                      <span class="text-lorange">{{card.price | currency}}</span>
                                   </div>
@@ -20,19 +18,9 @@
                               </div>
                               <div class="card-sm__content text-center">
                                  <div class="card-sm__title">{{card.title}}</div>
-                                 <div class="card-sm__subtitle ">{{card.short_description | slice:0:50}}</div>
-                                 <div class="card-sm__category center">
-                                    <mat-chip-list >
-                                        <mat-chip on-click="goToCat()">
-                                           {{card.category}}
-                                        </mat-chip>
-                                    </mat-chip-list>
-                                 </div>
-                                 <div class='mt-1-rem w-100 '>
-                                     <a routerLink="/product/{{card.id}}" color="warn" class="w-100" mat-raised-button >Смотреть</a>
-                                 </div>
+                                 <div class="card-sm__subtitle text-grey h6">{{card.short_description | slice:0:50}}</div>
                                  <div class="card__buy-btn w-100">
-                                    <button mat-flat-button color="accent" 
+                                    <button mat-flat-button color="warn" 
                                             class="bg-warn price-btn w-100"
                                             on-click="buyItem()">Купить</button>
                                  </div>

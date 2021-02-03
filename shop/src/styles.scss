@@ -129,22 +129,40 @@ a{
    color: inherit;
 }
 
-.headline-md{
+.headline-md,.h2{
     font-size: 56px !important;
     line-height: 1.07143 !important;
     letter-spacing: -.005em;
 }
 
-.headline-sm{
+.h5{
+    background: transparent;
+    letter-spacing: 0.011em;
+    margin-bottom: 0.2em;
+    font-size: 21px;
+    line-height: 1.381;
+}
+
+.text-grey{
+    color:#6D6E71 !important;
+}
+
+.h6{
+    font-size: 16px;
+    line-height: 1.381;
+}
+
+.headline-sm,.h4{
     font-size: 28px;
     line-height: 1.14286;
     font-weight: 300;
+    line-height:1.2;
     letter-spacing: .007em;
     margin-top: 12px !important;
     line-height: 26px;
 }
 
-.headline-gr{
+.headline-gr,.h1{
     font-size:65px;
     line-height: 1.07143;
     font-weight: 400;
@@ -179,8 +197,7 @@ a{
 
 .grid_media {
   display: grid !important;
-  grid-template-rows: 630px;
-  grid-auto-rows: 630px;
+  grid-auto-rows: 520px;
   grid-template-columns: repeat(auto-fit, minmax(290px, 350px));
   grid-gap: 5px;
   align-items: center;
@@ -303,31 +320,6 @@ a{
     padding:0.75rem 0;
 }
 
-.card-sm{
-    color:initial !important;
-    transition:0.5s transform;
-    height:555px;
-}
-
-.card-sm:hover{
-    transform: scale(1.07);
-}
-
-.card-sm__subtitle{
-    font-size: 16px;
-    line-height: 1.42859;
-    font-weight: 400;
-    letter-spacing: -.016em;
-    margin-bottom: 20px;
-    color: #212529;
-}
-
-.card-sm__title{
-    font-size: 24px;
-    line-height: 1.16667;
-    font-weight: 600;
-    letter-spacing: .009em;
-}
 
 .bg-promo{
         background-size: 1380px 600px;

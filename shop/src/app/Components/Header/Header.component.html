@@ -1,85 +1,121 @@
-<header class="header shadow bg-warn text-white bg-dark" style="background: #231F20 !important;">
-    <div class="header__wrap wrap-md">
-        <div class="header__content ">
-          <div class="header__brand-name">
-            <a routerLink="/"><h1>{{"inDigital" | uppercase}}</h1></a>
-          </div>
-          <ul class="header__links" 
-            #headerlinks
-            [@fade]="animState" 
-            (@fade.done)="endAnimation($event)"
-            (click)="toggleHeader()"
-            >
-             <li class="header__link center"><a mat-button routerLink="" routerLinkActive="active-btn" [routerLinkActiveOptions]="{exact:true}">Главная</a></li>
-             <li class="header__link center"><a mat-button routerLink="/products" routerLinkActive="active-btn">Товары</a></li>
-             <li class="header__link center" *ngIf="!user.is_auth"><a mat-button routerLink="/authenticate" routerLinkActive="active-btn">Войти </a></li>
-             <li class="header__link center"  *ngIf="user.is_auth"><a mat-button routerLink="/profile" routerLinkActive="active-btn">Админ панель</a></li>
-             <li class="header__link center"><a mat-button routerLink="/contacts">Обратная связь</a></li>
-             <li class="header__link header__search center flex-column position-relative" on-click="showSearch()">
-                 <button  mat-flat-button color="accent" class="search__btn center d-flex" *ngIf="mediaAvatar" on-click="toggleHeader()">
-                     <div class="center w-100">
-                        <span>Поиск</span>
-                     </div>
-                    </button>
-                <button mat-mini-fab color="accent" class="search__icon">
-                  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd"
-                      d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
-                    <path fill-rule="evenodd"
-                      d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
-                  </svg>
-                </button>
-             </li>
-             <li class="header__link center flex-column" *ngIf="user.is_auth && !mediaAvatar"  on-click="showPopup=true" on-mouseleave="showPopup=false">
-                    <ng-container *ngTemplateOutlet="avatar"></ng-container>
-             </li>
-          </ul>
+<header class="header header-notmedia shadow bg-warn text-white bg-dark" style="background: #231F20 !important;">
+  <div class="header__wrap wrap-md">
+    <div class="header__content ">
+      <div class="header__brand-name">
+        <a routerLink="/">
+          <h1>{{"inDigital" | uppercase}}</h1>
+        </a>
       </div>
-    </div> 
-    <div id="menu_icon" on-click="toggleHeader()">
-      <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-list" fill="white" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
-      </svg>
+      <ul class="header__links">
+        <li class="header__link center"><a mat-button routerLink="" routerLinkActive="active-btn"
+            [routerLinkActiveOptions]="{exact:true}">Главная</a></li>
+        <li class="header__link center"><a mat-button routerLink="/products" routerLinkActive="active-btn">Товары</a>
+        </li>
+        <li class="header__link center" *ngIf="!user.is_auth"><a mat-button routerLink="/authenticate"
+            routerLinkActive="active-btn">Войти </a></li>
+        <li class="header__link center" *ngIf="user.is_auth"><a mat-button routerLink="/profile"
+            routerLinkActive="active-btn">Админ панель</a></li>
+        <li class="header__link center"><a mat-button routerLink="/contacts">Обратная связь</a></li>
+        <li class="header__link header__search center flex-column position-relative" on-click="showSearch()">
+          <button mat-mini-fab color="accent" class="search__icon">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
+              <path fill-rule="evenodd"
+                d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
+            </svg>
+          </button>
+        </li>
+        <li class="header__link center flex-column" on-click="showPopup=true"
+          on-mouseleave="showPopup=false" *ngIf="user.is_auth">
+          <ng-container *ngTemplateOutlet="avatar"></ng-container>
+        </li>
+      </ul>
     </div>
-
-    
-    <ng-container *ngIf="mediaAvatar && user.is_auth">
-         <div class="avatar-media" on-click="showPopup=true" on-mouseleave="showPopup=false">
-            <ng-container *ngTemplateOutlet="avatar"></ng-container>
-         </div>
-    </ng-container>
-  </header>
+  </div>
+</header>
 
 
-  <ng-template #avatar>
-      <div class="avatar center ">
-        <div class="avatar__icon">
-          <div class="postion-relative">
-            <button routerLink="/profile" class="avatar__btn">
-              <img src="http://127.0.0.1:8000{{user.avatar}}" alt="" srcset="" style="width:30px;height:30px">
-            </button>
-            <button class="avatar__orders" mat-mini-fab color="accent">{{user.activeOrders.length}}</button>
-          </div>
-        </div>
-        <div class="avatar__popup " @fade *ngIf="showPopup">
-          <mat-card class="shadow">
-            <mat-card-content>
-              <mat-list role="list" class="center flex-column">
-                <mat-list-item role="listitem">
-                  <button mat-stroked-button color="basic" on-click='logout()'>
-                    Выйти
-                  </button>
-                </mat-list-item>
-                <mat-list-item role="listitem">
-                  <button mat-flat-button color="warn" on-click='deleteProfile()'>
-                    Удалить профиль
-                  </button>
-                </mat-list-item>
-              </mat-list>
-            </mat-card-content>
-          </mat-card>
-        </div>
+<header class="header header-media shadow bg-warn text-white bg-dark" style="background: #231F20 !important;">
+  <div class="header__wrap wrap-md">
+    <div class="header__content ">
+      <div class="header__brand-name">
+        <a routerLink="/">
+          <h1>{{"inDigital" | uppercase}}</h1>
+        </a>
       </div>
-  </ng-template>
-  
+      <ul class="header__links" #headerlinks [@fade]="animState" (@fade.done)="endAnimation($event)"
+        (click)="toggleHeader()">
+        <li class="header__link center"><a mat-button routerLink="" routerLinkActive="active-btn"
+            [routerLinkActiveOptions]="{exact:true}">Главная</a></li>
+        <li class="header__link center"><a mat-button routerLink="/products" routerLinkActive="active-btn">Товары</a>
+        </li>
+        <li class="header__link center" *ngIf="!user.is_auth"><a mat-button routerLink="/authenticate"
+            routerLinkActive="active-btn">Войти </a></li>
+        <li class="header__link center" *ngIf="user.is_auth"><a mat-button routerLink="/profile"
+            routerLinkActive="active-btn">Админ панель</a></li>
+        <li class="header__link center"><a mat-button routerLink="/contacts">Обратная связь</a></li>
+        <li class="header__link header__search center flex-column position-relative" on-click="showSearch()">
+          <button mat-flat-button color="accent" class="search__btn center d-flex" *ngIf="mediaAvatar"
+            on-click="toggleHeader()">
+            <div class="center w-100">
+              <span>Поиск</span>
+            </div>
+          </button>
+          <button mat-mini-fab color="accent" class="search__icon">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
+              <path fill-rule="evenodd"
+                d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
+            </svg>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div id="menu_icon" on-click="toggleHeader()">
+    <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-list" fill="white"
+      xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd"
+        d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+    </svg>
+  </div>
+  <div class="avatar-media" on-click="showPopup=true" on-mouseleave="showPopup=false"  *ngIf="user.is_auth">
+    <ng-container *ngTemplateOutlet="avatar"></ng-container>
+  </div>
+</header>
+
+
+<ng-template #avatar>
+  <div class="avatar center ">
+    <div class="avatar__icon">
+      <div class="postion-relative">
+        <button routerLink="/profile" class="avatar__btn">
+          <img src="http://127.0.0.1:8000{{user.avatar}}" alt="" srcset="" style="width:30px;height:30px">
+        </button>
+        <button class="avatar__orders" mat-mini-fab color="accent">{{user.activeOrders.length}}</button>
+      </div>
+    </div>
+    <div class="avatar__popup " @fade *ngIf="showPopup">
+      <mat-card class="shadow">
+        <mat-card-content>
+          <mat-list role="list" class="center flex-column">
+            <mat-list-item role="listitem">
+              <button mat-stroked-button color="basic" on-click='logout()'>
+                Выйти
+              </button>
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              <button mat-flat-button color="warn" on-click='deleteProfile()'>
+                Удалить профиль
+              </button>
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</ng-template>

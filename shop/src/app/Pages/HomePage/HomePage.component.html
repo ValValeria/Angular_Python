@@ -82,7 +82,7 @@
                     <a color="warn" mat-stroked-button class="bg-warn text-white" routerLink="/products">Подробнее</a>
                   </div>
                 </div>
-                <div class="section__item wrap-md-pd pt-4 ">
+                <div class="section__item wrap-md pt-4 ">
                   <div class="center flex-wrap grid_media" *ngIf="ads.length">
                     <ng-template ngFor let-card [ngForOf]="ads">
                       <card [card]="card" class="center w-100"></card>
@@ -100,5 +100,26 @@
   </div>
 </section>
 
+
+<section class="section center">
+  <div class="section__content center">
+    <div class="section__wrap wrap-md-pd">
+      <div class="section__items wrap-md flex-column justify-content-between">
+        <div class="section__item pr-1 text-center">
+          <div>
+            <p class="brand-name">Новенькие IPhones</p>
+            <p class="headline-md">Blast past fast</p>
+          </div>
+          <div class='mt-1-rem border-radius-15'>
+            <a color="warn" mat-raised-button routerLink="/products">Смотреть</a>
+          </div>
+        </div>
+        <div class="section__item pt-4">
+          <div class="img-container pt-4"><img src="/assets/btn.png" alt="" srcset=""></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
       
