@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.files.base import ContentFile
 from django.core.files.storage import FileSystemStorage, Storage, get_storage_class
 from .serializers.post_serializer import PostSerializer
-from django.http.response import FileResponse, Http404, HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNotFound, HttpResponseServerError
+from django.http.response import FileResponse, Http404, HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNotAllowed, HttpResponseNotFound, HttpResponseServerError
 from django.views.generic import ListView, View
 import os
 from .models import Avatar, Letter, Product, UserData
@@ -318,6 +318,9 @@ class NotFound(View):
 
     def dispatch(self, request, *args, **kwargs):
         ext = os.path.splitext(request.path)[1]
+
+        if request.headers.get('Host') == "localhost:4200":
+            return HttpResponseBadRequest();
 
         if request.method == "GET":
             if request.accepts('text/html') and not ext:

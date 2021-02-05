@@ -1,0 +1,23 @@
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <ol class="carousel-indicators">
+        <ng-container *ngFor="let image of images;let i = index;">
+                <li data-bs-target="#carouselExampleIndicators" 
+                data-bs-slide-to="{{index}}"
+                class="{{active==i?'active':''}}">
+                </li>
+        </ng-container>
+    </ol>
+    <div class="carousel-inner">
+        <ng-container *ngFor="let image of images;let i = index;">
+            <div class="carousel-item {{active==i?'active':''}}">
+                <img src="{{image}}" class="d-block w-100" alt="...">
+            </div>
+        </ng-container>
+    </div>
+    <div class="carousel-control-prev"  role="button" data-bs-slide="prev" on-click="prevImage()">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    </div>
+    <div class="carousel-control-next" role="button" data-bs-slide="next" on-click="nextImage()">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    </div>
+</div>

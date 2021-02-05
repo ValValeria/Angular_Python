@@ -13,7 +13,7 @@ def locate_file(file,dest_path,address):
     for val in folders.values():
         all_exten.extend(val)
 
-    for key, value in folders.items():
+    for key in folders.items():
         if not ext in all_exten:
            key="assets";
 
