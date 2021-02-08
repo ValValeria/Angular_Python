@@ -13,7 +13,7 @@ def locate_file(file,dest_path,address):
     for val in folders.values():
         all_exten.extend(val)
 
-    for key in folders.items():
+    for key, value in folders.items():
         if not ext in all_exten:
            key="assets";
 
@@ -61,8 +61,8 @@ def set_up():
     abs_path = os.path.abspath(path)
 
     if os.access(abs_path, os.R_OK):
-        command = "cmd /c chdir {} {}".format(path, "& npm run build")
-        subprocess.call(command)
+        #command = "cmd /c chdir {} {}".format(path, "& npm run build")
+        #subprocess.call(command)
         build_path = os.path.join(abs_path, "dist","shop")
 
         if os.path.exists(build_path):

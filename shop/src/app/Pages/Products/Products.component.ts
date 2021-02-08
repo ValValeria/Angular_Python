@@ -59,6 +59,7 @@ export class Products implements OnInit, AfterViewInit {
     readonly MWIDTH: number = 700;
     showModel = false;
     min_price = 0;
+    urls: [string, string][];
 
     constructor(private http: Http,
         private dialog: MatDialog,
@@ -76,8 +77,12 @@ export class Products implements OnInit, AfterViewInit {
 
         if (this.isSearchPage) {
             url += '&search=' + encodeURIComponent(this.searchText);
+            this.urls = [['/', 'Главная'], ['/products', 'Продукты'], ['/search', 'Поиск']];
         } else if (this.isCategoryPage) {
             url += '&category=' + encodeURIComponent(this.activeCategory);
+            this.urls = [['/', 'Главная'], ['/category', 'Категории']];
+        } else{
+            this.urls = [['/', 'Главная'], ['/products', 'Продукты']];
         }
 
         this.http.get<ProductsInfo>(url).subscribe(v => {

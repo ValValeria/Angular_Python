@@ -43,6 +43,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { NotFoundPage } from './Pages/NotFoundPage/NotFoundPage.component';
 import { Slider } from './Components/Slider/Slider.component';
 import { Carousel } from './Components/Carousel/Carousel.component';
+import { BreadCrumbs } from './Components/BreadCrumbs/BreadCrumbs.component';
 
 
 const routes: Routes = [
@@ -105,7 +106,8 @@ const modules = [MatButtonModule,
                 ProductPageImage,
                 SearchPageResult,
                 PurchasePage,
-                CategoryPage
+                CategoryPage,
+                BreadCrumbs
                 ],
   exports: [RouterModule, ...modules]
 })

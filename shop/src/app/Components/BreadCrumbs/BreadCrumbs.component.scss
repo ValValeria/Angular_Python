@@ -1,0 +1,9 @@
+.breadcrumb-item + .breadcrumb-item::before {
+    display: inline-block;
+    padding-right: 0.5rem;
+    content: url(/assets/arrow-right.svg);
+}
+
+.breadcrumb{
+    background-color:white;
+}

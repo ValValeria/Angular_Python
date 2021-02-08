@@ -1,13 +1,16 @@
-<section class="section  product center bg-light first-slide"  #productsElem>
+<section class="section  product center first-slide"  #productsElem>
     <div class="section__content center ">
         <div class="section__wrap wrap-md-pd text-center" >
+          <div class="section__bread-crumps">
+              <app-breadcrumbs [urls]="urls"></app-breadcrumbs>
+          </div>
           <h3 class="section__headline">{{"Наши товары" | uppercase}}</h3>
+          <ng-container>
+            <ng-content></ng-content>
+          </ng-container>
           <div class="product__carousel">
             <app-carousel></app-carousel>
           </div>
-          <ng-container>
-             <ng-content></ng-content>
-          </ng-container>
           <div class="product__wrap center align-items-start">
                <ng-container *ngIf="!showModel">
                    <ng-container *ngTemplateOutlet="search"></ng-container>

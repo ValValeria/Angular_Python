@@ -59,9 +59,33 @@
 }
 
 @media (max-width: 1008px) {
-    .header__content,
-    .header__links {
+    .header-media .header__content{
+    flex-direction:  column !important;
+    }
+    .header-media .header__links {
         flex-direction: column;
+        margin-left: 0;
+        width: 100%;
+        padding-left: 0;
+        padding-top: 2.5rem;
+        min-height: 93vh;
+        justify-content: flex-start;
+        padding-top: 4rem;
+
+        li {
+        padding: 1.7rem;
+        width: 100%;
+        margin: 0;
+
+        > a, > button:not(.search__icon) {
+            transform: scale(1.5) !important;
+            width: 70%;
+        }
+    }
+    }
+
+    .header__links{
+        display: none;
     }
 
     .header-media {
@@ -72,45 +96,17 @@
         display: none !important;
     }
 
-    .header-media .header__links {
-        display: none;
-    }
-
     .header-media .header__brand-name h1 {
         position: relative;
         top: 4px;
         left: 10px;
     }
 
-    .header-media .header__links {
-        margin-left: 0;
-        width: 100%;
-        padding-left: 0;
-        padding-top: 2.5rem;
-    }
-
-    .header-media .header__links li {
-        padding: 1.7rem;
-        width: 100%;
-        margin: 0;
-
-        > a,
-        > button:not(.search__icon) {
-            transform: scale(1.5) !important;
-            width: 70%;
-        }
-    }
 
     .avatar-media {
         position: absolute;
         top: 15px;
         left: 0px;
-    }
-
-    .header-media .header__links {
-        min-height: 90vh;
-        justify-content: flex-start;
-        padding-top: 4rem;
     }
 
     .header-media #menu_icon {

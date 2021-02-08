@@ -2,114 +2,91 @@
   <div class="product__area center flex-column">
 
     <div *ngIf="!post" class="center pt-4" style="height:60vh;">
-       <mat-spinner color="accent"></mat-spinner>
+      <mat-spinner color="accent"></mat-spinner>
     </div>
     <div class="product__wrap wrap-md-pd pt-4" *ngIf="post">
-        <div class="product__bread-crumps">
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item">
-                <a routerLink="/">Главная</a>
-              </li>
-              <li class="breadcrumb-item">
-                <a routerLink="/products">
-                  Товары
-                </a>
-              </li>
-              <li class="breadcrumb-item active" aria-current="page">
-                <a routerLink="/product/{{post.id}}">
-                   {{post.category}}
-                </a>
-              </li>
-            </ol>
-          </nav>
+      <div class="product__bread-crumps">
+        <app-breadcrumbs [urls]="[['/','Главная'], ['/products','Товары']]"></app-breadcrumbs>
+      </div>
+      <div class="product__container">
+        <h5 class="product__title">{{post.title}}</h5>
+        <div class="product__images center" (click)="showImages()">
+          <div class="w-100 center" style="min-height:70%;">
+            <div class="img-container w-100 position-relative" style="height:100%; width:100%;">
+              <img src="{{post.image.startsWith('/')?(url+post.image) : (url+'/'+post.image)}}" alt="">
+              <app-like [id]="post.id"></app-like>
+            </div>
+          </div>
         </div>
-        <div class="product__container">
-             <h5 class="product__title">{{post.title}}</h5>
-             <div class="product__images" (click)="showImages()">
-                 <div class="position-relative w-100" style="min-height:70%;">
-                    <div class="img-container w-100" style="height:100%;">
-                      <img src="{{post.image.startsWith('/')?(url+post.image) : (url+'/'+post.image)}}" alt="">
-                    </div>
-                    <app-like [id]="post.id"></app-like>
-                 </div>
-             </div>
-             <div class="product__short-descr text-left">
-                 <h5 >Кратко о товаре</h5>
-                 <p>
-                 {{post.short_description}}
-                 </p>
-                 <div class="product__price">                
-                    <div class="product__price-label text-left">
-                       <span>Цена:</span>
-                       <span>{{post.price|currency}}</span>
-                    </div>
-                    <div class="product__price-label text-left" *ngIf="user.is_auth && maxCount">
-                      <span>Количество:</span>
-                      <div>
-                          <mat-slider
-                           color="accent"
-                           min="0"
-                           max="{{maxCount}}"
-                           thumbLabel
-                           (input)="count=$event.value"
-                          ></mat-slider>
-                      </div>
-                      <div>
-                        <h6 class="product__buy-counter">Вы хотите купить: 
-                            <button mat-button color="accent">{{count}} шт.</button>
-                        </h6>
-                      </div>
-                    </div>
-                    <div class="product__buy-btn">
-                      <button class="bg-warn price-btn" on-click="buyItem()">Купить</button>
-                    </div>
-                 </div>
-             </div>
-             <!--Start-->
-              <div class="product__info">
-                  <div class="wrap-md p-1">
-                       <div class="product__info-btns center text-center">
-                           <div class="product__info-btn {{pageIndex==1?'border-red':''}}" id="details" on-click="pageIndex=1">
-                               <span>
-                                 Описание 
-                               </span>
-                           </div>
-                           <div class="product__info-btn {{pageIndex==2?'border-red':''}}" id="more" on-click="pageIndex=2">
-                                <span>
-                                  Характеристики
-                                </span>
-                            </div>
-                           <div class="product__info-btn {{pageIndex==3?'border-red':''}}" id="comment" on-click="pageIndex=3">
-                                 <span>
-                                   Отзывы
-                                 </span>
-                            </div>
-                       </div>
-                  </div>
+        <div class="product__short-descr text-left">
+          <h5>Кратко о товаре</h5>
+          <p>
+            {{post.short_description}}
+          </p>
+          <div class="product__price">
+            <div class="product__price-label text-left">
+              <span>Цена:</span>
+              <span>{{post.price|currency}}</span>
+            </div>
+            <div class="product__price-label text-left" *ngIf="user.is_auth && maxCount">
+              <span>Количество:</span>
+              <div>
+                <mat-slider color="accent" min="0" max="{{maxCount}}" thumbLabel (input)="count=$event.value">
+                </mat-slider>
               </div>
-             <!--End-->
-
-             <div class="product__full-descr">
-                 <div class="wrap-md">
-                    <div>
-                      <div *ngIf="pageIndex==1" class="product__long-description">
-                            <p>{{post.long_description}}</p>
-                      </div>
-                      <div *ngIf="pageIndex==2">
-                           <charactarictics [data]="charactarictics"></charactarictics>       
-                      </div>
-                      <div *ngIf="pageIndex==3">
-                           <comments [postId]="postId"></comments>
-                      </div>
-                    </div>
-                 </div>
-             </div>
+              <div>
+                <h6 class="product__buy-counter">Вы хотите купить:
+                  <button mat-button color="accent">{{count}} шт.</button>
+                </h6>
+              </div>
+            </div>
+            <div class="product__buy-btn">
+              <button class="bg-warn price-btn" on-click="buyItem()">Купить</button>
+            </div>
+          </div>
         </div>
+        <!--Start-->
+        <div class="product__info-container center flex-column">
+          <div class="product__info w-100">
+            <div class="wrap-md p-1">
+              <div class="product__info-btns center text-center">
+                <div class="product__info-btn {{pageIndex==1?'border-red':''}}" id="details" on-click="pageIndex=1">
+                  <span>
+                    Описание
+                  </span>
+                </div>
+                <div class="product__info-btn {{pageIndex==2?'border-red':''}}" id="more" on-click="pageIndex=2">
+                  <span>
+                    Характеристики
+                  </span>
+                </div>
+                <div class="product__info-btn {{pageIndex==3?'border-red':''}}" id="comment" on-click="pageIndex=3">
+                  <span>
+                    Отзывы
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="product__full-descr w-100">
+            <div class="wrap-md">
+              <div>
+                <div *ngIf="pageIndex==1" class="product__long-description">
+                  <p>{{post.long_description}}</p>
+                </div>
+                <div *ngIf="pageIndex==2">
+                  <charactarictics [data]="charactarictics"></charactarictics>
+                </div>
+                <div *ngIf="pageIndex==3">
+                  <comments [postId]="postId"></comments>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--End-->
+      </div>
     </div>
   </div>
 </section>
-
-
-
-

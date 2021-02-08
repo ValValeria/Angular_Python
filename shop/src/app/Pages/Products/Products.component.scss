@@ -22,7 +22,7 @@
 }
 
 .product__wrap {
-    padding-top: 2rem;
+    padding-top: 0rem;
 }
 
 .product .card-sm__content {
@@ -58,6 +58,10 @@
 .product__next-btn button:hover {
     background-color: transparent;
     color: #ffd740;
+}
+
+.section__bread-crumps{
+    padding-bottom:2.8rem;
 }
 
 .product__loading {

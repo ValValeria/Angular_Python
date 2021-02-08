@@ -29,7 +29,7 @@ export class Header implements AfterViewInit {
     @ViewChild('headerlinks', { read: ElementRef }) links: ElementRef;
     counter = 0;
     showPopup = false;
-    mediaAvatar = false;
+    media = false;
     animState: 'enter' | 'leave' = 'enter';
 
     constructor(public user: User,
@@ -40,11 +40,10 @@ export class Header implements AfterViewInit {
     ngAfterViewInit(): void {
         let toggleClass = () => {
             if (window.matchMedia('(max-width:1008px)').matches) {
-                this.mediaAvatar = true;
+                this.media = true;
                 this.links.nativeElement.style.display = 'none';
             } else {
-                this.mediaAvatar = false;
-                this.links.nativeElement.style.display = 'flex';
+                this.media = false;
             }
         };
 
@@ -65,12 +64,11 @@ export class Header implements AfterViewInit {
 
     toggleHeader(): void {
         const elem: HTMLUListElement = this.links.nativeElement;
-        setTimeout(() => {
-            const display = elem.style.display;
-            const display_css = getComputedStyle(elem).display;
 
-            if (display === 'none' || display_css === 'none') {
-                elem.style.display = 'block';
+        setTimeout(() => {
+            const display = elem.style.display || getComputedStyle(elem).display;
+
+            if (display === 'none') {
                 this.animState = 'leave';
             } else {
                 this.animState = 'enter';
@@ -81,6 +79,12 @@ export class Header implements AfterViewInit {
     endAnimation($event: AnimationEvent): void {
         if ($event.fromState === "leave") {
             this.links.nativeElement.style.display = 'none ';
+        }
+    }
+
+    startAnimation($event: AnimationEvent): void {
+        if ($event.fromState === "enter") {
+            this.links.nativeElement.style.display = 'flex ';
         }
     }
 
