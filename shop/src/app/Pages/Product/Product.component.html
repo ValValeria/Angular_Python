@@ -1,92 +1,108 @@
-<section class="product section first-slide">
-  <div class="product__area center flex-column">
+<section class="product product-sm section first-slide center position-relative">
+  <mat-drawer-container class="w-100" autosize>
+    <mat-drawer-content>
+      <div class="w-100 center align-items-start ">
+        <div class="product__area center w-100">
+          <div *ngIf="!post" class="center pt-4" style="height:60vh;">
+            <mat-spinner color="accent"></mat-spinner>
+          </div>
+          <ng-container *ngIf="post">
+            <div class="product__content wrap-md center" *ngIf="post">
+              <div class="product__wrap wrap-md-pd pt-4">
+                <div class="product__bread-crumps">
+                  <app-breadcrumbs [urls]="[['/','Главная'], ['/products','Товары']]"></app-breadcrumbs>
+                </div>
+                <div class="product__container">
+                  <div class="product__title h3 center">{{post.title}}</div>
+                  <div class="product__images center" (click)="showImages()">
+                    <div class="w-100 center" style="min-height:70%;">
+                      <div class="img-container w-100 position-relative" style="height:100%; width:100%;">
+                        <img src="{{post.image.startsWith('/')?(post.image) : ('/'+post.image)}}" alt="">
+                        <app-like [id]="post.id"></app-like>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="product__short-descr text-left">
+                    <h5>Кратко о товаре</h5>
+                    <p>
+                      {{post.short_description}}
+                    </p>
+                    <div class="product__price">
+                      <div class="product__price-label text-left">
+                        <span>Цена:</span>
+                        <span>{{post.price|currency}}</span>
+                      </div>
+                      <div class="product__price-label text-left" *ngIf="user.is_auth && maxCount">
+                        <span>Количество:</span>
+                        <div>
+                          <mat-slider color="accent" min="0" max="{{maxCount}}" thumbLabel (input)="count=$event.value">
+                          </mat-slider>
+                        </div>
+                        <div>
+                          <h6 class="product__buy-counter">Вы хотите купить:
+                            <button mat-button color="accent">{{count}} шт.</button>
+                          </h6>
+                        </div>
+                      </div>
+                      <div class="product__buy-btn">
+                        <button class="bg-warn price-btn" on-click="buyItem()">Купить</button>
+                      </div>
+                    </div>
+                  </div>
+                  <!--Start-->
+                  <div class="product__info-container center flex-column">
+                    <div class="product__full-descr w-100">
+                      <div class="h5 text-center w-100">Описание</div>
+                      <div class="w-100" (click)="$event.preventDefault()">
+                        <mat-tab-group color="accent" dynamicHeight mat-align-tabs="center" class="product__tabs">
+                          <mat-tab label="Характеристики">
+                            <div class="product__tab-content  w-100">
+                              <charactarictics [data]="charactarictics"></charactarictics>
+                            </div>
+                          </mat-tab>
 
-    <div *ngIf="!post" class="center pt-4" style="height:60vh;">
-      <mat-spinner color="accent"></mat-spinner>
-    </div>
-    <div class="product__wrap wrap-md-pd pt-4" *ngIf="post">
-      <div class="product__bread-crumps">
-        <app-breadcrumbs [urls]="[['/','Главная'], ['/products','Товары']]"></app-breadcrumbs>
-      </div>
-      <div class="product__container">
-        <h5 class="product__title">{{post.title}}</h5>
-        <div class="product__images center" (click)="showImages()">
-          <div class="w-100 center" style="min-height:70%;">
-            <div class="img-container w-100 position-relative" style="height:100%; width:100%;">
-              <img src="{{post.image.startsWith('/')?(url+post.image) : (url+'/'+post.image)}}" alt="">
-              <app-like [id]="post.id"></app-like>
-            </div>
-          </div>
-        </div>
-        <div class="product__short-descr text-left">
-          <h5>Кратко о товаре</h5>
-          <p>
-            {{post.short_description}}
-          </p>
-          <div class="product__price">
-            <div class="product__price-label text-left">
-              <span>Цена:</span>
-              <span>{{post.price|currency}}</span>
-            </div>
-            <div class="product__price-label text-left" *ngIf="user.is_auth && maxCount">
-              <span>Количество:</span>
-              <div>
-                <mat-slider color="accent" min="0" max="{{maxCount}}" thumbLabel (input)="count=$event.value">
-                </mat-slider>
-              </div>
-              <div>
-                <h6 class="product__buy-counter">Вы хотите купить:
-                  <button mat-button color="accent">{{count}} шт.</button>
-                </h6>
-              </div>
-            </div>
-            <div class="product__buy-btn">
-              <button class="bg-warn price-btn" on-click="buyItem()">Купить</button>
-            </div>
-          </div>
-        </div>
-        <!--Start-->
-        <div class="product__info-container center flex-column">
-          <div class="product__info w-100">
-            <div class="wrap-md p-1">
-              <div class="product__info-btns center text-center">
-                <div class="product__info-btn {{pageIndex==1?'border-red':''}}" id="details" on-click="pageIndex=1">
-                  <span>
-                    Описание
-                  </span>
-                </div>
-                <div class="product__info-btn {{pageIndex==2?'border-red':''}}" id="more" on-click="pageIndex=2">
-                  <span>
-                    Характеристики
-                  </span>
-                </div>
-                <div class="product__info-btn {{pageIndex==3?'border-red':''}}" id="comment" on-click="pageIndex=3">
-                  <span>
-                    Отзывы
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
+                          <mat-tab label="Описание">
+                            <div class="product__tab-content w-100">
+                              <p class="h6">{{post.long_description}}</p>
+                            </div>
+                          </mat-tab>
+                          <mat-tab label="Отзывы">
+                            <div class=" product__tab-content  w-100">
+                              <comments [postId]="postId"></comments>
+                            </div>
+                          </mat-tab>
+                        </mat-tab-group>
+                      </div>
+                    </div>
+                  </div>
+                  <!--End-->
 
-          <div class="product__full-descr w-100">
-            <div class="wrap-md">
-              <div>
-                <div *ngIf="pageIndex==1" class="product__long-description">
-                  <p>{{post.long_description}}</p>
-                </div>
-                <div *ngIf="pageIndex==2">
-                  <charactarictics [data]="charactarictics"></charactarictics>
-                </div>
-                <div *ngIf="pageIndex==3">
-                  <comments [postId]="postId"></comments>
+                  <div class="product__info-container-lg product__info-container center flex-column">
+                    <div class="product__full-descr w-100">
+                      <div class="h5 text-center w-100">Другие товары</div>
+                      <div class="w-100 center" (click)="$event.preventDefault()">
+                        <div class="wrap-md display_grid">
+                            <div class="w-100" *ngFor="let card of products">
+                              <card [card]="card" class="center"></card>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+
+            <div class="product__sidebar center" *ngIf="!drawer.opened" (click)="drawer.open()">
+              <div class="product__siderbar-image">
+              </div>
+            </div>
+          </ng-container>
         </div>
-        <!--End-->
       </div>
-    </div>
-  </div>
+    </mat-drawer-content>
+
+    <mat-drawer #drawer [mode]="'over'" position="end">
+    </mat-drawer>
+  </mat-drawer-container>
 </section>

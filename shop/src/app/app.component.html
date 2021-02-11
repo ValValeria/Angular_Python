@@ -1,28 +1,11 @@
 <div class="body-content w-100" #body>
+  <app-header-top></app-header-top>
   <header-main></header-main>
   <router-outlet></router-outlet>
-  <footer class="footer bg-gray">
+  <footer class="footer bg-dark">
     <div class="div wrap-md-pd center">
       <p style="margin-bottom:0;"> All rights are reserved </p>
     </div>
   </footer>
 </div>
 
-<div class="slider"  
-(click)="scroll($event,true)"
-(mousemove)="scroll($event,false)"
-*ngIf="isDisplayScroll"
-hidden
->
-     <div class="slider__content">
-       <div class="slider__btn-container" #button>
-         <button
-          color="basic"
-          mat-flat-button
-          [ngStyle]="btnHeight"
-          (mousedown)="mousedown($event)"  
-          (mouseup)="mouseup($event)"
-          ></button>
-       </div>
-     </div>
-</div>

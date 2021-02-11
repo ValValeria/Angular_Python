@@ -1,5 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
+import { MatDrawer } from "@angular/material/sidenav";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from "@angular/router";
 import { URL_PATH } from "src/app/app.component";
@@ -17,16 +18,17 @@ export class Product implements OnInit{
     postId: number;
     post: IAd;
     pageIndex = 1;
-    readonly url = 'http://127.0.0.1:8000/'.slice(0,-1);
     charactarictics: [string, string][];
     count = 1;
     maxCount = 0;
+    @ViewChild('drawer', {read: MatDrawer}) drawer: MatDrawer;
+    products: IAd[] = [];
 
     constructor(private http: Http,
                 private route: ActivatedRoute,
                 private router: Router,
                 public user: User,
-                private _snackBar: MatSnackBar,
+                private snackBar: MatSnackBar,
                 private diaglog: MatDialog){
 
         this.route.paramMap.subscribe(v => {
@@ -45,13 +47,18 @@ export class Product implements OnInit{
                 });
             }
         );
+
+        this.http.get<{ data: IAd[] }>(`${URL_PATH}api/products?page=1`, {}).subscribe(v => {
+            if ((v.data || []).length) {
+                this.products = v.data;
+            }
+        });
         
         USER_AUTH.subscribe(v1 => {
             if (v1){
                 this.http.get<{ data: { count: number } }>(`${URL_PATH}api/product-count/?product_id=` + this.postId).
                     subscribe(v => {
                         this.maxCount = v.data.count;
-                        console.log(this.maxCount)
                     });
             }
         });
@@ -65,17 +72,17 @@ export class Product implements OnInit{
               this.http.get<{ messages: string[], data: string[], status: string }>(`${URL_PATH}api/addorder?product_id=${this.postId}&count=${this.count}`)
                   .subscribe(v => {
                       if (v.status == "ok") {
-                          this._snackBar.open("Товар добавлен в корзину", "Закрыть", {
+                          this.snackBar.open("Товар добавлен в корзину", "Закрыть", {
                               duration: 5000
                           });
                       } else{
-                          this._snackBar.open("Похоже, этот товар закончился", "Закрыть", {
+                          this.snackBar.open("Похоже, этот товар закончился", "Закрыть", {
                               duration: 10000
                           });
                       }
                   });
           }else{
-              this._snackBar.open('Выбирите нужное количество товара', "Закрыть", {
+              this.snackBar.open('Выбирите нужное количество товара', "Закрыть", {
                   duration: 5000
               });   
           }

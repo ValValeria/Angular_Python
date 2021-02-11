@@ -44,6 +44,8 @@ import { NotFoundPage } from './Pages/NotFoundPage/NotFoundPage.component';
 import { Slider } from './Components/Slider/Slider.component';
 import { Carousel } from './Components/Carousel/Carousel.component';
 import { BreadCrumbs } from './Components/BreadCrumbs/BreadCrumbs.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+
 
 
 const routes: Routes = [
@@ -68,6 +70,7 @@ const modules = [MatButtonModule,
                  MatIconModule,
                  FormsModule,
                  MatSliderModule,
+                 MatSidenavModule,
                  MatInputModule,
                  MatSelectModule,
                  MatSlideToggleModule,

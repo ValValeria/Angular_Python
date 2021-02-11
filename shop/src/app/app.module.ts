@@ -13,12 +13,16 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { SearchForm } from './Components/SearchForm/SearchForm.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HeaderTop } from './Components/HeaderTop/HeaderTop.component';
+import { Avatar } from './Components/Avatar/Avatar.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon'
 
 
 
 @NgModule({
   declarations: [
-    AppComponent, Header, SearchForm
+    AppComponent, Header, SearchForm, HeaderTop, Avatar
   ],
   imports: [
     BrowserModule,
@@ -29,6 +33,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatBadgeModule,
     MatDialogModule,
     NgbModule,
+    MatSidenavModule,
+    MatIconModule
   ],
   providers: [Http,
               User,

@@ -61,8 +61,8 @@ def set_up():
     abs_path = os.path.abspath(path)
 
     if os.access(abs_path, os.R_OK):
-        #command = "cmd /c chdir {} {}".format(path, "& npm run build")
-        #subprocess.call(command)
+        command = "cmd /c chdir {} {}".format(path, "& npm run build")
+        subprocess.call(command)
         build_path = os.path.join(abs_path, "dist","shop")
 
         if os.path.exists(build_path):

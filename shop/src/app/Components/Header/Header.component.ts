@@ -1,5 +1,5 @@
 import { animate, style, transition, trigger, AnimationEvent } from '@angular/animations';
-import { AfterViewInit, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -23,7 +23,8 @@ import { $CLOSE_SEARCH, SearchForm } from '../SearchForm/SearchForm.component';
                 animate("1s", style({ opacity: 0 }))
             ]),
         ])
-    ]
+    ],
+    encapsulation: ViewEncapsulation.None
 })
 export class Header implements AfterViewInit {
     @ViewChild('headerlinks', { read: ElementRef }) links: ElementRef;
@@ -105,5 +106,9 @@ export class Header implements AfterViewInit {
             width: "80vw",
             height: "70vh"
         });
+    }
+
+    get styles(): any{
+        return {top: 0};
     }
 }

@@ -1,0 +1,13 @@
+<ng-container *ngIf="!isAuth">
+<div class="header-top w-100 center bg-super-dark">
+    <div class="header-top__wrap wrap-md  center justify-content-end">
+         <div class="header-top__container">
+              <div class="header-top__auth-links text-light">
+                   <a routerLink="/authenticate" [queryParams]="['isLogin',true]">Войдите</a>
+                   <span>или</span>
+                   <a routerLink="/authenticate">Зарегестрируйтесь</a>
+              </div>
+         </div>
+    </div>
+</div>
+</ng-container>

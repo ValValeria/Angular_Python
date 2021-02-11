@@ -3,7 +3,7 @@ import { FormControl, ValidatorFn, Validators } from "@angular/forms";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { auditTime } from "rxjs/operators";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { User } from "src/app/Services/User.service";
 import { merge } from "rxjs";
 import { AuthenticateClass } from 'src/app/Classes/Authenticate';
@@ -25,7 +25,8 @@ export class AuthPage {
         private builder: FormBuilder,
         private _snackBar: MatSnackBar,
         private router: Router,
-        private detection: ChangeDetectorRef) {
+        private detection: ChangeDetectorRef,
+        private route: ActivatedRoute) {
 
         const opt: [string, ValidatorFn[]] = ["", [Validators.minLength(10), Validators.maxLength(30), Validators.required]];
 
@@ -51,7 +52,17 @@ export class AuthPage {
                 if (this.form.valid && !this.isLogin) {//signup page
                     this.isValid = this.email.valid;
                 }
-            })
+            });
+
+        this.route.queryParamMap.subscribe(v => {
+            const is_login = v.get('isLogin');
+
+            if (is_login === 'true') {
+                this.isLogin = true;
+            } else{
+                this.isLogin = false;
+            }
+        });
     }
 
     ngAfterViewInit(): void {
@@ -73,7 +84,7 @@ export class AuthPage {
     click($event): void {
         if ($event.index === 1) {
             this.isLogin = false;
-        } else if($event.index === 0){
+        } else if ($event.index === 0) {
             this.isLogin = true;
         }
         this.showStatus = '';
