@@ -137,16 +137,15 @@ a{
 
 .h5{
     background: transparent;
-    letter-spacing: 0.011em;
-    margin-bottom: 0.2em;
-    font-size: 21px;
-    line-height: 1.381;
+    letter-spacing: 0.011em !important;
+    margin-bottom: 0.2em !important;
+    font-size: 21px !important;
+    line-height: 1.381 !important;
 }
 
 .text-grey{
     color:#6D6E71 !important;
 }
-
 
 .product-sm mat-drawer{
    width:60%;
@@ -177,7 +176,7 @@ a{
 }
 
 .headline-sm,.h4{
-    font-size: 28px;
+    font-size: 28px !important;
     line-height: 1.14286;
     font-weight: 300;
     line-height:1.2;

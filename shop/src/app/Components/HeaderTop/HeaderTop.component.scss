@@ -1,5 +1,7 @@
 .header-top{
     width:100%;
+    position: relative;
+    z-index:2;
 }
 
 .header-top__auth-links a{

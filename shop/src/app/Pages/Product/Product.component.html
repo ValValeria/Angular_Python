@@ -1,5 +1,5 @@
 <section class="product product-sm section first-slide center position-relative">
-  <mat-drawer-container class="w-100" autosize>
+  <mat-drawer-container class="w-100">
     <mat-drawer-content>
       <div class="w-100 center align-items-start ">
         <div class="product__area center w-100">
@@ -52,7 +52,7 @@
                   <!--Start-->
                   <div class="product__info-container center flex-column">
                     <div class="product__full-descr w-100">
-                      <div class="h5 text-center w-100">Описание</div>
+                      <div class="h4 text-center w-100">Описание</div>
                       <div class="w-100" (click)="$event.preventDefault()">
                         <mat-tab-group color="accent" dynamicHeight mat-align-tabs="center" class="product__tabs">
                           <mat-tab label="Характеристики">
@@ -61,14 +61,9 @@
                             </div>
                           </mat-tab>
 
-                          <mat-tab label="Описание">
+                          <mat-tab label="Полное описание">
                             <div class="product__tab-content w-100">
                               <p class="h6">{{post.long_description}}</p>
-                            </div>
-                          </mat-tab>
-                          <mat-tab label="Отзывы">
-                            <div class=" product__tab-content  w-100">
-                              <comments [postId]="postId"></comments>
                             </div>
                           </mat-tab>
                         </mat-tab-group>
@@ -77,14 +72,25 @@
                   </div>
                   <!--End-->
 
-                  <div class="product__info-container-lg product__info-container center flex-column">
-                    <div class="product__full-descr w-100">
-                      <div class="h5 text-center w-100">Другие товары</div>
+                  <div class="product__related center flex-column">
+                    <div class="product__related-container w-100">
+                      <div class="h4 text-center w-100">Другие товары</div>
                       <div class="w-100 center" (click)="$event.preventDefault()">
-                        <div class="wrap-md display_grid">
-                            <div class="w-100" *ngFor="let card of products">
-                              <card [card]="card" class="center"></card>
+                        <div class="product__related-content center wrap-md">
+                            <div class="product__related-card w-100" *ngFor="let card of products">
+                              <card [card]="card" class="center" [showFull]='false'></card>
                             </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="product__related center flex-column">
+                    <div class="product__related-container w-100">
+                      <div class="h4 text-center w-100">Отзывы покупателей</div>
+                      <div class="w-100 center" (click)="$event.preventDefault()">
+                        <div class="product__related-content center flex-column wrap-md w-100">
+                            <comments [postId]="postId"></comments>
                         </div>
                       </div>
                     </div>
@@ -93,8 +99,9 @@
               </div>
             </div>
 
-            <div class="product__sidebar center" *ngIf="!drawer.opened" (click)="drawer.open()">
-              <div class="product__siderbar-image">
+            <div class="product__sidebar center" *ngIf="!drawer.opened">
+              <div class="product__sidebar-title h5">
+                  {{'Доставка' | uppercase}}
               </div>
             </div>
           </ng-container>

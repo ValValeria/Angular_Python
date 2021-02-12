@@ -1,29 +1,29 @@
-                     <a class="card-sm flex-33 shadow center" routerLink="/product/{{card.id}}" >
-                         <div class="cards-sm__body center flex-column">
-                              <div class="card-sm__headline center justify-content-between wrap-md">
-                                 <div class="card-sm__stars stars center">
-                                    <div class="stars__container" *ngFor="let star of [1,2,3,4,5]">
-                                         <img src="{{star<=card.rating ? '/assets/star.svg':'/assets/star_blank.svg'}}" alt="..." class="stars__img" style="height:15px;">
-                                    </div>
-                                  </div>
+<a class="card-sm flex-33 shadow center" routerLink="/product/{{card.id}}" [ngStyle]="styles">
+   <div class="cards-sm__body center flex-column">
+      <div class="card-sm__headline center justify-content-between wrap-md">
+         <div class="card-sm__stars stars center">
+            <div class="stars__container" *ngFor="let star of [1,2,3,4,5]">
+               <img src="{{star<=card.rating ? '/assets/star.svg':'/assets/star_blank.svg'}}" alt="..."
+                  class="stars__img" style="height:15px;">
+            </div>
+         </div>
 
-                                  <div class="card-sm__price text-lorange">
-                                     <span class="text-lorange">{{card.price | currency}}</span>
-                                  </div>
-                              </div>
-                              <div class="card-sm__image img-container center">
-                                  <error-loading hidden></error-loading>
-                                  <img src="{{card.image.startsWith('/')?(card.image) : ('/'+card.image)}}" alt="..." on-error="errorImage($event)" #img/>
-                                  <app-like [id]="card.id"></app-like>
-                              </div>
-                              <div class="card-sm__content text-center">
-                                 <div class="card-sm__title">{{card.title}}</div>
-                                 <div class="card-sm__subtitle text-grey h6">{{card.short_description | slice:0:50}}</div>
-                                 <div class="card__buy-btn w-100">
-                                    <button mat-flat-button color="warn" 
-                                            class="bg-warn price-btn w-100"
-                                            on-click="buyItem()">Купить</button>
-                                 </div>
-                              </div>
-                         </div>
-                        </a>
+         <div class="card-sm__price text-lorange">
+            <span class="text-lorange">{{card.price | currency}}</span>
+         </div>
+      </div>
+      <div class="card-sm__image img-container center">
+         <error-loading hidden></error-loading>
+         <img src="{{card.image.startsWith('/')?(card.image) : ('/'+card.image)}}" alt="..."
+            on-error="errorImage($event)" #img />
+         <app-like [id]="card.id"></app-like>
+      </div>
+      <div class="card-sm__content text-center">
+         <div class="card-sm__title {{showFull?'':'h5'}}">{{card.title}}</div>
+         <div class="card-sm__subtitle text-grey h6" *ngIf="showFull">{{card.short_description | slice:0:50}}</div>
+         <div class="card__buy-btn w-100">
+            <button mat-flat-button color="warn" class="bg-warn price-btn w-100" on-click="buyItem()">Купить</button>
+         </div>
+      </div>
+   </div>
+</a>

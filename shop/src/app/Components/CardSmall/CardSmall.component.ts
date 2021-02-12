@@ -13,9 +13,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     styleUrls:["./CardSmall.component.scss"]
 })
 export class CardSmall extends ImageLoading{
-    @Input("card") card:IAd;
-    readonly url:string = "http://127.0.0.1:8000"
-    @ViewChild("img",{read:ElementRef}) public image:ElementRef;
+    @Input() card:IAd;
+    @Input() showFull = true;
+    @ViewChild("img", {read: ElementRef}) public image: ElementRef;
 
     constructor(private router: Router, 
                 private user: User, 
@@ -42,6 +42,10 @@ export class CardSmall extends ImageLoading{
     }
 
     goToCat(): void{
-        this.router.navigate(['category',this.card.category]);
+        this.router.navigate(['category', this.card.category]);
+    }
+
+    get styles(): any{
+        return {height: this.showFull ? '500px' : '400px'};
     }
 }

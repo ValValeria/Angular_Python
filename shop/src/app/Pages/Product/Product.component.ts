@@ -1,8 +1,10 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, OnInit, ViewChild } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatDrawer } from "@angular/material/sidenav";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from "@angular/router";
+import { fromEvent } from "rxjs";
+import { auditTime, filter, skipWhile } from "rxjs/operators";
 import { URL_PATH } from "src/app/app.component";
 import { ProductPageImage } from "src/app/Components/ProductPageImage/ProductPageImage.component";
 import { IAd } from "src/app/Interfaces/Interfaces";
@@ -10,26 +12,26 @@ import { Http } from "src/app/Services/Http.service";
 import { User, USER_AUTH } from 'src/app/Services/User.service';
 
 @Component({
-    selector:'app-product',
-    templateUrl:"./Product.component.html",
-    styleUrls:["./Product.component.scss"]
+    selector: 'app-product',
+    templateUrl: "./Product.component.html",
+    styleUrls: ["./Product.component.scss"]
 })
-export class Product implements OnInit{
+export class Product implements OnInit, AfterViewInit {
     postId: number;
     post: IAd;
     pageIndex = 1;
     charactarictics: [string, string][];
     count = 1;
     maxCount = 0;
-    @ViewChild('drawer', {read: MatDrawer}) drawer: MatDrawer;
+    @ViewChild('drawer', { read: MatDrawer }) drawer: MatDrawer;
     products: IAd[] = [];
 
     constructor(private http: Http,
-                private route: ActivatedRoute,
-                private router: Router,
-                public user: User,
-                private snackBar: MatSnackBar,
-                private diaglog: MatDialog){
+        private route: ActivatedRoute,
+        private router: Router,
+        public user: User,
+        private snackBar: MatSnackBar,
+        private diaglog: MatDialog) {
 
         this.route.paramMap.subscribe(v => {
             this.postId = Number(v.get('id'));
@@ -37,8 +39,8 @@ export class Product implements OnInit{
         this.charactarictics = [];
     }
 
-    ngOnInit(): void{
-        this.http.get<{data: IAd}>(`${URL_PATH}api/product/` + this.postId).subscribe(
+    ngOnInit(): void {
+        this.http.get<{ data: IAd }>(`${URL_PATH}api/product/` + this.postId).subscribe(
             v => {
                 this.post = v.data;
                 this.charactarictics = this.post.characterictics.split(';').map(str => {
@@ -53,9 +55,9 @@ export class Product implements OnInit{
                 this.products = v.data;
             }
         });
-        
+
         USER_AUTH.subscribe(v1 => {
-            if (v1){
+            if (v1) {
                 this.http.get<{ data: { count: number } }>(`${URL_PATH}api/product-count/?product_id=` + this.postId).
                     subscribe(v => {
                         this.maxCount = v.data.count;
@@ -64,39 +66,66 @@ export class Product implements OnInit{
         });
     }
 
-    buyItem(): void{
-      if (!this.user.is_auth) {
-          this.router.navigateByUrl("/authenticate");
-      } else{
-          if(this.count){
-              this.http.get<{ messages: string[], data: string[], status: string }>(`${URL_PATH}api/addorder?product_id=${this.postId}&count=${this.count}`)
-                  .subscribe(v => {
-                      if (v.status == "ok") {
-                          this.snackBar.open("Товар добавлен в корзину", "Закрыть", {
-                              duration: 5000
-                          });
-                      } else{
-                          this.snackBar.open("Похоже, этот товар закончился", "Закрыть", {
-                              duration: 10000
-                          });
-                      }
-                  });
-          }else{
-              this.snackBar.open('Выбирите нужное количество товара', "Закрыть", {
-                  duration: 5000
-              });   
-          }
-      }
+    ngAfterViewInit(): void {
+        const footer = document.querySelector('footer');
+        const func = () => {
+            const sidebar: HTMLElement = document.querySelector('.product__sidebar ');
+
+            if (sidebar) {
+                const header = Array.from(document.querySelectorAll('header')).find(v => {
+                    return getComputedStyle(v).display !== 'none' && !v.hidden;
+                });
+                const headerHeight = header.getBoundingClientRect().height;
+                const docElem = document.documentElement;
+                const elem = document.elementFromPoint(0, docElem.clientHeight - docElem.clientTop - 1);
+
+                if (elem.tagName.toLowerCase() === 'footer') {
+                    sidebar.style.top = headerHeight + 'px';
+                    sidebar.style.height = `${Math.abs(footer.offsetTop - pageYOffset - headerHeight)}px`;
+                } else {
+                    sidebar.style.height = '100%';
+                }
+            }
+        };
+
+        fromEvent(window, 'scroll').subscribe(func);
+
+        func();
     }
 
-    showImages(): void{
-      if (this.post.image.length){
-          this.diaglog.open(ProductPageImage, {
-              data: { src: this.post.image },
-              width: "80%",
-              height: "60%",
-              maxWidth: "900px"
-          });
-      }
+    buyItem(): void {
+        if (!this.user.is_auth) {
+            this.router.navigateByUrl('/authenticate');
+        } else {
+            if (this.count) {
+                this.http.get<{ messages: string[], data: string[], status: string }>(`${URL_PATH}api/addorder?product_id=${this.postId}&count=${this.count}`)
+                    .subscribe(v => {
+                        if (v.status == "ok") {
+                            this.snackBar.open("Товар добавлен в корзину", "Закрыть", {
+                                duration: 5000
+                            });
+                        } else {
+                            this.snackBar.open("Похоже, этот товар закончился", "Закрыть", {
+                                duration: 10000
+                            });
+                        }
+                    });
+            } else {
+                this.snackBar.open('Выбирите нужное количество товара', "Закрыть", {
+                    duration: 5000
+                });
+            }
+        }
+    }
+
+    showImages(): void {
+        if (this.post.image.length) {
+            this.diaglog.open(ProductPageImage, {
+                data: { src: this.post.image },
+                width: "80%",
+                height: "60%",
+                maxWidth: "900px"
+            });
+        }
     }
 }
