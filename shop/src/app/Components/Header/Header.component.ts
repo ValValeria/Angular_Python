@@ -1,8 +1,10 @@
 import { animate, style, transition, trigger, AnimationEvent } from '@angular/animations';
-import { AfterViewInit, ViewContainerRef, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { Router, RoutesRecognized } from '@angular/router';
+import { fromEvent } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { URL_PATH } from 'src/app/app.component';
 import { Http } from 'src/app/Services/Http.service';
 import { User } from 'src/app/Services/User.service';
@@ -30,6 +32,7 @@ export class Header implements AfterViewInit {
     @ViewChild('headerlinks', { read: ElementRef }) links: ElementRef;
     counter = 0;
     showPopup = false;
+    readonly MAX_WIDTH = 1100;
     media = false;
     animState: 'enter' | 'leave' = 'enter';
 
@@ -40,7 +43,7 @@ export class Header implements AfterViewInit {
 
     ngAfterViewInit(): void {
         let toggleClass = () => {
-            if (window.matchMedia('(max-width:1008px)').matches) {
+            if (window.matchMedia(`(max-width:${this.MAX_WIDTH})`).matches) {
                 this.media = true;
                 this.links.nativeElement.style.display = 'none';
             } else {
@@ -56,11 +59,24 @@ export class Header implements AfterViewInit {
 
         $ORDER_COUNT.subscribe(v => {
             this.counter = v;
-        })
+        });
 
         $CLOSE_SEARCH.subscribe(v => {
             this.dialog.closeAll();
-        })
+        });
+
+        fromEvent(this.links.nativeElement,"click")
+        .pipe(filter((event: MouseEvent)=>{
+            const target: HTMLElement = event.target as HTMLElement;
+            const cssLinksClass: string = (this.links.nativeElement as HTMLElement).classList.item(0);
+
+            if(target.closest(`.${cssLinksClass}`)){
+                return true;
+            }
+
+            return false;
+        }))
+        .subscribe(_v=>this.toggleHeader());
     }
 
     toggleHeader(): void {

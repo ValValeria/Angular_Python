@@ -23,7 +23,7 @@
     padding: 1.5rem !important;
 }
 
-.product__short-descr > h5 {
+.product__short-descr>h5 {
     font-size: 20px;
     line-height: 1.5;
     margin-bottom: 20px;
@@ -79,24 +79,24 @@
     }
 }
 
-.product__price-label > span:nth-child(1) {
+.product__price-label>span:nth-child(1) {
     color: #777;
     font-size: 16px;
     line-height: 1.5;
 }
 
-.product__price-label > span {
+.product__price-label>span {
     display: block;
 }
 
-.product__price-label > span:nth-child(2) {
+.product__price-label>span:nth-child(2) {
     color: red;
     font-size: 25px;
     line-height: 1.5;
     padding: 10px 0;
 }
 
-.product__short-descr > p {
+.product__short-descr>p {
     font-size: 16px;
     line-height: 20px;
     margin-bottom: 13px;
@@ -123,13 +123,19 @@
     color: #777;
 }
 
-comments{
+comments {
+    width: 100%;
+}
+
+.product__navigation {
+    grid-column: 1/-1;
+    justify-self: start;
     width:100%;
 }
 
 .product__container {
     display: grid;
-    grid-template-rows: 100px 350px auto;
+    grid-template-rows: 100px auto 350px auto;
     grid-auto-rows: auto;
     padding-left: 1rem;
     padding-right: 1rem;
@@ -213,7 +219,7 @@ mat-sidenav {
 }
 
 .product__images {
-    grid-row: 2/3;
+    grid-row: 3/4;
     grid-column: span 6;
     cursor: pointer;
     min-width: 100%;
@@ -283,7 +289,7 @@ mat-sidenav {
 }
 
 .product__short-descr {
-    grid-row-start: 2;
+    grid-row-start: 3;
 }
 
 .product__tab-content {
@@ -295,8 +301,8 @@ mat-sidenav {
 }
 
 .product__title {
-    text-align: left;
-    justify-self: flex-start;
+    text-align: center !important;
+    justify-self: center  !important;
 }
 
 @media (min-width: 900px) {
@@ -308,18 +314,19 @@ mat-sidenav {
 @media (max-width: 900px) {
     .product__short-descr {
         grid-column: 1/-1;
-        grid-row: 3/4;
+        grid-row: 4/5;
     }
+
     .product__images {
         align-self: center;
         justify-self: center;
         max-width: 90%;
         grid-column: 1/-1;
-        grid-row: 2/3;
+        grid-row: 3/4;
     }
 
     .product__info-container {
-        grid-row: 4/5;
+        grid-row: 5/6;
         align-self: flex-start;
     }
 
@@ -329,7 +336,7 @@ mat-sidenav {
     }
 
     .product__container {
-        grid-template-rows: 60px 360px auto;
+        grid-template-rows: 60px auto 360px auto;
         padding-top: 2.7rem;
     }
 }

@@ -45,6 +45,8 @@ import { Slider } from './Components/Slider/Slider.component';
 import { Carousel } from './Components/Carousel/Carousel.component';
 import { BreadCrumbs } from './Components/BreadCrumbs/BreadCrumbs.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { ProductNavigation } from './Components/ProductNavigation/ProductNavigation.component';
+import { MatStepperModule } from '@angular/material/stepper';
 
 
 
@@ -74,6 +76,7 @@ const modules = [MatButtonModule,
                  MatInputModule,
                  MatSelectModule,
                  MatSlideToggleModule,
+                 MatStepperModule,
                  MatExpansionModule,
                  MatSnackBarModule,
                  MatDividerModule,
@@ -110,7 +113,8 @@ const modules = [MatButtonModule,
                 SearchPageResult,
                 PurchasePage,
                 CategoryPage,
-                BreadCrumbs
+                BreadCrumbs,
+                ProductNavigation
                 ],
   exports: [RouterModule, ...modules]
 })

@@ -1,0 +1,18 @@
+@import '../../../base.scss';
+
+.product__navigation-container {
+    margin-top: 1.5rem;
+
+    ::ng-deep .mat-step-header .mat-step-icon-selected {
+        background-color: #ffd740;
+    }
+
+    ::ng-deep .mat-step-header .mat-step-icon-state-done,
+    ::ng-deep .mat-step-header .mat-step-icon-state-edit {
+        background: #221f1f !important;
+    }
+
+    ::ng-deep .mat-step-text-label {
+        font-size: 16px;
+    }
+}

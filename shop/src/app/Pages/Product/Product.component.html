@@ -14,6 +14,9 @@
                 </div>
                 <div class="product__container">
                   <div class="product__title h3 center">{{post.title}}</div>
+                  <div class="product__navigation">
+                    <app-product-navigation></app-product-navigation>
+                  </div>
                   <div class="product__images center" (click)="showImages()">
                     <div class="w-100 center" style="min-height:70%;">
                       <div class="img-container w-100 position-relative" style="height:100%; width:100%;">
@@ -74,6 +77,17 @@
 
                   <div class="product__related center flex-column">
                     <div class="product__related-container w-100">
+                      <div class="h4 text-center w-100">Отзывы покупателей</div>
+                      <div class="w-100 center" (click)="$event.preventDefault()">
+                        <div class="product__related-content center flex-column wrap-md w-100">
+                          <comments [postId]="postId"></comments>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="product__related center flex-column">
+                    <div class="product__related-container w-100">
                       <div class="h4 text-center w-100">Другие товары</div>
                       <div class="w-100 center" (click)="$event.preventDefault()">
                         <div class="product__related-content center wrap-md">
@@ -85,23 +99,13 @@
                     </div>
                   </div>
 
-                  <div class="product__related center flex-column">
-                    <div class="product__related-container w-100">
-                      <div class="h4 text-center w-100">Отзывы покупателей</div>
-                      <div class="w-100 center" (click)="$event.preventDefault()">
-                        <div class="product__related-content center flex-column wrap-md w-100">
-                            <comments [postId]="postId"></comments>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
 
             <div class="product__sidebar center" *ngIf="!drawer.opened">
               <div class="product__sidebar-title h5">
-                  {{'Доставка' | uppercase}}
+                  {{post.brand | uppercase}}
               </div>
             </div>
           </ng-container>

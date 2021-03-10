@@ -32,7 +32,7 @@
     <div class="avatar center " style="min-width: 40px;left:3rem;">
         <div class="avatar__icon">
             <div class="postion-relative">
-                <button routerLink="/login" class="avatar__btn">
+                <button routerLink="/authenticate" [queryParams]="{isLogin: true}" class="avatar__btn">
                     <div style="width:30px;height:30px">
                         <svg viewBox="0 0 24 24" id="icon-user-simple">
                             <g>

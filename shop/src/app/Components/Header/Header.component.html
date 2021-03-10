@@ -1,6 +1,6 @@
 <header class="header header-notmedia shadow bg-warn text-white bg-dark" [ngStyle]="styles">
   <div class="header__wrap wrap-md">
-    <div class="header__content ">
+    <div class="header__content">
       <div class="header__brand-name">
         <a routerLink="/">
           <h1>{{"inDigital" | uppercase}}</h1>
@@ -43,7 +43,7 @@
 
 <header class="header header-media shadow bg-warn text-white bg-dark" [ngStyle]="styles">
   <div class="header__wrap wrap-md">
-    <div class="header__content ">
+    <div class="header__content position-relative">
       <div class="header__brand-name">
         <a routerLink="/">
           <h1>{{"inDigital" | uppercase}}</h1>
@@ -77,21 +77,23 @@
           </button>
         </li>
       </ul>
+
+      <div id="menu_icon" on-click="toggleHeader()">
+          <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-list" fill="white" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+              d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+          </svg>
+      </div>
+
+      <div class="avatar-media" on-click="showPopup=true" on-mouseleave="showPopup=false" *ngIf="user.is_auth">
+        <app-avatar [showAuthAvatar]="true"></app-avatar>
+      </div>
+      
+      <div class="avatar-media" *ngIf="!user.is_auth">
+        <app-avatar [showAuthAvatar]="false"></app-avatar>
+      </div>
     </div>
   </div>
-  <div id="menu_icon" on-click="toggleHeader()">
-    <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-list" fill="white"
-      xmlns="http://www.w3.org/2000/svg">
-      <path fill-rule="evenodd"
-        d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
-    </svg>
-  </div>
-  <div class="avatar-media" on-click="showPopup=true" on-mouseleave="showPopup=false" *ngIf="user.is_auth">
-    <app-avatar [showAuthAvatar]="true"></app-avatar>
-  </div>
 
-  <div class="avatar-media" *ngIf="!user.is_auth">
-    <app-avatar [showAuthAvatar]="false"></app-avatar>
-  </div>
 </header>
 
