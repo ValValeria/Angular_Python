@@ -1,18 +1,7 @@
 <div class="product__navigation-container w-100">
-  <mat-horizontal-stepper [linear]="true" #stepper>
-       <mat-step>
-            <ng-template matStepLabel>Общее</ng-template>
+  <mat-horizontal-stepper [linear]="true" #stepper on-click="click()">
+       <mat-step *ngFor="let elem of data">
+            <ng-template matStepLabel>{{elem[0]}}</ng-template>
        </mat-step>
-        <mat-step>
-            <ng-template matStepLabel>Описание</ng-template>
-        </mat-step>
-        <mat-step>
-            <ng-template matStepLabel>Комментарии</ng-template>
-        </mat-step>
-        <mat-step>
-            <ng-template matStepLabel>Похожие товары</ng-template>
-        </mat-step>
-        <button mat-button matStepperPrevious hidden></button>
-        <button mat-button matStepperNext hidden></button>
   </mat-horizontal-stepper>
 </div>

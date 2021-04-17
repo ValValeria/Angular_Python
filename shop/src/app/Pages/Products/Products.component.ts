@@ -8,26 +8,24 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { URL_PATH } from 'src/app/app.component';
 
-
 interface IResponse {
-    data: IAd[],
-    has_next: boolean
+    data: IAd[];
+    has_next: boolean;
 }
 
-
 @Component({
-    selector: "products",
-    templateUrl: "./Products.component.html",
+    selector: 'products',
+    templateUrl: './Products.component.html',
     styleUrls: ['./Products.component.scss'],
     animations: [
-        trigger("fadeInOut", [
-            transition(":enter", [
-                query(".card-sm", [
+        trigger('fadeInOut', [
+            transition(':enter', [
+                query('.card-sm', [
                     style({
                         opacity: 0
                     }),
-                    stagger("250ms", [
-                        animate("1.2s ease-out", style({
+                    stagger('250ms', [
+                        animate('1.2s ease-out', style({
                             opacity: 1
                         }))]
                     )
@@ -38,10 +36,10 @@ interface IResponse {
 })
 export class Products implements OnInit, AfterViewInit {
     products: IAd[];
-    disabled: boolean = true;
-    panelOpenState: boolean = false;
+    disabled = true;
+    panelOpenState = false;
     categories: string[];
-    @ViewChild("productsElem", { read: ElementRef }) productsElem: ElementRef;
+    @ViewChild('productsElem', { read: ElementRef }) productsElem: ElementRef;
     @ViewChild('search', { read: TemplateRef }) search: TemplateRef<any>;
     @ViewChild('product_search', { read: ElementRef }) matSearchContainer: ElementRef;
     @Input('isSearch') isSearchPage = false;
@@ -62,10 +60,10 @@ export class Products implements OnInit, AfterViewInit {
     urls: [string, string][];
 
     constructor(private http: Http,
-        private dialog: MatDialog,
-        private router: Router,
-        private snackBar: MatSnackBar,
-        private route: ActivatedRoute) {
+                private dialog: MatDialog,
+                private router: Router,
+                private snackBar: MatSnackBar,
+                private route: ActivatedRoute) {
         this.products = [];
         this.categories = [];
     }
@@ -93,7 +91,7 @@ export class Products implements OnInit, AfterViewInit {
             if (this.isCategoryPage) {
                 this.route.paramMap.subscribe(v2 => {
                     setTimeout(() => {
-                        this.activeCategory = v2.get("category");
+                        this.activeCategory = v2.get('category');
                         this.formRequest(false);
                     }, 0);
                 });
@@ -109,8 +107,8 @@ export class Products implements OnInit, AfterViewInit {
 
     showMenu(): void {
         this.dialog.open(this.search, {
-            width: "90%",
-            height: "400px",
+            width: '90%',
+            height: '400px',
         });
     }
 
@@ -125,7 +123,7 @@ export class Products implements OnInit, AfterViewInit {
 
     ngAfterViewInit(): void {
 
-        this.getBrands({ value: "" });
+        this.getBrands({ value: '' });
 
         const onScroll = () => {
             const func = () => {
@@ -162,7 +160,7 @@ export class Products implements OnInit, AfterViewInit {
 
     getBrands($event: { value: string }): void {
         setTimeout(() => {
-            this.activeCategory = $event.value || "";
+            this.activeCategory = $event.value || '';
 
             let url = `${URL_PATH}api/getbrands/?category=` + encodeURIComponent(this.activeCategory);
 
@@ -203,13 +201,13 @@ export class Products implements OnInit, AfterViewInit {
         }
         const config = {
             params: new HttpParams().set('min', this.min_price.toString())
-                .set("max", this.max_price.toString())
-                .set("category", this.activeCategory || "")
-                .set("brand", this.activeBrand || "")
-                .set("page", String(this.page))
+                .set('max', this.max_price.toString())
+                .set('category', this.activeCategory || '')
+                .set('brand', this.activeBrand || '')
+                .set('page', String(this.page))
         };
 
-        let url = `${URL_PATH}api/sort/`;
+        const url = `${URL_PATH}api/sort/`;
 
         if (this.isSearchPage) {
             config.params.set('search', this.searchText);
@@ -234,13 +232,13 @@ export class Products implements OnInit, AfterViewInit {
                     if (pageYOffset + 500 > offset && (height + offset) > pageYOffset && this.products.length) {
                         this.disabled = false;
                     }
-                }
+                };
 
                 decideScroll();
                 window.addEventListener('scroll', decideScroll.bind(this));
             }
             this.checkData();
-        })
+        });
     }
 
     changeBrand($event): void {
@@ -253,6 +251,6 @@ export class Products implements OnInit, AfterViewInit {
     }
 
     undoSearch(): void {
-        this.router.navigateByUrl("/products");
+        this.router.navigateByUrl('/products');
     }
 }

@@ -21,7 +21,7 @@
       <div class="card-sm__content text-center">
          <div class="card-sm__title {{showFull?'':'h5'}}">{{card.title}}</div>
          <div class="card-sm__subtitle text-grey h6" *ngIf="showFull">{{card.short_description | slice:0:50}}</div>
-         <div class="card__buy-btn w-100">
+         <div class="card__buy-btn w-100" *ngIf="showButton">
             <button mat-flat-button color="warn" class="bg-warn price-btn w-100" on-click="buyItem()">Купить</button>
          </div>
       </div>

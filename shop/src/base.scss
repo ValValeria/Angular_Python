@@ -1,5 +1,19 @@
+@import './variables';
+
+.mb{
+  margin-bottom: $margin;
+}
+
+.mt{
+  margin-top: $margin;
+}
+
+.mb-half{
+  margin-bottom: $margin/2;
+}
+
 .headline-gr,
-.h1 {
+.h1, h1 {
     font-size: 65px;
     line-height: 1.07143;
     font-weight: 400;
@@ -7,19 +21,19 @@
 }
 
 .headline-md,
-.h2 {
+.h2, h2 {
     font-size: 56px !important;
     line-height: 1.07143 !important;
     letter-spacing: -.005em;
 }
 
-.h6 {
+.h6, h6 {
     font-size: 16px;
     line-height: 1.381;
     font-weight: 300;
 }
 
-.h3 {
+.h3, h3 {
     font-size: 36px;
     line-height: 1.14286;
     font-weight: 300;
@@ -29,7 +43,7 @@
     padding-bottom: 1rem;
 }
 
-.h5 {
+.h5, h5 {
     background: transparent;
     letter-spacing: 0.011em !important;
     margin-bottom: 0.2em !important;
@@ -37,7 +51,7 @@
     line-height: 1.381 !important;
 }
 
-.h6 {
+.h6, h5{
     background: transparent;
     letter-spacing: 0.011em !important;
     margin-bottom: 0.2em !important;
@@ -46,7 +60,7 @@
 }
 
 .headline-sm,
-.h4 {
+.h4, h4 {
     font-size: 28px !important;
     line-height: 1.14286;
     font-weight: 300;

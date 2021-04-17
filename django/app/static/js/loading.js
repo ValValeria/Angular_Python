@@ -12,7 +12,7 @@
 
                 loadingElem.addEventListener("transiotionend", () => {
                     body.style.overflowY = "auto";
-                    loadingElem.classList.add('none');
+                    loadingElem.parentElement.removeChild(loadingElem);
                     clearInterval(timerId);
                 });
 

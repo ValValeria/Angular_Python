@@ -1,7 +1,3 @@
-"""
-Definition of urls for DjangoWebProject.
-"""
-
 from app.view_pack.admin_view import AdminView,AdminProductImages
 from django.urls import path,re_path
 from django.contrib import admin

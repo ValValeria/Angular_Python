@@ -144,10 +144,11 @@ class ProductSort(ListView):
             page = 1
 
         for criteria in self.sort_by.keys():
-            if products is None:
-                products = self.sort_by.get(criteria)()
-            else:
-                products = self.sort_by.get(criteria)(products)
+            if request.GET.get(criteria):
+                if products is None:
+                    products = self.sort_by.get(criteria)()
+                else:
+                    products = self.sort_by.get(criteria)(products)
 
         paginator = Paginator(products.order_by("id"), self.per_page)
 

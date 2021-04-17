@@ -1,23 +1,19 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import { MatHorizontalStepper } from '@angular/material/stepper';
-import { interval } from 'rxjs';
-import { takeWhile } from 'rxjs/operators';
+import { fromEvent, interval } from 'rxjs';
+import { auditTime, skipWhile, take, takeWhile } from 'rxjs/operators';
 
-function getYCoordinates(elem): number{
-    const domElem = document.querySelector(elem[1]);
-    const y = pageYOffset + domElem.getBoundingClientRect().top;
-
-    return y;
-}
 
 @Component({
     selector: 'app-product-navigation',
     templateUrl: './ProductNavigation.component.html',
     styleUrls: ['./ProductNavigation.component.scss']
 })
-export class ProductNavigation implements AfterViewInit{
+export class ProductNavigation implements OnInit{
     @ViewChild("stepper", { read: MatHorizontalStepper }) stepper: MatHorizontalStepper;
+    readonly INTENSITY = 40;
     readonly data;
+    isClicked: boolean;
     
     constructor(){
         this.data = [["Общее",'#images'],
@@ -26,31 +22,47 @@ export class ProductNavigation implements AfterViewInit{
                      ["Похожие товары","#ads"]];
     }
 
-    ngAfterViewInit(): void{
-        this.stepper.selectionChange.subscribe(v=>{
-            const elem = this.data[v];
+    ngOnInit(): void{
+        fromEvent(window,"scroll")
+        .subscribe(_event=>{
+            if(!this.isClicked){
+                const elemFromPoint = this.elemFromPoint;
 
-            if(!elem) return false;
+                this.data.map(([_v1, v2]) => v2).forEach((element, index) => {
+                    if (elemFromPoint.closest(element)) {
+                    }
+                });
+            }
+        })
+    }
 
-            const y = getYCoordinates(elem);
+    click(): void{
+        const elem = this.data[this.stepper.selectedIndex];
+        this.isClicked = true;
 
-            interval(40)
+        interval(this.INTENSITY)
             .pipe(
-                takeWhile(v=>{
-                    let centerX = document.documentElement.clientWidth / 2;
-                    let centerY = document.documentElement.clientHeight / 2;
-                    const destElem = document.querySelector(elem[1]);
-                    const elemFromPoint: HTMLElement = document.elementFromPoint(centerX,centerY) as HTMLElement | null;
+                takeWhile(v => {
+                    const elemFromPoint = this.elemFromPoint;
 
-                    if(elemFromPoint.closest(elem[1]) || elemFromPoint.contains(destElem)){
+                    if (elemFromPoint.closest(elem[1])) {
                         return false;
                     }
 
                     return true;
                 })
-            ).subscribe(v=>{
-                window.scrollBy(0,40)
-            })
-        })    
+            ).subscribe(v => {
+                this.isClicked = true;
+                window.scrollBy(0, this.INTENSITY)
+            }, null, () => this.isClicked = false)
+             
+    }
+
+    get elemFromPoint(): null | HTMLElement{
+        const clientHeight = document.documentElement.clientHeight;
+        const clientWidth = document.documentElement.clientWidth;
+        const elemFromPoint = document.elementFromPoint(clientWidth / 2, clientHeight / 2) as HTMLElement;
+        
+        return elemFromPoint;
     }
 }

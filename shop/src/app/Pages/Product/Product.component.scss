@@ -1,6 +1,20 @@
+@import 'src/base';
+
 .product {
     align-items: flex-start;
     background-color: white;
+}
+
+.product__sidebar{
+    cursor: pointer;
+}
+
+.product__drawer-title  h3{
+   @extend .h3;
+}
+
+.product__drawer-title  p{
+  @extend .h5;
 }
 
 .product__title {

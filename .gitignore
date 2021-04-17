@@ -14,7 +14,9 @@ assets
 
 node_modules
 
-lib/
+lib
+
+/lib
 
 Procfile
 
@@ -60,3 +62,4 @@ testem.log
 Thumbs.db
 
 todo
+/lib/

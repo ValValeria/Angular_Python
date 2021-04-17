@@ -17,7 +17,7 @@
                   <div class="product__navigation">
                     <app-product-navigation></app-product-navigation>
                   </div>
-                  <div class="product__images center" (click)="showImages()">
+                  <div class="product__images center" (click)="showImages()" id="images">
                     <div class="w-100 center" style="min-height:70%;">
                       <div class="img-container w-100 position-relative" style="height:100%; width:100%;">
                         <img src="{{post.image.startsWith('/')?(post.image) : ('/'+post.image)}}" alt="">
@@ -53,7 +53,7 @@
                     </div>
                   </div>
                   <!--Start-->
-                  <div class="product__info-container center flex-column">
+                  <div class="product__info-container center flex-column" id="info">
                     <div class="product__full-descr w-100">
                       <div class="h4 text-center w-100">Описание</div>
                       <div class="w-100" (click)="$event.preventDefault()">
@@ -75,7 +75,7 @@
                   </div>
                   <!--End-->
 
-                  <div class="product__related center flex-column">
+                  <div class="product__related center flex-column" id="comments">
                     <div class="product__related-container w-100">
                       <div class="h4 text-center w-100">Отзывы покупателей</div>
                       <div class="w-100 center" (click)="$event.preventDefault()">
@@ -86,7 +86,7 @@
                     </div>
                   </div>
 
-                  <div class="product__related center flex-column">
+                  <div class="product__related center flex-column" id="ads">
                     <div class="product__related-container w-100">
                       <div class="h4 text-center w-100">Другие товары</div>
                       <div class="w-100 center" (click)="$event.preventDefault()">
@@ -103,7 +103,7 @@
               </div>
             </div>
 
-            <div class="product__sidebar center" *ngIf="!drawer.opened">
+            <div class="product__sidebar center" (click)="showOtherBrands()" *ngIf="!showDrawer">
               <div class="product__sidebar-title h5">
                   {{post.brand | uppercase}}
               </div>
@@ -113,7 +113,21 @@
       </div>
     </mat-drawer-content>
 
-    <mat-drawer #drawer [mode]="'over'" position="end">
+    <mat-drawer #drawer [mode]="'over'" position="end" [opened]="showDrawer">
+      <div class="product__drawer w-100">
+        <div class="product__drawer-content">
+            <div class="product__drawer-title text-center mt">
+              <h3 class="mb">Другие товары</h3>
+            </div>
+            <div class="product__drawer-items">
+              <app-grid-layout>
+                <div class="product__drawer-item" *ngFor="let otherPost of otherPosts">
+                  <card [showButton]="false" [showFull]="false" [card]="otherPost"></card>
+                </div>
+              </app-grid-layout>
+            </div>
+        </div>
+      </div>
     </mat-drawer>
   </mat-drawer-container>
 </section>

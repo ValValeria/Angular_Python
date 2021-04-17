@@ -47,19 +47,20 @@ import { BreadCrumbs } from './Components/BreadCrumbs/BreadCrumbs.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { ProductNavigation } from './Components/ProductNavigation/ProductNavigation.component';
 import { MatStepperModule } from '@angular/material/stepper';
+import {GridLayoutModule} from './Layouts/GridLayout/GridLayout.module';
 
 
 
 const routes: Routes = [
-  {path: "", component: HomePage, pathMatch: "full"},
+  {path: '', component: HomePage, pathMatch: 'full'},
   {path: 'buy-orders', component: PurchasePage},
-  {path: "products", component: Products },
-  {path:"product/:id",component:Product},
-  {path:"authenticate",component:AuthPage},
-  {path:"profile",component:AdminPage},
+  {path: 'products', component: Products },
+  {path: 'product/:id', component: Product},
+  {path: 'authenticate', component: AuthPage},
+  {path: 'profile', component: AdminPage},
   {path: 'search', component: SearchPageResult },
-  {path: "contacts", component: ContactPage},
-  {path: "category/:category", component: CategoryPage},
+  {path: 'contacts', component: ContactPage},
+  {path: 'category/:category', component: CategoryPage},
   {path: '**', component: NotFoundPage}
 ];
 
@@ -87,12 +88,13 @@ const modules = [MatButtonModule,
                  MatCheckboxModule,
                  MatChipsModule,
                  MatProgressBarModule,
-                 MatDialogModule
+                 MatDialogModule,
+                 GridLayoutModule
                 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes), ...modules],
-  declarations:[HomePage,
+  declarations: [HomePage,
                 Products,
                 ErrorImageLoading,
                 CardSmall,
