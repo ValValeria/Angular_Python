@@ -1061,7 +1061,7 @@ class Products {
         const onScroll = () => {
             const func = () => {
                 const width = document.documentElement.clientWidth;
-                if (width < this.MWIDTH) {
+                if (width < this.MIN_WIDTH) {
                     this.showModel = true;
                 }
                 else {

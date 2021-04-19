@@ -144,19 +144,20 @@ class ProductSort(ListView):
             page = 1
 
         for criteria in self.sort_by.keys():
-            if request.GET.get(criteria):
+            if criteria in request.GET:
                 if products is None:
                     products = self.sort_by.get(criteria)()
                 else:
                     products = self.sort_by.get(criteria)(products)
 
-        paginator = Paginator(products.order_by("id"), self.per_page)
+        if products:
+            paginator = Paginator(products.order_by("id"), self.per_page)
 
-        if page <= paginator.num_pages:
-            data_page = paginator.page(page)
-            data = PostSerializer(data_page.object_list, many=True)
-            self.response["data"].extend(data.data)
-            self.response["has_next"] = data_page.has_next()
+            if page <= paginator.num_pages:
+                data_page = paginator.page(page)
+                data = PostSerializer(data_page.object_list, many=True)
+                self.response["data"].extend(data.data)
+                self.response["has_next"] = data_page.has_next()
 
         return JsonResponse(self.response, json_dumps_params={'ensure_ascii': False})
 

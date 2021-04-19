@@ -14,6 +14,7 @@ interface IResponse {
 }
 
 @Component({
+  // tslint:disable-next-line:component-selector
     selector: 'products',
     templateUrl: './Products.component.html',
     styleUrls: ['./Products.component.scss'],
@@ -54,10 +55,11 @@ export class Products implements OnInit, AfterViewInit {
     isEmpty: boolean;
     sentHttp: boolean;
     max_price_value = 4000;
-    readonly MWIDTH: number = 700;
+    readonly MIN_WIDTH: number = 950;
     showModel = false;
     min_price = 0;
     urls: [string, string][];
+    carouselImages: string[];
 
     constructor(private http: Http,
                 private dialog: MatDialog,
@@ -66,6 +68,7 @@ export class Products implements OnInit, AfterViewInit {
                 private route: ActivatedRoute) {
         this.products = [];
         this.categories = [];
+        this.carouselImages = ['/assets/image1.webp'];
     }
 
     ngOnInit(): void {
@@ -129,7 +132,7 @@ export class Products implements OnInit, AfterViewInit {
             const func = () => {
                 const width = document.documentElement.clientWidth;
 
-                if (width < this.MWIDTH) {
+                if (width < this.MIN_WIDTH) {
                     this.showModel = true;
                 } else {
                     this.showModel = false;
@@ -174,7 +177,6 @@ export class Products implements OnInit, AfterViewInit {
                 });
         }, 0);
     }
-
 
     sort(next = false): void | null {
         this.sentHttp = true;
@@ -251,6 +253,11 @@ export class Products implements OnInit, AfterViewInit {
     }
 
     undoSearch(): void {
-        this.router.navigateByUrl('/products');
+        this.router.navigateByUrl('/products').then(r => console.log('navigated'));
+    }
+
+    activePrice(): string{
+        const str = `Товары от ${this.min_price}грн до ${this.max_price}грн`;
+        return str;
     }
 }

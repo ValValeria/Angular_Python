@@ -4,8 +4,22 @@
   margin-bottom: $margin;
 }
 
+.center{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .mt{
   margin-top: $margin;
+}
+
+.mr{
+  margin-right: $margin;
+}
+
+.txt-bold{
+  font-weight:500;
 }
 
 .mb-half{

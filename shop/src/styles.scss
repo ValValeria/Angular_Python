@@ -86,7 +86,7 @@ body{
 }
 
 .loader span:nth-child(3){
-    filter:blur(25px) 
+    filter:blur(25px)
 }
 
 .loader span:nth-child(4){
@@ -385,9 +385,7 @@ a{
 }
 
 %center{
-    display:flex;
-    align-items: center;
-    justify-content: center;
+    @extend .center;
 }
 
 .header__content{
@@ -468,7 +466,7 @@ a:hover{
 .header__links li{
     list-style: none;
     margin-left:15px;
-    
+
     a{
         color:white;
         text-decoration: none;

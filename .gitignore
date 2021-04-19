@@ -1,31 +1,19 @@
-
+.idea
 dist
 /tmp
 /out-tsc
-
 /bazel-out
 .txt
-
 django/.gitignore
-
 avatars
-
 venv
-
 assets
-
 node_modules
-
 lib
-
 /lib
-
 Procfile
-
 migrations
-
 __pycache__/
-
 db.sqlite3
 
 # profiling files

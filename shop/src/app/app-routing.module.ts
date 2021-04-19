@@ -48,6 +48,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { ProductNavigation } from './Components/ProductNavigation/ProductNavigation.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import {GridLayoutModule} from './Layouts/GridLayout/GridLayout.module';
+import {CategoriesListComponent} from './Components/CategoriesList/CategoriesList.component';
+import { FlexLayoutComponent } from './Layouts/FlexLayout/FlexLayout.component';
 
 
 
@@ -107,6 +109,7 @@ const modules = [MatButtonModule,
                 AuthPage,
                 AdminPage,
                 Slider,
+                CategoriesListComponent,
                 OrderList,
                 Like,
                 NotFoundPage,
@@ -116,7 +119,8 @@ const modules = [MatButtonModule,
                 PurchasePage,
                 CategoryPage,
                 BreadCrumbs,
-                ProductNavigation
+                ProductNavigation,
+                FlexLayoutComponent
                 ],
   exports: [RouterModule, ...modules]
 })

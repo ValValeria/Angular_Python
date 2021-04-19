@@ -16,8 +16,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderTop } from './Components/HeaderTop/HeaderTop.component';
 import { Avatar } from './Components/Avatar/Avatar.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon'
-
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -40,6 +39,6 @@ import { MatIconModule } from '@angular/material/icon'
               User,
               { provide: HTTP_INTERCEPTORS, useClass: Authenticate, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

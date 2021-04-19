@@ -1,4 +1,4 @@
-<section class="section  product center first-slide"  #productsElem>
+<section class="section  product center first-slide" #productsElem>
     <div class="section__content center ">
         <div class="section__wrap wrap-md-pd text-center" >
           <div class="section__bread-crumps">
@@ -9,7 +9,7 @@
             <ng-content></ng-content>
           </ng-container>
           <div class="product__carousel">
-            <app-carousel></app-carousel>
+            <app-carousel [images]="carouselImages"></app-carousel>
           </div>
           <div class="product__wrap center align-items-start">
                <ng-container *ngIf="!showModel">
@@ -39,21 +39,28 @@
                   </div>
               </div>
 
-              <div class="product__expand-search center" *ngIf="showModel">
-                    <div class="wrap-md center justify-content-end">
-                        <button mat-mini-fab color="accent" on-click="showMenu()">
-                              <mat-icon>more_vert</mat-icon>
+               <div class="product__expand-search center  wrap-md" *ngIf="showModel">
+                    <div class="product__expand-btn mr">
+                        <button mat-flat-button color="accent" on-click="showMenu()">
+                           <span class="h6 txt-bold">Фильтры</span>
                         </button>
+                    </div>
+                    <div class="product__expand-queries">
+                       <app-categories-list
+                         [activeCategory]="activeCategory"
+                         [activeBrand]="activeBrand"
+                         [priceStr]="activePrice()"
+                       ></app-categories-list>
                     </div>
               </div>
           </div>
         </div>
     </div>
-  </section>       
+  </section>
 
 
   <ng-template #search>
-      <div class="product__search text-center center" >
+      <div class="product__search w-100 text-center center" >
         <mat-card class="shadow bg-white product__search-wrap" #product_search>
           <div class="wrap-md center flex-column">
             <mat-card-content>
@@ -83,7 +90,7 @@
                       </div>
                   </mat-slide-toggle>
                 </div>
-      
+
                 <div class="product__search-card">
                   <h6>Бренд</h6>
                   <mat-form-field appearance="outline" class="w-100" color="accent">
@@ -94,7 +101,7 @@
                     </mat-select>
                   </mat-form-field>
                 </div>
-                
+
                 <div class="product__search-card w-100">
                     <div>
                       <h6>Минимальная цена</h6>

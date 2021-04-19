@@ -1,0 +1,15 @@
+@import 'src/base';
+
+:host, .flex-layout,
+.flex-layout__area,
+.flex-layout__wrap,
+.flex-layout__items{
+  width: 100%;
+}
+
+.flex-layout__items{
+  @extend .center;
+}
+.flex-layout__item, .flex-layout__items > div{
+  margin:$margin;
+}
