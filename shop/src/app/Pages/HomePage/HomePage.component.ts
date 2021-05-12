@@ -6,11 +6,12 @@ import { Http } from 'src/app/Services/Http.service';
 
 @Component({
     selector:"home",
-    templateUrl:"./HomePage.component.html"
+    templateUrl:"./HomePage.component.html",
+    styleUrls: ['./HomePage.component.scss']
 })
 export class HomePage {
     ads:IAd[]=[];
-    
+
     constructor(private http:Http){}
 
     ngOnInit():void{

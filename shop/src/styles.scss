@@ -1,7 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
-@import './base.scss';
+@import './scrollbar.scss';
+
 
 html, body { height: 100%; }
 
@@ -11,6 +12,14 @@ width:100vw;overflow-x: hidden!important; }
 body{
     min-height:100vh;
     height:auto;
+}
+
+.cdk-overlay-container{
+  z-index: 8888888888;
+}
+
+.overflow-y-hidden{
+  overflow: hidden !important;
 }
 
 .zero-opacity{
@@ -474,7 +483,6 @@ a:hover{
         font-weight:300;
     }
 }
-
 
 .active-btn{
     border:1px solid rgba(0,0,0,.12) !important;

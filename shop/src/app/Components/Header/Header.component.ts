@@ -2,7 +2,7 @@ import { animate, style, transition, trigger, AnimationEvent } from '@angular/an
 import { AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router, RoutesRecognized } from '@angular/router';
+import { Router } from '@angular/router';
 import { fromEvent } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { URL_PATH } from 'src/app/app.component';
@@ -12,17 +12,17 @@ import { $ORDER_COUNT } from '../OrderList/OrderList.component';
 import { $CLOSE_SEARCH, SearchForm } from '../SearchForm/SearchForm.component';
 
 @Component({
-    selector: "header-main",
-    templateUrl: "./Header.component.html",
-    styleUrls: ["./Header.component.scss"],
+    selector: 'header-main',
+    templateUrl: './Header.component.html',
+    styleUrls: ['./Header.component.scss'],
     animations: [
-        trigger("fade", [
-            transition("enter=>leave", [
+        trigger('fade', [
+            transition('enter=>leave', [
                 style({ opacity: 0 }),
-                animate("1s", style({ opacity: 1 }))
+                animate('1s', style({ opacity: 1 }))
             ]),
-            transition("leave=>enter", [
-                animate("1s", style({ opacity: 0 }))
+            transition('leave=>enter', [
+                animate('1s', style({ opacity: 0 }))
             ]),
         ])
     ],
@@ -35,6 +35,7 @@ export class Header implements AfterViewInit {
     readonly MAX_WIDTH = 1100;
     media = false;
     animState: 'enter' | 'leave' = 'enter';
+    isSearchClicked = false;
 
     constructor(public user: User,
                 private router: Router,
@@ -65,18 +66,23 @@ export class Header implements AfterViewInit {
             this.dialog.closeAll();
         });
 
-        fromEvent(this.links.nativeElement,"click")
-        .pipe(filter((event: MouseEvent)=>{
+        this.dialog.afterAllClosed.subscribe(v => {
+            this.isSearchClicked = false;
+            document.body.classList.remove('overflow-y-hidden');
+        });
+
+        fromEvent(this.links.nativeElement, 'click')
+        .pipe(filter((event: MouseEvent) => {
             const target: HTMLElement = event.target as HTMLElement;
             const cssLinksClass: string = (this.links.nativeElement as HTMLElement).classList.item(0);
 
-            if(target.closest(`.${cssLinksClass}`)){
+            if (target.closest(`.${cssLinksClass}`)){
                 return true;
             }
 
             return false;
         }))
-        .subscribe(_v=>this.toggleHeader());
+        .subscribe(_v => this.toggleHeader());
     }
 
     toggleHeader(): void {
@@ -94,21 +100,21 @@ export class Header implements AfterViewInit {
     }
 
     endAnimation($event: AnimationEvent): void {
-        if ($event.fromState === "leave") {
+        if ($event.fromState === 'leave') {
             this.links.nativeElement.style.display = 'none ';
         }
     }
 
     startAnimation($event: AnimationEvent): void {
-        if ($event.fromState === "enter") {
+        if ($event.fromState === 'enter') {
             this.links.nativeElement.style.display = 'flex ';
         }
     }
 
     logout(): void {
-        localStorage.removeItem("auth");
+        localStorage.removeItem('auth');
         this.user.logout();
-        this.router.navigateByUrl("/");
+        this.router.navigateByUrl('/');
     }
 
     deleteProfile(): void {
@@ -118,10 +124,16 @@ export class Header implements AfterViewInit {
     }
 
     showSearch(): void {
-        this.dialog.open(SearchForm, {
-            width: "80vw",
-            height: "70vh"
-        });
+        if (!this.isSearchClicked){
+          this.dialog.open(SearchForm, {
+            width: '100vw',
+            height: '100vh',
+            maxWidth: '100vw'
+          });
+
+          this.isSearchClicked = true;
+          document.body.classList.add('overflow-y-hidden');
+        }
     }
 
     get styles(): any{

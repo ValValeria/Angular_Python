@@ -1,4 +1,4 @@
-<div class="search center">
+<div class="search center position-relative">
     <div class="search__wrap wrap-md-pd">
          <h6 class="search__title text-center">Поиск</h6>
          <div class="search__form center shadow">
@@ -7,7 +7,7 @@
                     <input type="text" #search/>
                 </div>
             </div>
-            <button mat-flat-button class="search__icon" color="accent" on-click="click()">
+            <button mat-flat-button class="search__icon ml" color="accent" on-click="click()">
                  Найти
             </button>
          </div>
@@ -42,5 +42,10 @@
          <div class="search__page-link center justify-content-end" *ngIf="results.length" on-click="showMore()">
              <a color="accent" mat-flat-button [routerLink]="['/search']" [queryParams]="{search: searchText}">Больше результатов</a>
          </div>
+    </div>
+    <div class="search__close">
+      <button mat-fab color="accent" (click)="close()">
+        <mat-icon>close</mat-icon>
+      </button>
     </div>
 </div>
