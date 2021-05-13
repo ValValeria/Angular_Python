@@ -135,6 +135,10 @@ body{
     min-height:100vh;
 }
 
+.product__category-list .flex-layout__items{
+  justify-content: flex-start !important;
+}
+
 a{
    color: inherit;
 }

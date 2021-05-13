@@ -50,6 +50,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import {GridLayoutModule} from './Layouts/GridLayout/GridLayout.module';
 import {CategoriesListComponent} from './Components/CategoriesList/CategoriesList.component';
 import { FlexLayoutComponent } from './Layouts/FlexLayout/FlexLayout.component';
+import { ProductsCategoriesComponent } from './Components/products-categories/products-categories.component';
 
 
 
@@ -120,8 +121,9 @@ const modules = [MatButtonModule,
                 CategoryPage,
                 BreadCrumbs,
                 ProductNavigation,
-                FlexLayoutComponent
+                FlexLayoutComponent,
+                ProductsCategoriesComponent
                 ],
-  exports: [RouterModule, ...modules]
+  exports: [RouterModule, ...modules, ProductsCategoriesComponent, ProductsCategoriesComponent]
 })
 export class AppRoutingModule { }

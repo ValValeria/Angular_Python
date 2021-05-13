@@ -11,6 +11,9 @@
           <div class="product__carousel">
             <app-carousel [images]="carouselImages"></app-carousel>
           </div>
+          <div class="product__categories">
+            <app-products-categories></app-products-categories>
+          </div>
           <div class="product__wrap center align-items-start">
                <ng-container *ngIf="!showModel">
                    <ng-container *ngTemplateOutlet="search"></ng-container>
