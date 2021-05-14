@@ -222,12 +222,6 @@ a{
     line-height: 1.381;
 }
 
-%center,.center{
-    display:flex;
-    align-items: center;
-    justify-content: center;
-}
-
 #menu_icon{
     display:none;
 }
@@ -282,7 +276,6 @@ a{
 .section__items{
     @extend %center;
 }
-
 
 .bg-linear-dark{
     background: linear-gradient(to right, #161616, #040c21);

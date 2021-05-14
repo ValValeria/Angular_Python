@@ -1,11 +1,7 @@
 <header class="header header-notmedia shadow bg-warn text-white bg-dark" [ngStyle]="styles">
   <div class="header__wrap wrap-md">
     <div class="header__content">
-      <div class="header__brand-name">
-        <a routerLink="/">
-          <h1>{{"inDigital" | uppercase}}</h1>
-        </a>
-      </div>
+      <app-logo></app-logo>
       <ul class="header__links">
         <li class="header__link center"><a mat-button routerLink="" routerLinkActive="active-btn"
             [routerLinkActiveOptions]="{exact:true}">Главная</a></li>
@@ -44,11 +40,7 @@
 <header class="header header-media shadow bg-warn text-white bg-dark" [ngStyle]="styles">
   <div class="header__wrap wrap-md">
     <div class="header__content position-relative">
-      <div class="header__brand-name">
-        <a routerLink="/">
-          <h1>{{"inDigital" | uppercase}}</h1>
-        </a>
-      </div>
+      <app-logo></app-logo>
       <ul class="header__links" #headerlinks [@fade]="animState" (@fade.done)="endAnimation($event)"
         (@fade.start)="startAnimation($event)">
         <li class="header__link center"><a mat-button routerLink="" routerLinkActive="active-btn"
@@ -88,7 +80,7 @@
       <div class="avatar-media" on-click="showPopup=true" on-mouseleave="showPopup=false" *ngIf="user.is_auth">
         <app-avatar [showAuthAvatar]="true"></app-avatar>
       </div>
-      
+
       <div class="avatar-media" *ngIf="!user.is_auth">
         <app-avatar [showAuthAvatar]="false"></app-avatar>
       </div>

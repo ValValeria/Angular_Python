@@ -1,0 +1,54 @@
+@import "src/base";
+
+footer{
+  color: white;
+}
+
+a, .footer__call-time li{
+  font-weight:400;
+}
+
+a{
+  border-bottom: 1px solid white;
+  padding-bottom: 0.6rem;
+}
+
+a:hover{
+  color: white;
+  border: none;
+}
+
+.footer__info{
+  width: 100%;
+  justify-content: flex-start;
+  margin-bottom: $margin*2;
+
+  li{
+    flex: 1 1 25%;
+  }
+}
+
+.footer__info li, .footer__contacts ul li{
+  list-style:none;
+  margin-right: $margin;
+
+  :last-child(1){
+    margin-right: 0;
+  }
+}
+
+.footer__call-time li{
+  padding-bottom: $margin/3;
+}
+
+.footer__contacts{
+  width: 100%;
+}
+
+.footer__contacts ul{
+  flex: 1 1 33%;
+}
+
+.footer__phone{
+  flex: 1 1 30%;
+}

@@ -1,0 +1,20 @@
+@import "src/base.scss";
+
+.section{
+  min-height: auto;
+}
+
+.section__title{
+  padding-bottom: $margin;
+  line-height: 1 !important;
+  @extend .h2;
+  font-size: 45px;
+}
+
+.section__wrap{
+  @extend .wrap-md-pd;
+}
+
+.section__items{
+  @extend %center;
+}

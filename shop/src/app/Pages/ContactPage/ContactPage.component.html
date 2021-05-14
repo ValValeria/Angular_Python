@@ -2,9 +2,9 @@
     <div class="section__wrap wrap-md-pd center ">
         <div class="center">
             <div class="section__form shadow contact-form">
-                <h2 class="section__form-title text-center">
+                <h3 class="section__form-title text-center">
                     {{"связаться с нами"|uppercase}}
-                </h2>
+                </h3>
                 <div class="section__field-sets flex-column center">
                     <form  class="w-100" [formGroup]="formGroup">
                         <mat-form-field appearance="outline" color="accent">
@@ -17,9 +17,9 @@
                         </mat-form-field>
                         <mat-form-field appearance="outline" color="accent">
                             <mat-label>Ваше письмо</mat-label>
-                            <textarea matInput 
+                            <textarea matInput
                                       cols="30"
-                                      rows="10" 
+                                      rows="10"
                                       style="resize: none;"
                                       formControlName="message"
                                       required
