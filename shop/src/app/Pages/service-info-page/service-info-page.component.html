@@ -1,0 +1,22 @@
+<app-section-layout [hasTitle]="false" cssClass="refund">
+    <div class="refund__breadcrumbs w-100 center justify-content-start">
+       <app-breadcrumbs [urls]="urls"></app-breadcrumbs>
+    </div>
+    <div class="refund__title text-center W-100">
+       <h3>Возврат и обмен</h3>
+    </div>
+    <div class="refund__content">
+      <p class="h6">
+        INDigital всегда на вашей стороне! Поэтому любой приобретенный товар можно вернуть или обменять без объяснения причин.
+      </p>
+      <p class="h6">
+        В INDigital обменяют товар или вернут средства, если:
+      </p>
+      <p class="h6 w-100">
+        <app-lists [lists]="lists" cssClass="h6"></app-lists>
+      </p>
+      <p class="h6">
+        Для возврата вашего заказа обращайтесь по номеру 0 800 30 00 33
+      </p>
+    </div>
+</app-section-layout>

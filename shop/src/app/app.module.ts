@@ -24,7 +24,8 @@ import { LogoComponent } from './Components/logo/logo.component';
 
 @NgModule({
   declarations: [
-    AppComponent, Header, SearchForm, HeaderTop, Avatar, FooterComponent, SectionLayoutComponent, LogoComponent
+    AppComponent, Header, SearchForm,
+    HeaderTop, Avatar, FooterComponent, LogoComponent
   ],
   imports: [
     BrowserModule,
@@ -39,8 +40,8 @@ import { LogoComponent } from './Components/logo/logo.component';
     MatIconModule
   ],
   providers: [Http,
-              User,
-              { provide: HTTP_INTERCEPTORS, useClass: Authenticate, multi: true },
+    User,
+    {provide: HTTP_INTERCEPTORS, useClass: Authenticate, multi: true},
   ],
   bootstrap: [AppComponent],
 })

@@ -51,8 +51,9 @@ import {GridLayoutModule} from './Layouts/grid-layout/GridLayout.module';
 import {CategoriesListComponent} from './Components/CategoriesList/CategoriesList.component';
 import { FlexLayoutComponent } from './Layouts/flex-layout/FlexLayout.component';
 import { ProductsCategoriesComponent } from './Components/products-categories/products-categories.component';
-
-
+import {ServiceInfoPageComponent} from './Pages/service-info-page/service-info-page.component';
+import { ListsComponent } from './Components/lists/lists.component';
+import {SectionLayoutComponent} from './Layouts/section-layout/section-layout.component';
 
 const routes: Routes = [
   {path: '', component: HomePage, pathMatch: 'full'},
@@ -64,6 +65,7 @@ const routes: Routes = [
   {path: 'search', component: SearchPageResult },
   {path: 'contacts', component: ContactPage},
   {path: 'category/:category', component: CategoryPage},
+  {path: 'info/refund', component: ServiceInfoPageComponent},
   {path: '**', component: NotFoundPage}
 ];
 
@@ -122,8 +124,11 @@ const modules = [MatButtonModule,
                 BreadCrumbs,
                 ProductNavigation,
                 FlexLayoutComponent,
-                ProductsCategoriesComponent
+                ProductsCategoriesComponent,
+                ServiceInfoPageComponent,
+                ListsComponent,
+                SectionLayoutComponent
                 ],
-  exports: [RouterModule, ...modules, ProductsCategoriesComponent, ProductsCategoriesComponent]
+  exports: [RouterModule, ...modules, ProductsCategoriesComponent, ProductsCategoriesComponent, SectionLayoutComponent]
 })
 export class AppRoutingModule { }

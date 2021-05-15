@@ -1,0 +1,21 @@
+@import "src/base.scss";
+
+.list ul li {
+  line-height: 24px;
+  margin-bottom: $margin/2;
+  padding-left: 20px;
+  position: relative;
+  list-style: none;
+}
+
+.list ul li::before {
+  border: 1px solid red;
+  border-radius: 50%;
+  content: '';
+  display: block;
+  height: 7px;
+  left: 0;
+  position: absolute;
+  top: 10px;
+  width: 7px;
+}
