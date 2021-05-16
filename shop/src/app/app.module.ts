@@ -18,7 +18,6 @@ import { Avatar } from './Components/Avatar/Avatar.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { FooterComponent } from './Components/footer/footer.component';
-import { SectionLayoutComponent } from './Layouts/section-layout/section-layout.component';
 import { LogoComponent } from './Components/logo/logo.component';
 
 

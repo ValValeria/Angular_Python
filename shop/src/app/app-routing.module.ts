@@ -54,6 +54,9 @@ import { ProductsCategoriesComponent } from './Components/products-categories/pr
 import {ServiceInfoPageComponent} from './Pages/service-info-page/service-info-page.component';
 import { ListsComponent } from './Components/lists/lists.component';
 import {SectionLayoutComponent} from './Layouts/section-layout/section-layout.component';
+import {DeliveryPageComponent} from './Pages/delivery-page/delivery-page.component';
+import {WarrantyPolicyPageComponent} from './Pages/warranty-policy-page/warranty-policy-page.component';
+
 
 const routes: Routes = [
   {path: '', component: HomePage, pathMatch: 'full'},
@@ -66,6 +69,8 @@ const routes: Routes = [
   {path: 'contacts', component: ContactPage},
   {path: 'category/:category', component: CategoryPage},
   {path: 'info/refund', component: ServiceInfoPageComponent},
+  {path: 'info/delivery', component: DeliveryPageComponent},
+  {path: 'info/warranty', component: WarrantyPolicyPageComponent},
   {path: '**', component: NotFoundPage}
 ];
 
@@ -127,7 +132,9 @@ const modules = [MatButtonModule,
                 ProductsCategoriesComponent,
                 ServiceInfoPageComponent,
                 ListsComponent,
-                SectionLayoutComponent
+                SectionLayoutComponent,
+                DeliveryPageComponent,
+                WarrantyPolicyPageComponent
                 ],
   exports: [RouterModule, ...modules, ProductsCategoriesComponent, ProductsCategoriesComponent, SectionLayoutComponent]
 })
