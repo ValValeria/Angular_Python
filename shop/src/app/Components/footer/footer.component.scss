@@ -18,23 +18,18 @@ a:hover{
   border: none;
 }
 
-.footer__info{
-  width: 100%;
-  justify-content: flex-start;
-  margin-bottom: $margin*2;
+.footer__info, .footer__contacts{
+  width: 100% !important;
+  justify-content: space-between !important;
+  padding-left: 0;
+}
 
-  li{
-    flex: 1 1 25%;
-  }
+.footer__link-active{
+  border-color: transparent !important;
 }
 
 .footer__info li, .footer__contacts ul li{
   list-style:none;
-  margin-right: $margin;
-
-  :last-child(1){
-    margin-right: 0;
-  }
 }
 
 .footer__call-time li{
@@ -43,12 +38,31 @@ a:hover{
 
 .footer__contacts{
   width: 100%;
+  margin-bottom : 0 !important;
 }
 
 .footer__contacts ul{
   flex: 1 1 33%;
+  padding-left: 0;
 }
 
 .footer__phone{
-  flex: 1 1 30%;
+  flex: 1 1 24%;
+}
+
+
+:host ::ng-deep .footer__wrap{
+  padding: $margin*2 0 !important;
+}
+
+.footer__brand ::ng-deep .header__brand-name span, .footer__brand{
+  @extend .h6;
+}
+
+.footer__brand ::ng-deep .header__brand-name{
+  margin: 0 $margin/4;
+}
+
+.footer__brand{
+  color: white;
 }

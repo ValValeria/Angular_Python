@@ -2,19 +2,22 @@
   <app-section-layout cssClass="footer" [hasTitle]="false">
     <ul class="footer__info center w-100">
       <li class="footer__link footer__link-md">
-        <a routerLink="/info/">Доставка и оплата</a>
+        <a routerLink="/info/delivery" routerLinkActive="footer__link-active">Доставка и оплата</a>
       </li>
       <li class="footer__link footer__link-md">
-        <a routerLink="/info/refund">Возврат и обмен</a>
+        <a routerLink="/info/refund" routerLinkActive="footer__link-active">Возврат и обмен</a>
       </li>
       <li class="footer__link footer__link-md">
-        <a routerLink="/info/">Гарантийная политика</a>
+        <a routerLink="/info/guarantee" routerLinkActive="footer__link-active">Гарантийная политика</a>
       </li>
       <li class="footer__link footer__link-md">
-        <a routerLink="/info/">Контакты</a>
+        <a routerLink="/info/contacts" routerLinkActive="footer__link-active">Контакты</a>
+      </li>
+      <li class="footer__link footer__link-md">
+        <a routerLink="/info/contract" routerLinkActive="footer__link-active">Оферта</a>
       </li>
     </ul>
-    <div class="footer__contacts center">
+    <div class="footer__contacts center" hidden>
       <ul class="footer__call-time">
         <li>
           Контакт-центр с 8:30 до 20:30
@@ -26,9 +29,16 @@
           В воскресенье: с 9:30 до 19:30
         </li>
       </ul>
-      <div class="footer__phone">
+      <div class="footer__phone" hidden>
        <h3>0 800 30 00 33</h3>
       </div>
     </div>
   </app-section-layout>
+  <div class="w-100 bg-super-dark">
+    <app-section-layout [hasTitle]="false" cssClass="footer">
+        <div class="footer__brand w-100 center justify-content-end">
+          &copy; <app-logo></app-logo> 2019 - 2021
+        </div>
+    </app-section-layout>
+  </div>
 </footer>

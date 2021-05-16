@@ -61,6 +61,7 @@
     margin-bottom: 0.2em !important;
     font-size: 26px !important;
     line-height: 1.381 !important;
+    font-weight: 300 !important;
 }
 
 .h6{
@@ -69,6 +70,11 @@
     margin-bottom: 0.2em !important;
     font-size: 17.5px !important;
     line-height: 1.381 !important;
+}
+
+.small-txt{
+  @extend .h6;
+  font-size: 14px;
 }
 
 .headline-sm,
@@ -94,5 +100,5 @@
 .wrap-md-pd{
   @extend %wrap;
   max-width:1000px;
-  padding:5rem 0;
+  padding: $margin*4 0;
 }

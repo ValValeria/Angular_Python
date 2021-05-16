@@ -1,3 +1,5 @@
+@import "src/variables";
+
 .auth__form{
     max-width: 470px;
     width:100%;
@@ -13,6 +15,10 @@ mat-card{
 .auth__title{
     text-transform: uppercase;
     margin-bottom: 1.9rem;
+}
+
+.auth__headline{
+  margin-bottom: $margin !important;
 }
 
 .border-red{
