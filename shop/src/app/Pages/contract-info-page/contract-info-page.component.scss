@@ -1,0 +1,12 @@
+@import "src/variables";
+
+p{
+  margin-bottom: $margin/2 !important;
+}
+
+.contract-info__card{
+  padding: $margin;
+  border: 2px solid red;
+  border-top-width: 0;
+  background-color: $light-color;
+}

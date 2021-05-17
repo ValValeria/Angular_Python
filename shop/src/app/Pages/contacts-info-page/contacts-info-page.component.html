@@ -1,0 +1,20 @@
+<app-section-layout [hasTitle]="false" cssClass="contacts-info">
+  <div class="contacts-info__breadcrumbs w-100 center justify-content-start">
+    <app-breadcrumbs [urls]="urls"></app-breadcrumbs>
+  </div>
+  <div class="contacts-info__title text-center W-100">
+    <h3>Контакты</h3>
+  </div>
+  <div class="contacts-info__content h6 w-100 text-left">
+    <p>
+      Контактные номера телефонов
+    </p>
+    <p>
+      <app-lists [lists]="lists" cssClass="h6"></app-lists>
+    </p>
+    <div class="contacts-info__card w-100">
+      <span class="h6">Служба технической поддержки INDigital: +38 (044) 362-42-81</span>
+    </div>
+  </div>
+</app-section-layout>
+

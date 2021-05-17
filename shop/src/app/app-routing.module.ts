@@ -56,6 +56,9 @@ import { ListsComponent } from './Components/lists/lists.component';
 import {SectionLayoutComponent} from './Layouts/section-layout/section-layout.component';
 import {DeliveryPageComponent} from './Pages/delivery-page/delivery-page.component';
 import {WarrantyPolicyPageComponent} from './Pages/warranty-policy-page/warranty-policy-page.component';
+import { ContactsInfoPageComponent } from './Pages/contacts-info-page/contacts-info-page.component';
+import {ContractInfoPageComponent} from './Pages/contract-info-page/contract-info-page.component';
+import {SliceStringPipe} from './Pipes/SliceString.pipe';
 
 
 const routes: Routes = [
@@ -71,6 +74,8 @@ const routes: Routes = [
   {path: 'info/refund', component: ServiceInfoPageComponent},
   {path: 'info/delivery', component: DeliveryPageComponent},
   {path: 'info/warranty', component: WarrantyPolicyPageComponent},
+  {path: 'info/contacts', component: ContactsInfoPageComponent},
+  {path: 'info/contract', component: ContractInfoPageComponent},
   {path: '**', component: NotFoundPage}
 ];
 
@@ -134,7 +139,10 @@ const modules = [MatButtonModule,
                 ListsComponent,
                 SectionLayoutComponent,
                 DeliveryPageComponent,
-                WarrantyPolicyPageComponent
+                WarrantyPolicyPageComponent,
+                ContactsInfoPageComponent,
+                ContractInfoPageComponent,
+                SliceStringPipe
                 ],
   exports: [RouterModule, ...modules, ProductsCategoriesComponent, ProductsCategoriesComponent, SectionLayoutComponent]
 })

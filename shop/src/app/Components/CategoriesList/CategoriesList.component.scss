@@ -1,0 +1,5 @@
+@import 'src/variables';
+
+.categories-list ::ng-deep mat-chip{
+  margin-right: $margin/2;
+}

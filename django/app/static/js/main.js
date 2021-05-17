@@ -1141,8 +1141,8 @@ class Products {
         }
         this.http.get(url).subscribe(v => {
             this.categories = v.data.categories;
-            this.max_price = v.data.price[1].max_price;
-            this.max_price_value = v.data.price[1].max_price;
+            this.maxPrice = v.data.price[1].max_price;
+            this.maxPriceValue = v.data.price[1].max_price;
             if (this.isCategoryPage) {
                 this.route.paramMap.subscribe(v2 => {
                     setTimeout(() => {
@@ -1219,11 +1219,11 @@ class Products {
     sort(next = false) {
         this.sentHttp = true;
         this.dialog.closeAll();
-        if (this.min_price === this.max_price) {
+        if (this.minPrice === this.maxPrice) {
             this.snackBar.open('Минимальная цена не должна равняться максимальной', 'Close');
             return;
         }
-        if (this.min_price > this.max_price) {
+        if (this.minPrice > this.maxPrice) {
             this.snackBar.open('Минимальная цена не должна быть  больше максимальной', 'Close');
             return;
         }
@@ -1235,8 +1235,8 @@ class Products {
             this.products = [];
         }
         const config = {
-            params: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpParams"]().set('min', this.min_price.toString())
-                .set('max', this.max_price.toString())
+            params: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpParams"]().set('min', this.minPrice.toString())
+                .set('max', this.maxPrice.toString())
                 .set('category', this.activeCategory || '')
                 .set('brand', this.activeBrand || '')
                 .set('page', String(this.page))
@@ -1278,7 +1278,7 @@ class Products {
         this.router.navigateByUrl('/products').then(r => console.log('navigated'));
     }
     activePrice() {
-        const str = `Товары от ${this.min_price}грн до ${this.max_price}грн`;
+        const str = `Товары от ${this.minPrice}грн до ${this.maxPrice}грн`;
         return str;
     }
 }

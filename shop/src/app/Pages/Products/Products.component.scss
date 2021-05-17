@@ -43,7 +43,7 @@
 }
 
 .product__next-btn button {
-    margin-top: 1.7rem;
+    margin-top: $margin*2;
     border: 1px solid #ffd740;
     padding: 10px 25px;
     width: 60%;
@@ -52,7 +52,6 @@
     text-transform: uppercase;
     background-color: #ffd740;
     cursor: pointer;
-    max-width: 200px;
     max-width: 150px !important;
     transition: 1s backgrounds ease-in-out;
 }
@@ -64,6 +63,10 @@
 
 .section__bread-crumps{
     padding-bottom:2.8rem;
+}
+
+.product__expand-btn{
+    margin-right: $margin/2 !important;
 }
 
 .product__loading {
@@ -82,6 +85,16 @@
     }
 }
 
+.product__search-close{
+  position:absolute;
+  top: $margin;
+  right: $margin;
+}
+
+#product__search-media ::ng-deep mat-card{
+  box-shadow: none !important;
+}
+
 .product__search-area {
     display: grid;
     grid-template-columns: 100%;
@@ -89,7 +102,6 @@
     grid-auto-rows: 100px;
     min-height: 200px;
     align-items: center;
-    justify-items: center;
     width: 100%;
     column-gap: 10px;
     row-gap: 10px;
@@ -98,7 +110,7 @@
 }
 
 .product__carousel{
-    padding: 2.3rem 0;
+    padding: $margin*2 0;
 }
 
 .product__search-card {
@@ -144,7 +156,7 @@
         position: sticky !important;
         top: 15px;
         right: 0;
-        margin-bottom: $margin;
+        margin-bottom: $margin*2;
         justify-content: flex-start;
     }
 

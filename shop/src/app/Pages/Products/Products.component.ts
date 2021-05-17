@@ -43,10 +43,11 @@ export class Products implements OnInit, AfterViewInit {
     @ViewChild('productsElem', { read: ElementRef }) productsElem: ElementRef;
     @ViewChild('search', { read: TemplateRef }) search: TemplateRef<any>;
     @ViewChild('product_search', { read: ElementRef }) matSearchContainer: ElementRef;
+    @ViewChild('mediaSearch', { read: TemplateRef }) matMediaSearchContainer: TemplateRef<any>;
     @Input('isSearch') isSearchPage = false;
     @Input() isCategoryPage = false;
-    @Input('searchText') searchText = '';
-    max_price: number;
+    @Input() searchText = '';
+    maxPrice: number;
     brands: string[];
     activeCategory: string;
     activeBrand: string;
@@ -54,10 +55,10 @@ export class Products implements OnInit, AfterViewInit {
     hasNext = false;
     isEmpty: boolean;
     sentHttp: boolean;
-    max_price_value = 4000;
+    maxPriceValue = 4000;
     readonly MIN_WIDTH: number = 950;
     showModel = false;
-    min_price = 0;
+    minPrice = 0;
     urls: [string, string][];
     carouselImages: string[];
 
@@ -88,8 +89,8 @@ export class Products implements OnInit, AfterViewInit {
 
         this.http.get<ProductsInfo>(url).subscribe(v => {
             this.categories = v.data.categories;
-            this.max_price = v.data.price[1].max_price;
-            this.max_price_value = v.data.price[1].max_price;
+            this.maxPrice = v.data.price[1].max_price;
+            this.maxPriceValue = v.data.price[1].max_price;
 
             if (this.isCategoryPage) {
                 this.route.paramMap.subscribe(v2 => {
@@ -109,10 +110,17 @@ export class Products implements OnInit, AfterViewInit {
     }
 
     showMenu(): void {
-        this.dialog.open(this.search, {
-            width: '90%',
-            height: '400px',
-        });
+      this.dialog.open(this.matMediaSearchContainer, {
+            width: '100vw',
+            height: '100vh',
+            maxWidth: '100vw'
+      });
+
+      document.body.classList.add('overflow-hidden');
+
+      this.dialog.afterAllClosed.subscribe(v => {
+         document.body.classList.remove('overflow-hidden');
+      });
     }
 
     checkData(): void {
@@ -183,12 +191,12 @@ export class Products implements OnInit, AfterViewInit {
 
         this.dialog.closeAll();
 
-        if (this.min_price === this.max_price) {
+        if (this.minPrice === this.maxPrice) {
             this.snackBar.open('Минимальная цена не должна равняться максимальной', 'Close');
             return;
         }
 
-        if (this.min_price > this.max_price) {
+        if (this.minPrice > this.maxPrice) {
             this.snackBar.open('Минимальная цена не должна быть  больше максимальной', 'Close');
             return;
         }
@@ -202,8 +210,8 @@ export class Products implements OnInit, AfterViewInit {
             this.products = [];
         }
         const config = {
-            params: new HttpParams().set('min', this.min_price.toString())
-                .set('max', this.max_price.toString())
+            params: new HttpParams().set('min', this.minPrice.toString())
+                .set('max', this.maxPrice.toString())
                 .set('category', this.activeCategory || '')
                 .set('brand', this.activeBrand || '')
                 .set('page', String(this.page))
@@ -257,7 +265,11 @@ export class Products implements OnInit, AfterViewInit {
     }
 
     activePrice(): string{
-        const str = `Товары от ${this.min_price}грн до ${this.max_price}грн`;
+        const str = `Товары от ${this.minPrice}грн до ${this.maxPrice}грн`;
         return str;
+    }
+
+    close(): void{
+        this.dialog.closeAll();
     }
 }

@@ -62,12 +62,24 @@
   </section>
 
 
+<ng-template #mediaSearch>
+    <div class="w-100 position-relative" id="product__search-media">
+       <ng-container *ngTemplateOutlet="search"></ng-container>
+       <div class="product__search-close">
+         <button mat-fab color="accent" (click)="close()">
+           <mat-icon>close</mat-icon>
+         </button>
+       </div>
+    </div>
+</ng-template>
+
+
   <ng-template #search>
       <div class="product__search w-100 text-center center" >
         <mat-card class="shadow bg-white product__search-wrap" #product_search>
           <div class="wrap-md center flex-column">
             <mat-card-content>
-              <mat-card-title class="product__search-title text-center">{{"Поиск"|uppercase}}</mat-card-title>
+              <mat-card-title class="product__search-title text-center h5">{{"Поиск"|uppercase}}</mat-card-title>
             </mat-card-content>
             <mat-card-content class="w-100">
               <div class="product__search-area">
@@ -86,9 +98,8 @@
                   <h6>Категория</h6>
                   <mat-slide-toggle color="accent" [checked]="true" (toggleChange)="undoCategory()" class="center" style="height: auto;
     padding-top: 10px;">
-                      <div>
-                        <p class="text-left">В поиск будут включаться только товары,<br />
-                          которые находяться в категории <span style="color: #ffd740;"> '{{activeCategory}}'</span>
+                      <div class="mb-0">
+                        <p class="text-left mb-0">Только в категории <span style="color: #ffd740;"> '{{activeCategory}}'</span>
                         </p>
                       </div>
                   </mat-slide-toggle>
@@ -108,10 +119,10 @@
                 <div class="product__search-card w-100">
                     <div>
                       <h6>Минимальная цена</h6>
-                      <mat-slider min="0" max="{{max_price_value}}" class="w-100" value="0" (input)="min_price=$event.value" thumbLabel>
+                      <mat-slider min="0" max="{{maxPriceValue}}" class="w-100" value="0" (input)="minPrice=$event.value" thumbLabel>
                       </mat-slider>
                       <mat-chip-list aria-label="Min price">
-                        <mat-chip color="accent" selected>{{min_price}}грн
+                        <mat-chip color="accent" selected>{{minPrice}}грн
                         </mat-chip>
                       </mat-chip-list>
                     </div>
@@ -120,10 +131,10 @@
                 <div class="product__search-card w-100">
                   <div>
                     <h6>Максимальная цена</h6>
-                    <mat-slider min="0" max="{{max_price_value}}" class="w-100" value="{{max_price_value}}" (input)="max_price=$event.value" thumbLabel>
+                    <mat-slider min="0" max="{{maxPriceValue}}" class="w-100" value="{{maxPriceValue}}" (input)="maxPrice=$event.value" thumbLabel>
                     </mat-slider>
                     <mat-chip-list aria-label="Min price">
-                      <mat-chip color="accent" selected>{{max_price}}грн</mat-chip>
+                      <mat-chip color="accent" selected>{{maxPrice}}грн</mat-chip>
                     </mat-chip-list>
                   </div>
                 </div>

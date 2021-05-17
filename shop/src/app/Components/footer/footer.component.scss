@@ -66,3 +66,13 @@ a:hover{
 .footer__brand{
   color: white;
 }
+
+
+@media(max-width: $media){
+  .footer__info{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-auto-rows: 43px;
+    grid-gap: 1rem;
+  }
+}
