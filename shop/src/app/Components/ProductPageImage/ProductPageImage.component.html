@@ -1,9 +1,19 @@
-<h2 mat-dialog-title class="text-center" style="text-transform: uppercase;">Фотографии</h2>
+<div class="product-img w-100 position-relative center">
+  <div class="product-img__wrap w-100 center">
+    <div class="product-img__content w-100">
+      <h4 mat-dialog-title class="text-center" style="text-transform: uppercase;">Фотографии</h4>
 
-<div class="center pt-4">
-    <div class="product-img center">
-        <div class="product-img__container">
+      <div class="center pt-4">
+        <div class="product-img center">
+          <div class="product-img__container">
             <img src="" alt="" srcset="">
+          </div>
         </div>
+      </div>
+
+      <button mat-fab color="accent" class="product-img__btn " (click)="handleClose()">
+        <mat-icon>close</mat-icon>
+      </button>
     </div>
+  </div>
 </div>

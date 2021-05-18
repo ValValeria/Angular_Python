@@ -1,6 +1,7 @@
-import { AfterViewInit, Component, Inject, Renderer2 } from "@angular/core";
-import { MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { URL_PATH } from "src/app/app.component";
+import { AfterViewInit, Component, Inject, Renderer2 } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { URL_PATH } from 'src/app/app.component';
+import {handleClose$} from '../../Pages/Product/Product.component';
 
 @Component({
     selector: 'app-productpage-image',
@@ -13,6 +14,10 @@ export class ProductPageImage implements AfterViewInit{
                 private render: Renderer2) {}
 
     ngAfterViewInit(): void{
-        this.render.setAttribute(document.querySelector('.product-img__container >img'), 'src', URL_PATH.slice(0,-1) + this.data.src);
+        this.render.setAttribute(document.querySelector('.product-img__container >img'), 'src', URL_PATH.slice(0, -1) + this.data.src);
+    }
+
+    handleClose(): void{
+        handleClose$.next();
     }
 }

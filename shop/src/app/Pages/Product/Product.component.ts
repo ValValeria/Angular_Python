@@ -10,6 +10,9 @@ import {IAd, IResponse} from 'src/app/Interfaces/Interfaces';
 import { Http } from 'src/app/Services/Http.service';
 import { User, USER_AUTH } from 'src/app/Services/User.service';
 import {HttpParams} from '@angular/common/http';
+import {Subject} from 'rxjs/internal/Subject';
+
+export const handleClose$ = new Subject();
 
 @Component({
     selector: 'app-product',
@@ -82,6 +85,10 @@ export class Product implements OnInit, AfterViewInit {
                     });
             }
         });
+
+        handleClose$.subscribe(v => {
+          this.diaglog.closeAll();
+        });
     }
 
     ngAfterViewInit(): void {
@@ -140,9 +147,9 @@ export class Product implements OnInit, AfterViewInit {
         if (this.post.image.length) {
             this.diaglog.open(ProductPageImage, {
                 data: { src: this.post.image },
-                width: '80%',
-                height: '60%',
-                maxWidth: '900px'
+                width: '100vw',
+                height: '100vh',
+                maxWidth: '100vw'
             });
         }
     }

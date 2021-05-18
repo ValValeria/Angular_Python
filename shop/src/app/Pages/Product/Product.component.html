@@ -21,7 +21,9 @@
                     <div class="w-100 center" style="min-height:70%;">
                       <div class="img-container w-100 position-relative" style="height:100%; width:100%;">
                         <img src="{{post.image.startsWith('/')?(post.image) : ('/'+post.image)}}" alt="">
-                        <app-like [id]="post.id"></app-like>
+                        <div (click)="$event.preventDefault()">
+                          <app-like [id]="post.id"></app-like>
+                        </div>
                       </div>
                     </div>
                   </div>
