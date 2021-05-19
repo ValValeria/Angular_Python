@@ -5,10 +5,10 @@ import { Router } from '@angular/router';
 import { ChartType } from 'chart.js';
 import { MultiDataSet } from 'ng2-charts';
 import { $CHOOSE_ITEM, $DELETE_ITEMS, $ORDER_COUNT, OrderList } from 'src/app/Components/OrderList/OrderList.component';
-import {remove, uniq} from 'lodash';
+import { uniq} from 'lodash';
 import { IAd } from 'src/app/Interfaces/Interfaces';
-import { from, interval, range } from 'rxjs';
-import { mergeMap, take, tap } from 'rxjs/operators';
+import { from, interval } from 'rxjs';
+import { mergeMap, take } from 'rxjs/operators';
 import { ImageLoading } from 'src/app/Classes/ImageLoading';
 import {pull} from 'lodash';
 import { ViewChild } from '@angular/core';
@@ -29,39 +29,30 @@ export class AdminPage extends ImageLoading implements AfterViewInit, AfterConte
     public selectedCount = 0;
     public selectedItems: number[] = [];
     public selectedLikes: number[] = [];
-    @ViewChild('orders_active',{read:OrderList}) ordersArea: OrderList;
-    @ViewChild("file",{read:ElementRef}) file: ElementRef;
-    message = "";
+    @ViewChild('orders_active', {read: OrderList}) ordersArea: OrderList;
+    @ViewChild('file', {read: ElementRef}) file: ElementRef;
+    message = '';
     errors: string[] = [];
 
-    constructor(private http: Http, 
+    constructor(private http: Http,
                 public user: User,
                 public router: Router,
-                private _snackBar: MatSnackBar){
+                private snackBar: MatSnackBar){
         super();
     }
 
     ngAfterViewInit(): void {
         window.onload = () => {
-           document.querySelector("header").classList.add("bg-dark");
+           document.querySelector('header').classList.add('bg-dark');
         };
-
-        interval(1000)
-        .pipe(
-            take(5)
-        ).subscribe((v) => {
-            if (!this.user.is_auth){
-                this.router.navigateByUrl("/authenticate");
-            }
-        })
 
         LIKES$.subscribe(v => {
             if (!this.selectedLikes.includes(v)) {
                 this.selectedLikes.push(v);
             } else {
-                this.selectedLikes.splice(this.selectedLikes.indexOf(v),1);
+                this.selectedLikes.splice(this.selectedLikes.indexOf(v), 1);
             }
-        })
+        });
 
         $ORDER_COUNT.subscribe(elem => {
             setTimeout(() => {
@@ -82,7 +73,7 @@ export class AdminPage extends ImageLoading implements AfterViewInit, AfterConte
                 this.doughnutChartData = [numbers];
             }, 0);
         });
-    } 
+    }
 
     ngAfterContentInit(): void{
         this.http.get<{ data: { active: IAd[], unactive: IAd[] }, amount_of_orders: number, amount_of_products: number }>(`${URL_PATH}api/get-orders/`)
@@ -92,7 +83,7 @@ export class AdminPage extends ImageLoading implements AfterViewInit, AfterConte
                 });
 
         $CHOOSE_ITEM.subscribe(v => {
-            if (v[0] === 'products_buy'){ 
+            if (v[0] === 'products_buy'){
                 if (!this.selectedItems.includes(v[1])) {
                     this.selectedCount += 1;
                     this.selectedItems.push(v[1]);
@@ -100,15 +91,15 @@ export class AdminPage extends ImageLoading implements AfterViewInit, AfterConte
                     pull(this.selectedItems, v[1]);
                     this.selectedCount -= 1;
                 }
-            } 
+            }
         });
     }
 
     delete_orders(): void{
-        this.message = "";
+        this.message = '';
         this.errors = [];
 
-        let result = "";
+        let result = '';
 
         this.selectedItems.forEach(v => {
             result += `product_id=${v}&`;
@@ -119,35 +110,35 @@ export class AdminPage extends ImageLoading implements AfterViewInit, AfterConte
         this.http.get<{ status: string }>(`${URL_PATH}api/deleteorder?${result}`)
         .subscribe(
         v => {
-            this._snackBar.open("Товары удалены", "Закрыть", {
+            this.snackBar.open('Товары удалены', 'Закрыть', {
                 duration: 10000
             });
             $DELETE_ITEMS.next(this.selectedItems);
             this.orderCount -= 1;
         },
         e => {
-            this._snackBar.open("Произошла ошибка. Перезагрузите страницу", "Закрыть", {
+            this.snackBar.open('Произошла ошибка. Перезагрузите страницу', 'Закрыть', {
                 duration: 10000
             });
-        })
+        });
     }
 
     change_orders(): void{
-        let status: boolean = false;
-        this.message = "";
+        let status = false;
+        this.message = '';
         this.errors = [];
 
         from(this.selectedItems)
         .pipe(
-           mergeMap(v=>{
-               return this.http.get<{ "messages": string[], "data": string[], "status": string }>(`${URL_PATH}api/addorder/?product_id=${v}&count=${this.ordersArea.productsCount[v]}`)
+           mergeMap(v => {
+               return this.http.get<{ 'messages': string[], 'data': string[], 'status': string }>(`${URL_PATH}api/addorder/?product_id=${v}&count=${this.ordersArea.productsCount[v]}`);
            }),
         )
         .subscribe(
         (v) => {
-           this.message = "Отправляем запрос";
+           this.message = 'Отправляем запрос';
 
-           if (v.status === "ok"){
+           if (v.status === 'ok'){
                status = true;
            } else{
                status = false;
@@ -155,59 +146,59 @@ export class AdminPage extends ImageLoading implements AfterViewInit, AfterConte
            }
         },
         (e) => {
-           this._snackBar.open("Что-то пошло не так. Пожалуйста, перезагрузите страницу","Закрыть",{
+           this.snackBar.open('Что-то пошло не так. Пожалуйста, перезагрузите страницу', 'Закрыть', {
                duration: 2000
            });
-           this.message = ""
+           this.message = '';
         },
         () => {
            if (status){
-               this._snackBar.open("Ваша корзина изменена", "Закрыть", {
+               this.snackBar.open('Ваша корзина изменена', 'Закрыть', {
                    duration: 10000
                });
            }
-           this.message = ""
+           this.message = '';
         });
     }
 
     deleteLike(): void{
         let result = '';
-        
+
         for (const iterator of this.selectedLikes) {
             result += `product_id=${iterator}&`;
         }
-        
-        result = result.slice(0,-1);
 
-        this.http.get<{ "status": "ok" }>(`${URL_PATH}api/delete-likes/?${result}`).
-        subscribe(v=>{
-            if(v.status=="ok"){
-                this._snackBar.open("Удалено")
+        result = result.slice(0, -1);
+
+        this.http.get<{ 'status': 'ok' }>(`${URL_PATH}api/delete-likes/?${result}`).
+        subscribe(v => {
+            if (v.status == 'ok'){
+                this.snackBar.open('Удалено');
             }
             $DELETE_ITEMS.next(this.selectedLikes);
-        })
+        });
     }
 
     changeAvatar(): void{
         const fileElem: HTMLInputElement = this.file.nativeElement;
         fileElem.click();
-        
+
         fileElem.onchange = () => {
             const file: File = fileElem.files[0];
 
-            if (file.type.includes("image/")) {
+            if (file.type.includes('image/')) {
                 const formdata = new FormData();
-                formdata.append("avatar", file, file.name);
+                formdata.append('avatar', file, file.name);
 
-                this.http.post<{ status: "ok", data: { url: string } }>(`${URL_PATH}api/change-avatar`, formdata)
+                this.http.post<{ status: 'ok', data: { url: string } }>(`${URL_PATH}api/change-avatar`, formdata)
                     .subscribe(v => {
-                        if (v.status === "ok") {
+                        if (v.status === 'ok') {
                             this.user.avatar = (v as any).data.url;
                             console.log(this.user.avatar);
                         }
                     });
             } else {
-                this._snackBar.open('Загружайте только изображения');
+                this.snackBar.open('Загружайте только изображения');
             }
         };
     }

@@ -1,9 +1,9 @@
-import { URL_PATH } from "../app.component";
-import { IUser } from "../Interfaces/Interfaces";
+import { URL_PATH } from '../app.component';
+import { IUser } from '../Interfaces/Interfaces';
 import { User } from '../Services/User.service';
 
 
-export class AuthenticateClass{
+export class Authenticate {
     public async authenticate(user: User, login?: boolean): Promise<boolean>{
         return new Promise((resolve, reject) => {
             try {
@@ -14,45 +14,45 @@ export class AuthenticateClass{
                     url = `${URL_PATH}api/signup`;
                 }
 
-                const formdata = new URLSearchParams();
+                const searchParams = new URLSearchParams();
 
                 for (const [key, value] of Object.entries(data)) {
                     if (value && key) {
-                        formdata.append(key, value);
+                        searchParams.append(key, value);
                     }
                 }
 
                 const http = new XMLHttpRequest();
 
-                http.responseType = "json";
+                http.responseType = 'json';
 
-                http.open("POST", url);
+                http.open('POST', url);
 
-                http.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-                http.send(formdata.toString());
+                http.send(searchParams.toString());
 
                 http.onload = () => {
                     if (http.status === 200) {
-                        const response: {data: {user:IUser},status:"user"} = http.response;
+                        const response: {data: {user: IUser}, status: 'user' | 'admin'} = http.response;
 
-                        if (response.status === 'user') {
+                        if (response.status === 'user' || response.status === 'admin') {
                             user.login({...response.data.user});
                             resolve();
                         } else {
-                            reject("Guest");
+                            reject('Guest');
                         }
                     }
                 };
 
                 http.onerror = () => {
-                   reject("Error");
-                }
+                   reject('Error');
+                };
             } catch (e) {
-                localStorage.removeItem("auth");
+                localStorage.removeItem('auth');
             }
             return user.is_auth;
-        })
+        });
     }
 }
 

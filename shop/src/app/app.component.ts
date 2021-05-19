@@ -2,7 +2,7 @@ import { AfterViewInit, Component, DoCheck, ElementRef, OnInit, Renderer2, ViewC
 import { Router, RoutesRecognized } from '@angular/router';
 import { fromEvent } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { AuthenticateClass } from './Classes/Authenticate';
+import { Authenticate } from './Classes/Authenticate';
 import { User } from './Services/User.service';
 
 export const URL_PATH = '/';
@@ -34,6 +34,5 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    (new AuthenticateClass()).authenticate(this.user, true).catch(e => console.log('Status:guest'));
   }
 }

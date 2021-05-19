@@ -59,6 +59,7 @@ import {WarrantyPolicyPageComponent} from './Pages/warranty-policy-page/warranty
 import { ContactsInfoPageComponent } from './Pages/contacts-info-page/contacts-info-page.component';
 import {ContractInfoPageComponent} from './Pages/contract-info-page/contract-info-page.component';
 import {SliceStringPipe} from './Pipes/SliceString.pipe';
+import {AdminGuard} from './guards/Admin.guard';
 
 
 const routes: Routes = [
@@ -67,7 +68,7 @@ const routes: Routes = [
   {path: 'products', component: Products },
   {path: 'product/:id', component: Product},
   {path: 'authenticate', component: AuthPage},
-  {path: 'profile', component: AdminPage},
+  {path: 'profile', component: AdminPage, canActivate: [AdminGuard]},
   {path: 'search', component: SearchPageResult },
   {path: 'contacts', component: ContactPage},
   {path: 'category/:category', component: CategoryPage},
@@ -144,6 +145,9 @@ const modules = [MatButtonModule,
                 ContractInfoPageComponent,
                 SliceStringPipe
                 ],
+  providers: [
+    AdminGuard
+  ],
   exports: [RouterModule, ...modules, ProductsCategoriesComponent, ProductsCategoriesComponent, SectionLayoutComponent]
 })
 export class AppRoutingModule { }

@@ -6,7 +6,7 @@
                     <div class="auth__headline h5  text-center">
                         {{'Вход в систему' | uppercase}}
                     </div>
-                    <mat-tab-group (selectedTabChange)="click($event)" color="accent" mat-align-tabs="center">
+                    <mat-tab-group (selectedTabChange)="click($event)" color="accent" mat-align-tabs="center" [selectedIndex]="selectedIndex">
                         <mat-tab label="{{'Вход'.toUpperCase()}}">
                             <ng-template [ngTemplateOutlet]="formTemplate" [ngTemplateOutletContext]="{isLog:true}">
                             </ng-template>
@@ -28,7 +28,7 @@
 
 
 <ng-template #formTemplate let-isLog="isLog">
-    <form [formGroup]="form" (ngSubmit)="submit($event)">
+    <form [formGroup]="form">
 
         <mat-card class="d-flex center flex-column">
             <mat-card-content class="w-100">
@@ -71,7 +71,11 @@
                 </div>
             </mat-card-content>
             <mat-card-content class="w-100 center d-flex center">
-                <button mat-flat-button color="accent" class="wrap-md">{{isLog?"Войти":"Зарегестрироваться"}}</button>
+                <button mat-flat-button
+                        [disabled]="!isValid"
+                        color="accent"
+                        (click)="submit($event)"
+                        class="wrap-md">{{isLog?"Войти":"Зарегестрироваться"}}</button>
             </mat-card-content>
         </mat-card>
     </form>

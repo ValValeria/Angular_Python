@@ -201,8 +201,6 @@ class LoginView(View):
                 self.response["data"]["user"].update(
                     UserParser(user.first()).get_user())
                 self.response["status"] = "user"
-
-                return JsonResponse(self.response)
             else:
                 self.response["status"] = "guest"
         else:
@@ -267,6 +265,8 @@ class SignUpView(View):
             else:
                 self.response["errors"].append(
                     "Пользователь с такой почтой или именем уже есть")
+        elif request.user.is_authenticated:
+            self.response['status']='user'
         else:
             self.response['errors'] = list(form.errors)
         return JsonResponse(self.response)

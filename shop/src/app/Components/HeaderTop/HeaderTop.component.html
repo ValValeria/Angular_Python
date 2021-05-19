@@ -3,9 +3,9 @@
     <div class="header-top__wrap wrap-md  center justify-content-end">
          <div class="header-top__container">
               <div class="header-top__auth-links text-light">
-                   <a routerLink="/authenticate" [queryParams]="['isLogin',true]">Войдите</a>
+                   <a routerLink="/authenticate/?isLogin=true" [queryParams]="['isLogin',true]">Войдите</a>
                    <span>или</span>
-                   <a routerLink="/authenticate">Зарегестрируйтесь</a>
+                   <a routerLink="/authenticate?isLogin=false">Зарегестрируйтесь</a>
               </div>
          </div>
     </div>
