@@ -35,8 +35,10 @@ export class Authenticate {
                 http.onload = () => {
                     if (http.status === 200) {
                         const response: {data: {user: IUser}, status: 'user' | 'admin'} = http.response;
+                        const role = response.data?.user?.role;
+                        const roles = ['admin', 'user'];
 
-                        if (response.status === 'user' || response.status === 'admin') {
+                        if (roles.includes(role) || roles.includes(response.status)) {
                             user.login({...response.data.user});
                             resolve();
                         } else {

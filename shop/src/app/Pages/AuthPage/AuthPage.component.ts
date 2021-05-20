@@ -115,6 +115,8 @@ export class AuthPage implements AfterViewInit{
           } else {
             throw new Error();
           }
+
+          return;
         })
         .catch(v => {
           if (this.isLogin) {

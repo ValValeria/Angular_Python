@@ -59,7 +59,7 @@ import {WarrantyPolicyPageComponent} from './Pages/warranty-policy-page/warranty
 import { ContactsInfoPageComponent } from './Pages/contacts-info-page/contacts-info-page.component';
 import {ContractInfoPageComponent} from './Pages/contract-info-page/contract-info-page.component';
 import {SliceStringPipe} from './Pipes/SliceString.pipe';
-import {AdminGuard} from './guards/Admin.guard';
+import {AdminGuard} from './guards/admin.guard';
 
 
 const routes: Routes = [
