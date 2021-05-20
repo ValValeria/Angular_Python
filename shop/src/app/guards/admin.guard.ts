@@ -9,7 +9,7 @@ export class AdminGuard implements CanActivate{
    constructor(private user: User){}
 
    async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean | UrlTree> {
-     await (new Authenticate()).authenticate(this.user, true);
+     await (new Authenticate()).authenticate(this.user, true).catch(e => console.log(e));
 
      return this.user.is_auth;
    }

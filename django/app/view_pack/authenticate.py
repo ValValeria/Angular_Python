@@ -15,7 +15,7 @@ class LoginView(View):
 
     def post(self, *args, **kwargs):
         form = self.form(self.request.POST, True)
-        
+
         if form.is_valid():
             user = User.objects.filter(Q(username=form.cleaned_data['username']) & Q(
                 password=form.cleaned_data['password']))

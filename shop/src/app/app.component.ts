@@ -1,19 +1,12 @@
 import { AfterViewInit, Component, DoCheck, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { Router, RoutesRecognized } from '@angular/router';
-import { fromEvent } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { Router } from '@angular/router';
 import { Authenticate } from './Classes/Authenticate';
 import { User } from './Services/User.service';
+import {intersection} from 'lodash';
+
 
 export const URL_PATH = '/';
 
-const scrollEvent = (top: number) => {
-  const scrollElem = document.querySelector('.slider');
-  const pers = top / scrollElem.clientHeight;
-  const moveToY = Math.round(document.documentElement.scrollHeight * pers);
-
-  window.scrollTo(0, moveToY);
-};
 
 @Component({
   selector: 'app-root',
@@ -33,6 +26,16 @@ export class AppComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void{
+    try{
+      const user = JSON.parse(localStorage.getItem('auth'));
+      const requiredProperties = ['username', 'password'];
+
+      if (user && typeof user === 'object' && intersection(requiredProperties, Object.keys(user)).length){
+        (new Authenticate()).authenticate(this.user, true).catch(e => console.log(e));
+      }
+    } catch (e){
+      console.warn('Invalid json data');
+    }
   }
 }

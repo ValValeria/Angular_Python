@@ -1,9 +1,13 @@
 import { URL_PATH } from '../app.component';
 import { IUser } from '../Interfaces/Interfaces';
 import { User } from '../Services/User.service';
+import {Injectable} from '@angular/core';
 
-
+@Injectable({providedIn: 'root'})
 export class Authenticate {
+    constructor(private user: User) {
+    }
+
     public async authenticate(user: User, login?: boolean): Promise<boolean>{
         return new Promise((resolve, reject) => {
             try {
@@ -39,7 +43,7 @@ export class Authenticate {
                         const roles = ['admin', 'user'];
 
                         if (roles.includes(role) || roles.includes(response.status)) {
-                            user.login({...response.data.user});
+                            this.user.login({...response.data.user});
                             resolve();
                         } else {
                             reject('Guest');
