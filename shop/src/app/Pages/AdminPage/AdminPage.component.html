@@ -1,164 +1,159 @@
-<section class="admin section first-slide " *ngIf="user.is_auth">
-    <div class="admin__wrap">
-        <div class="admin__content  center align-items-start">
-            <div class="admin__dashboard shadow">
-                <div class="w-100 ">
-                    <div class="w-100">
-                        <div class="admin__banner center">
-                            <div class="w-100 center flex-column">
-                                <div class="center flex-column">
-                                    <h5 class="admin__headline text-center">Ваш профиль</h5>
-                                    <div class="admin__avatar">
-                                        <div>
-                                            <div class="image-container">
-                                                <img [src]="'http://127.0.0.1:8000' + (user.avatar||'/app/static/avatars/blank.jpg') | safe"
-                                                    alt="Profile image">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="admin__username">
-                                        <span>{{user.username}}</span>
-                                    </div>
-                                </div>
-                                <div class="admin__actions center">
-                                    <button mat-flat-button color="accent" on-click="changeAvatar()">Поменять аватар</button>
-                                    <input type="file" name="" id="" #file hidden>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="admin__items ">
-                <div class="wrap-md">
-                    <div class="admin__order-list">
-                        <div class="admin__profile-info">
-                            <mat-card class="center shadow">
-                                <div class="wrap-md">
-                                    <mat-card-title>Ваша данные</mat-card-title>
-                                    <mat-card-content>
-                                        <mat-card-content class="admin__profile-text">
-                                            <span>Пароль:</span>
-                                            <span>{{user.password}}</span>
-                                        </mat-card-content>
-                                        <mat-card-content class="admin__profile-text">
-                                            <span>Почта:</span>
-                                            <span>{{user.email}}</span>
-                                        </mat-card-content>
-                                        <mat-card-content class="admin__profile-text">
-                                            <span>Статус:</span>
-                                            <span>{{user.role || 'user'}}</span>
-                                        </mat-card-content>
-                                    </mat-card-content>
-                                </div>
-                            </mat-card>
-                        </div>
-                        <mat-card class="shadow">
-                            <mat-card-title>Ваша корзина</mat-card-title>
-                            <mat-card-content>
-                                <mat-tab-group color="accent" mat-align-tabs="center">
-                                    <mat-tab label="Корзина">
-                                        <div class="admin__order-content" style="overflow: hidden; ">
-                                            <div style="overflow-x:auto;padding-bottom:0.3rem; position: relative;z-index: 10 ">
-                                                <app-list #orders_active class="w-100"
-                                                     [data]="this.user.activeOrders"
-                                                     [isOrderList]="true"
-                                                     *ngIf="this.user.activeOrders.length"
-                                                     [role]="'products_buy'"
-                                                     >
-                                                </app-list>
-                                                <div class="admin__order-empty" *ngIf="!this.user.activeOrders.length">
-                                                    <h6>В корзине товаров нет</h6>
-                                                </div>
-                                            </div>
-                                            <div class="admin__order-selected center"
-                                                *ngIf="this.user.activeOrders.length">
-                                                <button class="text-center h6 " mat-button>У вас выбрано {{selectedCount}}
-                                                    тв.</button>
-                                            </div>
+<app-section-layout [hasTitle]="false" cssClass="admin">
+     <div class="admin__area">
+       <div class="admin__dashboard shadow">
+         <div class="w-100 ">
+           <div class="w-100">
+             <div class="admin__banner center">
+               <div class="w-100 center flex-column">
+                 <div class="center flex-column">
+                   <h5 class="admin__headline text-center">Ваш профиль</h5>
+                   <div class="admin__avatar">
+                     <div>
+                       <div class="image-container">
+                         <img [src]="'http://127.0.0.1:8000' + (user.avatar||'/app/static/avatars/blank.jpg') | safe"
+                              alt="Profile image">
+                       </div>
+                     </div>
+                   </div>
+                   <div class="admin__username">
+                     <span>{{user.username}}</span>
+                   </div>
+                 </div>
+                 <div class="admin__actions center">
+                   <button mat-flat-button color="accent" on-click="changeAvatar()">Поменять аватар</button>
+                   <input type="file" name="" id="" #file hidden>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+       <div class="admin__items ">
+         <div class="wrap-md">
+           <div class="admin__order-list">
+             <div class="admin__profile-info">
+               <mat-card class="center shadow">
+                 <div class="wrap-md">
+                   <mat-card-title>Ваши данные</mat-card-title>
+                   <mat-card-content>
+                     <mat-card-content class="admin__profile-text">
+                       <span>Пароль:</span>
+                       <span>{{user.password}}</span>
+                     </mat-card-content>
+                     <mat-card-content class="admin__profile-text">
+                       <span>Почта:</span>
+                       <span>{{user.email}}</span>
+                     </mat-card-content>
+                     <mat-card-content class="admin__profile-text">
+                       <span>Статус:</span>
+                       <span>{{user.role || 'user'}}</span>
+                     </mat-card-content>
+                   </mat-card-content>
+                 </div>
+               </mat-card>
+             </div>
+             <mat-card class="shadow">
+               <mat-card-title>Ваша корзина</mat-card-title>
+               <mat-card-content>
+                 <mat-tab-group color="accent" mat-align-tabs="center">
+                   <mat-tab label="Корзина">
+                     <div class="admin__order-content" style="overflow: hidden; ">
+                       <div style="overflow-x:auto;padding-bottom:0.3rem; position: relative;z-index: 10 ">
+                         <app-list #orders_active class="w-100"
+                                   [data]="this.user.activeOrders"
+                                   [isOrderList]="true"
+                                   *ngIf="this.user.activeOrders.length"
+                                   [role]="'products_buy'"
+                         >
+                         </app-list>
+                         <div class="admin__order-empty" *ngIf="!this.user.activeOrders.length">
+                           <h6>В корзине товаров нет</h6>
+                         </div>
+                       </div>
+                       <div class="admin__order-selected center"
+                            *ngIf="this.user.activeOrders.length">
+                         <button class="text-center h6 " mat-button>У вас выбрано {{selectedCount}}
+                           тв.</button>
+                       </div>
 
-                                            <div class="admin__order-actions  pt-3" >
-                                                <div class="admin__order-errors" *ngIf="errors.length">
-                                                    <button mat-button color="warn" *ngFor="let error of errors">
-                                                        {{error}}
-                                                    </button>
-                                                </div>
-                                                <div class="admin__order-message" *ngIf="message">
-                                                    <button mat-button color="accent">{{message}}</button>
-                                                </div>
-                                                <div class="admin__order-btns">
-                                                    <button mat-flat-button color="warn"
-                                                        on-click="delete_orders()" *ngIf="selectedCount">Убрать из корзины</button>
-                                                    <button mat-flat-button color="accent"
-                                                        on-click="change_orders()" *ngIf="selectedCount">Изменить количество</button>
-                                                    <button mat-flat-button color="warn" *ngIf="this.user.activeOrders.length" on-click="oplata()">Оплатить</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </mat-tab>
-                                    <mat-tab label="Купленные товары">
-                                        <app-list class="w-100" [data]="this.user.unactiveOrders"
-                                            *ngIf="this.user.unactiveOrders.length && user.is_auth"></app-list>
-                                        <div class="admin__order-empty" *ngIf="!this.user.unactiveOrders.length">
-                                            <h6>У вас нет купленных товаров</h6>
-                                        </div>
-                                    </mat-tab>
-                                </mat-tab-group>
-                            </mat-card-content>
-                        </mat-card>
-                        <mat-card class="shadow">
-                            <mat-card-title>Понравившиеся для вас товары</mat-card-title>
-                            <mat-card-content>
-                                <mat-tab-group color="accent" mat-align-tabs="center">
-                                    <mat-tab label="Понравившиеся">
-                                        <app-likes *ngIf="user.is_auth"></app-likes>
-                                        <div class="likes-btns w-100" *ngIf="selectedLikes.length">
-                                            <button class="w-100" mat-flat-button color="warn" on-click="deleteLike()">Удалить выбранные</button>
-                                        </div>
-                                    </mat-tab>
-                                </mat-tab-group>
-                            </mat-card-content>
-                        </mat-card>
-                        <div class="admin__profile-card" id="product_num">
-                            <mat-card class="shadow">
-                                <mat-card-title class="text-center">Количество товаров</mat-card-title>
-                                <mat-card-subtitle>
-                                    <div class="admin__chart-count text-center h6">
-                                        В вашей корзине находиться :
-                                        <button mat-button color="accent" class="btn-count">{{orderCount}} тв.</button>
-                                    </div>
-                                </mat-card-subtitle>
-                            </mat-card>
-                        </div>
-                        <div class="admin__profile-card" >
-                            <mat-card class="shadow">
-                                <mat-card-title class="text-center"> За всё время вы купили </mat-card-title>
-                                <mat-card-subtitle>
-                                    <div class="admin__chart-count text-center h6">
-                                        Примерно
-                                        <button mat-button color="accent" class="btn-count">{{user.unactiveOrders.length}} тв.</button>
-                                    </div>
-                                </mat-card-subtitle>
-                            </mat-card>
-                        </div>
-                        <div class="admin__profile-card" *ngIf="orderCount">
-                            <mat-card class="shadow">
-                                <mat-card-title class="text-center">
-                                    Ваши заказы
-                                </mat-card-title>
-                                <mat-card-content>
-                                    <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType">
-                                    </canvas>
-                                </mat-card-content>
-                            </mat-card>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+                       <div class="admin__order-actions  pt-3" >
+                         <div class="admin__order-errors" *ngIf="errors.length">
+                           <button mat-button color="warn" *ngFor="let error of errors">
+                             {{error}}
+                           </button>
+                         </div>
+                         <div class="admin__order-message" *ngIf="message">
+                           <button mat-button color="accent">{{message}}</button>
+                         </div>
+                         <div class="admin__order-btns">
+                           <button mat-flat-button color="warn"
+                                   on-click="delete_orders()" *ngIf="selectedCount">Убрать из корзины</button>
+                           <button mat-flat-button color="accent"
+                                   on-click="change_orders()" *ngIf="selectedCount">Изменить количество</button>
+                           <button mat-flat-button color="warn" *ngIf="this.user.activeOrders.length" on-click="oplata()">Оплатить</button>
+                         </div>
+                       </div>
+                     </div>
+                   </mat-tab>
+                   <mat-tab label="Купленные товары">
+                     <app-list class="w-100" [data]="this.user.unactiveOrders"
+                               *ngIf="this.user.unactiveOrders.length && user.is_auth"></app-list>
+                     <div class="admin__order-empty" *ngIf="!this.user.unactiveOrders.length">
+                       <h6>У вас нет купленных товаров</h6>
+                     </div>
+                   </mat-tab>
+                 </mat-tab-group>
+               </mat-card-content>
+             </mat-card>
+             <mat-card class="shadow">
+               <mat-card-title>Понравившиеся для вас товары</mat-card-title>
+               <mat-card-content>
+                 <mat-tab-group color="accent" mat-align-tabs="center">
+                   <mat-tab label="Понравившиеся">
+                     <app-likes *ngIf="user.is_auth"></app-likes>
+                     <div class="likes-btns w-100" *ngIf="selectedLikes.length">
+                       <button class="w-100" mat-flat-button color="warn" on-click="deleteLike()">Удалить выбранные</button>
+                     </div>
+                   </mat-tab>
+                 </mat-tab-group>
+               </mat-card-content>
+             </mat-card>
+             <div class="admin__profile-card" id="product_num">
+               <mat-card class="shadow">
+                 <mat-card-title class="text-center">Количество товаров</mat-card-title>
+                 <mat-card-subtitle>
+                   <div class="admin__chart-count text-center h6">
+                     В вашей корзине находиться :
+                     <button mat-button color="accent" class="btn-count">{{orderCount}} тв.</button>
+                   </div>
+                 </mat-card-subtitle>
+               </mat-card>
+             </div>
+             <div class="admin__profile-card" >
+               <mat-card class="shadow">
+                 <mat-card-title class="text-center"> За всё время вы купили </mat-card-title>
+                 <mat-card-subtitle>
+                   <div class="admin__chart-count text-center h6">
+                     Примерно
+                     <button mat-button color="accent" class="btn-count">{{user.unactiveOrders.length}} тв.</button>
+                   </div>
+                 </mat-card-subtitle>
+               </mat-card>
+             </div>
+             <div class="admin__profile-card" *ngIf="orderCount">
+               <mat-card class="shadow">
+                 <mat-card-title class="text-center">
+                   Ваши заказы
+                 </mat-card-title>
+                 <mat-card-content>
+                   <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType">
+                   </canvas>
+                 </mat-card-content>
+               </mat-card>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+</app-section-layout>
 
-<section class="section center" *ngIf="!user.is_auth">
-    <mat-spinner color="accent"></mat-spinner>
-</section>
