@@ -25,11 +25,11 @@
         </li>
         <li class="header__link center flex-column" on-click="showPopup=true" on-mouseleave="showPopup=false"
           *ngIf="user.is_auth">
-          <app-avatar [showAuthAvatar]="true"></app-avatar>
+          <app-avatar [showAuthAvatar]="true" [showPopup]="showPopup"></app-avatar>
         </li>
 
         <li class="header__link center flex-column" *ngIf="!user.is_auth">
-          <app-avatar [showAuthAvatar]="false"></app-avatar>
+          <app-avatar [showAuthAvatar]="false" [showPopup]="showPopup"></app-avatar>
         </li>
       </ul>
     </div>
@@ -78,11 +78,11 @@
       </div>
 
       <div class="avatar-media" on-click="showPopup=true" on-mouseleave="showPopup=false" *ngIf="user.is_auth">
-        <app-avatar [showAuthAvatar]="true"></app-avatar>
+        <app-avatar [showAuthAvatar]="true" [showPopup]="showPopup"></app-avatar>
       </div>
 
       <div class="avatar-media" *ngIf="!user.is_auth">
-        <app-avatar [showAuthAvatar]="false"></app-avatar>
+        <app-avatar [showAuthAvatar]="false" [showPopup]="showPopup"></app-avatar>
       </div>
     </div>
   </div>

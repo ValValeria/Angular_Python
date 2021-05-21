@@ -1,8 +1,9 @@
-import { AfterViewInit, Component, DoCheck, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { Authenticate } from './Classes/Authenticate';
+import { Component, OnInit} from '@angular/core';
+import {NavigationCancel, Router} from '@angular/router';
+import { AuthenticateHelper } from './Classes/authenticate-helper.service';
 import { User } from './Services/User.service';
 import {intersection} from 'lodash';
+import {filter} from 'rxjs/operators';
 
 
 export const URL_PATH = '/';
@@ -22,7 +23,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private user: User,
-    private render: Renderer2,
+    private auth: AuthenticateHelper,
     private router: Router
   ) { }
 
@@ -32,7 +33,9 @@ export class AppComponent implements OnInit {
       const requiredProperties = ['username', 'password'];
 
       if (user && typeof user === 'object' && intersection(requiredProperties, Object.keys(user)).length){
-        (new Authenticate()).authenticate(this.user, true).catch(e => console.log(e));
+        this.auth.authenticate(this.user, true).catch(e => {
+          this.router.navigateByUrl('/').then(r => console.log('forbidden'));
+        });
       }
     } catch (e){
       console.warn('Invalid json data');

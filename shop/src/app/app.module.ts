@@ -14,17 +14,18 @@ import { SearchForm } from './Components/SearchForm/SearchForm.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderTop } from './Components/HeaderTop/HeaderTop.component';
-import { Avatar } from './Components/Avatar/Avatar.component';
+import { AvatarComponent } from './Components/avatar/avatar.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { FooterComponent } from './Components/footer/footer.component';
 import { LogoComponent } from './Components/logo/logo.component';
+import {AuthenticateHelper} from "./Classes/authenticate-helper.service";
 
 
 @NgModule({
   declarations: [
     AppComponent, Header, SearchForm,
-    HeaderTop, Avatar, FooterComponent, LogoComponent
+    HeaderTop, AvatarComponent, FooterComponent, LogoComponent
   ],
   imports: [
     BrowserModule,
@@ -38,8 +39,10 @@ import { LogoComponent } from './Components/logo/logo.component';
     MatSidenavModule,
     MatIconModule
   ],
-  providers: [Http,
+  providers: [
+    Http,
     User,
+    AuthenticateHelper,
     {provide: HTTP_INTERCEPTORS, useClass: Authenticate, multi: true},
   ],
   bootstrap: [AppComponent],

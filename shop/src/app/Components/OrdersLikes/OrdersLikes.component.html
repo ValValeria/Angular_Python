@@ -1,10 +1,10 @@
 <div class="order-likes center flex-column">
     <div class="wrap-md admin__order-empty" style="overflow: hidden;">
-        <h5>В категории "понравившиеся товары" находится {{likes.length}}</h5>
+        <h6>В категории "понравившиеся товары" находится {{likes.length}}</h6>
         <div class="order-likes__content" style="overflow: auto;position: relative;z-index: 10 ">
             <app-list class="w-100"
                      [data]="likes"
-                     *ngIf="likes.length" 
+                     *ngIf="likes.length"
                      [showCount]="false"
                      [role]="'likes'"
                      (selectItems)="selectItems($event)"

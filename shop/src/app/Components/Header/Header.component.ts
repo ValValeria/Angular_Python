@@ -12,7 +12,7 @@ import { $ORDER_COUNT } from '../OrderList/OrderList.component';
 import { $CLOSE_SEARCH, SearchForm } from '../SearchForm/SearchForm.component';
 
 @Component({
-    selector: 'header-main',
+    selector: 'app-header-main',
     templateUrl: './Header.component.html',
     styleUrls: ['./Header.component.scss'],
     animations: [
@@ -109,18 +109,6 @@ export class Header implements AfterViewInit {
         if ($event.fromState === 'enter') {
             this.links.nativeElement.style.display = 'flex ';
         }
-    }
-
-    logout(): void {
-        localStorage.removeItem('auth');
-        this.user.logout();
-        this.router.navigateByUrl('/');
-    }
-
-    deleteProfile(): void {
-        this.http.get(`${URL_PATH}api/delete-user`).subscribe(() => {
-            this.logout();
-        });
     }
 
     showSearch(): void {

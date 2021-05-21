@@ -16,20 +16,27 @@ class LoginView(View):
     def post(self, *args, **kwargs):
         form = self.form(self.request.POST, True)
 
+        if self.request.user.is_authenticated:
+            self.response['status'] = getattr(self.request.user, 'role', 'user')
+            self.response["data"]["user"] = UserParser(self.request.user).get_user()
+
+            return JsonResponse(self.response)
+
         if form.is_valid():
             user = User.objects.filter(Q(username=form.cleaned_data['username']) & Q(
                 password=form.cleaned_data['password']))
 
             if user.exists():
                 login(self.request, user.first())
-                
-                self.response["data"]["user"].update(
-                    UserParser(user.first()).get_user())
+
+                print(user.first())
+
+                self.response["data"]["user"] = UserParser(user.first()).get_user()
                 self.response["status"] = "user"
             else:
                 self.response["status"] = "guest"
         else:
-            self.response['errors'] = ["Invalid data"]
+            self.response['errors'] = form.errors
         
         return JsonResponse(self.response)
 

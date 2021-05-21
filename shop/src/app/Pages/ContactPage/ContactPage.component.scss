@@ -1,7 +1,6 @@
 .section__form{
-    padding:1rem;
     width: 90%;
-    max-width: 500px;
+    max-width: 800px;
     border-radius: 15px;
     padding: 2rem;
     background-color:white;
@@ -24,17 +23,13 @@ section::after{
     z-index: -1;
     min-height: 50%;
     width: 50%;
-    background-image: url(/assets/contact.svg);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    transform: rotate(65deg)
+
 }
 
 .section__field-errors{
     width:100%;
     margin-bottom: 20px;
-    
+
     button{
         margin:5px 0;
         width:100%;

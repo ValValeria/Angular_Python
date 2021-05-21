@@ -6,13 +6,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/Services/User.service';
 import { merge } from 'rxjs';
-import { Authenticate } from 'src/app/Classes/Authenticate';
+import { AuthenticateHelper } from 'src/app/Classes/authenticate-helper.service';
 
 @Component({
     selector: 'app-auth-page',
     templateUrl: './AuthPage.component.html',
     styleUrls: ['./AuthPage.component.scss']
 })
+// tslint:disable-next-line:component-class-suffix
 export class AuthPage implements AfterViewInit{
     isLogin = true;
     form: FormGroup;
@@ -27,7 +28,8 @@ export class AuthPage implements AfterViewInit{
                 private snackBar: MatSnackBar,
                 private router: Router,
                 private detection: ChangeDetectorRef,
-                private route: ActivatedRoute) {
+                private route: ActivatedRoute,
+                private authHelper: AuthenticateHelper) {
 
         const opt: [string, ValidatorFn[]] = ['', [Validators.minLength(10), Validators.maxLength(30), Validators.required]];
 
@@ -108,7 +110,7 @@ export class AuthPage implements AfterViewInit{
 
       localStorage.setItem('auth', JSON.stringify(data));
 
-      (new Authenticate()).authenticate(this.user, this.isLogin)
+      this.authHelper.authenticate(this.user, this.isLogin)
         .then(async () => {
           if (this.user.is_auth) {
             await this.router.navigateByUrl('/profile');

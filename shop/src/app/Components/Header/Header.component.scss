@@ -114,18 +114,16 @@
 
     .avatar-media {
         position: absolute;
-        transform: translateY(-50%);
         left: 0;
-        top: 50%;
+        top: 1rem;
     }
 
     .header-media #menu_icon {
         position: absolute;
         display: block !important;
-        transform: translateY(-50%);
         right: 0;
         cursor: pointer;
-        top: 50%;
+        top: 1rem;
     }
 
     .header-media .header__search span {

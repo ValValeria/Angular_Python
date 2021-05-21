@@ -2835,7 +2835,7 @@ OrderList.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponen
 
 /***/ "NEQi":
 /*!*******************************************************!*\
-  !*** ./src/app/Components/Avatar/Avatar.component.ts ***!
+  !*** ./src/app/Components/Avatar/avatar.component.ts ***!
   \*******************************************************/
 /*! exports provided: Avatar */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -2947,7 +2947,7 @@ Avatar.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
                 selector: 'app-avatar',
-                templateUrl: './Avatar.component.html'
+                templateUrl: './avatar.component.html'
             }]
     }], null, { showAuthAvatar: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]

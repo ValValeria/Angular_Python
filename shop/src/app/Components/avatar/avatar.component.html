@@ -1,7 +1,7 @@
 <ng-container *ngIf="showAuthAvatar">
 <div class="avatar center ">
     <div class="avatar__icon">
-        <div class="postion-relative">
+        <div class="position-relative">
             <button routerLink="/profile" class="avatar__btn">
                 <img src="http://127.0.0.1:8000{{user.avatar}}" alt="" srcset="" style="width:30px;height:30px">
             </button>
@@ -28,10 +28,11 @@
     </div>
 </div>
 </ng-container>
+
 <ng-container *ngIf="!showAuthAvatar">
     <div class="avatar center " style="min-width: 40px;left:3rem;">
         <div class="avatar__icon">
-            <div class="postion-relative">
+            <div class="position-relative">
                 <button routerLink="/authenticate" [queryParams]="{isLogin: true}" class="avatar__btn">
                     <div style="width:30px;height:30px">
                         <svg viewBox="0 0 24 24" id="icon-user-simple">
