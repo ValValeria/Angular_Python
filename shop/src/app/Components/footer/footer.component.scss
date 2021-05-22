@@ -71,8 +71,24 @@ a:hover{
 @media(max-width: $media){
   .footer__info{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    grid-auto-rows: 43px;
-    grid-gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    grid-auto-rows: 50px;
+    grid-gap: $margin;
+    justify-items: center;
+
+    li{
+      width:100%;
+      height: 100%;
+    }
+
+    li a {
+      width:100%;
+      text-align: center;
+      height: 100%;
+      border:none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 }

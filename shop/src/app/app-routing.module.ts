@@ -21,7 +21,7 @@ import { Charactarictics } from './Components/Charactarictics/Charactarictics.co
 import { Comments } from './Components/Comments/Comments.component';
 import { AuthPage } from './Pages/AuthPage/AuthPage.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-import { AdminPage } from './Pages/AdminPage/AdminPage.component';
+import { AdminPageComponent } from './Pages/admin-page/admin-page.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
@@ -60,6 +60,8 @@ import { ContactsInfoPageComponent } from './Pages/contacts-info-page/contacts-i
 import {ContractInfoPageComponent} from './Pages/contract-info-page/contract-info-page.component';
 import {SliceStringPipe} from './Pipes/SliceString.pipe';
 import {AdminGuard} from './guards/admin.guard';
+import { AdminDashboardComponent } from './Components/admin-dashboard/admin-dashboard.component';
+import { AdminDashboardFullComponent } from './Components/admin-dashboard-full/admin-dashboard-full.component';
 
 
 const routes: Routes = [
@@ -68,7 +70,7 @@ const routes: Routes = [
   {path: 'products', component: Products },
   {path: 'product/:id', component: Product},
   {path: 'authenticate', component: AuthPage},
-  {path: 'profile', component: AdminPage, canActivate: [AdminGuard]},
+  {path: 'profile', component: AdminPageComponent, canActivate: [AdminGuard]},
   {path: 'search', component: SearchPageResult },
   {path: 'contacts', component: ContactPage},
   {path: 'category/:category', component: CategoryPage},
@@ -121,7 +123,7 @@ const modules = [MatButtonModule,
                 Charactarictics,
                 Comments,
                 AuthPage,
-                AdminPage,
+                AdminPageComponent,
                 Slider,
                 CategoriesListComponent,
                 OrderList,
@@ -143,11 +145,13 @@ const modules = [MatButtonModule,
                 WarrantyPolicyPageComponent,
                 ContactsInfoPageComponent,
                 ContractInfoPageComponent,
-                SliceStringPipe
+                SliceStringPipe,
+                AdminDashboardComponent,
+                AdminDashboardFullComponent
                 ],
   providers: [
     AdminGuard
   ],
-  exports: [RouterModule, ...modules, ProductsCategoriesComponent, ProductsCategoriesComponent, SectionLayoutComponent]
+  exports: [RouterModule, ...modules, ProductsCategoriesComponent, ProductsCategoriesComponent, SectionLayoutComponent, AdminDashboardComponent]
 })
 export class AppRoutingModule { }

@@ -51,12 +51,12 @@ class MspImageFile(ImageFile.ImageFile):
 
     def _open(self):
 
-        # Header
+        # HeaderComponent
         s = self.fp.read(32)
         if not _accept(s):
             raise SyntaxError("not an MSP file")
 
-        # Header checksum
+        # HeaderComponent checksum
         checksum = 0
         for i in range(0, 32, 2):
             checksum = checksum ^ i16(s[i : i + 2])

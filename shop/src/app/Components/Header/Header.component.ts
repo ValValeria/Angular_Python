@@ -5,11 +5,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { fromEvent } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { URL_PATH } from 'src/app/app.component';
 import { Http } from 'src/app/Services/Http.service';
 import { User } from 'src/app/Services/User.service';
 import { $ORDER_COUNT } from '../OrderList/OrderList.component';
 import { $CLOSE_SEARCH, SearchForm } from '../SearchForm/SearchForm.component';
+import {Subject} from 'rxjs/internal/Subject';
+
+export const MEDIA$ = new Subject<boolean>();
 
 @Component({
     selector: 'app-header-main',
@@ -28,7 +30,7 @@ import { $CLOSE_SEARCH, SearchForm } from '../SearchForm/SearchForm.component';
     ],
     encapsulation: ViewEncapsulation.None
 })
-export class Header implements AfterViewInit {
+export class HeaderComponent implements AfterViewInit {
     @ViewChild('headerlinks', { read: ElementRef }) links: ElementRef;
     counter = 0;
     showPopup = false;

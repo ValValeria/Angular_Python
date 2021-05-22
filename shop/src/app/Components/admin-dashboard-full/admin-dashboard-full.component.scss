@@ -1,0 +1,11 @@
+@import "src/variables";
+
+.btn-close{
+  top: $margin;
+  right: $margin;
+  position: absolute;
+}
+
+#user-photo ::ng-deep .admin__dashboard{
+  box-shadow: none !important;
+}

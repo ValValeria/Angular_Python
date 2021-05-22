@@ -756,7 +756,7 @@ def _get_background(im, infoBackground):
 def _get_global_header(im, info):
     """Return a list of strings representing a GIF header"""
 
-    # Header Block
+    # HeaderComponent Block
     # http://www.matthewflickinger.com/lab/whatsinagif/bits_and_bytes.asp
 
     version = b"87a"

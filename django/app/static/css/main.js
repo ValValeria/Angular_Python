@@ -200,9 +200,9 @@ BreadCrumbs.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineCompon
 
 /***/ "/rjn":
 /*!********************************************************!*\
-  !*** ./src/app/Pages/AdminPage/AdminPage.component.ts ***!
+  !*** ./src/app/Pages/AdminPageComponent/AdminPageComponent.component.ts ***!
   \********************************************************/
-/*! exports provided: AdminPage */
+/*! exports provided: AdminPageComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -756,8 +756,8 @@ AdminPage.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponen
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
                 selector: 'app-admin',
-                templateUrl: './AdminPage.component.html',
-                styleUrls: ['./AdminPage.component.scss']
+                templateUrl: './AdminPageComponent.component.html',
+                styleUrls: ['./AdminPageComponent.component.scss']
             }]
     }], function () { return [{ type: src_app_Services_Http_service__WEBPACK_IMPORTED_MODULE_8__["Http"] }, { type: src_app_Services_User_service__WEBPACK_IMPORTED_MODULE_9__["User"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_10__["Router"] }, { type: _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_11__["MatSnackBar"] }]; }, { ordersArea: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"],
@@ -3448,9 +3448,9 @@ AppComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineCompo
 
 /***/ "W3iY":
 /*!*******************************************************!*\
-  !*** ./src/app/Components/Header/Header.component.ts ***!
+  !*** ./src/app/Components/HeaderComponent/HeaderComponent.component.ts ***!
   \*******************************************************/
-/*! exports provided: Header */
+/*! exports provided: HeaderComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3804,8 +3804,8 @@ Header.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]
         type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"],
         args: [{
                 selector: "header-main",
-                templateUrl: "./Header.component.html",
-                styleUrls: ["./Header.component.scss"],
+                templateUrl: "./HeaderComponent.component.html",
+                styleUrls: ["./HeaderComponent.component.scss"],
                 animations: [
                     Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["trigger"])("fade", [
                         Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["transition"])("enter=>leave", [
@@ -4258,7 +4258,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app-routing.module */ "vY5A");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app.component */ "Sy1n");
 /* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/platform-browser/animations */ "R1ws");
-/* harmony import */ var _Components_Header_Header_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Components/Header/Header.component */ "W3iY");
+/* harmony import */ var _Components_Header_Header_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Components/HeaderComponent/HeaderComponent.component */ "W3iY");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
 /* harmony import */ var _Services_Http_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Services/Http.service */ "q57P");
 /* harmony import */ var _Services_User_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Services/User.service */ "lVUZ");
@@ -5961,7 +5961,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Components_Comments_Comments_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./Components/Comments/Comments.component */ "GNej");
 /* harmony import */ var _Pages_AuthPage_AuthPage_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./Pages/AuthPage/AuthPage.component */ "3jkG");
 /* harmony import */ var _angular_material_snack_bar__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @angular/material/snack-bar */ "dNgK");
-/* harmony import */ var _Pages_AdminPage_AdminPage_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./Pages/AdminPage/AdminPage.component */ "/rjn");
+/* harmony import */ var _Pages_AdminPage_AdminPage_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./Pages/AdminPageComponent/AdminPageComponent.component */ "/rjn");
 /* harmony import */ var _angular_material_tabs__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @angular/material/tabs */ "wZkO");
 /* harmony import */ var _angular_material_sort__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @angular/material/sort */ "Dh3D");
 /* harmony import */ var _angular_material_table__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @angular/material/table */ "+0xr");

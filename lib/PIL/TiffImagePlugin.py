@@ -1006,7 +1006,7 @@ class TiffImageFile(ImageFile.ImageFile):
     def _open(self):
         """Open the first image in a TIFF file"""
 
-        # Header
+        # HeaderComponent
         ifh = self.fp.read(8)
 
         self.tag_v2 = ImageFileDirectory_v2(ifh)

@@ -46,7 +46,7 @@ class GdImageFile(ImageFile.ImageFile):
 
     def _open(self):
 
-        # Header
+        # HeaderComponent
         s = self.fp.read(1037)
 
         if not i16(s[:2]) in [65534, 65535]:

@@ -1,0 +1,283 @@
+@import 'src/base';
+
+*{
+  color: rgba(0,0,0,.87) !important;
+}
+
+.admin__area{
+  display: grid;
+  grid-template-columns: 30%  calc(70% - 1.4rem);
+  grid-template-rows: auto;
+  grid-gap: $margin;
+  width:100%;
+}
+
+.admin__items ::ng-deep mat-card-title{
+  margin-bottom: $margin !important;
+}
+
+.admin__items ::ng-deep mat-card-subtitle div.h6{
+  padding-top: 0 !important;
+}
+
+.admin__items ::ng-deep h6, .admin__items ::ng-deep .h6{
+  padding: $margin;
+  font-weight: 300 !important;
+}
+
+.admin__items{
+    position: relative;
+    z-index:2;
+    padding:0;
+    width: 100%;
+}
+
+.admin__wrap{
+    height: 100%;
+    min-height: 100vh;
+}
+
+.admin__chart{
+    width:100%;
+    height:100%;
+}
+
+.admin__profile-card{
+  height:100%;
+  width:100%;
+  margin-bottom: $margin;
+}
+
+.admin__profile-card mat-card{
+  height:100%;
+}
+
+.admin__items{
+  width: 100%;
+}
+
+.btn-count{
+    margin-top: 10px;
+    transform: scale(1.5)
+}
+
+.admin__chart-count{
+    padding:10px 0;
+}
+
+.admin__profile-info:nth-child(even), .admin__profile-info:nth-child(odd){
+  grid-column: span 2;
+  margin-bottom: $margin !important;
+}
+
+.admin__profile-info .wrap-md >mat-card-content:nth-child(2){
+  grid-column: span 6;
+}
+
+.admin__profile-info .wrap-md >mat-card-content:nth-child(1){
+  grid-column: span 8;
+}
+
+.admin__profile-info .wrap-md >mat-card-content{
+    margin:10px !important;
+}
+
+
+.admin__options{
+    margin-top:2rem;
+}
+
+.admin{
+    padding-top:3rem;
+}
+
+.admin__order-list>mat-card, .admin__profile-info mat-card{
+   margin-bottom: $margin !important;
+   background-color:transparent;
+   position: relative;
+   z-index:2;
+   padding: $margin !important;
+}
+
+.shadow mat-card-title{
+    text-align: center;
+    font-weight: 300;
+    padding: 10px;
+    line-height:1.1;
+}
+
+.admin__profile-text{
+    font-size: 16px;
+    font-weight: 400;
+    display: grid;
+    grid-template-columns: 100px auto;
+    margin-bottom: 10px;
+    align-items: center;
+    grid-gap: 5px;
+    border-bottom: 1px solid #D4DADE;
+    padding-bottom: 5px;
+}
+
+.admin__profile-text span:nth-child(2){
+    display: inline-block;
+    margin-left: 30px;
+    font-weight: 300;
+    max-width: 100%;
+    word-break: break-all;
+}
+
+
+.admin__profile-text span:nth-child(1){
+    font-weight:500;
+    min-width: 130px;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.likes-btns{
+    margin-top:1rem;
+}
+
+.admin__order-selected button{
+    width: 100%;
+    margin-top: 10px;
+    font-weight:300;
+}
+
+.admin__order-actions button{
+   margin:0 5px;
+}
+
+.admin__profile-items{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: 100px;
+  grid-auto-flow: dense;
+}
+
+.admin__profile-info,.admin__profile-card{
+  grid-row: span 2;
+}
+
+.admin__profile-card{
+   grid-row: span 2;
+}
+
+.admin__profile-card:nth-child(2){
+   grid-row: span 3;
+}
+
+.admin__order-btns{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-wrap: wrap;
+  width:100%;
+
+  button{
+      min-width:200px;
+      margin:5px;
+      flex: 1 1 50%;
+  }
+}
+
+th.mat-header-cell {
+    text-align: center;
+    padding: 10px !important;
+}
+
+.admin__profile-avatar {
+    grid-row: 1/-1;
+    grid-column: 1/span 6;
+    min-width: 100px;
+    min-height: 100px;
+}
+
+.image-container{
+    width:100%;
+    height:100%;
+}
+
+.admin__profile-info{
+    width:100%;
+    grid-column: 2/span 6;
+}
+
+.admin__profile-card mat-card-title{
+  font-weight:300;
+  padding-top:20px;
+  line-height:30px;
+}
+
+.admin__chart > mat-card:nth-child(1){
+  background-color: #231F20;
+  color:white;
+}
+
+
+::ng-deep .admin__dashboard, .admin__items{
+  padding-bottom:3rem;
+}
+
+
+@media(max-width:1070px){
+    .admin__profile-img{
+        margin-right:3rem;
+    }
+}
+
+@media(min-width:1000px){
+    .admin__profile-img{
+        margin-right:3rem;
+    }
+}
+
+
+@media (max-width:1000px){
+   .admin__profile-info>mat-card > .wrap-md {
+       grid-template-rows: 50% 50%;
+       grid-template-columns: repeat(6,1fr);
+   }
+   .admin__profile-info .wrap-md > mat-card-content:nth-child(1) {
+       grid-row: 2/3;
+    }
+    .admin__profile-info .wrap-md > mat-card-content:nth-child(2) {
+       grid-row: 1/2;
+    }
+   .admin__profile-info .wrap-md > mat-card-content{
+        grid-column: 2/-2;
+    }
+    .admin__profile-info{
+        width:100%;
+    }
+    .admin__profile-info:nth-child(1){
+        width:100%;
+        max-width:100%;
+    }
+
+    .admin__profile-info{
+      width: 100%;
+      max-width: 600px;
+   }
+}
+
+@media(max-width:900px){
+    .admin__content{
+        flex-direction: column;
+    }
+
+    .admin__dashboard{
+        width: 100%;
+        box-shadow: none;
+    }
+
+    .admin__items{
+        width: 100%;
+        padding: 3rem 0;
+    }
+
+    .admin__dashboard{
+        position: static;
+    }
+}

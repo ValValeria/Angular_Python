@@ -44,7 +44,7 @@ class DcxImageFile(PcxImageFile):
 
     def _open(self):
 
-        # Header
+        # HeaderComponent
         s = self.fp.read(4)
         if not _accept(s):
             raise SyntaxError("not a DCX file")

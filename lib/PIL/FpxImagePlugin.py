@@ -123,7 +123,7 @@ class FpxImageFile(ImageFile.ImageFile):
         stream = [
             f"Data Object Store {index:06d}",
             f"Resolution {subimage:04d}",
-            "Subimage 0000 Header",
+            "Subimage 0000 HeaderComponent",
         ]
 
         fp = self.ole.openstream(stream)

@@ -4,7 +4,7 @@ import {MatCardModule} from '@angular/material/card';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Header } from './Components/Header/Header.component';
+import { HeaderComponent } from './Components/Header/Header.component';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { Http } from './Services/Http.service';
 import { User } from './Services/User.service';
@@ -19,12 +19,12 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { FooterComponent } from './Components/footer/footer.component';
 import { LogoComponent } from './Components/logo/logo.component';
-import {AuthenticateHelper} from "./Classes/authenticate-helper.service";
+import {AuthenticateHelper} from './Classes/authenticate-helper.service';
 
 
 @NgModule({
   declarations: [
-    AppComponent, Header, SearchForm,
+    AppComponent, HeaderComponent, SearchForm,
     HeaderTop, AvatarComponent, FooterComponent, LogoComponent
   ],
   imports: [

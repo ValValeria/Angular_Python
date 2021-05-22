@@ -1,0 +1,28 @@
+<div class="admin__dashboard shadow">
+  <div class="w-100 ">
+    <div class="w-100">
+      <div class="admin__banner center">
+        <div class="w-100 center flex-column">
+          <div class="center flex-column">
+            <h5 class="admin__headline text-center">Ваш профиль</h5>
+            <div class="admin__avatar">
+              <div class="w-100">
+                <div class="image-container">
+                  <img [src]="'http://127.0.0.1:8000' + (user.avatar||'/app/static/avatars/blank.jpg') | safe"
+                       alt="Profile image">
+                </div>
+              </div>
+            </div>
+            <div class="admin__username">
+              <span>{{user.username}}</span>
+            </div>
+          </div>
+          <div class="admin__actions center">
+            <button mat-flat-button color="accent" on-click="changeAvatar()">Поменять аватар</button>
+            <input type="file" name=""#file hidden>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
