@@ -22,7 +22,7 @@ Also there is the admin panel, which is available only for the super admin. To g
 
 ## Folders
 * `django`- a django app
-* `angular` - an angular app
+* `shop` - an angular app
 
 ## How to run 
 * `cd django` - on Windows
