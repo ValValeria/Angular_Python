@@ -71,6 +71,11 @@
     }
 }
 
+.product__short-descr h5{
+  margin-bottom: $margin !important;
+  font-weight: 400 !important;
+}
+
 .product__related-container,
 .product__full-descr {
     padding: 2rem 1.5rem !important;
@@ -149,7 +154,7 @@ comments {
 
 .product__container {
     display: grid;
-    grid-template-rows: 100px auto 350px auto;
+    grid-template-rows: 100px auto auto auto;
     grid-auto-rows: auto;
     padding-left: 1rem;
     padding-right: 1rem;

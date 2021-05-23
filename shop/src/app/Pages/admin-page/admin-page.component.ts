@@ -15,8 +15,8 @@ import {MultiDataSet} from 'ng2-charts';
 import {$CHOOSE_ITEM, $DELETE_ITEMS, $ORDER_COUNT, OrderList} from 'src/app/Components/OrderList/OrderList.component';
 import {pull, uniq} from 'lodash';
 import {IAd} from 'src/app/Interfaces/Interfaces';
-import {from} from 'rxjs';
-import {auditTime, mergeMap} from 'rxjs/operators';
+import {from, fromEvent} from 'rxjs';
+import {auditTime, merge, mergeAll, mergeMap} from 'rxjs/operators';
 import {ImageLoading} from 'src/app/Classes/ImageLoading';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {LIKES$} from 'src/app/Components/OrdersLikes/OrdersLikes.component';
@@ -39,6 +39,7 @@ export class AdminPageComponent extends ImageLoading implements AfterViewInit, A
     public selectedItems: number[] = [];
     public selectedLikes: number[] = [];
     public isMedia = false;
+    readonly MAX_WIDTH = 1100;
     @ViewChild('orders_active', {read: OrderList}) ordersArea: OrderList;
     @ViewChild('file', {read: ElementRef}) file: ElementRef;
     message = '';
@@ -89,10 +90,24 @@ export class AdminPageComponent extends ImageLoading implements AfterViewInit, A
             }, 0);
         });
 
-        MEDIA$.subscribe(v => {
-          this.isMedia = v;
-          console.log('media')
-        });
+        fromEvent(window, 'load')
+          .pipe(
+            mergeMap(v => fromEvent(window, 'resize').pipe(auditTime(100)))
+          ).subscribe(v => {
+             if (window.matchMedia(`(max-width:${this.MAX_WIDTH}px)`).matches) {
+                this.isMedia = true;
+             } else {
+                this.isMedia = false;
+             }
+          });
+
+        window.onload = () => {
+          if (window.matchMedia(`(max-width:${this.MAX_WIDTH}px)`).matches) {
+            this.isMedia = true;
+          } else {
+            this.isMedia = false;
+          }
+        };
     }
 
     ngAfterContentInit(): void{

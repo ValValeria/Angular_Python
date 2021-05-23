@@ -29,11 +29,11 @@
                   </div>
                   <div class="product__short-descr text-left">
                     <h5>Кратко о товаре</h5>
-                    <p>
+                    <h6>
                       {{post.short_description}}
-                    </p>
+                    </h6>
                     <div class="product__price">
-                      <div class="product__price-label text-left">
+                      <div class="product__price-label text-left mb">
                         <span>Цена:</span>
                         <span>{{post.price|currency}}</span>
                       </div>
@@ -43,8 +43,8 @@
                           <mat-slider color="accent" min="0" max="{{maxCount}}" thumbLabel (input)="count=$event.value">
                           </mat-slider>
                         </div>
-                        <div>
-                          <h6 class="product__buy-counter">Вы хотите купить:
+                        <div class="mt">
+                          <h6 class="product__buy-counter mb-half">Вы хотите купить:
                             <button mat-button color="accent">{{count}} шт.</button>
                           </h6>
                         </div>

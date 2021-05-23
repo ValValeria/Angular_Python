@@ -8,4 +8,20 @@
 
 #user-photo ::ng-deep .admin__dashboard{
   box-shadow: none !important;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+}
+
+#user-photo app-admin-dashboard ::ng-deep div, #user-photo app-admin-dashboard{
+  width:100%;
+  text-align: center;
+  max-width: 400px !important;
+}
+
+#user-photo ::ng-deep .admin__avatar img{
+  width:100%;
+  height:100%;
+  max-width:600px;
+  max-height: 700px;
 }

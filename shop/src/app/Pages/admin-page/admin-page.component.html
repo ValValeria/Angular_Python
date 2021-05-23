@@ -6,11 +6,13 @@
        <ng-container *ngIf="!isMedia">
          <app-admin-dashboard></app-admin-dashboard>
        </ng-container>
-       <ng-container *ngIf="isMedia">
-         <button mat-mini-fab color="accent">
-           <mat-icon>menu</mat-icon>
+       <div class="admin__expand-btn w-100" *ngIf="isMedia">
+         <button color="accent" mat-stroked-button class="w-100" (click)="openUserPhoto()">
+           <h6 id="text">
+             Ваша фотография
+           </h6>
          </button>
-       </ng-container>
+       </div>
        <div class="admin__items ">
          <div class="w-100">
            <div class="admin__order-list">

@@ -160,6 +160,22 @@
   grid-row: span 2;
 }
 
+#text{
+  padding: $margin/2 $margin !important;
+  text-align: center;
+}
+
+.admin__expand-btn{
+  position: sticky;
+  left:0;
+  top: 80px;
+  z-index: 778;
+
+  button{
+    background-color: white;
+  }
+}
+
 .admin__profile-card{
    grid-row: span 2;
 }
@@ -227,12 +243,21 @@ th.mat-header-cell {
     }
 }
 
+@media(max-width: $media){
+  .admin__area ::ng-deep .admin__dashboard{
+    display: none;
+  }
+
+  .admin__area{
+    grid-template-columns: 1fr;
+  }
+}
+
 @media(min-width:1000px){
     .admin__profile-img{
         margin-right:3rem;
     }
 }
-
 
 @media (max-width:1000px){
    .admin__profile-info>mat-card > .wrap-md {
