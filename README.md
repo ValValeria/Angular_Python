@@ -15,10 +15,6 @@ Also there is the admin panel, which is available only for the super admin. To g
 
 > ![Screenshot](screenshots/screen1.png)
 > ![Screenshot](screenshots/screen2.PNG)
-> Page, where an user can view and sort products
-
-> ![Screenshot](screenshots/screen4.PNG)
-> Admin panel
 
 ## Folders
 * `django`- a django app
