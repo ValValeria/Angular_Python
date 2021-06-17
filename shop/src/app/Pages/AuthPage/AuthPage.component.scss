@@ -1,67 +1,65 @@
 @import "src/variables";
 
-.auth__form{
-    max-width: 470px;
-    width:100%;
-    padding:3rem;
+.auth__form {
+    padding: $margin;
     background-color: transparent;
+    width: 90%;
+    max-width: 800px;
 }
 
-mat-card{
+mat-card {
     background-color: transparent;
     box-shadow: none !important;
 }
 
-.auth__title{
+.auth__title {
     text-transform: uppercase;
     margin-bottom: 1.9rem;
 }
 
-.auth__headline{
-  margin-bottom: $margin !important;
+.auth__headline {
+    margin-bottom: $margin !important;
 }
 
-.border-red{
+.border-red {
     border-bottom: 2.5px solid red;
 }
 
-.auth__titles{
-    height:43px;
+.auth__titles {
+    height: 43px;
     margin-top: 2rem;
 }
 
-.auth__titles > button{
+.auth__titles>button {
     text-transform: uppercase;
     flex: 1 1 50%;
     width: 50%;
     font-size: 20px;
     font-weight: 400;
     outline: none;
-    padding-bottom:5px;
+    padding-bottom: 5px;
     background-color: transparent;
 }
 
-.auth__items > div{
+.auth__items>div {
     width: 100%;
-    max-width: 400px;
-    padding: 10px;
 }
 
 .auth__titles {
-    max-width:500px;
+    max-width: 500px;
     margin: 0 auto;
-    width:90%;
+    width: 90%;
 }
 
-.auth__items{
-    padding:20px 0 ;
+.auth__items {
+    padding: 20px 0;
 }
 
-.btn-red{
-        max-width: 300px;
-        width: 80%;
+.btn-red {
+    max-width: 300px;
+    width: 80%;
 }
 
-.unactive{
+.unactive {
     color: #636e72;
 }

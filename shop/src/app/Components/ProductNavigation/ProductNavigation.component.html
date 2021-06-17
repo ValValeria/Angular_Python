@@ -1,5 +1,5 @@
 <div class="product__navigation-container w-100">
-  <mat-horizontal-stepper [linear]="true" #stepper on-click="click()">
+  <mat-horizontal-stepper [linear]="true" #stepper>
        <mat-step *ngFor="let elem of data">
             <ng-template matStepLabel>{{elem[0]}}</ng-template>
        </mat-step>
