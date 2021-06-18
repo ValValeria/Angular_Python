@@ -74,23 +74,29 @@
 <section class="section">
   <div class="section__content  ">
     <div class="section__wrap wrap-md-pd ">
-          <div class="section__items flex-column  bg-vlight" >
+          <div class="section__items flex-column " >
             <div class="wrap-md-pd">
                 <div class="section__item center flex-column mx-400 text-center ">
-                  <p class="headline-md  ">Выберите то, что вам нужно.</p>
-                  <div class='mt-1-rem'>
+                  <div class="section__title-content mb text-center">
+                    <p class="text-orange">Огромное количество товаров</p>
+                    <p class="headline-md mb-0">Выберите то, что вам нужно.</p>
+                    <p class="h5 mt">Более 6 тысяч товаров</p>
+                  </div>
+                  <div class='w-100 center'>
                     <a color="warn" mat-stroked-button class="bg-warn text-white" routerLink="/products">Подробнее</a>
                   </div>
                 </div>
-                <div class="section__item wrap-md pt-4 ">
-                  <div class="center flex-wrap grid_media" *ngIf="ads.length">
-                    <ng-template ngFor let-card [ngForOf]="ads">
-                      <card [card]="card" class="center w-100"></card>
-                    </ng-template>
-                  </div>
-                  <div class="center " *ngIf="!ads.length" style="min-height:40vh;">
-                    <div class="spinner-border text-light" role="status" style="width: 5rem; height: 5rem;">
-                      <span class="sr-only">Loading...</span>
+                <div class="section__item wrap-md pt-4">
+                  <div class="mt w-100">
+                    <div class="center flex-wrap grid_media" *ngIf="ads.length">
+                      <ng-template ngFor let-card [ngForOf]="ads">
+                        <card [card]="card" class="center w-100"></card>
+                      </ng-template>
+                    </div>
+                    <div class="center " *ngIf="!ads.length" style="min-height:40vh;">
+                      <div class="spinner-border text-light" role="status" style="width: 5rem; height: 5rem;">
+                        <span class="sr-only">Loading...</span>
+                      </div>
                     </div>
                   </div>
                 </div>
