@@ -1,7 +1,7 @@
 import { Component, Input } from "@angular/core";
 import { URL_PATH } from "src/app/app.component";
 import { IComment } from "src/app/Interfaces/Interfaces";
-import { Http } from "src/app/Services/Http.service";
+import { HttpService } from "src/app/Services/Http.service";
 import { User } from "src/app/Services/User.service";
 
 @Component({
@@ -19,7 +19,7 @@ export class Comments{
     num_pages:number;
     activePage:number = 1;
 
-    constructor(private http:Http,public user:User){
+    constructor(private http:HttpService, public user:User){
         this.comments=[]
     }
 
@@ -51,6 +51,6 @@ export class Comments{
             this.isSentRequest = true;
             this.hasNext=v.has_next;
             this.num_pages = v.pages;
-        }) 
+        })
     }
 }

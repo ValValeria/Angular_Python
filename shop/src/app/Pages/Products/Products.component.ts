@@ -1,7 +1,7 @@
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
 import { AfterViewInit, Component, ElementRef, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { IAd, ProductsBrand, ProductsInfo } from 'src/app/Interfaces/Interfaces';
-import { Http } from 'src/app/Services/Http.service';
+import { HttpService } from 'src/app/Services/Http.service';
 import { HttpParams } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -62,7 +62,7 @@ export class Products implements OnInit, AfterViewInit {
     urls: [string, string][];
     carouselImages: string[];
 
-    constructor(private http: Http,
+    constructor(private http: HttpService,
                 private dialog: MatDialog,
                 private router: Router,
                 private snackBar: MatSnackBar,

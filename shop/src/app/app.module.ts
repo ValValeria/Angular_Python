@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './Components/Header/Header.component';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
-import { Http } from './Services/Http.service';
+import { HttpService } from './Services/Http.service';
 import { User } from './Services/User.service';
 import { Authenticate } from './Services/Authenticate.service';
 import { MatBadgeModule } from '@angular/material/badge';
@@ -20,6 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { FooterComponent } from './Components/footer/footer.component';
 import { LogoComponent } from './Components/logo/logo.component';
 import {AuthenticateHelper} from './Classes/authenticate-helper.service';
+import { AdminUsersComponent } from './Components/admin-users/admin-users.component';
 
 
 @NgModule({
@@ -40,7 +41,7 @@ import {AuthenticateHelper} from './Classes/authenticate-helper.service';
     MatIconModule
   ],
   providers: [
-    Http,
+    HttpService,
     User,
     AuthenticateHelper,
     {provide: HTTP_INTERCEPTORS, useClass: Authenticate, multi: true},

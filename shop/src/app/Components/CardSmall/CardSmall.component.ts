@@ -3,7 +3,7 @@ import { IAd } from '../../Interfaces/Interfaces';
 import { ImageLoading } from '../../Classes/ImageLoading';
 import { Router } from '@angular/router';
 import { URL_PATH } from 'src/app/app.component';
-import { Http } from 'src/app/Services/Http.service';
+import { HttpService } from 'src/app/Services/Http.service';
 import { User } from 'src/app/Services/User.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -20,7 +20,7 @@ export class CardSmall extends ImageLoading{
 
     constructor(private router: Router,
                 private user: User,
-                private http: Http,
+                private http: HttpService,
                 private _snackBar: MatSnackBar){
         super();
     }

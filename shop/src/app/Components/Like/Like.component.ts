@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Http } from 'src/app/Services/Http.service';
+import { HttpService } from 'src/app/Services/Http.service';
 import { User } from 'src/app/Services/User.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { User } from 'src/app/Services/User.service';
 export class Like{
     @Input('id') productId: number;
 
-    constructor(private http: Http, private user: User,private _snackBar: MatSnackBar){}
+    constructor(private http: HttpService, private user: User, private _snackBar: MatSnackBar){}
 
     addLike(): void{
       if(!this.user.is_auth){

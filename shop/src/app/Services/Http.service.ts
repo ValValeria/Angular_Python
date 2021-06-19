@@ -6,8 +6,7 @@ import {retry, catchError} from 'rxjs/operators';
 type POST_DATA = FormData|{email: string, password: string}|string|{message: string, rating: number, post_id: number};
 
 @Injectable()
-export class Http{
-
+export class HttpService {
     constructor(private http: HttpClient){}
 
     public get<T>(url: string, config: any= {}): Observable<T>{

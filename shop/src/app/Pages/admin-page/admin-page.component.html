@@ -37,6 +37,9 @@
                  </div>
                </mat-card>
              </div>
+             <div class="admin__users-list" *ngIf="user.isSuperUser()">
+               <app-admin-users></app-admin-users>
+             </div>
              <mat-card class="shadow">
                <mat-card-title>Ваша корзина</mat-card-title>
                <mat-card-content>

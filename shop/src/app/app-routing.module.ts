@@ -43,7 +43,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { NotFoundPage } from './Pages/NotFoundPage/NotFoundPage.component';
 import { Slider } from './Components/Slider/Slider.component';
 import { Carousel } from './Components/Carousel/Carousel.component';
-import { BreadCrumbs } from './Components/BreadCrumbs/BreadCrumbs.component';
+import { BreadCrumbsComponent } from './Components/bread_crumbs/bread_crumbs.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { ProductNavigation } from './Components/ProductNavigation/ProductNavigation.component';
 import { MatStepperModule } from '@angular/material/stepper';
@@ -62,6 +62,7 @@ import {SliceStringPipe} from './Pipes/SliceString.pipe';
 import {AdminGuard} from './guards/admin.guard';
 import { AdminDashboardComponent } from './Components/admin-dashboard/admin-dashboard.component';
 import { AdminDashboardFullComponent } from './Components/admin-dashboard-full/admin-dashboard-full.component';
+import {AdminUsersComponent} from './Components/admin-users/admin-users.component';
 
 
 const routes: Routes = [
@@ -83,76 +84,46 @@ const routes: Routes = [
 ];
 
 
-const modules = [MatButtonModule,
-                 CommonModule,
-                 MatProgressSpinnerModule,
-                 MatCardModule,
-                 ReactiveFormsModule,
-                 MatFormFieldModule,
-                 MatIconModule,
-                 FormsModule,
-                 MatSliderModule,
-                 MatSidenavModule,
-                 MatInputModule,
-                 MatSelectModule,
-                 MatSlideToggleModule,
-                 MatStepperModule,
-                 MatExpansionModule,
-                 MatSnackBarModule,
-                 MatDividerModule,
-                 MatTabsModule,
-                 MatSortModule,
-                 MatTableModule,
-                 ChartsModule,
-                 MatCheckboxModule,
-                 MatChipsModule,
-                 MatProgressBarModule,
-                 MatDialogModule,
-                 GridLayoutModule
+const modules = [MatButtonModule, CommonModule,
+                 MatProgressSpinnerModule, MatCardModule,
+                 ReactiveFormsModule, MatFormFieldModule,
+                 MatIconModule, FormsModule,
+                 MatSliderModule, MatSidenavModule,
+                 MatInputModule, MatSelectModule,
+                 MatSlideToggleModule, MatStepperModule,
+                 MatExpansionModule, MatSnackBarModule,
+                 MatDividerModule, MatTabsModule,
+                 MatSortModule, MatTableModule,
+                 ChartsModule, MatCheckboxModule,
+                 MatChipsModule, MatProgressBarModule,
+                 MatDialogModule, GridLayoutModule
                 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes), ...modules],
-  declarations: [HomePage,
-                Products,
-                ErrorImageLoading,
-                CardSmall,
-                SafePipe,
-                OrdersLikes,
-                Product,
-                Carousel,
-                Charactarictics,
-                Comments,
-                AuthPage,
-                AdminPageComponent,
-                Slider,
-                CategoriesListComponent,
-                OrderList,
-                Like,
-                NotFoundPage,
-                ContactPage,
-                ProductPageImage,
-                SearchPageResult,
-                PurchasePage,
-                CategoryPage,
-                BreadCrumbs,
-                ProductNavigation,
-                FlexLayoutComponent,
-                ProductsCategoriesComponent,
-                ServiceInfoPageComponent,
-                ListsComponent,
-                SectionLayoutComponent,
-                DeliveryPageComponent,
-                WarrantyPolicyPageComponent,
-                ContactsInfoPageComponent,
-                ContractInfoPageComponent,
-                SliceStringPipe,
-                AdminDashboardComponent,
-                AdminDashboardFullComponent
+  declarations: [HomePage, Products,
+                ErrorImageLoading, CardSmall,
+                SafePipe, OrdersLikes,
+                Product, Carousel,
+                Charactarictics, Comments,
+                AuthPage, AdminPageComponent,
+                Slider, CategoriesListComponent,
+                OrderList, Like,
+                NotFoundPage, ContactPage,
+                ProductPageImage, SearchPageResult,
+                PurchasePage, CategoryPage,
+                BreadCrumbsComponent, ProductNavigation,
+                FlexLayoutComponent, ProductsCategoriesComponent,
+                ServiceInfoPageComponent, ListsComponent,
+                SectionLayoutComponent, DeliveryPageComponent,
+                WarrantyPolicyPageComponent, ContactsInfoPageComponent,
+                ContractInfoPageComponent, SliceStringPipe,
+                AdminDashboardComponent, AdminDashboardFullComponent,
+                AdminUsersComponent
                 ],
   providers: [
     AdminGuard
   ],
-  exports: [RouterModule, ...modules, ProductsCategoriesComponent, ProductsCategoriesComponent, SectionLayoutComponent, AdminDashboardComponent]
+  exports: [RouterModule, ...modules, ProductsCategoriesComponent, SectionLayoutComponent, AdminDashboardComponent]
 })
 export class AppRoutingModule { }

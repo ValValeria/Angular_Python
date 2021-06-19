@@ -5,7 +5,7 @@ import { from, interval, Observable } from "rxjs";
 import { concatAll, delayWhen, map, mergeAll, reduce, skipWhile, switchMap, take, takeUntil, tap } from "rxjs/operators";
 import { URL_PATH } from "src/app/app.component";
 import { IAd } from "src/app/Interfaces/Interfaces";
-import { Http } from "src/app/Services/Http.service";
+import { HttpService } from "src/app/Services/Http.service";
 import { User, USER_AUTH } from "src/app/Services/User.service";
 
 @Component({
@@ -19,7 +19,7 @@ export class PurchasePage implements OnInit{
     isPolicyAccepted = false;
 
     constructor(public user: User,
-                private http: Http,
+                private http: HttpService,
                 private router: Router,
                 private _snackBar: MatSnackBar){}
 

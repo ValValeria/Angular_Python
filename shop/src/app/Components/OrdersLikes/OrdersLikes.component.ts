@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { URL_PATH } from 'src/app/app.component';
 import { IAd } from 'src/app/Interfaces/Interfaces';
-import { Http } from 'src/app/Services/Http.service';
+import { HttpService } from 'src/app/Services/Http.service';
 import { User } from 'src/app/Services/User.service';
 
 export const LIKES$ = new Subject<number>();
@@ -13,8 +13,8 @@ export const LIKES$ = new Subject<number>();
 })
 export class OrdersLikes implements OnInit{
     likes: IAd[];
-    
-    constructor(private http: Http, private user: User){
+
+    constructor(private http: HttpService, private user: User){
         this.likes = [];
     }
 

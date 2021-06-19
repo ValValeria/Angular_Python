@@ -7,7 +7,7 @@ import {
   ViewChild, ViewContainerRef,
   ViewEncapsulation
 } from '@angular/core';
-import {Http} from 'src/app/Services/Http.service';
+import {HttpService} from 'src/app/Services/Http.service';
 import {User} from 'src/app/Services/User.service';
 import {Router} from '@angular/router';
 import {ChartType} from 'chart.js';
@@ -47,7 +47,7 @@ export class AdminPageComponent extends ImageLoading implements AfterViewInit, A
     urls: [string, string][];
 
 
-    constructor(private http: Http,
+    constructor(private http: HttpService,
                 public user: User,
                 public router: Router,
                 private snackBar: MatSnackBar,

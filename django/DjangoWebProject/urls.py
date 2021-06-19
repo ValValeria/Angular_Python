@@ -8,6 +8,8 @@ from app.view_pack.order_view import Order_View, Delete_Order, Get_Order, Order_
 from app.view_pack.authenticate import SignUpView, LoginView
 from app.view_pack.likes_view import ProductLikesShow, ProductLikes, ProductLikesDelete
 from app.view_pack.products import *
+from app.view_pack.admin_users import AdminUsers
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,6 +34,7 @@ urlpatterns = [
     re_path(r"^api/product-count", ProductAvailableCount.as_view()),
     re_path(r"^api/delete-user", DeleteUser.as_view()),
     re_path(r"^api/user-info", UserProfile.as_view()),
+    re_path(r"^api/users", AdminUsers.as_view()),
     re_path(r"^api/change-avatar", ChangeAvatar.as_view()),
     re_path(r'^admin/products/<int:id>/addimages', AdminProductImages.as_view()),
     re_path(r"^((?!app/static).)*$", NotFound.as_view())

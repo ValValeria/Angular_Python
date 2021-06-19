@@ -17,6 +17,14 @@ export interface IResponse{
   data: any[];
 }
 
+export interface IAdminUsersResponse{
+  data: {
+    users: IUser[];
+    has_next: boolean;
+    has_prev: boolean;
+  };
+}
+
 export interface ProductsInfo{
     data: {
         categories: string[],

@@ -5,7 +5,7 @@ import { Subject } from 'rxjs/internal/Subject';
 import { auditTime, filter, mergeMap, tap } from 'rxjs/operators';
 import { URL_PATH } from 'src/app/app.component';
 import { IAd } from 'src/app/Interfaces/Interfaces';
-import { Http } from 'src/app/Services/Http.service';
+import { HttpService } from 'src/app/Services/Http.service';
 
 export const $CLOSE_SEARCH = new Subject<number>();
 
@@ -21,7 +21,7 @@ export class SearchForm{
     hasMore: boolean;
     searchText = '';
 
-    constructor(private http: Http,private diaglog: MatDialog){}
+    constructor(private http: HttpService, private diaglog: MatDialog){}
 
     click(): void {
         const elem: HTMLInputElement = this.searchElem.nativeElement;
@@ -29,7 +29,7 @@ export class SearchForm{
         this.searchText = encodeURIComponent(elem.value);
 
         this.message = ``;
-        
+
         this.http.get<{ data: { results: IAd[] } }>
             (`${URL_PATH}api/search/?search=`
                 + encodeURIComponent(elem.value))

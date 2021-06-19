@@ -4,10 +4,10 @@ import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-breadcrumbs',
-    templateUrl: './BreadCrumbs.component.html',
-    styleUrls: ['./BreadCrumbs.component.scss']
+    templateUrl: './bread_crumbs.component.html',
+    styleUrls: ['./bread_crumbs.component.scss']
 })
-export class BreadCrumbs {
+export class BreadCrumbsComponent {
     @Input() urls: [string, string][] = [];
 
     constructor(private router: Router) { }

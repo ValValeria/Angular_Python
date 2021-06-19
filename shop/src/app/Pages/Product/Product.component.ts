@@ -7,7 +7,7 @@ import { fromEvent } from 'rxjs';
 import { URL_PATH } from 'src/app/app.component';
 import { ProductPageImage } from 'src/app/Components/ProductPageImage/ProductPageImage.component';
 import {IAd, IResponse} from 'src/app/Interfaces/Interfaces';
-import { Http } from 'src/app/Services/Http.service';
+import { HttpService } from 'src/app/Services/Http.service';
 import { User, USER_AUTH } from 'src/app/Services/User.service';
 import {HttpParams} from '@angular/common/http';
 import {Subject} from 'rxjs/internal/Subject';
@@ -32,7 +32,7 @@ export class Product implements OnInit, AfterViewInit {
     otherPosts: IAd[] = [];
     showDrawer = false;
 
-    constructor(private http: Http,
+    constructor(private http: HttpService,
                 private route: ActivatedRoute,
                 private router: Router,
                 public user: User,

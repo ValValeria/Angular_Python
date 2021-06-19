@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { fromEvent } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { Http } from 'src/app/Services/Http.service';
+import { HttpService } from 'src/app/Services/Http.service';
 import { User } from 'src/app/Services/User.service';
 import { $ORDER_COUNT } from '../OrderList/OrderList.component';
 import { $CLOSE_SEARCH, SearchForm } from '../SearchForm/SearchForm.component';
@@ -41,7 +41,7 @@ export class HeaderComponent implements AfterViewInit {
 
     constructor(public user: User,
                 private router: Router,
-                private http: Http,
+                private http: HttpService,
                 private dialog: MatDialog) { }
 
     ngAfterViewInit(): void {

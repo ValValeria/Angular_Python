@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { URL_PATH } from 'src/app/app.component';
-import { Http } from 'src/app/Services/Http.service';
+import { HttpService } from 'src/app/Services/Http.service';
 
 @Component({
     selector: 'app-contact-page',
@@ -21,7 +21,7 @@ import { Http } from 'src/app/Services/Http.service';
 export class ContactPage implements OnInit{
     formGroup: FormGroup;
 
-    constructor(private http: Http, private snackBar: MatSnackBar){}
+    constructor(private http: HttpService, private snackBar: MatSnackBar){}
 
     ngOnInit(): void {
         this.formGroup = new FormGroup({
@@ -35,13 +35,13 @@ export class ContactPage implements OnInit{
                 Validators.minLength(50), Validators.maxLength(300), Validators.required
             ]),
         });
-    }    
+    }
 
     click(): void{
         if (this.formGroup.valid){
            const data = this.formGroup.value;
            const formdata: FormData = new FormData();
-           
+
            Object.entries(data).forEach(([key,value]) => {
                formdata.append(key, value.toString());
            });
