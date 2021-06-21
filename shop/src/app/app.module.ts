@@ -20,8 +20,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { FooterComponent } from './Components/footer/footer.component';
 import { LogoComponent } from './Components/logo/logo.component';
 import {AuthenticateHelper} from './Classes/authenticate-helper.service';
-import { AdminUsersComponent } from './Components/admin-users/admin-users.component';
 
+const modules = [
+  MatIconModule
+];
 
 @NgModule({
   declarations: [
@@ -30,7 +32,6 @@ import { AdminUsersComponent } from './Components/admin-users/admin-users.compon
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     MatCardModule,
     HttpClientModule,
@@ -38,7 +39,8 @@ import { AdminUsersComponent } from './Components/admin-users/admin-users.compon
     MatDialogModule,
     NgbModule,
     MatSidenavModule,
-    MatIconModule
+    AppRoutingModule,
+    ...modules
   ],
   providers: [
     HttpService,

@@ -63,6 +63,9 @@ import {AdminGuard} from './guards/admin.guard';
 import { AdminDashboardComponent } from './Components/admin-dashboard/admin-dashboard.component';
 import { AdminDashboardFullComponent } from './Components/admin-dashboard-full/admin-dashboard-full.component';
 import {AdminUsersComponent} from './Components/admin-users/admin-users.component';
+import { UsersPageComponent } from './Pages/users-page/users-page.component';
+import { UserCardComponent } from './Components/user-card/user-card.component';
+import {MatListModule} from '@angular/material/list';
 
 
 const routes: Routes = [
@@ -72,6 +75,7 @@ const routes: Routes = [
   {path: 'product/:id', component: Product},
   {path: 'authenticate', component: AuthPage},
   {path: 'profile', component: AdminPageComponent, canActivate: [AdminGuard]},
+  {path: 'profile/users', component: UsersPageComponent, canActivate: [AdminGuard]},
   {path: 'search', component: SearchPageResult },
   {path: 'contacts', component: ContactPage},
   {path: 'category/:category', component: CategoryPage},
@@ -96,7 +100,8 @@ const modules = [MatButtonModule, CommonModule,
                  MatSortModule, MatTableModule,
                  ChartsModule, MatCheckboxModule,
                  MatChipsModule, MatProgressBarModule,
-                 MatDialogModule, GridLayoutModule
+                 MatDialogModule, GridLayoutModule,
+                 MatListModule
                 ];
 
 @NgModule({
@@ -119,11 +124,9 @@ const modules = [MatButtonModule, CommonModule,
                 WarrantyPolicyPageComponent, ContactsInfoPageComponent,
                 ContractInfoPageComponent, SliceStringPipe,
                 AdminDashboardComponent, AdminDashboardFullComponent,
-                AdminUsersComponent
+                AdminUsersComponent, UsersPageComponent, UserCardComponent
                 ],
-  providers: [
-    AdminGuard
-  ],
+  providers: [AdminGuard],
   exports: [RouterModule, ...modules, ProductsCategoriesComponent, SectionLayoutComponent, AdminDashboardComponent]
 })
 export class AppRoutingModule { }

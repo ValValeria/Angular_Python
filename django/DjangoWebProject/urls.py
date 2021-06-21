@@ -12,7 +12,6 @@ from app.view_pack.admin_users import AdminUsers
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     re_path(r"^api/send-letter", SendLetter.as_view()),
     re_path(r"^api/delete-likes/", ProductLikesDelete.as_view()),
     re_path(r"^api/info-products/", ProductInfo.as_view()),

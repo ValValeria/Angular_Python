@@ -27,7 +27,6 @@ export class AuthPage implements AfterViewInit{
                 private builder: FormBuilder,
                 private snackBar: MatSnackBar,
                 private router: Router,
-                private detection: ChangeDetectorRef,
                 private route: ActivatedRoute,
                 private authHelper: AuthenticateHelper) {
 
@@ -79,8 +78,8 @@ export class AuthPage implements AfterViewInit{
                     duration
                 });
 
-                setTimeout(() => {
-                    this.router.navigateByUrl('/profile');
+                setTimeout(async () => {
+                    await this.router.navigateByUrl('/profile');
                 }, duration);
             }
         }, 5000);
@@ -89,14 +88,13 @@ export class AuthPage implements AfterViewInit{
     click($event): void {
         if ($event.index === 1) {
             this.isLogin = false;
-            this.selectedIndex = 0;
+            this.selectedIndex = 1;
         } else if ($event.index === 0) {
             this.isLogin = true;
-            this.selectedIndex = 1;
+            this.selectedIndex = 0;
         }
 
         this.showStatus = '';
-        this.detection.detectChanges();
     }
 
     submit($event): void {

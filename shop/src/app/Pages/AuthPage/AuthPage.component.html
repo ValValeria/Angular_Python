@@ -33,14 +33,14 @@
         <mat-card class="d-flex center flex-column">
             <mat-card-content class="w-100">
                 <div class="auth__items wrap-md center flex-column w-100">
-                    <div class="auth__email" *ngIf="!isLog">
+                    <div class="auth__email mb-half" *ngIf="!isLog">
                         <mat-form-field appearance="outline" class="w-100" color="accent">
                             <mat-label>Почта</mat-label>
                             <input type="email" matInput [formControl]="email" maxlength="30" minlength="10" required>
                             <mat-hint>Максимум - 30 букв, минимум 10</mat-hint>
                         </mat-form-field>
                     </div>
-                    <div class="auth__username">
+                    <div class="auth__username mb-half">
                         <mat-form-field appearance="outline" class="w-100" color="accent">
                             <mat-label>Имя пользователя</mat-label>
                             <input type="text" matInput formControlName="username" maxlength="30" minlength="10"
@@ -48,7 +48,7 @@
                             <mat-hint>Максимум - 30 букв, минимум 10</mat-hint>
                         </mat-form-field>
                     </div>
-                    <div class="auth__password">
+                    <div class="auth__password mb-half">
                         <mat-form-field appearance="outline" class="w-100" color="accent">
                             <mat-label>Пароль</mat-label>
                             <input type="password" matInput formControlName="password" maxlength="30" minlength="10"
@@ -75,7 +75,7 @@
                         [disabled]="!isValid"
                         color="accent"
                         (click)="submit($event)"
-                        class="wrap-md">{{isLog?"Войти":"Зарегестрироваться"}}</button>
+                        class="wrap-md auth__btn">{{isLog?"Войти":"Зарегестрироваться"}}</button>
             </mat-card-content>
         </mat-card>
     </form>

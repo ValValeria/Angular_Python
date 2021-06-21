@@ -8,8 +8,14 @@ class AdminUsers(ListView):
     response = {"data": {"users": []}, "errors": [], "status": ""}
 
     def get(self, request, *args, **kw):
-        page = request.GET.get("page")
-        per_page = request.GET.get("per_page")
+        page = 1
+        per_page = 4
+
+        if request.GET.get("page"):
+            page = request.GET.get("page")
+
+        if request.GET.get("per_page"):
+            per_page = request.GET.get("per_page")    
 
         if not page.isdigit() or not per_page.isdigit():
             return HttpResponseBadRequest()

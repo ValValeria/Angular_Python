@@ -1,0 +1,21 @@
+@import "src/variables";
+
+.user-card{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: $margin;
+}
+
+.user-card__content{
+  grid-column: span 2;
+  padding-right: $margin;
+}
+
+.user-card__img, .user-card__img img{
+  width: 100%;
+}
+
+.user-card__img img{
+  object-fit: cover;
+  width:100%;
+}

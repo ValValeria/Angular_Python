@@ -17,6 +17,7 @@ export class CardSmall extends ImageLoading{
     @Input() showFull = true;
     @ViewChild('img', {read: ElementRef}) public image: ElementRef;
     @Input() showButton = true;
+    @Input() emptyCard = false;
 
     constructor(private router: Router,
                 private user: User,

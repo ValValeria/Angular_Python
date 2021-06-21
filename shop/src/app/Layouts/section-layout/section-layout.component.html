@@ -1,7 +1,7 @@
 <section [ngClass]="['section', cssClass]">
   <div [ngClass]="getCssClass('wrap')">
     <div [ngClass]="getCssClass('content')">
-      <div [ngClass]="getCssClass('title')" *ngIf="hasTitle">
+      <div [ngClass]="getCssClass('title','text-center')" *ngIf="hasTitle">
          {{title}}
       </div>
       <div [ngClass]="getCssClass('items', 'center', 'flex-column')">

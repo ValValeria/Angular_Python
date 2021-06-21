@@ -12,6 +12,11 @@
              Ваша фотография
            </h6>
          </button>
+         <div class="admin__show-users w-100 mt-half">
+           <a mat-flat-button class="w-100" routerLink="/profile/users" color="warn">
+             Пользователи
+           </a>
+         </div>
        </div>
        <div class="admin__items ">
          <div class="w-100">
@@ -36,9 +41,6 @@
                    </mat-card-content>
                  </div>
                </mat-card>
-             </div>
-             <div class="admin__users-list" *ngIf="user.isSuperUser()">
-               <app-admin-users></app-admin-users>
              </div>
              <mat-card class="shadow">
                <mat-card-title>Ваша корзина</mat-card-title>

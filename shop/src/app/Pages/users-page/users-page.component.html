@@ -1,0 +1,15 @@
+<div class="w-100">
+  <app-section-layout hasTitle="true" title="Users" cssClass="users" class="w-100">
+      <div class="w-100 mt">
+        <div class="center flex-column">
+          <ng-container *ngFor="let item of response.data.users" class="w-100">
+            <app-user-card [user]="item"></app-user-card>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="users__loading center w-100">
+        <mat-progress-spinner color="accent"></mat-progress-spinner>
+      </div>
+  </app-section-layout>
+</div>

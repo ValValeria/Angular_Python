@@ -10,13 +10,18 @@ import {IAdminUsersResponse} from '../../Interfaces/Interfaces';
 })
 export class AdminUsersComponent implements OnInit {
   private data: IAdminUsersResponse;
+  private page = 1;
+  private perPage = 3;
 
   constructor(private user: User,
               private http: HttpService
               ) {}
 
   ngOnInit(): void {
-    this.http.get<IAdminUsersResponse>('/api/users', {})
+    this.http.get<IAdminUsersResponse>('/api/users', {
+      page: this.page,
+      per_page: this.perPage
+    })
       .subscribe(v => {
           this.data = v;
       });
