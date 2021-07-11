@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
 import {AuthenticateHelper} from '../Classes/authenticate-helper.service';
-import {User} from '../Services/User.service';
+import {UserService} from '../Services/User.service';
 
 @Injectable()
-export class AdminGuard implements CanActivate{
+export class OnlyAuthGuard implements CanActivate{
 
-   constructor(private user: User,
+   constructor(private user: UserService,
                private auth: AuthenticateHelper,
                private router: Router){}
 
@@ -15,8 +15,10 @@ export class AdminGuard implements CanActivate{
 
      if (!this.user.is_auth){
        setTimeout(() => this.router.navigateByUrl('/'));
+
+       return false;
      }
 
-     return this.user.is_auth;
+     return true;
    }
 }
