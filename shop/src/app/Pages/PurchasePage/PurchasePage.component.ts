@@ -1,12 +1,12 @@
-import { AfterViewInit, Component, OnInit } from "@angular/core";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { Router } from "@angular/router";
-import { from, interval, Observable } from "rxjs";
-import { concatAll, delayWhen, map, mergeAll, reduce, skipWhile, switchMap, take, takeUntil, tap } from "rxjs/operators";
-import { URL_PATH } from "src/app/app.component";
-import { IAd } from "src/app/Interfaces/Interfaces";
-import { HttpService } from "src/app/Services/Http.service";
-import { User, USER_AUTH } from "src/app/Services/User.service";
+import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { from, interval, Observable } from 'rxjs';
+import { reduce, skipWhile, switchMap, take, takeUntil, tap } from 'rxjs/operators';
+import { URL_PATH } from 'src/app/app.component';
+import { IAd } from 'src/app/Interfaces/Interfaces';
+import { HttpService } from 'src/app/Services/Http.service';
+import { UserService, USER_AUTH } from 'src/app/Services/User.service';
 
 @Component({
     selector: 'app-purchase-page',
@@ -18,11 +18,10 @@ export class PurchasePage implements OnInit{
     amountToPay$: Observable<number>;
     isPolicyAccepted = false;
 
-    constructor(public user: User,
+    constructor(public user: UserService,
                 private http: HttpService,
                 private router: Router,
                 private _snackBar: MatSnackBar){}
-
 
     ngOnInit(): void{
         USER_AUTH.subscribe(() => {
@@ -53,7 +52,7 @@ export class PurchasePage implements OnInit{
 
     purchase(): void{
         if (!this.isPolicyAccepted){
-            this._snackBar.open("Дайте согласие на обработку персональных данных. Иначе оформить покупку не получится", 'Close', {
+            this._snackBar.open('Дайте согласие на обработку персональных данных. Иначе оформить покупку не получится', 'Close', {
                 duration: 10000
             });
         } else{

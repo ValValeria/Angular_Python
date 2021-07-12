@@ -6,8 +6,8 @@ import { Router } from '@angular/router';
 import { fromEvent } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { HttpService } from 'src/app/Services/Http.service';
-import { User } from 'src/app/Services/User.service';
-import { $ORDER_COUNT } from '../OrderList/OrderList.component';
+import { UserService } from 'src/app/Services/User.service';
+import {$DELETE_ITEMS, $ORDER_COUNT} from '../OrderList/OrderList.component';
 import { $CLOSE_SEARCH, SearchForm } from '../SearchForm/SearchForm.component';
 import {Subject} from 'rxjs/internal/Subject';
 
@@ -39,7 +39,7 @@ export class HeaderComponent implements AfterViewInit {
     animState: 'enter' | 'leave' = 'enter';
     isSearchClicked = false;
 
-    constructor(public user: User,
+    constructor(public user: UserService,
                 private router: Router,
                 private http: HttpService,
                 private dialog: MatDialog) { }
@@ -61,7 +61,15 @@ export class HeaderComponent implements AfterViewInit {
         window.onresize = toggleClass;
 
         $ORDER_COUNT.subscribe(v => {
-            this.counter = v;
+            if (this.user.id === v[1].id){
+              this.counter = v[0];
+            }
+        });
+
+        $DELETE_ITEMS.subscribe((v) => {
+            if (v[1].id === this.user.id){
+              this.counter -= v[0].length;
+            }
         });
 
         $CLOSE_SEARCH.subscribe(v => {
@@ -84,7 +92,7 @@ export class HeaderComponent implements AfterViewInit {
 
             return false;
         }))
-        .subscribe(_v => this.toggleHeader());
+        .subscribe(() => this.toggleHeader());
     }
 
     toggleHeader(): void {

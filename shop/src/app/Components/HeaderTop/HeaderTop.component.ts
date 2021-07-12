@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { User } from "src/app/Services/User.service";
+import { UserService } from "src/app/Services/User.service";
 
 @Component({
     selector: 'app-header-top',
@@ -7,7 +7,7 @@ import { User } from "src/app/Services/User.service";
     styleUrls: ['./HeaderTop.component.scss']
 })
 export class HeaderTop{
-    constructor(private user: User){}
+    constructor(private user: UserService){}
 
     get isAuth(): boolean{
         return this.user.is_auth;

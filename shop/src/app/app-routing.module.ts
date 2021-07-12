@@ -25,7 +25,7 @@ import { AdminPageComponent } from './Pages/admin-page/admin-page.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
-import { OrderList } from './Components/OrderList/OrderList.component';
+import { OrderListComponent } from './Components/OrderList/OrderList.component';
 import { ChartsModule } from 'ng2-charts';
 import { SafePipe } from './Pipes/Safe.pipe';
 import { OrdersLikes } from './Components/OrdersLikes/OrdersLikes.component';
@@ -59,13 +59,18 @@ import {WarrantyPolicyPageComponent} from './Pages/warranty-policy-page/warranty
 import { ContactsInfoPageComponent } from './Pages/contacts-info-page/contacts-info-page.component';
 import {ContractInfoPageComponent} from './Pages/contract-info-page/contract-info-page.component';
 import {SliceStringPipe} from './Pipes/SliceString.pipe';
-import {AdminGuard} from './guards/admin.guard';
+import {OnlyAuthGuard} from './guards/only-auth-guard.service';
 import { AdminDashboardComponent } from './Components/admin-dashboard/admin-dashboard.component';
 import { AdminDashboardFullComponent } from './Components/admin-dashboard-full/admin-dashboard-full.component';
 import {AdminUsersComponent} from './Components/admin-users/admin-users.component';
 import { UsersPageComponent } from './Pages/users-page/users-page.component';
 import { UserCardComponent } from './Components/user-card/user-card.component';
 import {MatListModule} from '@angular/material/list';
+import { AddProductPageComponent } from './Pages/add-product-page/add-product-page.component';
+import {OnlySuperAdminGuard} from './guards/only-super-admin.guard';
+import { AddProductFormComponent } from './Components/add-product-form/add-product-form.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
+
 
 
 const routes: Routes = [
@@ -74,8 +79,9 @@ const routes: Routes = [
   {path: 'products', component: Products },
   {path: 'product/:id', component: Product},
   {path: 'authenticate', component: AuthPage},
-  {path: 'profile', component: AdminPageComponent, canActivate: [AdminGuard]},
-  {path: 'profile/users', component: UsersPageComponent, canActivate: [AdminGuard]},
+  {path: 'profile/users', component: UsersPageComponent, canActivate: [OnlySuperAdminGuard]},
+  {path: 'profile/:id', component: AdminPageComponent, canActivate: [OnlyAuthGuard]},
+  {path: 'profile/add-product', component: AddProductPageComponent, canActivate: [OnlySuperAdminGuard]},
   {path: 'search', component: SearchPageResult },
   {path: 'contacts', component: ContactPage},
   {path: 'category/:category', component: CategoryPage},
@@ -105,7 +111,7 @@ const modules = [MatButtonModule, CommonModule,
                 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes), ...modules],
+    imports: [RouterModule.forRoot(routes), ...modules, MatPaginatorModule],
   declarations: [HomePage, Products,
                 ErrorImageLoading, CardSmall,
                 SafePipe, OrdersLikes,
@@ -113,7 +119,7 @@ const modules = [MatButtonModule, CommonModule,
                 Charactarictics, Comments,
                 AuthPage, AdminPageComponent,
                 Slider, CategoriesListComponent,
-                OrderList, Like,
+                OrderListComponent, Like,
                 NotFoundPage, ContactPage,
                 ProductPageImage, SearchPageResult,
                 PurchasePage, CategoryPage,
@@ -124,9 +130,10 @@ const modules = [MatButtonModule, CommonModule,
                 WarrantyPolicyPageComponent, ContactsInfoPageComponent,
                 ContractInfoPageComponent, SliceStringPipe,
                 AdminDashboardComponent, AdminDashboardFullComponent,
-                AdminUsersComponent, UsersPageComponent, UserCardComponent
+                AdminUsersComponent, UsersPageComponent, UserCardComponent,
+                AddProductFormComponent, AddProductPageComponent
                 ],
-  providers: [AdminGuard],
+  providers: [OnlyAuthGuard, OnlySuperAdminGuard],
   exports: [RouterModule, ...modules, ProductsCategoriesComponent, SectionLayoutComponent, AdminDashboardComponent]
 })
 export class AppRoutingModule { }

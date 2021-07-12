@@ -1,15 +1,72 @@
 <div class="w-100">
   <app-section-layout hasTitle="true" title="Users" cssClass="users" class="w-100">
-      <div class="w-100 mt">
-        <div class="center flex-column">
-          <ng-container *ngFor="let item of response.data.users" class="w-100">
-            <app-user-card [user]="item"></app-user-card>
-          </ng-container>
-        </div>
-      </div>
+      <ng-template [ngIf]="allPages">
+        <div class="w-100 mt">
+          <div class="users__actions w-100 mb">
+            <div class="shadow p-all w-100">
+              <div class="w-100 center justify-content-start">
+                <button mat-flat-button color="warn">Delete user/users</button>
+              </div>
+            </div>
+          </div>
+          <div class="center flex-column mb w-100">
+            <table mat-table [dataSource]="users" class="mat-elevation-z6 w-100">
 
-      <div class="users__loading center w-100">
-        <mat-progress-spinner color="accent"></mat-progress-spinner>
-      </div>
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> id </th>
+                <td mat-cell *matCellDef="let element">
+                  <mat-checkbox color="accent" (change)="change($event, element.id)">
+                    {{element.id}}
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="avatar">
+                <th mat-header-cell *matHeaderCellDef> avatar </th>
+                <td mat-cell *matCellDef="let element">
+                  <div class="user__avatar-sm mt mb">
+                    <img src="{{element.avatar}}" alt="..."/>
+                  </div>
+                </td>
+              </ng-container>
+
+              <ng-container *ngFor="let field of displayedFields" matColumnDef="{{field}}">
+                <th mat-header-cell *matHeaderCellDef> {{field}} </th>
+                <td mat-cell *matCellDef="let element"> {{element[field]}} </td>
+              </ng-container>
+
+
+              <ng-container matColumnDef="orders">
+                <th mat-header-cell *matHeaderCellDef> Orders </th>
+                <td mat-cell *matCellDef="let element"> {{element.getQuantityOfAllOrders()}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="link">
+                <th mat-header-cell *matHeaderCellDef> Visit </th>
+                <td mat-cell *matCellDef="let element">
+                  <a mat-flat-button color="accent" routerLink="/profile/{{element.id}}">Read</a>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedAllFields"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedAllFields;"></tr>
+            </table>
+          </div>
+          <div class="w-100 center">
+            <mat-paginator
+              [length]="allUsers"
+              [pageSize]="perPage"
+              [pageSizeOptions]="[perPage, 10, 15]"
+              color="accent"
+              (page)="changePage($event)"></mat-paginator>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template [ngIf]="!allPages">
+        <div class="users__loading center w-100">
+          <mat-progress-spinner color="accent"></mat-progress-spinner>
+        </div>
+      </ng-template>
   </app-section-layout>
 </div>

@@ -4,7 +4,7 @@ import { ImageLoading } from '../../Classes/ImageLoading';
 import { Router } from '@angular/router';
 import { URL_PATH } from 'src/app/app.component';
 import { HttpService } from 'src/app/Services/Http.service';
-import { User } from 'src/app/Services/User.service';
+import { UserService } from 'src/app/Services/User.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -20,7 +20,7 @@ export class CardSmall extends ImageLoading{
     @Input() emptyCard = false;
 
     constructor(private router: Router,
-                private user: User,
+                private user: UserService,
                 private http: HttpService,
                 private _snackBar: MatSnackBar){
         super();

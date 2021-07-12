@@ -1,7 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import {NavigationCancel, Router} from '@angular/router';
 import { AuthenticateHelper } from './Classes/authenticate-helper.service';
-import { User } from './Services/User.service';
+import { UserService } from './Services/User.service';
 import {intersection} from 'lodash';
 import {filter} from 'rxjs/operators';
 
@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
   initAppHeight: number;
 
   constructor(
-    private user: User,
+    private user: UserService,
     private auth: AuthenticateHelper,
     private router: Router
   ) { }

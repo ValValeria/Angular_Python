@@ -2,7 +2,7 @@ import { Component, Input } from "@angular/core";
 import { URL_PATH } from "src/app/app.component";
 import { IComment } from "src/app/Interfaces/Interfaces";
 import { HttpService } from "src/app/Services/Http.service";
-import { User } from "src/app/Services/User.service";
+import { UserService } from "src/app/Services/User.service";
 
 @Component({
     selector:"comments",
@@ -19,7 +19,7 @@ export class Comments{
     num_pages:number;
     activePage:number = 1;
 
-    constructor(private http:HttpService, public user:User){
+    constructor(private http:HttpService, public user:UserService){
         this.comments=[]
     }
 

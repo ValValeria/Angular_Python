@@ -2,7 +2,7 @@
 <div class="avatar center ">
     <div class="avatar__icon">
         <div class="position-relative">
-            <button routerLink="/profile" class="avatar__btn">
+            <button class="avatar__btn" (click)="handleClick()">
                 <img src="http://127.0.0.1:8000{{user.avatar}}" alt="" srcset="" style="width:30px;height:30px">
             </button>
             <button class="avatar__orders" mat-mini-fab color="accent">{{user.activeOrders.length}}</button>
@@ -13,7 +13,7 @@
             <mat-card-content>
                 <mat-list role="list" class="center flex-column">
                     <mat-list-item role="listitem">
-                        <button mat-stroked-button color="basic" on-click='logout()'>
+                        <button mat-stroked-button color="basic" on-click='logout()' class="w-100">
                             Выйти
                         </button>
                     </mat-list-item>

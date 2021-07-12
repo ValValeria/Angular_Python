@@ -10,5 +10,9 @@
     <h6 class="user-card__subtitle mt">
       {{user.role || "user"}}
     </h6>
+    <div class="user-card__actions mt">
+      <button class="mb-half" mat-flat-button color="warn" (click)="deleteUser()">Delete the user</button>
+      <button class="mb" mat-flat-button color="accent" (click)="visitProfile()">View the profile of user</button>
+    </div>
   </div>
 </div>

@@ -4,7 +4,7 @@ dist
 /out-tsc
 /bazel-out
 .txt
-django/.gitignore
+server/.gitignore
 avatars
 venv
 assets
@@ -15,7 +15,7 @@ Procfile
 migrations
 __pycache__/
 
-django/app/static
+server/app/static
 
 # profiling files
 chrome-profiler-events*.json

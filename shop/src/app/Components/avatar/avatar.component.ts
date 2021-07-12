@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import {User} from '../../Services/User.service';
+import {UserService} from '../../Services/User.service';
 import {URL_PATH} from '../../app.component';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
@@ -24,7 +24,7 @@ export class AvatarComponent {
     @Input() showAuthAvatar = false;
     @Input() showPopup = false;
 
-    constructor(private user: User,
+    constructor(private user: UserService,
                 private http: HttpClient,
                 private router: Router) {}
 
@@ -38,5 +38,9 @@ export class AvatarComponent {
        this.http.get(`${URL_PATH}api/delete-user`).subscribe(() => {
          this.logout();
        });
+    }
+
+    async handleClick(): Promise<void>{
+      await this.router.navigateByUrl(`/profile/${this.user.id}`);
     }
 }

@@ -22,6 +22,8 @@ export interface IAdminUsersResponse{
     users: IUser[];
     has_next: boolean;
     has_prev: boolean;
+    all_pages: number;
+    all_users_count: number
   };
 }
 

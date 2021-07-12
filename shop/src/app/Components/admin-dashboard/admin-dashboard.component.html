@@ -4,7 +4,7 @@
       <div class="admin__banner center mb">
         <div class="w-100 center flex-column">
           <div class="center flex-column">
-            <h5 class="admin__headline text-center">Ваш профиль</h5>
+            <h5 class="admin__headline text-center">Профиль</h5>
             <div class="admin__avatar">
               <div class="w-100">
                 <div class="image-container">
@@ -17,12 +17,12 @@
               <span>{{user.username}}</span>
             </div>
           </div>
-          <div class="admin__actions center flex-column">
+          <div class="admin__actions center flex-column" *ngIf="currentUser.id === user.id">
             <div class="admin__upload-photo w-100">
               <button mat-flat-button color="accent" on-click="changeAvatar()" class="w-100">Поменять аватар</button>
               <input type="file" name=""#file hidden>
             </div>
-            <div class="admin__show-users w-100 mt-half">
+            <div class="admin__show-users w-100 mt-half" *ngIf="user.isSuperUser()">
               <button mat-flat-button class="w-100" (click)="navigateToUsersPage()" color="warn">
                 Пользователи
               </button>

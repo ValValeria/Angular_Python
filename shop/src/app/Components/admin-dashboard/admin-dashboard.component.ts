@@ -1,5 +1,5 @@
-import {Component, OnInit, Output, EventEmitter} from '@angular/core';
-import {User} from '../../Services/User.service';
+import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
+import {UserService} from '../../Services/User.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -7,15 +7,12 @@ import {Router} from '@angular/router';
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.scss']
 })
-export class AdminDashboardComponent implements OnInit {
+export class AdminDashboardComponent{
   @Output() changeAvatarEvent = new EventEmitter<boolean>();
+  @Input() user: UserService;
+  @Input() currentUser: UserService;
 
-  constructor(public user: User,
-              private router: Router
-              ) { }
-
-  ngOnInit(): void {
-  }
+  constructor(private router: Router) {}
 
   changeAvatar(): void{
     this.changeAvatarEvent.emit();

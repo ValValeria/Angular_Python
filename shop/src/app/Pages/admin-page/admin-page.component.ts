@@ -1,27 +1,24 @@
 import {
   AfterContentInit,
   AfterViewInit,
-  Component, ComponentFactoryResolver,
-  ElementRef,
-  TemplateRef,
-  ViewChild, ViewContainerRef,
-  ViewEncapsulation
+  Component,
+  ElementRef, SkipSelf,
+  ViewChild
 } from '@angular/core';
 import {HttpService} from 'src/app/Services/Http.service';
-import {User} from 'src/app/Services/User.service';
-import {Router} from '@angular/router';
+import {UserService} from 'src/app/Services/User.service';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ChartType} from 'chart.js';
 import {MultiDataSet} from 'ng2-charts';
-import {$CHOOSE_ITEM, $DELETE_ITEMS, $ORDER_COUNT, OrderList} from 'src/app/Components/OrderList/OrderList.component';
+import {$CHOOSE_ITEM, $DELETE_ITEMS, $ORDER_COUNT, OrderListComponent} from 'src/app/Components/OrderList/OrderList.component';
 import {pull, uniq} from 'lodash';
-import {IAd} from 'src/app/Interfaces/Interfaces';
+import {IAd, IUser} from 'src/app/Interfaces/Interfaces';
 import {from, fromEvent} from 'rxjs';
-import {auditTime, merge, mergeAll, mergeMap} from 'rxjs/operators';
+import {auditTime, mergeMap} from 'rxjs/operators';
 import {ImageLoading} from 'src/app/Classes/ImageLoading';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {LIKES$} from 'src/app/Components/OrdersLikes/OrdersLikes.component';
 import {URL_PATH} from 'src/app/app.component';
-import {MEDIA$} from '../../Components/Header/Header.component';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {AdminDashboardFullComponent} from '../../Components/admin-dashboard-full/admin-dashboard-full.component';
 
@@ -29,6 +26,7 @@ import {AdminDashboardFullComponent} from '../../Components/admin-dashboard-full
     selector: 'app-admin',
     templateUrl: './admin-page.component.html',
     styleUrls: ['./admin-page.component.scss'],
+    providers: [UserService]
 })
 export class AdminPageComponent extends ImageLoading implements AfterViewInit, AfterContentInit{
     orderCount = 0;
@@ -40,21 +38,55 @@ export class AdminPageComponent extends ImageLoading implements AfterViewInit, A
     public selectedLikes: number[] = [];
     public isMedia = false;
     readonly MAX_WIDTH = 1100;
-    @ViewChild('orders_active', {read: OrderList}) ordersArea: OrderList;
+    @ViewChild('orders_active', {read: OrderListComponent}) ordersArea: OrderListComponent;
     @ViewChild('file', {read: ElementRef}) file: ElementRef;
     message = '';
     errors: string[] = [];
     urls: [string, string][];
-
+    private id: number;
+    private isUserProfile = true;
 
     constructor(private http: HttpService,
-                public user: User,
                 public router: Router,
                 private snackBar: MatSnackBar,
                 private matDialog: MatDialog,
+                private route: ActivatedRoute,
+                public user: UserService,
+                @SkipSelf() public currentUser: UserService
     ){
         super();
+
         this.urls = [['/', 'Главная'], [router.url, 'Профиль']];
+
+        this.user = new UserService();
+
+        route.paramMap.subscribe(v => {
+          this.id = parseInt(v.get('id'), 10);
+
+          this.http.get<{data: {user: IUser}, status: string}>(`/api/user/${this.id}`).subscribe(v1 => {
+            if (v1.status === 'error'){
+              this.snackBar.open('The user doesn\'t exist', 'Close');
+
+              setTimeout(async () => {
+                await this.router.navigateByUrl('/');
+              }, 1000);
+            } else {
+              this.user.loadUserData(v1.data.user);
+
+              if (this.user.id === this.id){
+                this.isUserProfile = true;
+              } else {
+                this.isUserProfile = false;
+              }
+
+              this.http.get<{ data: { active: IAd[], unactive: IAd[] }, amount_of_orders: number, amount_of_products: number }>(`/api/get-orders/${this.user.id}`)
+                .subscribe(v => {
+                  this.user.addActiveProducts(v.data.active);
+                  this.user.addUnactiveProducts(v.data.unactive);
+                });
+            }
+          });
+        });
     }
 
     ngAfterViewInit(): void {
@@ -72,21 +104,23 @@ export class AdminPageComponent extends ImageLoading implements AfterViewInit, A
 
         $ORDER_COUNT.subscribe(elem => {
             setTimeout(() => {
-                this.orderCount = elem;
+                if (elem[1].id === this.user.id){
+                  this.orderCount = elem[0];
 
-                this.doughnutChartLabels = uniq(this.user.activeOrders.map(v => v.brand));
+                  this.doughnutChartLabels = uniq(this.user.activeOrders.map(v => v.brand));
 
-                const numbers: number[] = [];
+                  const numbers: number[] = [];
 
-                this.doughnutChartLabels.forEach(item => {
+                  this.doughnutChartLabels.forEach(item => {
                     const sortByCat: IAd[] = this.user.activeOrders.filter(v => v.brand === item);
                     let num = sortByCat.reduce((prev, current) => prev + current.count, 0);
                     console.log(num);
                     num = Math.round((num * 100) / this.orderCount);
                     numbers.push(num);
-                });
+                  });
 
-                this.doughnutChartData = [numbers];
+                  this.doughnutChartData = [numbers];
+                }
             }, 0);
         });
 
@@ -110,15 +144,9 @@ export class AdminPageComponent extends ImageLoading implements AfterViewInit, A
         };
     }
 
-    ngAfterContentInit(): void{
-        this.http.get<{ data: { active: IAd[], unactive: IAd[] }, amount_of_orders: number, amount_of_products: number }>(`${URL_PATH}api/get-orders/`)
-                .subscribe(v => {
-                    this.user.addActiveProducts(v.data.active);
-                    this.user.addUnactiveProducts(v.data.unactive);
-                });
-
+    ngAfterContentInit(): void {
         $CHOOSE_ITEM.subscribe(v => {
-            if (v[0] === 'products_buy'){
+            if (v[0] === 'products_buy' && v[2].id === this.user.id){
                 if (!this.selectedItems.includes(v[1])) {
                     this.selectedCount += 1;
                     this.selectedItems.push(v[1]);
@@ -148,7 +176,7 @@ export class AdminPageComponent extends ImageLoading implements AfterViewInit, A
             this.snackBar.open('Товары удалены', 'Закрыть', {
                 duration: 10000
             });
-            $DELETE_ITEMS.next(this.selectedItems);
+            $DELETE_ITEMS.next([this.selectedItems, this.user]);
             this.orderCount -= 1;
         },
         e => {
@@ -210,7 +238,7 @@ export class AdminPageComponent extends ImageLoading implements AfterViewInit, A
             if (v.status === 'ok'){
                 this.snackBar.open('Удалено');
             }
-            $DELETE_ITEMS.next(this.selectedLikes);
+            $DELETE_ITEMS.next([this.selectedLikes, this.user]);
         });
     }
 
@@ -228,6 +256,10 @@ export class AdminPageComponent extends ImageLoading implements AfterViewInit, A
        dialog.componentInstance.close$.subscribe(v => {
          dialog.close();
        });
+    }
+
+    public isSuperUser(): boolean{
+      return this.user.is_auth && this.user.role === 'admin';
     }
 }
 

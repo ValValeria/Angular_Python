@@ -7,7 +7,7 @@ export const USER_AUTH = new Subject<boolean>();
 
 
 @Injectable({providedIn: 'root'})
-export class User implements IUser{
+export class UserService implements IUser{
     username: string;
     email: string;
     password: string;
@@ -29,6 +29,10 @@ export class User implements IUser{
         this.id = data.id;
         this.role = data.role;
         USER_AUTH.next(true);
+    }
+
+    loadUserData(obj: IUser): void{
+        Object.defineProperties(this, Object.getOwnPropertyDescriptors(obj));
     }
 
     addActiveProducts(product: IAd[]): void{
@@ -69,8 +73,12 @@ export class User implements IUser{
        });
     }
 
-    isSuperUser(){
+    isSuperUser(): boolean{
       return this.role === 'admin';
+    }
+
+    getQuantityOfAllOrders(): number{
+      return this.activeOrders.length + this.unactiveOrders.length;
     }
 }
 

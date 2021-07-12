@@ -1,13 +1,13 @@
 import { URL_PATH } from '../app.component';
 import { IUser } from '../Interfaces/Interfaces';
-import { User } from '../Services/User.service';
+import { UserService } from '../Services/User.service';
 import {Injectable} from '@angular/core';
 
 @Injectable()
 export class AuthenticateHelper {
-    constructor(private user: User) {}
+    constructor(private user: UserService) {}
 
-    public async authenticate(user: User, login?: boolean): Promise<boolean>{
+    public async authenticate(user: UserService, login?: boolean): Promise<boolean>{
         return new Promise((resolve, reject) => {
             try {
                 const data: { [prop in string]: string } = JSON.parse(localStorage.getItem('auth'));
@@ -37,11 +37,11 @@ export class AuthenticateHelper {
 
                 http.onload = () => {
                     if (http.status === 200) {
-                        const response: {data: {user: IUser}, status: 'user' | 'admin'} = http.response;
+                        const response: {data: {user: IUser}} = http.response;
                         const role = response.data?.user?.role;
                         const roles = ['admin', 'user'];
 
-                        if (roles.includes(role) || roles.includes(response.status)) {
+                        if (roles.includes(role)) {
                             this.user ? this.user.login({...response.data.user}) : user.login({...response.data.user})  ;
                             resolve();
                         } else {

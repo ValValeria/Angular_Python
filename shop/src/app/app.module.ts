@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './Components/Header/Header.component';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { HttpService } from './Services/Http.service';
-import { User } from './Services/User.service';
+import { UserService } from './Services/User.service';
 import { Authenticate } from './Services/Authenticate.service';
 import { MatBadgeModule } from '@angular/material/badge';
 import { SearchForm } from './Components/SearchForm/SearchForm.component';
@@ -20,11 +20,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { FooterComponent } from './Components/footer/footer.component';
 import { LogoComponent } from './Components/logo/logo.component';
 import {AuthenticateHelper} from './Classes/authenticate-helper.service';
+import {CommonModule} from '@angular/common';
 
 const modules = [
-  MatIconModule
+  MatIconModule,
+  MatBadgeModule,
+  MatDialogModule,
+  NgbModule,
+  MatSidenavModule,
+  AppRoutingModule,
 ];
 
+// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent, HeaderComponent, SearchForm,
@@ -35,16 +42,12 @@ const modules = [
     BrowserAnimationsModule,
     MatCardModule,
     HttpClientModule,
-    MatBadgeModule,
-    MatDialogModule,
-    NgbModule,
-    MatSidenavModule,
-    AppRoutingModule,
+    CommonModule,
     ...modules
   ],
   providers: [
     HttpService,
-    User,
+    UserService,
     AuthenticateHelper,
     {provide: HTTP_INTERCEPTORS, useClass: Authenticate, multi: true},
   ],

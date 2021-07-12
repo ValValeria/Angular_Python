@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from '../../Services/User.service';
+import {UserService} from '../../Services/User.service';
 import {HttpService} from '../../Services/Http.service';
 import {IAdminUsersResponse} from '../../Interfaces/Interfaces';
 
@@ -13,7 +13,7 @@ export class AdminUsersComponent implements OnInit {
   private page = 1;
   private perPage = 3;
 
-  constructor(private user: User,
+  constructor(private user: UserService,
               private http: HttpService
               ) {}
 

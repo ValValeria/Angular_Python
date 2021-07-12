@@ -8,7 +8,7 @@ import { URL_PATH } from 'src/app/app.component';
 import { ProductPageImage } from 'src/app/Components/ProductPageImage/ProductPageImage.component';
 import {IAd, IResponse} from 'src/app/Interfaces/Interfaces';
 import { HttpService } from 'src/app/Services/Http.service';
-import { User, USER_AUTH } from 'src/app/Services/User.service';
+import { UserService, USER_AUTH } from 'src/app/Services/User.service';
 import {HttpParams} from '@angular/common/http';
 import {Subject} from 'rxjs/internal/Subject';
 
@@ -35,7 +35,7 @@ export class Product implements OnInit, AfterViewInit {
     constructor(private http: HttpService,
                 private route: ActivatedRoute,
                 private router: Router,
-                public user: User,
+                public user: UserService,
                 private snackBar: MatSnackBar,
                 private diaglog: MatDialog,
                 ) {

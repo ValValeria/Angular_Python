@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { auditTime } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
-import { User } from 'src/app/Services/User.service';
+import { UserService } from 'src/app/Services/User.service';
 import { merge } from 'rxjs';
 import { AuthenticateHelper } from 'src/app/Classes/authenticate-helper.service';
 
@@ -23,7 +23,7 @@ export class AuthPage implements AfterViewInit{
     message: string;
     selectedIndex = 0;
 
-    constructor(public user: User,
+    constructor(public user: UserService,
                 private builder: FormBuilder,
                 private snackBar: MatSnackBar,
                 private router: Router,
@@ -106,12 +106,12 @@ export class AuthPage implements AfterViewInit{
         Object.assign(data, { email: this.email.value });
       }
 
-      localStorage.setItem('auth', JSON.stringify(data));
 
       this.authHelper.authenticate(this.user, this.isLogin)
         .then(async () => {
           if (this.user.is_auth) {
-            await this.router.navigateByUrl('/profile');
+            localStorage.setItem('auth', JSON.stringify(this.user));
+            await this.router.navigateByUrl(`/profile/${this.user.id}`);
           } else {
             throw new Error();
           }
